@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="net.smartworks.skkupss.mapper.DbMapper">
+<mapper namespace="net.smartworks.skkupss.dao.mapper.DbMapper">
   <select id="getProductService" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultType="net.smartworks.skkupss.model.db.Db_ProductService">
     select * 
     from productService 
