@@ -4,7 +4,7 @@
 	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	id="WebApp_ID" version="2.5">
-	<display-name>Apache-Axis</display-name>
+	<!-- <display-name>Apache-Axis</display-name>
 
 	<listener>
 		<listener-class>org.apache.axis.transport.http.AxisHTTPSessionListener</listener-class>
@@ -55,7 +55,7 @@
 	<servlet-mapping>
 		<servlet-name>SOAPMonitorService</servlet-name>
 		<url-pattern>/SOAPMonitor</url-pattern>
-	</servlet-mapping>
+	</servlet-mapping> -->
 
 	<!-- uncomment this if you want the admin servlet -->
 	<!-- <servlet-mapping> <servlet-name>AdminServlet</servlet-name> <url-pattern>/servlet/AdminServlet</url-pattern> 

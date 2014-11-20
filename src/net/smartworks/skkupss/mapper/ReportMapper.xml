@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.smartworks.rice.mapper.ReportMapper">
+  <select id="getTestReportSize" parameterType="net.smartworks.rice.model.TestReportCond" resultType="java.lang.Integer">
+    select count(*) 
+    from OG_TestReport 
+    where 1=1
+    <if test="id != null">
+       AND id = #{id}
+    </if>
+    <if test="project != null">
+       AND project = #{project}
+    </if>
+    <if test="lotNo != null">
+       AND lotNo = #{lotNo}
+    </if>
+    <if test="lotNoLike != null">
+       AND id in (select testReportId from OG_SensorReport where lotNoSerialNo like #{lotNoLike})
+    </if>
+    <if test="dateTime != null">
+       AND dateTime = #{dateTime}
+    </if>
+	<if test="dateTimeFrom != null">
+		and dateTime &gt;= #{dateTimeFrom}
+	</if>
+	<if test="dateTimeTo != null">
+		and dateTime &lt;= #{dateTimeTo}
+	</if>
+    <if test="firstSensorId != null">
+       AND firstSensorId = #{firstSensorId}
+    </if>
+  </select>
+  <select id="getTestReports" parameterType="net.smartworks.rice.model.TestReportCond" resultType="net.smartworks.rice.model.TestReport">
+    select * 
+    from OG_TestReport 
+    where 1=1
+    <if test="id != null">
+       AND id = #{id}
+    </if>
+    <if test="project != null">
+       AND project = #{project}
+    </if>
+    <if test="lotNo != null">
+       AND lotNo = #{lotNo}
+    </if>
+    <if test="lotNoLike != null">
+       AND id in (select testReportId from OG_SensorReport where lotNoSerialNo like #{lotNoLike})
+    </if>
+    <if test="dateTime != null">
+       AND dateTime = #{dateTime}
+    </if>
+	<if test="dateTimeFrom != null">
+		and dateTime &gt;= #{dateTimeFrom}
+	</if>
+	<if test="dateTimeTo != null">
+		and dateTime &lt;= #{dateTimeTo}
+	</if>
+    <if test="firstSensorId != null">
+       AND firstSensorId = #{firstSensorId}
+    </if>
+    <if test="orders != null">
+		ORDER BY ${orderQuery}
+    </if>
+  </select>
+  <select id="getSensorReports" parameterType="net.smartworks.rice.model.SensorReportCond" resultType="net.smartworks.rice.model.SensorReport">
+    select sensor.*, code.description as decisionCodeDesc 
+	from OG_SensorReport sensor
+	left outer join 
+	OG_CodeTable code
+	on sensor.decisionCode = code.code
+    where 1=1
+    <if test="id != null">
+       AND id = #{id}
+    </if>
+    <if test="project != null">
+       AND project = #{project}
+    </if>
+    <if test="testReportId != null">
+       AND testReportId = #{testReportId}
+    </if>
+    <if test="sensorNo != null">
+       AND sensorNo = #{sensorNo}
+    </if>
+    <if test="lotNo != null">
+       AND lotNo = #{lotNo}
+    </if>
+    <if test="dateTime != null">
+       AND dateTime = #{dateTime}
+    </if>
+    <if test="serialNo != null">
+       AND serialNo = #{serialNo}
+    </if>
+    ORDER BY ID
+  </select>
+  <insert id="setTestReport" parameterType="net.smartworks.rice.model.TestReport">
+  	insert into OG_TestReport(id, project, lotNo, dateTime, fairQualityCount, faultCount, firstSensorId, reportFileName)
+  	values (#{id},#{project},#{lotNo},#{dateTime},#{fairQualityCount},#{faultCount},#{firstSensorId},#{reportFileName})
+  </insert>
+  <insert id="setSensorReport" parameterType="net.smartworks.rice.model.SensorReport">
+	insert into OG_SensorReport(id, project, testReportId, sensorNo, lotNo, dateTime, indoorTemperature, glassTemperature, indoorHumidity, decisionCode, serialNo, lotNoSerialNo)
+	values (#{id},#{project},#{testReportId},#{sensorNo},#{lotNo},#{dateTime},#{indoorTemperature},#{glassTemperature},#{indoorHumidity},#{decisionCode},#{serialNo},#{lotNoSerialNo})
+  </insert>
+  <select id="getSummaryReport" parameterType="net.smartworks.rice.model.SummaryReportCond" resultType="net.smartworks.rice.model.SummaryReport">
+	select
+    <if test="selector.equalsIgnoreCase('byDay')">
+		baseTbl.selectDay as testDate
+    </if>
+    <if test="selector.equalsIgnoreCase('byWeek')">
+		baseTbl.selectWeek as testDate
+    </if>
+    <if test="selector.equalsIgnoreCase('byMonth')">
+		baseTbl.selectMonth as testDate
+    </if>
+    <if test="selector.equalsIgnoreCase('byYear')">
+		baseTbl.selectYear as testDate
+    </if>
+	,sum(totalCount) as totalTestCount
+	,sum(fair) as totalFairQualityCount
+	,sum(fault) as totalFaultCount
+	from 
+	(
+		select
+			DATENAME(YYYY, dateTime) +'년 '+ DATENAME(MM, datetime) +'월 ' + case when len(datename(dd, datetime)) = 1 then '0' else '' end + DATENAME(DD, datetime) + '일' AS selectDay
+			,DATENAME(yyyy, dateTime)+ '년 ' + DATENAME(ww, dateTime) + '주' AS selectWeek
+			,DATENAME(yyyy, dateTime)+ '년 ' + DATENAME(MM, dateTime) + '월' AS selectMonth 
+			,DATENAME(yyyy, dateTime)+ '년 ' AS selectYear
+			,fairQualityCount as fair
+			,faultCount as fault
+			,fairQualityCount + faultCount as totalCount
+		from OG_TestReport
+		where 1=1
+		<if test="fromDate != null">
+			and dateTime &gt;= #{fromDate}
+		</if>
+		<if test="toDate != null">
+			and dateTime &lt;= #{toDate}
+		</if>
+	) baseTbl
+	<if test="selector.equalsIgnoreCase('byDay')">
+		group by selectDay order by selectDay desc
+    </if>
+    <if test="selector.equalsIgnoreCase('byWeek')">
+		group by selectWeek order by selectWeek desc
+    </if>
+    <if test="selector.equalsIgnoreCase('byMonth')">
+		group by selectMonth order by selectMonth desc
+    </if>
+    <if test="selector.equalsIgnoreCase('byYear')">
+		group by selectYear order by selectYear desc
+    </if>
+  </select>
+  <select id="getSummaryReportPopAll" parameterType="net.smartworks.rice.model.SummaryReportPopCond" resultType="net.smartworks.rice.model.SummaryReportPopRSet">
+	select
+		baseTbl.decisionCode
+		, decisionCode as decisionCodeDesc
+		,count(baseTbl.decisionCode) as codeCount
+	from
+	(
+		select
+			testReportId
+	<if test="selector.equalsIgnoreCase('byDay')">
+			,DATENAME(YYYY, dateTime) +'년 '+ DATENAME(MM, datetime) +'월 ' + case when len(datename(dd, datetime)) = 1 then '0' else '' end + DATENAME(DD, datetime) + '일' AS testDate
+	</if>
+    <if test="selector.equalsIgnoreCase('byWeek')">
+			,DATENAME(yyyy, dateTime)+ '년 ' + DATENAME(ww, dateTime) + '주' AS testDate
+	</if>
+    <if test="selector.equalsIgnoreCase('byMonth')">
+			,DATENAME(yyyy, dateTime)+ '년 ' + DATENAME(MM, dateTime) + '월' AS testDate 
+	</if>
+    <if test="selector.equalsIgnoreCase('byYear')">
+			,DATENAME(yyyy, dateTime)+ '년 ' AS testDate 
+	</if>
+			,case when decisionCode= #{fairQualityCode} then '양품' else '불량' end as decisionCode
+		from OG_sensorReport
+		where 1=1
+	<if test="selector.equalsIgnoreCase('byDay')">
+		and DATENAME(YYYY, dateTime) +'년 '+ DATENAME(MM, datetime) +'월 '+ case when len(datename(dd, datetime)) = 1 then '0' else '' end + DATENAME(DD, datetime) + '일' = #{selectTestDate} 
+	</if>
+    <if test="selector.equalsIgnoreCase('byWeek')">
+		and DATENAME(yyyy, dateTime)+ '년 ' + DATENAME(ww, dateTime) + '주' = #{selectTestDate} 
+	</if>
+    <if test="selector.equalsIgnoreCase('byMonth')">
+		and DATENAME(yyyy, dateTime)+ '년 ' + DATENAME(MM, dateTime) + '월' = #{selectTestDate}  
+	</if>
+    <if test="selector.equalsIgnoreCase('byYear')">
+		and DATENAME(yyyy, dateTime)+ '년 ' = #{selectTestDate} 
+	</if>
+	<if test="fromDate != null">
+		and dateTime &gt;= #{fromDate}
+	</if>
+	<if test="toDate != null">
+		and dateTime &lt;= #{toDate}
+	</if>
+	)baseTbl
+	group by baseTbl.decisionCode
+	order by baseTbl.decisionCode desc
+  </select>
+  <select id="getSummaryReportPopFault" parameterType="net.smartworks.rice.model.SummaryReportPopCond" resultType="net.smartworks.rice.model.SummaryReportPopRSet">
+	select
+	baseTbl.decisionCode
+	,code.description as decisionCodeDesc
+	,count(baseTbl.decisionCode) as codeCount
+	from
+	(
+		select
+			testReportId
+	<if test="selector.equalsIgnoreCase('byDay')">
+			,DATENAME(YYYY, dateTime) +'년 '+ DATENAME(MM, datetime) +'월 '+ case when len(datename(dd, datetime)) = 1 then '0' else '' end + DATENAME(DD, datetime) + '일' AS testDate
+	</if>
+    <if test="selector.equalsIgnoreCase('byWeek')">
+			,DATENAME(yyyy, dateTime)+ '년 ' + DATENAME(ww, dateTime) + '주' AS testDate
+	</if>
+    <if test="selector.equalsIgnoreCase('byMonth')">
+			,DATENAME(yyyy, dateTime)+ '년 ' + DATENAME(MM, dateTime) + '월' AS testDate 
+	</if>
+    <if test="selector.equalsIgnoreCase('byYear')">
+			,DATENAME(yyyy, dateTime)+ '년 ' AS testDate 
+	</if>
+			,decisionCode
+		from OG_sensorReport
+		where 1=1
+		and decisionCode != #{fairQualityCode}
+	<if test="selector.equalsIgnoreCase('byDay')">
+		and DATENAME(YYYY, dateTime) +'년 '+ DATENAME(MM, datetime) +'월 '+ case when len(datename(dd, datetime)) = 1 then '0' else '' end + DATENAME(DD, datetime) + '일' = #{selectTestDate} 
+	</if>
+    <if test="selector.equalsIgnoreCase('byWeek')">
+		and DATENAME(yyyy, dateTime)+ '년 ' + DATENAME(ww, dateTime) + '주' = #{selectTestDate} 
+	</if>
+    <if test="selector.equalsIgnoreCase('byMonth')">
+		and DATENAME(yyyy, dateTime)+ '년 ' + DATENAME(MM, dateTime) + '월' = #{selectTestDate}  
+	</if>
+    <if test="selector.equalsIgnoreCase('byYear')">
+		and DATENAME(yyyy, dateTime)+ '년 ' = #{selectTestDate} 
+	</if>
+	<if test="fromDate != null">
+		and dateTime &gt;= #{fromDate}
+	</if>
+	<if test="toDate != null">
+		and dateTime &lt;= #{toDate}
+	</if>
+	)baseTbl
+	left outer join 
+	OG_CodeTable code
+	on baseTbl.decisionCode = code.code
+	group by baseTbl.decisionCode, code.description
+  </select>
+  
+  <select id="getLineChartReportData" parameterType="net.smartworks.rice.model.SummaryReportCond" resultType="net.smartworks.rice.model.SummaryLineChartData">
+	select
+    <if test="selector.equalsIgnoreCase('byDay')">
+		baseTbl.selectDay as testDate
+    </if>
+    <if test="selector.equalsIgnoreCase('byWeek')">
+		baseTbl.selectWeek as testDate
+    </if>
+    <if test="selector.equalsIgnoreCase('byMonth')">
+		baseTbl.selectMonth as testDate
+    </if>
+    <if test="selector.equalsIgnoreCase('byYear')">
+		baseTbl.selectYear as testDate
+    </if>
+	,sum(fair) as totalFairQualityCount
+	from 
+	(
+		select
+			DATENAME(YYYY, dateTime) +'년 '+ DATENAME(MM, datetime) +'월 '+ case when len(datename(dd, datetime)) = 1 then '0' else '' end + DATENAME(DD, datetime) + '일' AS selectDay
+			,DATENAME(yyyy, dateTime)+ '년 ' + DATENAME(ww, dateTime) + '주' AS selectWeek
+			,DATENAME(yyyy, dateTime)+ '년 ' + DATENAME(MM, dateTime) + '월' AS selectMonth 
+			,DATENAME(yyyy, dateTime)+ '년 ' AS selectYear
+			,fairQualityCount as fair
+			,faultCount as fault
+			,fairQualityCount + faultCount as totalCount
+		from OG_TestReport
+		where 1=1
+		<if test="fromDate != null">
+			and dateTime &gt;= #{fromDate}
+		</if>
+		<if test="toDate != null">
+			and dateTime &lt;= #{toDate}
+		</if>
+	) baseTbl
+	<if test="selector.equalsIgnoreCase('byDay')">
+		group by selectDay
+    </if>
+    <if test="selector.equalsIgnoreCase('byWeek')">
+		group by selectWeek
+    </if>
+    <if test="selector.equalsIgnoreCase('byMonth')">
+		group by selectMonth
+    </if>
+    <if test="selector.equalsIgnoreCase('byYear')">
+		group by selectYear
+    </if>
+	order by testDate
+  </select>
+  
+  <select id="getBarChartReportData" parameterType="net.smartworks.rice.model.SummaryReportCond" resultType="net.smartworks.rice.model.SummaryBarChartData">
+	select
+    <if test="selector.equalsIgnoreCase('byDay')">
+		baseTbl.selectDay as testDate
+    </if>
+    <if test="selector.equalsIgnoreCase('byWeek')">
+		baseTbl.selectWeek as testDate
+    </if>
+    <if test="selector.equalsIgnoreCase('byMonth')">
+		baseTbl.selectMonth as testDate
+    </if>
+    <if test="selector.equalsIgnoreCase('byYear')">
+		baseTbl.selectYear as testDate
+    </if>
+	,sum(fair) as totalFairQualityCount
+	,sum(fault) as totalFaultCount
+	from 
+	(
+		select
+			DATENAME(YYYY, dateTime) +'년 '+ DATENAME(MM, datetime) +'월 '+ case when len(datename(dd, datetime)) = 1 then '0' else '' end + DATENAME(DD, datetime) + '일' AS selectDay
+			,DATENAME(yyyy, dateTime)+ '년 ' + DATENAME(ww, dateTime) + '주' AS selectWeek
+			,DATENAME(yyyy, dateTime)+ '년 ' + DATENAME(MM, dateTime) + '월' AS selectMonth 
+			,DATENAME(yyyy, dateTime)+ '년 ' AS selectYear
+			,fairQualityCount as fair
+			,faultCount as fault
+			,fairQualityCount + faultCount as totalCount
+		from OG_TestReport
+		where 1=1
+		<if test="fromDate != null">
+			and dateTime &gt;= #{fromDate}
+		</if>
+		<if test="toDate != null">
+			and dateTime &lt;= #{toDate}
+		</if>
+	) baseTbl
+	<if test="selector.equalsIgnoreCase('byDay')">
+		group by selectDay
+    </if>
+    <if test="selector.equalsIgnoreCase('byWeek')">
+		group by selectWeek
+    </if>
+    <if test="selector.equalsIgnoreCase('byMonth')">
+		group by selectMonth
+    </if>
+    <if test="selector.equalsIgnoreCase('byYear')">
+		group by selectYear
+    </if>
+	order by testDate
+  </select>
+  <select id="getFtpHistory" parameterType="net.smartworks.rice.model.FtpHistoryCond" resultType="net.smartworks.rice.model.FtpHistory">
+    select * 
+    from OG_FtpHistory 
+    where 1=1
+    <if test="id != null">
+       AND id = #{id}
+    </if>
+    <if test="folderName != null">
+       AND folderName = #{folderName}
+    </if>
+    <if test="fileSerial != null">
+       AND fileSerial = #{fileSerial}
+    </if>
+  </select>
+  <insert id="setFtpHistory" parameterType="net.smartworks.rice.model.FtpHistory">
+	insert into OG_FtpHistory(id, folderName, fileName, fileSerial, createDate)
+	values (#{id},#{folderName},#{fileName},#{fileSerial},#{createDate})
+  </insert>
+  <select id="getPcbReport" parameterType="net.smartworks.rice.model.PcbReportCond" resultType="net.smartworks.rice.model.PcbReport">
+    select * 
+    from CHECK_ADS 
+    where 1=1
+    <if test="sensor_bar != null">
+       AND sensor_bar = #{sensor_bar}
+    </if>
+    <if test="status != null">
+       AND status = #{status}
+    </if>
+  </select>
+</mapper>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="net.sourceforge.jtds.jdbc.Driver" />
+				<property name="url" value="jdbc:jtds:sqlserver://192.168.56.2:1433/swv3" />
+				<property name="username" value="sa" />
+				<property name="password" value="smartworks" />
+			</dataSource>
+		</environment>
+	</environments>
+	<mappers>
+		<mapper resource="net/smartworks/test/mapper/FileVoMapper.xml" />
+		<mapper resource="net/smartworks/rice/mapper/ReportMapper.xml" />
+	</mappers>
+</configuration>
