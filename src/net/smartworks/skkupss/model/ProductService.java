@@ -2,24 +2,24 @@ package net.smartworks.skkupss.model;
 
 import java.util.Date;
 
-public class productService{
+public class ProductService{
 
 	private String id;
 	private String name;
 	private String picture;
 	private String desc;
-	private valueSpace value;
-	private serviceSpace Service;
-	private bizModelSpace bizModel;
-	private defaultSpace productService;
-	private defaultSpace product;
-	private defaultSpace touchPoint;
-	private defaultSpace customer;
-	private defaultSpace actor;
-	private defaultSpace society;
-	private defaultSpace context;
-	private defaultSpace time;
-	private defaultSpace environment;
+	private ValueSpace value;
+	private ServiceSpace Service;
+	private BizModelSpace bizModel;
+	private DefaultSpace productService;
+	private DefaultSpace product;
+	private DefaultSpace touchPoint;
+	private DefaultSpace customer;
+	private DefaultSpace actor;
+	private DefaultSpace society;
+	private DefaultSpace context;
+	private DefaultSpace time;
+	private DefaultSpace environment;
 	private String lastModifiedUser;
 	private Date lastModifiedDate;
 	private String createdUser;
@@ -48,76 +48,76 @@ public class productService{
 	public void setDesc(String desc) {
 		this.desc = desc;
 	}
-	public valueSpace getValue() {
+	public ValueSpace getValue() {
 		return value;
 	}
-	public void setValue(valueSpace value) {
+	public void setValue(ValueSpace value) {
 		this.value = value;
 	}
-	public serviceSpace getService() {
+	public ServiceSpace getService() {
 		return Service;
 	}
-	public void setService(serviceSpace service) {
+	public void setService(ServiceSpace service) {
 		Service = service;
 	}
-	public bizModelSpace getBizModel() {
+	public BizModelSpace getBizModel() {
 		return bizModel;
 	}
-	public void setBizModel(bizModelSpace bizModel) {
+	public void setBizModel(BizModelSpace bizModel) {
 		this.bizModel = bizModel;
 	}
-	public defaultSpace getProductService() {
+	public DefaultSpace getProductService() {
 		return productService;
 	}
-	public void setProductService(defaultSpace productService) {
+	public void setProductService(DefaultSpace productService) {
 		this.productService = productService;
 	}
-	public defaultSpace getProduct() {
+	public DefaultSpace getProduct() {
 		return product;
 	}
-	public void setProduct(defaultSpace product) {
+	public void setProduct(DefaultSpace product) {
 		this.product = product;
 	}
-	public defaultSpace getTouchPoint() {
+	public DefaultSpace getTouchPoint() {
 		return touchPoint;
 	}
-	public void setTouchPoint(defaultSpace touchPoint) {
+	public void setTouchPoint(DefaultSpace touchPoint) {
 		this.touchPoint = touchPoint;
 	}
-	public defaultSpace getCustomer() {
+	public DefaultSpace getCustomer() {
 		return customer;
 	}
-	public void setCustomer(defaultSpace customer) {
+	public void setCustomer(DefaultSpace customer) {
 		this.customer = customer;
 	}
-	public defaultSpace getActor() {
+	public DefaultSpace getActor() {
 		return actor;
 	}
-	public void setActor(defaultSpace actor) {
+	public void setActor(DefaultSpace actor) {
 		this.actor = actor;
 	}
-	public defaultSpace getSociety() {
+	public DefaultSpace getSociety() {
 		return society;
 	}
-	public void setSociety(defaultSpace society) {
+	public void setSociety(DefaultSpace society) {
 		this.society = society;
 	}
-	public defaultSpace getContext() {
+	public DefaultSpace getContext() {
 		return context;
 	}
-	public void setContext(defaultSpace context) {
+	public void setContext(DefaultSpace context) {
 		this.context = context;
 	}
-	public defaultSpace getTime() {
+	public DefaultSpace getTime() {
 		return time;
 	}
-	public void setTime(defaultSpace time) {
+	public void setTime(DefaultSpace time) {
 		this.time = time;
 	}
-	public defaultSpace getEnvironment() {
+	public DefaultSpace getEnvironment() {
 		return environment;
 	}
-	public void setEnvironment(defaultSpace environment) {
+	public void setEnvironment(DefaultSpace environment) {
 		this.environment = environment;
 	}
 	public String getLastModifiedUser() {

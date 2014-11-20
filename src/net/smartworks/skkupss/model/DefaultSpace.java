@@ -1,6 +1,6 @@
 package net.smartworks.skkupss.model;
 
-public class defaultSpace{
+public class DefaultSpace{
 
 //	private String id;
 //	private String psId;

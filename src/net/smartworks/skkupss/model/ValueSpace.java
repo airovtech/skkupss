@@ -1,6 +1,6 @@
 package net.smartworks.skkupss.model;
 
-public class valueSpace{
+public class ValueSpace{
 
 	private String id;
 	private String psId;

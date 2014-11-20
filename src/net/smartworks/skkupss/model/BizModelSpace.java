@@ -1,6 +1,6 @@
 package net.smartworks.skkupss.model;
 
-public class bizModelSpace{
+public class BizModelSpace{
 
 	
 	private String id;
