@@ -1,4 +1,4 @@
-package net.smartworks.model;
+package net.smartworks.skkupss.model;
 
 public class bizModelSpace{
 

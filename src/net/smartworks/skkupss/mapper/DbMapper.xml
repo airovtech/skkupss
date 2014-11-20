@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.smartworks.rice.mapper.ReportMapper">
+  <select id="getTestReports" parameterType="net.smartworks.rice.model.TestReportCond" resultType="net.smartworks.rice.model.TestReport">
+    select * 
+    from OG_TestReport 
+    where 1=1
+    <if test="id != null">
+       AND id = #{id}
+    </if>
+    <if test="project != null">
+       AND project = #{project}
+    </if>
+    <if test="lotNo != null">
+       AND lotNo = #{lotNo}
+    </if>
+    <if test="lotNoLike != null">
+       AND id in (select testReportId from OG_SensorReport where lotNoSerialNo like #{lotNoLike})
+    </if>
+    <if test="dateTime != null">
+       AND dateTime = #{dateTime}
+    </if>
+	<if test="dateTimeFrom != null">
+		and dateTime &gt;= #{dateTimeFrom}
+	</if>
+	<if test="dateTimeTo != null">
+		and dateTime &lt;= #{dateTimeTo}
+	</if>
+    <if test="firstSensorId != null">
+       AND firstSensorId = #{firstSensorId}
+    </if>
+    <if test="orders != null">
+		ORDER BY ${orderQuery}
+    </if>
+  </select>
+  <insert id="setTestReport" parameterType="net.smartworks.rice.model.TestReport">
+  	insert into OG_TestReport(id, project, lotNo, dateTime, fairQualityCount, faultCount, firstSensorId, reportFileName)
+  	values (#{id},#{project},#{lotNo},#{dateTime},#{fairQualityCount},#{faultCount},#{firstSensorId},#{reportFileName})
+  </insert>
+</mapper>
