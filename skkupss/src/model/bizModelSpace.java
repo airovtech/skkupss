@@ -2,6 +2,7 @@ package model;
 
 public class bizModelSpace{
 
+	
 	private String id;
 	private String psId;
 	private String[] customerSegment;
