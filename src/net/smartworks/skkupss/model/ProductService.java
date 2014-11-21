@@ -3,23 +3,45 @@ package net.smartworks.skkupss.model;
 import java.util.Date;
 
 public class ProductService{
+	
+	public static final String PSS_SPACE_VALUE = "valueSpace";
+	public static final String PSS_SPACE_SERVICE = "serviceSpace";
+	public static final String PSS_SPACE_BIZ_MODEL = "bizModelSpace";
+	public static final String PSS_SPACE_PRODUCT_SERVICE = "productServiceSpace";
+	public static final String PSS_SPACE_PRODUCT = "productSpace";
+	public static final String PSS_SPACE_TOUCH_POINT = "touchPointSpace";
+	public static final String PSS_SPACE_CUSTOMER = "customerSpace";
+	public static final String PSS_SPACE_ACTOR = "actorSpace";
+	public static final String PSS_SPACE_SOCIETY = "societySpace";
+	public static final String PSS_SPACE_CONTEXT = "contextSpace";
+	public static final String PSS_SPACE_TIME = "timeSpace";
+	public static final String PSS_SPACE_ENVIRONMENT = "environmentSpace";
+	
+	public static final String FIELD_ID 				= "id";	
+	public static final String FIELD_NAME 				= "name";
+	public static final String FIELD_PICTURE 			= "picture";
+	public static final String FIELD_DESC 				= "desc";
+	public static final String FIELD_LAST_MODIFIED_USER = "lastModifiedUser";
+	public static final String FIELD_LAST_MODIFIED_DATE = "lastModifiedDate";
+	public static final String FIELD_CREATED_USER 		= "createdUser";
+	public static final String FIELD_CREATED_DATE 		= "createdDate";
 
 	private String id;
 	private String name;
 	private String picture;
 	private String desc;
-	private ValueSpace value;
-	private ServiceSpace Service;
-	private BizModelSpace bizModel;
-	private DefaultSpace productService;
-	private DefaultSpace product;
-	private DefaultSpace touchPoint;
-	private DefaultSpace customer;
-	private DefaultSpace actor;
-	private DefaultSpace society;
-	private DefaultSpace context;
-	private DefaultSpace time;
-	private DefaultSpace environment;
+	private ValueSpace valueSpace;
+	private ServiceSpace serviceSpace;
+	private BizModelSpace bizModelSpace;
+	private DefaultSpace productServiceSpace;
+	private DefaultSpace productSpace;
+	private DefaultSpace touchPointSpace;
+	private DefaultSpace customerSpace;
+	private DefaultSpace actorSpace;
+	private DefaultSpace societySpace;
+	private DefaultSpace contextSpace;
+	private DefaultSpace timeSpace;
+	private DefaultSpace environmentSpace;
 	private String lastModifiedUser;
 	private Date lastModifiedDate;
 	private String createdUser;
@@ -48,77 +70,77 @@ public class ProductService{
 	public void setDesc(String desc) {
 		this.desc = desc;
 	}
-	public ValueSpace getValue() {
-		return value;
+	public ValueSpace getValueSpace() {
+		return valueSpace;
 	}
-	public void setValue(ValueSpace value) {
-		this.value = value;
+	public void setValueSpace(ValueSpace valueSpace) {
+		this.valueSpace = valueSpace;
 	}
-	public ServiceSpace getService() {
-		return Service;
+	public ServiceSpace getServiceSpace() {
+		return serviceSpace;
 	}
-	public void setService(ServiceSpace service) {
-		Service = service;
+	public void setServiceSpace(ServiceSpace serviceSpace) {
+		this.serviceSpace = serviceSpace;
 	}
-	public BizModelSpace getBizModel() {
-		return bizModel;
+	public BizModelSpace getBizModelSpace() {
+		return bizModelSpace;
 	}
-	public void setBizModel(BizModelSpace bizModel) {
-		this.bizModel = bizModel;
+	public void setBizModelSpace(BizModelSpace bizModelSpace) {
+		this.bizModelSpace = bizModelSpace;
 	}
-	public DefaultSpace getProductService() {
-		return productService;
+	public DefaultSpace getProductServiceSpace() {
+		return productServiceSpace;
 	}
-	public void setProductService(DefaultSpace productService) {
-		this.productService = productService;
+	public void setProductServiceSpace(DefaultSpace productServiceSpace) {
+		this.productServiceSpace = productServiceSpace;
 	}
-	public DefaultSpace getProduct() {
-		return product;
+	public DefaultSpace getProductSpace() {
+		return productSpace;
 	}
-	public void setProduct(DefaultSpace product) {
-		this.product = product;
+	public void setProductSpace(DefaultSpace productSpace) {
+		this.productSpace = productSpace;
 	}
-	public DefaultSpace getTouchPoint() {
-		return touchPoint;
+	public DefaultSpace getTouchPointSpace() {
+		return touchPointSpace;
 	}
-	public void setTouchPoint(DefaultSpace touchPoint) {
-		this.touchPoint = touchPoint;
+	public void setTouchPointSpace(DefaultSpace touchPointSpace) {
+		this.touchPointSpace = touchPointSpace;
 	}
-	public DefaultSpace getCustomer() {
-		return customer;
+	public DefaultSpace getCustomerSpace() {
+		return customerSpace;
 	}
-	public void setCustomer(DefaultSpace customer) {
-		this.customer = customer;
+	public void setCustomerSpace(DefaultSpace customerSpace) {
+		this.customerSpace = customerSpace;
 	}
-	public DefaultSpace getActor() {
-		return actor;
+	public DefaultSpace getActorSpace() {
+		return actorSpace;
 	}
-	public void setActor(DefaultSpace actor) {
-		this.actor = actor;
+	public void setActorSpace(DefaultSpace actorSpace) {
+		this.actorSpace = actorSpace;
 	}
-	public DefaultSpace getSociety() {
-		return society;
+	public DefaultSpace getSocietySpace() {
+		return societySpace;
 	}
-	public void setSociety(DefaultSpace society) {
-		this.society = society;
+	public void setSocietySpace(DefaultSpace societySpace) {
+		this.societySpace = societySpace;
 	}
-	public DefaultSpace getContext() {
-		return context;
+	public DefaultSpace getContextSpace() {
+		return contextSpace;
 	}
-	public void setContext(DefaultSpace context) {
-		this.context = context;
+	public void setContextSpace(DefaultSpace contextSpace) {
+		this.contextSpace = contextSpace;
 	}
-	public DefaultSpace getTime() {
-		return time;
+	public DefaultSpace getTimeSpace() {
+		return timeSpace;
 	}
-	public void setTime(DefaultSpace time) {
-		this.time = time;
+	public void setTimeSpace(DefaultSpace timeSpace) {
+		this.timeSpace = timeSpace;
 	}
-	public DefaultSpace getEnvironment() {
-		return environment;
+	public DefaultSpace getEnvironmentSpace() {
+		return environmentSpace;
 	}
-	public void setEnvironment(DefaultSpace environment) {
-		this.environment = environment;
+	public void setEnvironmentSpace(DefaultSpace environmentSpace) {
+		this.environmentSpace = environmentSpace;
 	}
 	public String getLastModifiedUser() {
 		return lastModifiedUser;
