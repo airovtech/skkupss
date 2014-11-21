@@ -12,7 +12,7 @@ public class RequestParams {
 	private int currentPage=1;
 	private int pagingAction;
 
-	//ProductService의 name, lastModifiedUser, lastModifiedDate만 정렬함 
+	//ProductService의 ProductService.FILED_NAME, ProductService.FILED_LAST_MODIFIED_USER, ProductService.FILED_LAST_MODIFIED_DATE만 정렬함 
 	private SortingField sortingField;
 	
 	//ProductService의 name, desc, lastModifiedUser 필드들만 like 검색

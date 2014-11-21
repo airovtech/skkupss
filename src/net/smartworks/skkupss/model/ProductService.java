@@ -26,6 +26,13 @@ public class ProductService{
 	public static final String FIELD_CREATED_USER 		= "createdUser";
 	public static final String FIELD_CREATED_DATE 		= "createdDate";
 
+	public static final int SPACE_TYPE_ALL = 0;
+	public static final int SPACE_TYPE_VALUE = 1;
+	public static final int SPACE_TYPE_SERVICE = 2;
+	public static final int SPACE_TYPE_BIZ_MODEL = 3;
+	
+	
+	private int spaceType=SPACE_TYPE_ALL;
 	private String id;
 	private String name;
 	private String picture;
@@ -46,6 +53,14 @@ public class ProductService{
 	private Date lastModifiedDate;
 	private String createdUser;
 	private Date createdDate;
+	
+	
+	public int getSpaceType() {
+		return spaceType;
+	}
+	public void setSpaceType(int spaceType) {
+		this.spaceType = spaceType;
+	}
 	public String getId() {
 		return id;
 	}
