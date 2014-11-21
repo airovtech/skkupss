@@ -8,7 +8,9 @@
 
 package net.smartworks.skkupss.model;
 
-public class ProductServiceCond {
+import net.smartworks.common.Cond;
+
+public class ProductServiceCond extends Cond {
 	
 	private String id;
 

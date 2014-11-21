@@ -10,12 +10,229 @@
     <if test="id != null">
        AND id = #{id}
     </if>
+    <if test="name != null">
+       AND name = #{name}
+    </if>
+    <if test="nameLike != null">
+       AND name like '%'|| #{nameLike} ||'%'
+    </if>
+    <if test="picture != null">
+       AND picture = #{picture}
+    </if>
+    <if test="descriptionLike != null">
+       AND description like '%'|| #{descriptionLike} ||'%'
+    </if>
+    <if test="productServiceSpaceLike != null">
+       AND productServiceSpace like '%'|| #{productServiceSpaceLike} ||'%'
+    </if>
+    <if test="productSpaceLike != null">
+       AND productSpace like '%'|| #{productSpaceLike} ||'%'
+    </if>
+    <if test="touchPointSpaceLike != null">
+       AND touchPointSpace like '%'|| #{touchPointSpaceLike} ||'%'
+    </if>
+    <if test="customerSpaceLike != null">
+       AND customerSpace like '%'|| #{customerSpaceLike} ||'%'
+    </if>
+    <if test="actorSpaceLike != null">
+       AND actorSpace like '%'|| #{actorSpaceLike} ||'%'
+    </if>
+    <if test="societySpaceLike != null">
+       AND societySpace like '%'|| #{societySpaceLike} ||'%'
+    </if>
+    <if test="contextSpaceLike != null">
+       AND contextSpace like '%'|| #{contextSpaceLike} ||'%'
+    </if>
+    <if test="timeSpaceLike != null">
+       AND timeSpace like '%'|| #{timeSpaceLike} ||'%'
+    </if>
+    <if test="environmentSpaceLike != null">
+       AND environmentSpace like '%'|| #{environmentSpaceLike} ||'%'
+    </if>
+    <if test="lastModifiedUser != null">
+       AND lastModifiedUser = #{lastModifiedUser}
+    </if>
+    <if test="lastModifiedDate != null">
+       AND lastModifiedDate = #{lastModifiedDate}
+    </if>
+    <if test="createdUser != null">
+       AND createdUser = #{createdUser}
+    </if>
+    <if test="createdDate != null">
+       AND createdDate = #{createdDate}
+    </if>
     <if test="orders != null">
 		ORDER BY ${orderQuery}
     </if>
   </select>
   <insert id="setProductService" parameterType="net.smartworks.skkupss.model.db.Db_ProductService">
-  	insert into productService(id, name, picture, description, productSerivceSpace, productSpace, touchPointSpace, customerSpace, actorSpace, societySpace, contextSpace, timeSpace, environmentSpace, lastModifiedUser, lastModifiedDate, createdUser, createdDate)
-  	values (#{id}, #{name}, #{picture}, #{desc}, #{productSerivceSpace}, #{productSpace}, #{touchPointSpace}, #{customerSpace}, #{actorSpace}, #{societySpace}, #{contextSpace}, #{timeSpace}, #{environmentSpace}, #{lastModifiedUser}, #{lastModifiedDate}, #{createdUser}, #{createdDate})
+  	insert into productService(id, name, picture, description, productServiceSpace, productSpace, touchPointSpace, customerSpace, actorSpace, societySpace, contextSpace, timeSpace, environmentSpace, lastModifiedUser, lastModifiedDate, createdUser, createdDate)
+  	values (#{id}, #{name}, #{picture}, #{description}, #{productServiceSpace}, #{productSpace}, #{touchPointSpace}, #{customerSpace}, #{actorSpace}, #{societySpace}, #{contextSpace}, #{timeSpace}, #{environmentSpace}, #{lastModifiedUser}, #{lastModifiedDate}, #{createdUser}, #{createdDate})
   </insert>
+  <delete id="removeProductService" parameterType="String">
+  	delete from productService where id = #{id}
+  </delete>
+  
+  <select id="getValueSpace" parameterType="net.smartworks.skkupss.model.db.Db_ValueSpaceCond" resultType="net.smartworks.skkupss.model.db.Db_ValueSpace">
+    select * 
+    from valueSpace 
+    where 1=1
+    <if test="id != null">
+       AND id = #{id}
+    </if>
+    <if test="psId != null">
+       AND psId = #{psId}
+    </if>
+    <if test="economicalLike != null">
+       AND economical like '%'|| #{economicalLike} ||'%'
+    </if>
+    <if test="ecologicalLike != null">
+       AND ecological like '%'|| #{ecologicalLike} ||'%'
+    </if>
+    <if test="functionLike != null">
+       AND function like '%'|| #{functionLike} ||'%'
+    </if>
+    <if test="extrinsicSocialLike != null">
+       AND extrinsicSocial like '%'|| #{extrinsicSocialLike} ||'%'
+    </if>
+    <if test="activeEmotionalLike != null">
+       AND activeEmotional like '%'|| #{activeEmotionalLike} ||'%'
+    </if>
+    <if test="reactiveEmotionalLike != null">
+       AND reactiveEmotional like '%'|| #{reactiveEmotionalLike} ||'%'
+    </if>
+    <if test="intrinsicSocialLike != null">
+       AND intrinsicSocial like '%'|| #{intrinsicSocialLike} ||'%'
+    </if>
+    <if test="epistemicLike != null">
+       AND epistemic like '%'|| #{epistemicLike} ||'%'
+    </if>
+    <if test="orders != null">
+		ORDER BY ${orderQuery}
+    </if>
+  </select>
+  <insert id="setValueSpace" parameterType="net.smartworks.skkupss.model.db.Db_ValueSpace">
+  	insert into valueSpace(id, psId, economical, ecological, function, extrinsicSocial, activeEmotional, reactiveEmotional, intrinsicSocial, epistemic)
+  	values (#{id}, #{psId}, #{economical}, #{ecological}, #{function}, #{extrinsicSocial}, #{activeEmotional}, #{reactiveEmotional}, #{intrinsicSocial}, #{epistemic})
+  </insert>
+  <delete id="removeValueSpace" parameterType="String">
+  	delete from valueSpace where id = #{id}
+  </delete>
+  <delete id="removeValueSpaceByProductId" parameterType="String">
+  	delete from valueSpace where psId = #{psId}
+  </delete>
+  
+  <select id="getServiceSpace" parameterType="net.smartworks.skkupss.model.db.Db_ServiceSpaceCond" resultType="net.smartworks.skkupss.model.db.Db_ServiceSpace">
+    select * 
+    from serviceSpace 
+    where 1=1
+    <if test="id != null">
+       AND id = #{id}
+    </if>
+    <if test="psId != null">
+       AND psId = #{psId}
+    </if>
+    <if test="ssppLike != null">
+       AND sspp like '%'|| #{ssppLike} ||'%'
+    </if>
+    <if test="sspLike != null">
+       AND ssp like '%'|| #{sspLike} ||'%'
+    </if>
+    <if test="sspcLike != null">
+       AND sspc like '%'|| #{sspcLike} ||'%'
+    </if>
+    <if test="sscLike != null">
+       AND ssc like '%'|| #{sscLike} ||'%'
+    </if>
+    <if test="ssccLike != null">
+       AND sscc like '%'|| #{ssccLike} ||'%'
+    </if>
+    <if test="orders != null">
+		ORDER BY ${orderQuery}
+    </if>
+  </select>
+  <insert id="setServiceSpace" parameterType="net.smartworks.skkupss.model.db.Db_ServiceSpace">
+  	insert into serviceSpace(id, psId, sspp, ssp, sspc, ssc, sscc)
+  	values (#{id}, #{psId}, #{sspp}, #{ssp}, #{sspc}, #{ssc}, #{sscc})
+  </insert>
+  <delete id="removeServiceSpace" parameterType="String">
+  	delete from serviceSpace where id = #{id}
+  </delete>
+  <delete id="removeServiceSpaceByProductId" parameterType="String">
+  	delete from serviceSpace where psId = #{psId}
+  </delete>
+  
+  <select id="getBizModelSpace" parameterType="net.smartworks.skkupss.model.db.Db_BizModelSpaceCond" resultType="net.smartworks.skkupss.model.db.Db_BizModelSpace">
+    select * 
+    from bizModelSpace 
+    where 1=1
+    <if test="id != null">
+       AND id = #{id}
+    </if>
+    <if test="psId != null">
+       AND psId = #{psId}
+    </if>
+    <if test="customerSegmentLike != null">
+       AND customerSegment like '%'|| #{customerSegmentLike} ||'%'
+    </if>
+    <if test="customerSegmentUserLike != null">
+       AND customerSegmentUser like '%'|| #{customerSegmentUserLike} ||'%'
+    </if>
+    <if test="CustomerRelationshipsLike != null">
+       AND CustomerRelationships like '%'|| #{CustomerRelationshipsLike} ||'%'
+    </if>
+    <if test="CustomerRelationshipsUserLike != null">
+       AND CustomerRelationshipsUser like '%'|| #{CustomerRelationshipsUserLike} ||'%'
+    </if>
+    <if test="channelsLike != null">
+       AND channels like '%'|| #{channelsLike} ||'%'
+    </if>
+    <if test="channelsUserLike != null">
+       AND channelsUser like '%'|| #{channelsUserLike} ||'%'
+    </if>
+    <if test="keyActivitiesLike != null">
+       AND keyActivities like '%'|| #{keyActivitiesLike} ||'%'
+    </if>
+    <if test="keyActivitiesUserLike != null">
+       AND keyActivitiesUser like '%'|| #{keyActivitiesUserLike} ||'%'
+    </if>
+    <if test="keyResourcesLike != null">
+       AND keyResources like '%'|| #{keyResourcesLike} ||'%'
+    </if>
+    <if test="keyResourcesUserLike != null">
+       AND keyResourcesUser like '%'|| #{keyResourcesUserLike} ||'%'
+    </if>
+    <if test="keyPartnersLike != null">
+       AND keyPartners like '%'|| #{keyPartnersLike} ||'%'
+    </if>
+    <if test="keyPartnersUserLike != null">
+       AND keyPartnersUser like '%'|| #{keyPartnersUserLike} ||'%'
+    </if>
+    <if test="costStructureLike != null">
+       AND costStructure like '%'|| #{costStructureLike} ||'%'
+    </if>
+    <if test="costStructureUserLIke != null">
+       AND costStructureUser like '%'|| #{costStructureUserLIke} ||'%'
+    </if>
+    <if test="revenueStreamsLike != null">
+       AND revenueStreams like '%'|| #{revenueStreamsLike} ||'%'
+    </if>
+    <if test="revenueStreamsUserLIke != null">
+       AND revenueStreamsUser like '%'|| #{revenueStreamsUserLIke} ||'%'
+    </if>
+    <if test="orders != null">
+		ORDER BY ${orderQuery}
+    </if>
+  </select>
+  <insert id="setBizModelSpace" parameterType="net.smartworks.skkupss.model.db.Db_BizModelSpace">
+  	insert into bizModelSpace(id, psId, customerSegment, customerSegmentUser, CustomerRelationships, CustomerRelationshipsUser, channels, channelsUser, keyActivities, keyActivitiesUser, keyResources, keyResourcesUser, keyPartners, keyPartnersUser, costStructure, costStructureUser, revenueStreams, revenueStreamsUser)
+  	values (#{id}, #{psId}, #{customerSegment}, #{customerSegmentUser}, #{CustomerRelationships}, #{CustomerRelationshipsUser}, #{channels}, #{channelsUser}, #{keyActivities}, #{keyActivitiesUser}, #{keyResources}, #{keyResourcesUser}, #{keyPartners}, #{keyPartnersUser}, #{costStructure}, #{costStructureUser}, #{revenueStreams}, #{revenueStreamsUser})
+  </insert>
+  <delete id="removeBizModelSpace" parameterType="String">
+  	delete from bizModelSpace where id = #{id}
+  </delete>
+  <delete id="removeBizModelSpaceByProductId" parameterType="String">
+  	delete from bizModelSpace where psId = #{psId}
+  </delete>
+  
 </mapper>

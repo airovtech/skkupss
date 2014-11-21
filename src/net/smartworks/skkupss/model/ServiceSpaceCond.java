@@ -8,7 +8,9 @@
 
 package net.smartworks.skkupss.model;
 
-public class ServiceSpaceCond {
+import net.smartworks.common.Cond;
+
+public class ServiceSpaceCond extends Cond {
 	
 	private String id;
 	private String psId;

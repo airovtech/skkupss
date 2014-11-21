@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-	<environments default="test_development">
+	<environments default="development">
 		<environment id="development">
 			<transactionManager type="JDBC" />
 			<dataSource type="POOLED">
@@ -15,6 +15,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		</environment>
 	</environments>
 	<mappers>
-		<mapper resource="net/smartworks/skkupss/mapper/DbMapper.xml" />
+		<mapper resource="net/smartworks/skkupss/dao/mapper/DbMapper.xml" />
 	</mappers>
 </configuration>

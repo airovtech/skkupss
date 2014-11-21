@@ -27,16 +27,19 @@ public interface IDbDao {
 	public Db_ValueSpace getValueSpace(String userId, String id) throws Exception;
 	public void setValueSpace(String userId, Db_ValueSpace valueSpace) throws Exception;
 	public void removeValueSpace(String userId, String id) throws Exception;
+	public void removeValueSpaceByProductId(String userId, String productId) throws Exception;
 	public Db_ValueSpace[] getValueSpaces(String userId, Db_ValueSpaceCond cond) throws Exception;
 
 	public Db_ServiceSpace getServiceSpace(String userId, String id) throws Exception;
 	public void setServiceSpace(String userId, Db_ServiceSpace serviceSpace) throws Exception;
 	public void removeServiceSpace(String userId, String id) throws Exception;
+	public void removeServiceSpaceByProductId(String userId, String productId) throws Exception;
 	public Db_ServiceSpace[] getServiceSpaces(String userId, Db_ServiceSpaceCond cond) throws Exception;
 	
 	public Db_BizModelSpace getBizModelSpace(String userId, String id) throws Exception;
 	public void setBizModelSpace(String userId, Db_BizModelSpace bizModelSpace) throws Exception;
 	public void removeBizModelSpace(String userId, String id) throws Exception;
-	public Db_BizModelSpace[] getBizModelSpace(String userId, Db_BizModelSpaceCond cond) throws Exception;
+	public void removeBizModelSpaceByProductId(String userId, String productId) throws Exception;
+	public Db_BizModelSpace[] getBizModelSpaces(String userId, Db_BizModelSpaceCond cond) throws Exception;
 	
 }
