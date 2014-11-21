@@ -1,123 +1,10 @@
-<%@page import="net.smartworks.model.company.CompanyOption"%>
-<%@page import="net.smartworks.model.company.CompanyGeneral"%>
-<%@page import="net.smartworks.server.engine.common.manager.IManager"%>
-<%@page import="net.smartworks.server.service.factory.SwServiceFactory"%>
-<%@page import="net.smartworks.server.engine.common.loginuser.model.LoginUser"%>
-<%@page import="net.smartworks.server.engine.factory.SwManagerFactory"%>
-<%@page import="java.util.TimeZone"%>
-<%@page import="net.smartworks.model.community.WorkSpace"%>
-<%@page import="net.smartworks.model.community.info.UserInfo"%>
-<%@page import="org.claros.commons.configuration.PropertyFile"%>
-<%@page import="org.claros.commons.mail.utility.Constants"%>
-<%@page import="org.claros.commons.mail.protocols.Protocol"%>
-<%@page import="org.claros.commons.mail.protocols.ProtocolFactory"%>
-<%@page import="org.claros.commons.auth.models.AuthProfile"%>
-<%@page import="org.claros.commons.mail.models.ConnectionMetaHandler"%>
-<%@page import="org.claros.commons.mail.models.ConnectionProfile"%>
-<%@page import="java.util.Locale"%>
-<%@page import="net.smartworks.util.LocalDate"%>
-<%@page import="net.smartworks.server.engine.scheduling.manager.impl.SchdulingManagerImpl"%>
-<%@page import="net.smartworks.server.service.impl.SchedulingService"%>
-<%@page	import="org.springframework.security.web.context.HttpSessionSecurityContextRepository"%>
-<%@page import="java.util.Calendar"%>
-<%@page import="net.smartworks.server.engine.security.model.Login"%>
-<%@page import="org.springframework.security.core.Authentication"%>
-<%@page	import="org.springframework.security.core.context.SecurityContext"%>
-<%@page import="net.smartworks.util.SmartUtil"%>
-<%@page import="net.smartworks.model.community.User"%>
-<%@page import="net.smartworks.service.ISmartWorks"%>
 <%@ page contentType="text/html; charset=utf-8"%>
-<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="true"%>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
-<!-- For Development Purpose -->
-<%
-try{
-	SecurityContext context = (SecurityContext) request.getSession().getAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY);
-	if (!SmartUtil.isBlankObject(context)) {
-		Authentication auth = context.getAuthentication();
-		if(!SmartUtil.isBlankObject(auth)) {
-			String connectUserId = ((Login) auth.getPrincipal()).getId();
-			if(SmartUtil.isBlankObject(session.getAttribute(connectUserId))) {
-				System.out.println("-------------------------------------------");
-				System.out.println(((Login) auth.getPrincipal()).getPosition() + " " + ((Login) auth.getPrincipal()).getName() + " 님이 접속하였습니다.");
-				System.out.println("ID : " + ((Login) auth.getPrincipal()).getId());
-				System.out.println("DEPT : " + ((Login) auth.getPrincipal()).getDepartment());
-				System.out.println("ConnectTime : " + (new LocalDate()).toLocalDateValue() ); 
-				System.out.println("-------------------------------------------");
-	
-				UserInfo[] userInfos = SwServiceFactory.getInstance().getCommunityService().getAvailableChatter(request);
-				SmartUtil.publishAChatters(userInfos);
-
-				session.setAttribute(connectUserId, new LocalDate());
-			}
-		}
-	} else {
-		response.sendRedirect("login.sw");
-		return;
-	}
-
-	String cid = (String) session.getAttribute("cid");
-	String wid = (String) session.getAttribute("wid");
-	if (SmartUtil.isBlankObject(cid)) {
-		session.setAttribute("cid", ISmartWorks.CONTEXT_HOME);
-	}
-	ISmartWorks smartWorks = (ISmartWorks) request.getAttribute("smartWorks");
-	User currentUser = SmartUtil.getCurrentUser();
-	CompanyGeneral companyGeneral = smartWorks.getCompanyGeneral();
-	CompanyOption companyOption = SmartUtil.getCompanyOption();
-	boolean emailEnabled =  !SmartUtil.isBlankObject(smartWorks.getEmailServers());
-	session.setAttribute("emailEnabled", emailEnabled);
-	
-%>
-<fmt:setLocale value="<%=currentUser.getLocale() %>" scope="request" />
-<fmt:setBundle basename="resource.smartworksMessage" scope="request" />
-
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<script type="">
-try{
-	currentUser = {
-		userId : "<%=currentUser.getId()%>",
-		name : "<%=currentUser.getName()%>",
-		longName : "<%=currentUser.getLongName()%>",
-		nickName : "<%=currentUser.getNickName()%>",
-		company : "<%=currentUser.getCompany()%>",
-		companyId : "<%=currentUser.getCompanyId()%>",
-		department : "<%=currentUser.getDepartment()%>",
-		departmentId : "<%=currentUser.getDepartmentId()%>",
-		isUseMail : "<%=currentUser.isUseMail() && emailEnabled%>",
-		minPicture : "<%=currentUser.getMinPicture()%>",
-		midPicture : "<%=currentUser.getMidPicture()%>",
-		orgPicture : "<%=currentUser.getOrgPicture()%>",
-		locale : "<%=currentUser.getLocale()%>",
-		timeZone : "<%=currentUser.getTimeZone()%>",
-		timeOffset : "<%=currentUser.getTimeOffsetInHour()%>",
-		signPicture : "<%=currentUser.getSignPicture()%>"
-	};
-
-	companyGeneral = {
-		useMessagingService : "<%=companyGeneral.isUseMessagingService()%>",
-		useChattingService : "<%=companyGeneral.isUseChattingService()%>",
-		fileUploadLimit : <%=companyGeneral.getFileUploadLimit()%>
-	};
-
-	companyOption = {
-		htmlWriterPlugined : "<%=companyOption.isHtmlWriterPlugined()%>",
-		pdfWriterPlugined : "<%=companyOption.isPdfWriterPlugined()%>"
-	};
-
-	function logout() {
-		document.location.href = "logout.sw?userId=" + currentUser.userId;
-	};
-}catch(e){
-}
-</script>
 
 <link href="http://meyerweb.com/eric/tools/css/reset/reset.css" rel="stylesheet" type="text/css" />
 <link href="css/default.css?v=3.5.3" type="text/css" rel="stylesheet" />
@@ -169,10 +56,6 @@ try{
 <script type="text/javascript" src="js/jquery/i18n/grid.locale-en.js"></script>
 <script type="text/javascript" src="js/jquery/jquery.jqGrid.min.js"></script>
 
-<%if(companyGeneral.isUseMessagingService() || companyGeneral.isUseChattingService()){ %>
-	<script type="text/javascript" src="js/jstorage/jstorage.js"></script>
-	<script type="text/javascript" src="js/faye/faye-browser-min.js"></script>
-<%} %>
 <!-- <script type="text/javascript" src="js/ext/bootstrap.js"></script> -->
 <script type="text/javascript" src="js/ext/ext-all.js"></script>
 
@@ -189,10 +72,6 @@ try{
 <script type="text/javascript" src="js/sw/sw-flash.js?v=3.5.3"></script>
 <script type="text/javascript" src="js/sw/sw-iframe-autoheight.js?v=3.5.3"></script>
 
-<%if(companyGeneral.isUseMessagingService() || companyGeneral.isUseChattingService()){ %>
-	<script type="text/javascript" src="js/sw/sw-faye.js?v=3.5.3"></script>
-	<script type="text/javascript" src="js/sw/sw-chat.js?v=3.5.3"></script>
-<%} %>
 <script type="text/javascript" src="js/sw/sw-report.js?v=3.5.3"></script>
 <script type="text/javascript" src="js/sw/sw-file.js?v=3.5.3"></script>
 <!-- <script type="text/javascript" src="js/sw/sw-webmail.js"></script>
@@ -243,7 +122,8 @@ try{
 
 <script type="text/javascript" src="js/sw/sw-work-util.js?v=3.5.3.1" ></script>
 
-<title><fmt:message key="head.title"><fmt:param value="<%=currentUser.getCompany() %>" /></fmt:message></title>
+<title>Product-Service Support System</title>
+<link rel="shortcut icon" href="images/pss/cdi-logo-s.png"/>
 
 </head>
 
@@ -253,53 +133,24 @@ try{
 
 	<div id="wrap">
 		<!-- Header -->
-		<div id="header">
-			<tiles:insertAttribute name="header" />
+		<div id="header" style="">
+			<jsp:include page="header.jsp" />
 		</div>
 		<!-- Header//-->
 
- 		<!-- Navigation -->
-		<div id="nav">
-			<tiles:insertAttribute name="nav" />
-		</div>
-		<!-- Navigation// -->
-
-		<!-- Broadcasting Board -->
-		<div id="board">
-			<tiles:insertAttribute name="board" />
-		</div>
-		<!-- Broadcasting Board//-->
-
 		<!-- Contents-->
 		<div id="content">
-			<tiles:insertAttribute name="content" />
+			<jsp:include page="psList.jsp" />
 		</div>
 		<!-- Contents//-->
 
 		<!-- Footer-->
 		<div id="footer">
-			<tiles:insertAttribute name="footer" />
+			<jsp:include page="footer.jsp" />
 		</div>
 		<!-- Footer //-->
 		
- 		<!-- Nav Collase Button -->
-		<div titleCol="<fmt:message key='nav.title.menu_collapse'/>" titleExp="<fmt:message key='nav.title.menu_expand'/>" style="height:0px!important"><a href="" class="btn_collapse_nav" title="<fmt:message key='nav.title.menu_collapse'/>"></a></div>
-
 	</div>
- 	<%if(companyGeneral.isUseChattingService()){ %>
- 		<jsp:include page="/jsp/chatting/chatter_list.jsp" />
- 	<%} %>
-
 <script type="">smartPop.closeProgress();</script>
-<%if(currentUser.isUseMail() && emailEnabled){ %>
-	<script type="">smartCommon.autoCheckMail();</script>
-<%} %>
 </body>
 </html>
-<%
-}catch(Exception e){ e.printStackTrace();
-%>
-	<script type="text/javascript">smartPop.showInfo(smartPop.ERROR, smartMessage.get('technicalProblemOccured') + '[layouts jsp]', null, "<%=e%>");</script>
-<%
-}
-%>

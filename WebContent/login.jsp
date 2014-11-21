@@ -7,13 +7,14 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<link href="../css/default.css" type="text/css" rel="stylesheet" /></link>
-		<link href="../css/black/pop.css" type="text/css" rel="stylesheet" /></link>
-		<link href="../css/black/login.css" type="text/css" rel="stylesheet" /></link>
-		<script type="text/javascript" src="../js/jquery/jquery-1.6.2.min.js"></script>
-		<script type="text/javascript" src="../js/sw/sw-util.js"></script>
-		<script type="text/javascript" src='../js/sw/sw-popup.js'></script>
+		<link href="css/default.css" type="text/css" rel="stylesheet" /></link>
+		<link href="css/black/pop.css" type="text/css" rel="stylesheet" /></link>
+		<link href="css/black/login.css" type="text/css" rel="stylesheet" /></link>
+		<script type="text/javascript" src="js/jquery/jquery-1.6.2.min.js"></script>
+		<script type="text/javascript" src="js/sw/sw-util.js"></script>
+		<script type="text/javascript" src='js/sw/sw-popup.js'></script>
 		<title>Product-Service Support System</title>
+		<link rel="shortcut icon" href="images/pss/cdi-logo-s.png"/>
 		<script type="">
 		</script>
 
@@ -24,12 +25,11 @@
 	
 			<!-- Header -->
 			<div id="lo_header">
-				<div class="lo_logo pt3 vb">
-					<a title="Product-Service Support System" href="http://www.smartworks.net"><img src="" /></a>
-					<!--원래 SmartWorks이미지는  lo_logo_f.gif -->
-				</div>
+				<div class="lo_logo pt3 vb" style="color:white; font-size:20px;width:500px;padding-top: 20px !important;">제품-서비스 융합 사례 리파지토리</div>
 	
-				<form class="lo_idp t_wh" action="j_spring_security_check" method="post">
+<!-- 				<form class="lo_idp t_wh" action="j_spring_security_check" method="post">
+ -->
+				<form class="lo_idp t_wh" method="post">
 				
 					<div class="fl mr5" >
 					<div class="mb2" style="width:142px">아이디</div>
@@ -41,20 +41,22 @@
 					<input id="j_password" name="j_password" maxlength="50" type="password"/>
 					</div>
 					
-					<input class="fl btn_login" type="submit" value="로그인">					
+<!-- 					<input class="fl btn_login" type="submit" value="로그인">					
+ -->
+					<a href="layouts.jsp"><input class="fl btn_login" type="button" value="로그인"></a>				
  				</form>
 			</div>
 			<!-- Header //-->
 	
 			<!-- Contents -->
 			<div id="lo_contents">
-			<div><img src="" border="0" /></div>
+			<div><img src="images/pss/company_logo.png" border="0" /></div>
 			</div>
 			<!-- End of Contents -->
 			
 			<!-- Footer -->
 			<div id="footer">
-					<span class="bottom_text">Copyright <span onclick="clickBlank()">ⓒ</span> 2014 <b>,</b> Inc. All Rights Reserved.</span>
+					<span class="bottom_text">Copyright <span>ⓒ</span> Sungkyunkwan University CDI. All Rights Reserved.</span>
 			</div>
 			<!-- End of Footer -->
 		</div>
