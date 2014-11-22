@@ -4,14 +4,11 @@ public class ServiceSpace{
 
 	private String id;
 	private String psId;
-	private String[] economical;
-	private String[] ecological;
-	private String[] function;
-	private String[] extrinsicSocial;
-	private String[] activeEmotional;
-	private String[] reactiveEmotional;
-	private String[] intrinsicSocial;
-	private String[] epistemic;
+	private String[] sspp;
+	private String[] ssp;
+	private String[] sspc;
+	private String[] ssc;
+	private String[] sscc;
 	public String getId() {
 		return id;
 	}
@@ -24,53 +21,35 @@ public class ServiceSpace{
 	public void setPsId(String psId) {
 		this.psId = psId;
 	}
-	public String[] getEconomical() {
-		return economical;
+	public String[] getSspp() {
+		return sspp;
 	}
-	public void setEconomical(String[] economical) {
-		this.economical = economical;
+	public void setSspp(String[] sspp) {
+		this.sspp = sspp;
 	}
-	public String[] getEcological() {
-		return ecological;
+	public String[] getSsp() {
+		return ssp;
 	}
-	public void setEcological(String[] ecological) {
-		this.ecological = ecological;
+	public void setSsp(String[] ssp) {
+		this.ssp = ssp;
 	}
-	public String[] getFunction() {
-		return function;
+	public String[] getSspc() {
+		return sspc;
 	}
-	public void setFunction(String[] function) {
-		this.function = function;
+	public void setSspc(String[] sspc) {
+		this.sspc = sspc;
 	}
-	public String[] getExtrinsicSocial() {
-		return extrinsicSocial;
+	public String[] getSsc() {
+		return ssc;
 	}
-	public void setExtrinsicSocial(String[] extrinsicSocial) {
-		this.extrinsicSocial = extrinsicSocial;
+	public void setSsc(String[] ssc) {
+		this.ssc = ssc;
 	}
-	public String[] getActiveEmotional() {
-		return activeEmotional;
+	public String[] getSscc() {
+		return sscc;
 	}
-	public void setActiveEmotional(String[] activeEmotional) {
-		this.activeEmotional = activeEmotional;
-	}
-	public String[] getReactiveEmotional() {
-		return reactiveEmotional;
-	}
-	public void setReactiveEmotional(String[] reactiveEmotional) {
-		this.reactiveEmotional = reactiveEmotional;
-	}
-	public String[] getIntrinsicSocial() {
-		return intrinsicSocial;
-	}
-	public void setIntrinsicSocial(String[] intrinsicSocial) {
-		this.intrinsicSocial = intrinsicSocial;
-	}
-	public String[] getEpistemic() {
-		return epistemic;
-	}
-	public void setEpistemic(String[] epistemic) {
-		this.epistemic = epistemic;
+	public void setSscc(String[] sscc) {
+		this.sscc = sscc;
 	}
 	
 }

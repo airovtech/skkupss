@@ -1,52 +1,92 @@
+<%@page import="net.smartworks.util.CommonUtil"%>
+<%@page import="net.smartworks.util.SmartUtil"%>
+<%@page import="net.smartworks.skkupss.model.ServiceSpace"%>
 <%@ page contentType="text/html; charset=utf-8"%>
 
+<%
+	ServiceSpace serviceSpace = (ServiceSpace)request.getAttribute("serviceSpace");
+	String isEditModeStr = request.getParameter("isEditMode");
+	boolean isEditMode = SmartUtil.isBlankObject(isEditModeStr) || !isEditModeStr.equalsIgnoreCase("true") ? false : true;
+	if(SmartUtil.isBlankObject(serviceSpace)) return;
+
+	String[] values = null;
+%>
+ 	 
 <!-- 컨텐츠 레이아웃-->
-<div class="up" style="width:">
-	<div class="portlet_t"><div class="portlet_tl"></div></div>
-	<div class="portlet_l" style="display: block;">
-		<ul class="portlet_r" style="display: block;">
-			<!-- 타이틀 -->
-			<div class="body_titl"></div>
-			<!-- 목록영역  -->
-			<div class="contents_space">
-				<div>
-					<!-- 목록보기 타이틀-->
-					<div class="list_title_space js_work_list_title mt15">
-						<div class="title_line_btns">
-							<div class="icon_btn_start">
-								<a href="" class="js_create_new_work icon_btn_tail">새항목 등록하기</a>
-							</div>
-						</div>
-					
-						<div class="title_line_options">
-							<form name="frmSearchInstance" class="po_left ml10"> 
-								<div class="srch_wh srch_wsize">
-									<input name="txtSearchInstance" class="nav_input" value="" type="text" placeholder="항목찾기">
-									<button title="함목찾기" onclick="selectListParam($('.js_work_list_title').find('.js_progress_span:first'), false);return false;"></button>
-								</div>
-							</form>
-							<span class="js_progress_span"></span>
-						</div>
-					</div>
-					<!-- 목록보기 타이틀-->
-
-					<!-- 상세필터 및 새업무등록하기 화면 -->
-					<div id="search_filter" class="filter_section js_new_work_form"></div>
-					<!-- 상세필터 -->
-
-					<!-- 목록 테이블 -->
-					<div class="list_contents">
-						<div id='iwork_instance_list_page' >
- 							<jsp:include page="psInstanceList.jsp"/>
-						</div>
-					</div>
-					<!-- 목록 테이블 //-->
-				</div>
-				<!-- 목록 보기 -->
+<table class="up tc" style="width:500px;min-height:200px">
+	<tr style="border-bottom: darkgray solid 8px;height:24px">
+		<th style="width:20%"><img src="images/pss/service-bullet.png" style="width: 24px;height: 24px;position: relative;top: 17px;"/></th>
+		<th style="width:20%"><img src="images/pss/service-bullet.png" style="width: 24px;height: 24px;position: relative;top: 17px;"/></th>
+		<th style="width:20%"><img src="images/pss/service-bullet.png" style="width: 24px;height: 24px;position: relative;top: 17px;"/></th>
+		<th style="width:20%"><img src="images/pss/service-bullet.png" style="width: 24px;height: 24px;position: relative;top: 17px;"/></th>
+		<th style="width:20%"><img src="images/pss/service-bullet.png" style="width: 24px;height: 24px;position: relative;top: 17px;"/></th>
+	</tr>
+	<tr>
+		<td class="tc" style="height:100%">
+			<div style="font-size:15px;font-weight:bold">SSPP</div>
+			<div style="padding:5px">
+				<%
+					values = serviceSpace.getSspp();
+					for(int i=0; values!=null && i<values.length; i++){
+				%>
+						<div style="border: 1px solid #c7c7c7;background-color:#BFF7F5;margin:5px 0;width:100%;font-size:11px"><%=CommonUtil.toNotNull(values[i]) %></div>
+				<%
+					}
+				%>
 			</div>
-			<!-- 목록영역 // -->
-		</ul>
-	</div>
-	<div class="portlet_b" style="display: block;"></div>
-</div>
+		</td>
+		<td class="tc" style="height:100%">
+			<div style="font-size:15px;font-weight:bold">SSPc</div>
+			<div style="padding:5px">
+				<%
+					values = serviceSpace.getSsp();
+					for(int i=0; values!=null && i<values.length; i++){
+				%>
+						<div style="border: 1px solid #c7c7c7;background-color:#BFF7F5;margin:5px 0;width:100%;font-size:11px"><%=CommonUtil.toNotNull(values[i]) %></div>
+				<%
+					}
+				%>
+			</div>
+		</td>
+		<td class="tc" style="height:100%">
+			<div style="font-size:15px;font-weight:bold">SSPC</div>
+			<div style="padding:5px">
+				<%
+					values = serviceSpace.getSspc();
+					for(int i=0; values!=null && i<values.length; i++){
+				%>
+						<div style="border: 1px solid #c7c7c7;background-color:#BFF7F5;margin:5px 0;width:100%;font-size:11px"><%=CommonUtil.toNotNull(values[i]) %></div>
+				<%
+					}
+				%>
+			</div>
+		</td>
+		<td class="tc" style="height:100%">
+			<div style="font-size:15px;font-weight:bold">SSCp</div>
+			<div style="padding:5px">
+				<%
+					values = serviceSpace.getSsc();
+					for(int i=0; values!=null && i<values.length; i++){
+				%>
+						<div style="border: 1px solid #c7c7c7;background-color:#BFF7F5;margin:5px 0;width:100%;font-size:11px"><%=CommonUtil.toNotNull(values[i]) %></div>
+				<%
+					}
+				%>
+			</div>
+		</td>
+		<td class="tc" style="height:100%">
+			<div style="font-size:15px;font-weight:bold">SSCC</div>
+			<div style="padding:5px">
+				<%
+					values = serviceSpace.getSscc();
+					for(int i=0; values!=null && i<values.length; i++){
+				%>
+						<div style="border: 1px solid #c7c7c7;background-color:#BFF7F5;margin:5px 0;width:100%;font-size:11px"><%=CommonUtil.toNotNull(values[i]) %></div>
+				<%
+					}
+				%>
+			</div>
+		</td>
+	</tr>
+</table>
 <!-- 컨텐츠 레이아웃//-->
