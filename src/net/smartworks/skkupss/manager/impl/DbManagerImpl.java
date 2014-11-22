@@ -10,6 +10,7 @@ package net.smartworks.skkupss.manager.impl;
 
 import net.smartworks.factory.DaoFactory;
 import net.smartworks.skkupss.dao.IDbDao;
+import net.smartworks.skkupss.manager.IDbManager;
 import net.smartworks.skkupss.model.BizModelSpace;
 import net.smartworks.skkupss.model.BizModelSpaceCond;
 import net.smartworks.skkupss.model.DefaultSpace;
@@ -22,6 +23,7 @@ import net.smartworks.skkupss.model.ValueSpaceCond;
 import net.smartworks.skkupss.model.db.Db_BizModelSpace;
 import net.smartworks.skkupss.model.db.Db_BizModelSpaceCond;
 import net.smartworks.skkupss.model.db.Db_ProductService;
+import net.smartworks.skkupss.model.db.Db_ProductServiceCond;
 import net.smartworks.skkupss.model.db.Db_ServiceSpace;
 import net.smartworks.skkupss.model.db.Db_ServiceSpaceCond;
 import net.smartworks.skkupss.model.db.Db_ValueSpace;
@@ -29,7 +31,7 @@ import net.smartworks.skkupss.model.db.Db_ValueSpaceCond;
 
 import org.springframework.util.StringUtils;
 
-public class DbManagerImpl {
+public class DbManagerImpl implements IDbManager {
 
 	public static final String delimiters = ";";
 	
@@ -39,6 +41,11 @@ public class DbManagerImpl {
 		DefaultSpace defaultSpace = new DefaultSpace();
 		defaultSpace.setElements(elements);
 		return defaultSpace;
+	}
+	private String makeStringFromDefaultSpace(DefaultSpace defaultSpace) throws Exception {
+		if (defaultSpace == null)
+			return null;
+		return makeStringWithDelimiters(defaultSpace.getElements());
 	}
 	private String makeStringWithDelimiters(String[] elements) throws Exception {
 		if (elements == null)
@@ -57,6 +64,231 @@ public class DbManagerImpl {
 		return buff.toString();
 	}
 	
+	private Db_ProductService[] convertProductServiceToDb_ProductService(ProductService[] productServices) throws Exception {
+
+		if (productServices == null || productServices.length == 0)
+			return null;
+
+		Db_ProductService[] result = new Db_ProductService[productServices.length];
+		
+		for (int i = 0; i < productServices.length; i++) {
+			ProductService ps = productServices[i];
+			
+			Db_ProductService productService = new Db_ProductService();
+			
+			productService.setId(ps.getId());
+			productService.setName(ps.getName());
+			productService.setPicture(ps.getPicture());
+			productService.setDescription(ps.getDesc());
+			
+			ValueSpace vs = ps.getValueSpace();
+			if (vs != null) {
+				Db_ValueSpace valueSpace = new Db_ValueSpace();
+				valueSpace.setId(vs.getId());
+				valueSpace.setPsId(vs.getPsId());
+				valueSpace.setEconomical(makeStringWithDelimiters(vs.getEconomical()));
+				valueSpace.setEcological(makeStringWithDelimiters(vs.getEcological()));
+				valueSpace.setFunction(makeStringWithDelimiters(vs.getFunction()));
+				valueSpace.setExtrinsicSocial(makeStringWithDelimiters(vs.getExtrinsicSocial()));
+				valueSpace.setActiveEmotional(makeStringWithDelimiters(vs.getActiveEmotional()));
+				valueSpace.setReactiveEmotional(makeStringWithDelimiters(vs.getReactiveEmotional()));
+				valueSpace.setIntrinsicSocial(makeStringWithDelimiters(vs.getIntrinsicSocial()));
+				valueSpace.setEpistemic(makeStringWithDelimiters(vs.getEpistemic()));
+				
+				productService.setValueSpace(valueSpace);
+			}
+
+			//serviceSpace
+			ServiceSpace ss = ps.getServiceSpace();
+			if (ss != null) {
+				Db_ServiceSpace serviceSpace = new Db_ServiceSpace();
+				serviceSpace.setId(ss.getId());
+				serviceSpace.setPsId(ss.getPsId());
+				
+				serviceSpace.setSspp(makeStringWithDelimiters(ss.getSspp()));
+				serviceSpace.setSsp(makeStringWithDelimiters(ss.getSsp()));
+				serviceSpace.setSspc(makeStringWithDelimiters(ss.getSspc()));
+				serviceSpace.setSsc(makeStringWithDelimiters(ss.getSsc()));
+				serviceSpace.setSscc(makeStringWithDelimiters(ss.getSscc()));
+				
+				productService.setServiceSpace(serviceSpace);
+			}
+			
+			//bizModelSpace
+			BizModelSpace bms = ps.getBizModelSpace();
+			if (bms != null) {
+				Db_BizModelSpace bizModelSpace = new Db_BizModelSpace();
+				bizModelSpace.setId(bms.getId());
+				bizModelSpace.setPsId(bms.getPsId());
+
+				bizModelSpace.setCustomerSegment(makeStringWithDelimiters(bms.getCustomerSegment()));
+				bizModelSpace.setCustomerRelationshipsUser(makeStringWithDelimiters(bms.getCustomerRelationshipsUser()));
+				bizModelSpace.setCustomerRelationships(makeStringWithDelimiters(bms.getCustomerRelationships()));
+				bizModelSpace.setCustomerRelationshipsUser(makeStringWithDelimiters(bms.getCustomerRelationshipsUser()));
+				bizModelSpace.setChannels(makeStringWithDelimiters(bms.getChannels()));
+				bizModelSpace.setChannelsUser(makeStringWithDelimiters(bms.getChannelsUser()));
+				bizModelSpace.setKeyActivities(makeStringWithDelimiters(bms.getKeyActivities()));
+				bizModelSpace.setKeyActivitiesUser(makeStringWithDelimiters(bms.getKeyActivitiesUser()));
+				bizModelSpace.setKeyResources(makeStringWithDelimiters(bms.getKeyResources()));
+				bizModelSpace.setKeyResourcesUser(makeStringWithDelimiters(bms.getKeyResourcesUser()));
+				bizModelSpace.setKeyPartners(makeStringWithDelimiters(bms.getKeyPartners()));
+				bizModelSpace.setKeyPartnersUser(makeStringWithDelimiters(bms.getKeyPartnersUser()));
+				bizModelSpace.setCostStructure(makeStringWithDelimiters(bms.getCostStructure()));
+				bizModelSpace.setCostStructureUser(makeStringWithDelimiters(bms.getCostStructureUser()));
+				bizModelSpace.setRevenueStreams(makeStringWithDelimiters(bms.getRevenueStreams()));
+				bizModelSpace.setRevenueStreamsUser(makeStringWithDelimiters(bms.getRevenueStreamsUser()));
+				
+				productService.setBizModelSpace(bizModelSpace);
+			}
+			
+			productService.setProductServiceSpace(makeStringFromDefaultSpace(ps.getProductServiceSpace()));
+			productService.setProductSpace(makeStringFromDefaultSpace(ps.getProductSpace()));
+			
+			productService.setTouchPointSpace(makeStringFromDefaultSpace(ps.getTouchPointSpace()));
+			productService.setCustomerSpace(makeStringFromDefaultSpace(ps.getCustomerSpace()));
+			productService.setActorSpace(makeStringFromDefaultSpace(ps.getActorSpace()));
+			productService.setSocietySpace(makeStringFromDefaultSpace(ps.getSocietySpace()));
+			productService.setContextSpace(makeStringFromDefaultSpace(ps.getContextSpace()));
+			productService.setTimeSpace(makeStringFromDefaultSpace(ps.getTimeSpace()));
+			productService.setEnvironmentSpace(makeStringFromDefaultSpace(ps.getEnvironmentSpace()));
+
+			productService.setLastModifiedUser(ps.getLastModifiedUser());
+			productService.setLastModifiedDate(ps.getLastModifiedDate());
+			productService.setCreatedUser(ps.getCreatedUser());
+			productService.setCreatedDate(ps.getCreatedDate());
+			
+			result[i] = productService;
+		}
+		return result;
+	}
+	
+	private ProductService[] convertDbProductServiceToProductService(Db_ProductService[] productServices) throws Exception {
+		
+		if (productServices == null || productServices.length == 0)
+			return null;
+		
+		ProductService[] result = new ProductService[productServices.length];
+		
+		for (int i = 0; i < productServices.length; i++) {
+			Db_ProductService dbPs = productServices[i];
+			
+			ProductService productService = new ProductService();
+			productService.setId(dbPs.getId());
+			productService.setName(dbPs.getName());
+			productService.setPicture(dbPs.getPicture());
+			productService.setDesc(dbPs.getDescription());
+			
+			Db_ValueSpace dbVs = dbPs.getValueSpace();
+			if (dbVs != null) {
+				ValueSpace valueSpace = new ValueSpace();
+				valueSpace.setId(dbVs.getId());
+				valueSpace.setPsId(dbVs.getPsId());
+				valueSpace.setEconomical(StringUtils.tokenizeToStringArray(dbVs.getEconomical(), delimiters));
+				valueSpace.setEcological(StringUtils.tokenizeToStringArray(dbVs.getEcological(), delimiters));
+				valueSpace.setFunction(StringUtils.tokenizeToStringArray(dbVs.getFunction(), delimiters));
+				valueSpace.setExtrinsicSocial(StringUtils.tokenizeToStringArray(dbVs.getExtrinsicSocial(), delimiters));
+				valueSpace.setActiveEmotional(StringUtils.tokenizeToStringArray(dbVs.getActiveEmotional(), delimiters));
+				valueSpace.setReactiveEmotional(StringUtils.tokenizeToStringArray(dbVs.getReactiveEmotional(), delimiters));
+				valueSpace.setIntrinsicSocial(StringUtils.tokenizeToStringArray(dbVs.getIntrinsicSocial(), delimiters));
+				valueSpace.setEpistemic(StringUtils.tokenizeToStringArray(dbVs.getEpistemic(), delimiters));
+				
+				productService.setValueSpace(valueSpace);
+			}
+
+			//serviceSpace
+			Db_ServiceSpace dbSs = dbPs.getServiceSpace();
+			if (dbSs != null) {
+				ServiceSpace serviceSpace = new ServiceSpace();
+				serviceSpace.setId(dbSs.getId());
+				serviceSpace.setPsId(dbSs.getPsId());
+				
+				serviceSpace.setSspp(StringUtils.tokenizeToStringArray(dbSs.getSspp(), delimiters));
+				serviceSpace.setSsp(StringUtils.tokenizeToStringArray(dbSs.getSsp(), delimiters));
+				serviceSpace.setSspc(StringUtils.tokenizeToStringArray(dbSs.getSspc(), delimiters));
+				serviceSpace.setSsc(StringUtils.tokenizeToStringArray(dbSs.getSsc(), delimiters));
+				serviceSpace.setSscc(StringUtils.tokenizeToStringArray(dbSs.getSscc(), delimiters));
+				
+				productService.setServiceSpace(serviceSpace);
+			}
+			
+			//bizModelSpace
+			Db_BizModelSpace dbBms = dbPs.getBizModelSpace();
+			if (dbBms != null) {
+				BizModelSpace bizModelSpace = new BizModelSpace();
+				bizModelSpace.setId(dbBms.getId());
+				bizModelSpace.setPsId(dbBms.getPsId());
+
+				bizModelSpace.setCustomerSegment(StringUtils.tokenizeToStringArray(dbBms.getCustomerSegment(), delimiters));
+				bizModelSpace.setCustomerRelationshipsUser(StringUtils.tokenizeToStringArray(dbBms.getCustomerRelationshipsUser(), delimiters));
+				bizModelSpace.setCustomerRelationships(StringUtils.tokenizeToStringArray(dbBms.getCustomerRelationships(), delimiters));
+				bizModelSpace.setCustomerRelationshipsUser(StringUtils.tokenizeToStringArray(dbBms.getCustomerRelationshipsUser(), delimiters));
+				bizModelSpace.setChannels(StringUtils.tokenizeToStringArray(dbBms.getChannels(), delimiters));
+				bizModelSpace.setChannelsUser(StringUtils.tokenizeToStringArray(dbBms.getChannelsUser(), delimiters));
+				bizModelSpace.setKeyActivities(StringUtils.tokenizeToStringArray(dbBms.getKeyActivities(), delimiters));
+				bizModelSpace.setKeyActivitiesUser(StringUtils.tokenizeToStringArray(dbBms.getKeyActivitiesUser(), delimiters));
+				bizModelSpace.setKeyResources(StringUtils.tokenizeToStringArray(dbBms.getKeyResources(), delimiters));
+				bizModelSpace.setKeyResourcesUser(StringUtils.tokenizeToStringArray(dbBms.getKeyResourcesUser(), delimiters));
+				bizModelSpace.setKeyPartners(StringUtils.tokenizeToStringArray(dbBms.getKeyPartners(), delimiters));
+				bizModelSpace.setKeyPartnersUser(StringUtils.tokenizeToStringArray(dbBms.getKeyPartnersUser(), delimiters));
+				bizModelSpace.setCostStructure(StringUtils.tokenizeToStringArray(dbBms.getCostStructure(), delimiters));
+				bizModelSpace.setCostStructureUser(StringUtils.tokenizeToStringArray(dbBms.getCostStructureUser(), delimiters));
+				bizModelSpace.setRevenueStreams(StringUtils.tokenizeToStringArray(dbBms.getRevenueStreams(), delimiters));
+				bizModelSpace.setRevenueStreamsUser(StringUtils.tokenizeToStringArray(dbBms.getRevenueStreamsUser(), delimiters));
+				
+				productService.setBizModelSpace(bizModelSpace);
+			}
+			
+			productService.setProductServiceSpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getProductServiceSpace(), delimiters)));
+			productService.setProductSpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getProductSpace(), delimiters)));
+			
+			productService.setTouchPointSpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getTouchPointSpace(), delimiters)));
+			productService.setCustomerSpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getCustomerSpace(), delimiters)));
+			productService.setActorSpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getActorSpace(), delimiters)));
+			productService.setSocietySpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getSocietySpace(), delimiters)));
+			productService.setContextSpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getContextSpace(), delimiters)));
+			productService.setTimeSpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getTimeSpace(), delimiters)));
+			productService.setEnvironmentSpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getEnvironmentSpace(), delimiters)));
+
+			productService.setLastModifiedUser(dbPs.getLastModifiedUser());
+			productService.setLastModifiedDate(dbPs.getLastModifiedDate());
+			productService.setCreatedUser(dbPs.getCreatedUser());
+			productService.setCreatedDate(dbPs.getCreatedDate());
+			
+			result[i] = productService;
+		}
+		return result;
+	}
+
+	@Override
+	public int getProductServiceWithSelectedSpaceSize(String userId, String spaceType, ProductServiceCond cond) throws Exception {
+		Db_ProductServiceCond dbCond = new Db_ProductServiceCond();
+
+		if (cond.getSearchKey() != null) {
+			dbCond.setSearchKey(cond.getSearchKey());
+		}
+		
+		int totalSize = DaoFactory.getInstance().getDbDao().getProductServiceWithSelectedSpaceSize(userId, spaceType, dbCond);
+		return totalSize;
+	}
+	@Override
+	public ProductService[] getProductServiceWithSelectedSpace(String userId,	String spaceType, ProductServiceCond cond) throws Exception {
+		
+		Db_ProductServiceCond dbCond = new Db_ProductServiceCond();
+		if (cond != null) {
+			if (cond.getPageSize() != -1) {
+				dbCond.setPageNo(cond.getPageNo());
+				dbCond.setPageSize(cond.getPageSize());
+			}
+			if (cond.getSearchKey() != null) {
+				dbCond.setSearchKey(cond.getSearchKey());
+			}
+			if (cond.getOrders() != null) {
+				dbCond.setOrders(cond.getOrders());
+			}
+		}
+		Db_ProductService[] productService = DaoFactory.getInstance().getDbDao().getProductServiceWithSelectedSpace(userId, spaceType, dbCond);
+		return convertDbProductServiceToProductService(productService);
+	}
 
 	public ProductService getProductService(String userId, String psId) throws Exception {
 
@@ -162,12 +394,28 @@ public class DbManagerImpl {
 		return productService;
 	}
 
+	public String setProductService(String userId, ProductService productService) throws Exception {
 
-	public void setProductService(String userId, ProductService productService) throws Exception {
-		// TODO Auto-generated method stub
+		if (productService == null)
+			return null;
+
+		IDbDao dao = DaoFactory.getInstance().getDbDao();
 		
+		Db_ProductService[] dbPs = convertProductServiceToDb_ProductService(new ProductService[]{productService});
+		if (dbPs == null || dbPs.length == 0)
+			throw new Exception("File To Convert Model! ProductService -> Db_ProductService");
+		
+		String id = dao.setProductService(userId, dbPs[0]);
+		
+		if (dbPs[0].getValueSpace() != null)
+			dao.setValueSpace(userId, dbPs[0].getValueSpace());
+		if (dbPs[0].getServiceSpace() != null)
+			dao.setServiceSpace(userId, dbPs[0].getServiceSpace());
+		if (dbPs[0].getBizModelSpace() != null)
+			dao.setBizModelSpace(userId, dbPs[0].getBizModelSpace());
+		
+		return id;
 	}
-
 
 	public void removeProductService(String userId, String id) throws Exception {
 
@@ -180,11 +428,10 @@ public class DbManagerImpl {
 	}
 
 
-	public ProductService[] getProductServices(String userId, ProductServiceCond cond) throws Exception {
+	/*public ProductService[] getProductServices(String userId, ProductServiceCond cond) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 
 	public ValueSpace getValueSpace(String userId, String id) throws Exception {
 
@@ -336,5 +583,5 @@ public class DbManagerImpl {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+*/
 }

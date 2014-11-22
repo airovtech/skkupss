@@ -3,6 +3,175 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.smartworks.skkupss.dao.mapper.DbMapper">
+
+	<select id="getProductServiceWithSelectedSpaceSize" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultType="java.lang.Integer">
+		select count(*) 
+	    from productService 
+	    where 1=1
+	    <if test="searchKey != null">
+	    	and ((a.name like '%'|| #{searchKey} ||'%') or (a.description like '%'|| #{searchKey} ||'%') or (a.lastModifiedUser like '%'|| #{searchKey} ||'%'))
+	    </if>
+	</select>
+	
+	<select id="getProductServiceWithValueSpace" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultMap="productServiceValueResult">
+		select a.*, b.id as valueId, b.psId, b.economical, b.ecological, b.function, b.extrinsicSocial, b.activeEmotional, b.reactiveEmotional, b.intrinsicSocial, b.epistemic
+		from
+		productService a 
+		left outer join
+		valueSpace b
+		on a.id = b.psId
+    	where 1=1
+	    <if test="id != null">
+	       	and a.id = #{id}
+	    </if>
+	    <if test="searchKey != null">
+	    	and ((a.name like '%'|| #{searchKey} ||'%') or (a.description like '%'|| #{searchKey} ||'%') or (a.lastModifiedUser like '%'|| #{searchKey} ||'%'))
+	    </if>
+	    <if test="orders != null">
+			ordery by ${orderQuery}
+	    </if>
+	</select>
+	<resultMap id="productServiceValueResult" type="net.smartworks.skkupss.model.db.Db_ProductService">
+		<id property="id" column="id" />	
+		<result property="name" column="name"/>
+		<result property="picture" column="picture"/>
+		<result property="description" column="description"/>
+		<result property="productServiceSpace" column="productServiceSpace"/>
+		<result property="productSpace" column="productSpace"/>
+		<result property="touchPointSpace" column="touchPointSpace"/>
+		<result property="customerSpace" column="customerSpace"/>
+		<result property="actorSpace" column="actorSpace"/>
+		<result property="societySpace" column="societySpace"/>
+		<result property="contextSpace" column="contextSpace"/>
+		<result property="timeSpace" column="timeSpace"/>
+		<result property="environmentSpace" column="environmentSpace"/>
+		<result property="lastModifiedUser" column="lastModifiedUser"/>
+		<result property="lastModifiedDate" column="lastModifiedDate"/>
+		<result property="createdUser" column="createdUser"/>
+		<result property="createdDate" column="createdDate"/>
+  		<association property="valueSpace" javaType="net.smartworks.skkupss.model.db.Db_ValueSpace" resultMap="valueSpaceResult"/>
+	</resultMap>
+	<resultMap id="valueSpaceResult" type="net.smartworks.skkupss.model.db.Db_ValueSpace">
+		<id property="id" column="valueId" />	
+		<result property="psId" column="psId"/>
+		<result property="economical" column="economical"/>
+		<result property="ecological" column="ecological"/>
+		<result property="function" column="function"/>
+		<result property="extrinsicSocial" column="extrinsicSocial"/>
+		<result property="activeEmotional" column="activeEmotional"/>
+		<result property="reactiveEmotional" column="reactiveEmotional"/>
+		<result property="intrinsicSocial" column="intrinsicSocial"/>
+		<result property="epistemic" column="epistemic"/>
+	</resultMap>
+	
+	<select id="getProductServiceWithServiceSpace" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultMap="productServiceServiceResult">
+		select a.*, b.id as serviceId, b.psId, b.sspp, b.ssp, b.sspc, b.ssc, b.sscc
+		from
+		productService a 
+		left outer join
+		serviceSpace b
+		on a.id = b.psId
+    	where 1=1
+	    <if test="id != null">
+	       	and a.id = #{id}
+	    </if>
+	    <if test="searchKey != null">
+	    	and ((a.name like '%'|| #{searchKey} ||'%') or (a.description like '%'|| #{searchKey} ||'%') or (a.lastModifiedUser like '%'|| #{searchKey} ||'%'))
+	    </if>
+	    <if test="orders != null">
+			ordery by ${orderQuery}
+	    </if>
+	</select>
+	<resultMap id="productServiceServiceResult" type="net.smartworks.skkupss.model.db.Db_ProductService">
+		<id property="id" column="id" />	
+		<result property="name" column="name"/>
+		<result property="picture" column="picture"/>
+		<result property="description" column="description"/>
+		<result property="productServiceSpace" column="productServiceSpace"/>
+		<result property="productSpace" column="productSpace"/>
+		<result property="touchPointSpace" column="touchPointSpace"/>
+		<result property="customerSpace" column="customerSpace"/>
+		<result property="actorSpace" column="actorSpace"/>
+		<result property="societySpace" column="societySpace"/>
+		<result property="contextSpace" column="contextSpace"/>
+		<result property="timeSpace" column="timeSpace"/>
+		<result property="environmentSpace" column="environmentSpace"/>
+		<result property="lastModifiedUser" column="lastModifiedUser"/>
+		<result property="lastModifiedDate" column="lastModifiedDate"/>
+		<result property="createdUser" column="createdUser"/>
+		<result property="createdDate" column="createdDate"/>
+  		<association property="serviceSpace" javaType="net.smartworks.skkupss.model.db.Db_ServiceSpace" resultMap="serviceSpaceResult"/>
+	</resultMap>
+	<resultMap id="serviceSpaceResult" type="net.smartworks.skkupss.model.db.Db_ServiceSpace">
+		<id property="id" column="serviceId" />	
+		<result property="psId" column="psId"/>
+		<result property="sspp" column="sspp"/>
+		<result property="ssp" column="ssp"/>
+		<result property="sspc" column="sspc"/>
+		<result property="ssc" column="ssc"/>
+		<result property="sscc" column="sscc"/>
+	</resultMap>
+	
+	<select id="getProductServiceWithBizModelSpace" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultMap="productServiceBizModelResult">
+		select a.*, b.id as bizModelId, b.psId, b.customerSegment, b.customerSegmentUser, b.CustomerRelationships, b.CustomerRelationshipsUser, b.channels
+		, b.channelsUser, b.keyActivities, b.keyActivitiesUser, b.keyResources, b.keyResourcesUser, b.keyPartners, b.keyPartnersUser, b.costStructure, b.costStructureUser, b.revenueStreams, b.revenueStreamsUser
+		from
+		productService a 
+		left outer join
+		bizModelSpace b
+		on a.id = b.psId
+    	where 1=1
+	    <if test="id != null">
+	       	and a.id = #{id}
+	    </if>
+	    <if test="searchKey != null">
+	    	and ((a.name like '%'|| #{searchKey} ||'%') or (a.description like '%'|| #{searchKey} ||'%') or (a.lastModifiedUser like '%'|| #{searchKey} ||'%'))
+	    </if>
+	    <if test="orders != null">
+			ordery by ${orderQuery}
+	    </if>
+	</select>
+	<resultMap id="productServiceBizModelResult" type="net.smartworks.skkupss.model.db.Db_ProductService">
+		<id property="id" column="id" />	
+		<result property="name" column="name"/>
+		<result property="picture" column="picture"/>
+		<result property="description" column="description"/>
+		<result property="productServiceSpace" column="productServiceSpace"/>
+		<result property="productSpace" column="productSpace"/>
+		<result property="touchPointSpace" column="touchPointSpace"/>
+		<result property="customerSpace" column="customerSpace"/>
+		<result property="actorSpace" column="actorSpace"/>
+		<result property="societySpace" column="societySpace"/>
+		<result property="contextSpace" column="contextSpace"/>
+		<result property="timeSpace" column="timeSpace"/>
+		<result property="environmentSpace" column="environmentSpace"/>
+		<result property="lastModifiedUser" column="lastModifiedUser"/>
+		<result property="lastModifiedDate" column="lastModifiedDate"/>
+		<result property="createdUser" column="createdUser"/>
+		<result property="createdDate" column="createdDate"/>
+  		<association property="bizModelSpace" javaType="net.smartworks.skkupss.model.db.Db_BizModelSpace" resultMap="bizModelSpaceResult"/>
+	</resultMap>
+	<resultMap id="bizModelSpaceResult" type="net.smartworks.skkupss.model.db.Db_BizModelSpace">
+		<id property="id" column="bizModelId" />	
+		<result property="psId" column="psId"/>
+		<result property="customerSegment" column="customerSegment"/>
+		<result property="customerSegmentUser" column="customerSegmentUser"/>
+		<result property="CustomerRelationships" column="CustomerRelationships"/>
+		<result property="CustomerRelationshipsUser" column="CustomerRelationshipsUser"/>
+		<result property="channels" column="channels"/>
+		<result property="channelsUser" column="channelsUser"/>
+		<result property="keyActivities" column="keyActivities"/>
+		<result property="keyActivitiesUser" column="keyActivitiesUser"/>
+		<result property="keyResources" column="keyResources"/>
+		<result property="keyResourcesUser" column="keyResourcesUser"/>
+		<result property="keyPartners" column="keyPartners"/>
+		<result property="keyPartnersUser" column="keyPartnersUser"/>
+		<result property="costStructure" column="costStructure"/>
+		<result property="costStructureUser" column="costStructureUser"/>
+		<result property="revenueStreams" column="revenueStreams"/>
+		<result property="revenueStreamsUser" column="revenueStreamsUser"/>
+	</resultMap>
+	
   <select id="getProductService" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultType="net.smartworks.skkupss.model.db.Db_ProductService">
     select * 
     from productService 

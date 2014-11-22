@@ -18,9 +18,12 @@ import net.smartworks.skkupss.model.db.Db_ValueSpace;
 import net.smartworks.skkupss.model.db.Db_ValueSpaceCond;
 
 public interface IDbDao {
+	
+	public int getProductServiceWithSelectedSpaceSize(String userId, String spaceType, Db_ProductServiceCond cond) throws Exception;
+	public Db_ProductService[] getProductServiceWithSelectedSpace(String userId, String spaceType, Db_ProductServiceCond cond) throws Exception;
 
 	public Db_ProductService getProductService(String userId, String id) throws Exception;
-	public void setProductService(String userId, Db_ProductService productService) throws Exception;
+	public String setProductService(String userId, Db_ProductService productService) throws Exception;
 	public void removeProductService(String userId, String id) throws Exception;
 	public Db_ProductService[] getProductServices(String userId, Db_ProductServiceCond cond) throws Exception;
 	

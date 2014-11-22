@@ -12,6 +12,7 @@ import java.util.List;
 
 import net.smartworks.factory.SessionFactory;
 import net.smartworks.skkupss.dao.IDbDao;
+import net.smartworks.skkupss.model.ProductService;
 import net.smartworks.skkupss.model.db.Db_BizModelSpace;
 import net.smartworks.skkupss.model.db.Db_BizModelSpaceCond;
 import net.smartworks.skkupss.model.db.Db_ProductService;
@@ -28,6 +29,65 @@ import org.apache.ibatis.session.SqlSessionFactory;
 
 public class DbDaoImpl implements IDbDao {
 
+	@Override
+	public int getProductServiceWithSelectedSpaceSize(String userId, String spaceType, Db_ProductServiceCond cond) throws Exception {
+		SqlSession session = null;
+		try {
+			SqlSessionFactory factory = SessionFactory.getInstance().getSqlSessionFactory();
+			session = factory.openSession();
+			int totalSize = session.selectOne("getProductServiceWithSelectedSpaceSize", cond);
+			
+			return totalSize;
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			if (session != null)
+				session.close();
+		}
+	}
+	
+	@Override
+	public Db_ProductService[] getProductServiceWithSelectedSpace(String userId, String spaceType, Db_ProductServiceCond cond) throws Exception {
+		SqlSession session = null;
+		try {
+			SqlSessionFactory factory = SessionFactory.getInstance().getSqlSessionFactory();
+			session = factory.openSession();
+			
+			RowBounds Rb = null;
+			if (cond.getPageSize() != -1) {
+				int pageNo = cond.getPageNo();
+				int pageSize = cond.getPageSize();
+				int startPage = (pageNo - 1) * pageSize;
+				Rb = new RowBounds(startPage, pageSize);
+			} else {
+				Rb = new RowBounds();
+			}
+			
+			String selectId = "getProductService";
+			if (spaceType != null && spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_VALUE)) {
+				selectId = "getProductServiceWithValueSpace";
+			} else if (spaceType != null && spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_SERVICE)) {
+				selectId = "getProductServiceWithServiceSpace";
+			} else if (spaceType != null && spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_BIZ_MODEL)) {
+				selectId = "getProductServiceWithBizModelSpace";
+			}
+			
+			List<Db_ProductService> productServiceList = session.selectList(selectId, cond, Rb);
+			if (productServiceList != null && productServiceList.size() != 0) {
+				Db_ProductService[] result = new Db_ProductService[productServiceList.size()];
+				productServiceList.toArray(result);
+				return result;
+			} else {
+				return null;
+			}
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			if (session != null)
+				session.close();
+		}	
+	}
+	
 	@Override
 	public Db_ProductService getProductService(String userId, String id) throws Exception {
 		SqlSession session = null;
@@ -47,11 +107,11 @@ public class DbDaoImpl implements IDbDao {
 	}
 
 	@Override
-	public void setProductService(String userId, Db_ProductService productService) throws Exception {
+	public String setProductService(String userId, Db_ProductService productService) throws Exception {
 		SqlSession session = null;
 		try {
 			if (productService == null)
-				return;
+				return null;
 			
 			SqlSessionFactory factory = SessionFactory.getInstance().getSqlSessionFactory();
 			session = factory.openSession();
@@ -65,6 +125,9 @@ public class DbDaoImpl implements IDbDao {
 			
 			session.insert("setProductService", productService);
 			session.commit();
+			
+			return productService.getId();
+			
 		} catch (Exception e) {
 			session.rollback();
 			throw e;
@@ -468,5 +531,4 @@ public class DbDaoImpl implements IDbDao {
 				session.close();
 		}		
 	}
-
 }

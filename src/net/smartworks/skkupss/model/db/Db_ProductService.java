@@ -30,6 +30,10 @@ public class Db_ProductService {
 	private String createdUser;
 	private Date createdDate;
 	
+	private Db_ValueSpace valueSpace;
+	private Db_ServiceSpace serviceSpace;
+	private Db_BizModelSpace bizModelSpace;
+
 	public String getId() {
 		return id;
 	}
@@ -131,6 +135,24 @@ public class Db_ProductService {
 	}
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
+	}
+	public Db_ValueSpace getValueSpace() {
+		return valueSpace;
+	}
+	public void setValueSpace(Db_ValueSpace valueSpace) {
+		this.valueSpace = valueSpace;
+	}
+	public Db_ServiceSpace getServiceSpace() {
+		return serviceSpace;
+	}
+	public void setServiceSpace(Db_ServiceSpace serviceSpace) {
+		this.serviceSpace = serviceSpace;
+	}
+	public Db_BizModelSpace getBizModelSpace() {
+		return bizModelSpace;
+	}
+	public void setBizModelSpace(Db_BizModelSpace bizModelSpace) {
+		this.bizModelSpace = bizModelSpace;
 	}
 	
 }

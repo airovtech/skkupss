@@ -8,6 +8,7 @@ public class Cond {
 
 	private Order[] orders;
 	private String orderQuery;
+	private String searchKey;
 
 	public Cond() {
 		super();
@@ -42,5 +43,11 @@ public class Cond {
 			}
 			return orderQuery;
 		}
+	}
+	public String getSearchKey() {
+		return searchKey;
+	}
+	public void setSearchKey(String searchKey) {
+		this.searchKey = searchKey;
 	}
 }

@@ -1,3 +1,7 @@
+<%@page import="net.smartworks.skkupss.model.RequestParams"%>
+<%@page import="net.smartworks.factory.ManagerFactory"%>
+<%@page import="net.smartworks.skkupss.model.InstanceList"%>
+<%@page import="net.smartworks.skkupss.model.ProductService"%>
 <%@page import="net.smartworks.skkupss.model.db.Db_ValueSpace"%>
 <%@page import="net.smartworks.skkupss.model.db.Db_ProductServiceCond"%>
 <%@page import="java.util.Date"%>
@@ -14,24 +18,24 @@
 <body>
 <%
 
-
-	/* Db_ProductService productService = new Db_ProductService();
-	productService.setId("id4");
-	productService.setName("name444444");
-	productService.setPicture("picture444444");
-	productService.setDescription("description44444");
-	productService.setProductServiceSpace("productServiceSpace4444");
-	productService.setProductSpace("productSpace");
-	productService.setTouchPointSpace("touchPointSpace");
-	productService.setCustomerSpace("customerSpace");
-	productService.setActorSpace("actorSpace");
-	productService.setSocietySpace("societySpace");
-	productService.setContextSpace("contextSpace");
-	productService.setTimeSpace("timeSpace");
-	productService.setEnvironmentSpace("environmentSpace");
-	productService.setLastModifiedUser("lastModifiedUser");
+ /* 
+	Db_ProductService productService = new Db_ProductService();
+	productService.setId("ps98765");
+	productService.setName("name222");
+	productService.setPicture("picture22");
+	productService.setDescription("description222");
+	productService.setProductServiceSpace("productServiceSpace222");
+	productService.setProductSpace("productSpace222");
+	productService.setTouchPointSpace("touchPointSpace222");
+	productService.setCustomerSpace("customerSpace222");
+	productService.setActorSpace("actorSpace222");
+	productService.setSocietySpace("societySpace22");
+	productService.setContextSpace("contextSpace2");
+	productService.setTimeSpace("timeSpace22");
+	productService.setEnvironmentSpace("environmentSpace2");
+	productService.setLastModifiedUser("lastModifiedUser2");
 	productService.setLastModifiedDate(new Date());
-	productService.setCreatedUser("createdUser");
+	productService.setCreatedUser("createdUser2");
 	productService.setCreatedDate(new Date());
 	
 	DaoFactory.getInstance().getDbDao().setProductService("kmyu", productService); */
@@ -51,20 +55,43 @@
 	
 
 	
-/* 	Db_ValueSpace v = new Db_ValueSpace();
+ 	/* Db_ValueSpace v = new Db_ValueSpace();
 	
-	v.setId("4028800b49d188770149d18877400000");
-	v.setPsId("psID");
-	v.setActiveEmotional("activeEmotiona0");
-	v.setEcological("ecological");
-	v.setEconomical("economical");
-	v.setEpistemic("epistemic");
-	v.setExtrinsicSocial("extrinsicSocial");
-	v.setFunction("function");
-	v.setIntrinsicSocial("intrinsicSocial");
-	v.setReactiveEmotional("reactiveEmotional");
+	v.setId("4028800b49d1887702");
+	v.setPsId("ps98765");
+	v.setActiveEmotional("activeEmotiona02");
+	v.setEcological("ecological2");
+	v.setEconomical("economical2");
+	v.setEpistemic("epistemic2");
+	v.setExtrinsicSocial("extrinsicSocial2");
+	v.setFunction("function2");
+	v.setIntrinsicSocial("intrinsicSocial2");
+	v.setReactiveEmotional("reactiveEmotional2");
 	
 	DaoFactory.getInstance().getDbDao().setValueSpace("", v); */
+	
+	/* 
+	Db_ProductServiceCond cond = new Db_ProductServiceCond();
+	//cond.setId("ps12345");
+	Db_ProductService[] result = DaoFactory.getInstance().getDbDao().getProductServiceWithSpace("", ProductService.PSS_SPACE_BIZ_MODEL , cond);
+	 */
+	 
+	RequestParams params = new RequestParams();
+	
+	params.setCurrentPage(1);
+	params.setPageSize(20);
+	//params.setSearchKey("");
+	 
+	params.setSpaceType(ProductService.PSS_SPACE_SERVICE);
+	
+	InstanceList il = ManagerFactory.getInstance().getServiceManager().getProductInstanceList(params);
+	
+	out.println(il);
+	
+	
+	
+	
+	
 	
 %>
 </body>
