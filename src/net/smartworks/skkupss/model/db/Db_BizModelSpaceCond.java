@@ -12,8 +12,8 @@ public class Db_BizModelSpaceCond {
 
 	private String id;
 	private String psId;
-	private String customerSegment;
-	private String customerSegmentUser;
+	private String customerSegments;
+	private String customerSegmentsUser;
 	private String CustomerRelationships;
 	private String CustomerRelationshipsUser;
 	private String channels;
@@ -24,6 +24,7 @@ public class Db_BizModelSpaceCond {
 	private String keyResourcesUser;
 	private String keyPartners;
 	private String keyPartnersUser;
+	private String valuePropositionsUser;
 	private String costStructure;
 	private String costStructureUser;
 	private String revenueStreams;
@@ -41,17 +42,17 @@ public class Db_BizModelSpaceCond {
 	public void setPsId(String psId) {
 		this.psId = psId;
 	}
-	public String getCustomerSegment() {
-		return customerSegment;
+	public String getCustomerSegments() {
+		return customerSegments;
 	}
-	public void setCustomerSegment(String customerSegment) {
-		this.customerSegment = customerSegment;
+	public void setCustomerSegments(String customerSegments) {
+		this.customerSegments = customerSegments;
 	}
-	public String getCustomerSegmentUser() {
-		return customerSegmentUser;
+	public String getCustomerSegmentsUser() {
+		return customerSegmentsUser;
 	}
-	public void setCustomerSegmentUser(String customerSegmentUser) {
-		this.customerSegmentUser = customerSegmentUser;
+	public void setCustomerSegmentsUser(String customerSegmentsUser) {
+		this.customerSegmentsUser = customerSegmentsUser;
 	}
 	public String getCustomerRelationships() {
 		return CustomerRelationships;
@@ -112,6 +113,12 @@ public class Db_BizModelSpaceCond {
 	}
 	public void setKeyPartnersUser(String keyPartnersUser) {
 		this.keyPartnersUser = keyPartnersUser;
+	}
+	public String getValuePropositionsUser() {
+		return valuePropositionsUser;
+	}
+	public void setValuePropositionsUser(String valuePropositionsUser) {
+		this.valuePropositionsUser = valuePropositionsUser;
 	}
 	public String getCostStructure() {
 		return costStructure;
