@@ -10,7 +10,6 @@ package net.smartworks.skkupss.manager.impl;
 
 import net.smartworks.factory.DaoFactory;
 import net.smartworks.skkupss.dao.IDbDao;
-import net.smartworks.skkupss.manager.IDbManager;
 import net.smartworks.skkupss.model.BizModelSpace;
 import net.smartworks.skkupss.model.BizModelSpaceCond;
 import net.smartworks.skkupss.model.DefaultSpace;
@@ -30,7 +29,7 @@ import net.smartworks.skkupss.model.db.Db_ValueSpaceCond;
 
 import org.springframework.util.StringUtils;
 
-public class DbManagerImpl implements IDbManager {
+public class DbManagerImpl {
 
 	public static final String delimiters = ";";
 	
@@ -58,7 +57,7 @@ public class DbManagerImpl implements IDbManager {
 		return buff.toString();
 	}
 	
-	@Override
+
 	public ProductService getProductService(String userId, String psId) throws Exception {
 
 		if (psId == null)
@@ -163,13 +162,13 @@ public class DbManagerImpl implements IDbManager {
 		return productService;
 	}
 
-	@Override
+
 	public void setProductService(String userId, ProductService productService) throws Exception {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
+
 	public void removeProductService(String userId, String id) throws Exception {
 
 		IDbDao dao = DaoFactory.getInstance().getDbDao();
@@ -180,13 +179,13 @@ public class DbManagerImpl implements IDbManager {
 		
 	}
 
-	@Override
+
 	public ProductService[] getProductServices(String userId, ProductServiceCond cond) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+
 	public ValueSpace getValueSpace(String userId, String id) throws Exception {
 
 		IDbDao dao = DaoFactory.getInstance().getDbDao();
@@ -209,7 +208,7 @@ public class DbManagerImpl implements IDbManager {
 		}
 	}
 
-	@Override
+
 	public void setValueSpace(String userId, ValueSpace valueSpace) throws Exception {
 
 		if (valueSpace == null)
@@ -233,7 +232,7 @@ public class DbManagerImpl implements IDbManager {
 		
 	}
 
-	@Override
+
 	public void removeValueSpace(String userId, String id) throws Exception {
 
 		IDbDao dao = DaoFactory.getInstance().getDbDao();
@@ -241,7 +240,7 @@ public class DbManagerImpl implements IDbManager {
 	
 	}
 
-	@Override
+
 	public ValueSpace[] getValueSpaces(String userId, ValueSpaceCond cond) throws Exception {
 
 		if (cond == null)
@@ -290,49 +289,49 @@ public class DbManagerImpl implements IDbManager {
 		return result;
 	}
 
-	@Override
+
 	public ServiceSpace getServiceSpace(String userId, String id) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+
 	public void setServiceSpace(String userId, ServiceSpace serviceSpace) throws Exception {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
+
 	public void removeServiceSpace(String userId, String id) throws Exception {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
+
 	public ServiceSpace[] getServiceSpaces(String userId, ServiceSpaceCond cond) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+
 	public BizModelSpace getBizModelSpace(String userId, String id) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+
 	public void setBizModelSpace(String userId, BizModelSpace bizModelSpace) throws Exception {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
+
 	public void removeBizModelSpace(String userId, String id) throws Exception {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
+
 	public BizModelSpace[] getBizModelSpace(String userId, BizModelSpaceCond cond) throws Exception {
 		// TODO Auto-generated method stub
 		return null;

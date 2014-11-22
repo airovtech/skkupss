@@ -12,7 +12,7 @@ public class ValueSpace{
 	private String[] reactiveEmotional;
 	private String[] intrinsicSocial;
 	private String[] epistemic;
-	
+
 	public String getId() {
 		return id;
 	}
