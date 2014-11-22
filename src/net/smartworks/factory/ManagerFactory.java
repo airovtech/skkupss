@@ -8,14 +8,14 @@
 
 package net.smartworks.factory;
 
-import net.smartworks.skkupss.manager.IDbManager;
-import net.smartworks.skkupss.manager.impl.DbManagerImpl;
+import net.smartworks.skkupss.manager.IServiceManager;
+import net.smartworks.skkupss.manager.impl.ServiceManagerImpl;
 
 
 public class ManagerFactory {
 
 	private static ManagerFactory managerFactory;
-	private static IDbManager dbManager;
+	private static IServiceManager serviceManager;
 	
 	public static ManagerFactory getInstance() {
 		if (managerFactory != null) {
@@ -25,12 +25,12 @@ public class ManagerFactory {
 			return managerFactory;
 		}
 	}
-	public IDbManager getDbManager() throws Exception {
-		if (dbManager != null) {
-			return dbManager;
+	public IServiceManager getServiceManager() throws Exception {
+		if (serviceManager != null) {
+			return serviceManager;
 		} else {
-			dbManager = new DbManagerImpl();
-			return dbManager;
+			serviceManager = new ServiceManagerImpl();
+			return serviceManager;
 		}
 	}
 }

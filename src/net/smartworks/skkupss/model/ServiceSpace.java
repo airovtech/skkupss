@@ -2,7 +2,6 @@ package net.smartworks.skkupss.model;
 
 public class ServiceSpace{
 
-
 	private String id;
 	private String psId;
 	private String[] sspp;

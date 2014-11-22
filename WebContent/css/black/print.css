@@ -1,0 +1,52 @@
+@charset "utf-8";
+/* Page Print용 CSS*/
+
+body {background:none}
+
+#wrap_print, #wrap_noborder_print {width:757px; margin:10px auto; color:#454545; text-decoration:none; font-family: '돋움',dotum,Helvetica,sans-serif; font-size:12px} 
+#wrap_noborder_print > div {border:none}
+#wrap_print > div {border: 1px solid #C7C7C7}
+#wrap_print > div.info {border:none; margin-top: 5px}
+
+.company_logo_print {float:right; margin-bottom:15px}
+.company_logo_print img {max-width:125px; max-height:30px; vertical-align:bottom}
+.company_logo_print img + div {font-weight:bold; text-align:right; margin-top:3px}
+ 
+.form_wrap_print {background: none repeat scroll 0 0 #FFFFFF}
+
+/* 프린트시  이미지 사이즈 */
+.form_read .form_value img {max-width:610px !important}
+@media print {.form_read .form_value img {max-width:610px !important}}
+
+/* Mail */
+.icon_file {background: url("../../images/nav_img.png") no-repeat -115px -471px; width:16px; height:17px}
+.view_title {border-bottom: 1px solid #E8E8E8; color: #454545; overflow: hidden; position: relative; width: auto}
+.view_title h1 {color: #333333; font-size: 13px; font-weight: bold; line-height: 18px; margin: 10px 0 5px 0; overflow: hidden; float:left; padding:0; line-height:18px}
+.view_title dl { clear:both; font-size:12px; margin:0 0 10px; overflow:hidden}
+.view_title dt { clear:both; float:left; min-width:65px; text-align:right; color:#919191}
+.view_title dd { margin:0 0 0 70px; word-wrap: break-word}
+
+/* table Gray */
+.gray_style table {border-collapse:collapse; border:1px solid #d8d8d8}
+.gray_style tr {height:32px}
+.gray_style th {border:1px solid #d8d8d8; padding: 2px 8px}
+.gray_style th {background-color:#f5f5f5; font-weight: bold; white-space:nowrap}
+.gray_style td { background-color:#FFF; border-bottom:none; padding: 2px 8px}
+
+
+/* 상단 날짜 */	
+.tab_portletx {color:#ffffff; text-align:center; vertical-align:middle; padding-top:10px}
+.date {font-size:14px; font-weight:bold}
+.eventd {font-size:12px; color:#f8c8c8}
+
+.date_section {text-align:center; vertical-align:middle; padding: 7px 0 18px}
+.date_section .date_start {background: url("../../images/top_date_bg_l.gif") repeat scroll 0 0 transparent; height:28px; width:14px; height: 28px;display: inline-block;vertical-align:middle}
+.date_section .date_center { background-color:#f3f3f3; height:23px; padding: 5px 20px 0 30px; text-align:center; margin: 0 -5px; text-align:center; display: inline-block;;vertical-align:middle}	
+.date_section .date_end {background: url("../../images/top_date_bg_r.gif") repeat scroll 0 0 transparent; height:28px; width:14px;display: inline-block;;vertical-align:middle}
+
+/*Footer*/
+.footer {text-align:right; color:#777777; font-size:11px; margin-top:-1px; float:right}
+.footer .logo {background: url("../../images/footer_sm_logo.jpg") no-repeat 0 0; width:97px; text-align:left; height:23px; display:inline-block}
+.footer .info { text-align:left; margin:3px 0}
+.footer a:link, a:visited {color:#454545; text-decoration: none}
+.footer a:hover, a:focus, a:active {color:#454545; text-decoration: underline}

@@ -94,7 +94,7 @@ public class DbManagerImpl implements IDbManager {
 			valueSpace.setIntrinsicSocial(StringUtils.tokenizeToStringArray(dbVs[0].getIntrinsicSocial(), delimiters));
 			valueSpace.setEpistemic(StringUtils.tokenizeToStringArray(dbVs[0].getEpistemic(), delimiters));
 			
-			productService.setValue(valueSpace);
+			productService.setValueSpace(valueSpace);
 		}
 
 		//serviceSpace
@@ -112,7 +112,7 @@ public class DbManagerImpl implements IDbManager {
 			serviceSpace.setSsc(StringUtils.tokenizeToStringArray(dbSs[0].getSsc(), delimiters));
 			serviceSpace.setSscc(StringUtils.tokenizeToStringArray(dbSs[0].getSscc(), delimiters));
 			
-			productService.setService(serviceSpace);
+			productService.setServiceSpace(serviceSpace);
 		}
 		
 		//bizModelSpace
@@ -141,19 +141,19 @@ public class DbManagerImpl implements IDbManager {
 			bizModelSpace.setRevenueStreams(StringUtils.tokenizeToStringArray(dbBms[0].getRevenueStreams(), delimiters));
 			bizModelSpace.setRevenueStreamsUser(StringUtils.tokenizeToStringArray(dbBms[0].getRevenueStreamsUser(), delimiters));
 			
-			productService.setBizModel(bizModelSpace);
+			productService.setBizModelSpace(bizModelSpace);
 		}
 		
-		productService.setProductService(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getProductServiceSpace(), delimiters)));
-		productService.setProduct(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getProductSpace(), delimiters)));
+		productService.setProductServiceSpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getProductServiceSpace(), delimiters)));
+		productService.setProductSpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getProductSpace(), delimiters)));
 		
-		productService.setTouchPoint(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getTouchPointSpace(), delimiters)));
-		productService.setCustomer(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getCustomerSpace(), delimiters)));
-		productService.setActor(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getActorSpace(), delimiters)));
-		productService.setSociety(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getSocietySpace(), delimiters)));
-		productService.setContext(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getContextSpace(), delimiters)));
-		productService.setTime(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getTimeSpace(), delimiters)));
-		productService.setEnvironment(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getEnvironmentSpace(), delimiters)));
+		productService.setTouchPointSpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getTouchPointSpace(), delimiters)));
+		productService.setCustomerSpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getCustomerSpace(), delimiters)));
+		productService.setActorSpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getActorSpace(), delimiters)));
+		productService.setSocietySpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getSocietySpace(), delimiters)));
+		productService.setContextSpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getContextSpace(), delimiters)));
+		productService.setTimeSpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getTimeSpace(), delimiters)));
+		productService.setEnvironmentSpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getEnvironmentSpace(), delimiters)));
 
 		productService.setLastModifiedUser(dbPs.getLastModifiedUser());
 		productService.setLastModifiedDate(dbPs.getLastModifiedDate());

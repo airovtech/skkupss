@@ -1,0 +1,12 @@
+/* Mail Print¿ë CSS*/
+
+html {
+     font-size: 12px;
+     font-family: dotum,Helvetica,sans-serif;
+}
+
+html, body {
+	color:#454545; height:100%
+}
+body img {max-width:680px}
+body table img {width:inherit; max-width:initial !important}
