@@ -51,5 +51,4 @@ public class ServiceSpace{
 	public void setSscc(String[] sscc) {
 		this.sscc = sscc;
 	}
-	
 }
