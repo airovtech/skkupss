@@ -113,7 +113,7 @@
 	</resultMap>
 	
 	<select id="getProductServiceWithBizModelSpace" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultMap="productServiceBizModelResult">
-		select a.*, b.id as bizModelId, b.psId, b.customerSegment, b.customerSegmentUser, b.CustomerRelationships, b.CustomerRelationshipsUser, b.channels
+		select a.*, b.id as bizModelId, b.psId, b.customerSegments, b.customerSegmentsUser, b.CustomerRelationships, b.CustomerRelationshipsUser, b.channels
 		, b.channelsUser, b.keyActivities, b.keyActivitiesUser, b.keyResources, b.keyResourcesUser, b.keyPartners, b.keyPartnersUser, b.costStructure, b.costStructureUser, b.revenueStreams, b.revenueStreamsUser
 		from
 		productService a 
@@ -154,8 +154,8 @@
 	<resultMap id="bizModelSpaceResult" type="net.smartworks.skkupss.model.db.Db_BizModelSpace">
 		<id property="id" column="bizModelId" />	
 		<result property="psId" column="psId"/>
-		<result property="customerSegment" column="customerSegment"/>
-		<result property="customerSegmentUser" column="customerSegmentUser"/>
+		<result property="customerSegments" column="customerSegments"/>
+		<result property="customerSegmentsUser" column="customerSegmentsUser"/>
 		<result property="CustomerRelationships" column="CustomerRelationships"/>
 		<result property="CustomerRelationshipsUser" column="CustomerRelationshipsUser"/>
 		<result property="channels" column="channels"/>
@@ -341,11 +341,11 @@
 		<if test="psId != null">
 			and psId = #{psId}
 		</if>
-		<if test="customerSegmentLike != null">
-			and customerSegment like '%'|| #{customerSegmentLike} ||'%'
+		<if test="customerSegmentsLike != null">
+			and customerSegments like '%'|| #{customerSegmentsLike} ||'%'
 		</if>
-		<if test="customerSegmentUserLike != null">
-			and customerSegmentUser like '%'|| #{customerSegmentUserLike} ||'%'
+		<if test="customerSegmentsUserLike != null">
+			and customerSegmentsUser like '%'|| #{customerSegmentsUserLike} ||'%'
 		</if>
 		<if test="CustomerRelationshipsLike != null">
 			and CustomerRelationships like '%'|| #{CustomerRelationshipsLike} ||'%'
@@ -394,8 +394,8 @@
 		</if>
 	</select>
 	<insert id="setBizModelSpace" parameterType="net.smartworks.skkupss.model.db.Db_BizModelSpace">
-		insert into bizModelSpace(id, psId, customerSegment, customerSegmentUser, CustomerRelationships, CustomerRelationshipsUser, channels, channelsUser, keyActivities, keyActivitiesUser, keyResources, keyResourcesUser, keyPartners, keyPartnersUser, costStructure, costStructureUser, revenueStreams, revenueStreamsUser)
-		values (#{id}, #{psId}, #{customerSegment}, #{customerSegmentUser}, #{CustomerRelationships}, #{CustomerRelationshipsUser}, #{channels}, #{channelsUser}, #{keyActivities}, #{keyActivitiesUser}, #{keyResources}, #{keyResourcesUser}, #{keyPartners}, #{keyPartnersUser}, #{costStructure}, #{costStructureUser}, #{revenueStreams}, #{revenueStreamsUser})
+		insert into bizModelSpace(id, psId, customerSegments, customerSegmentsUser, CustomerRelationships, CustomerRelationshipsUser, channels, channelsUser, keyActivities, keyActivitiesUser, keyResources, keyResourcesUser, keyPartners, keyPartnersUser, costStructure, costStructureUser, revenueStreams, revenueStreamsUser)
+		values (#{id}, #{psId}, #{customerSegments}, #{customerSegmentsUser}, #{CustomerRelationships}, #{CustomerRelationshipsUser}, #{channels}, #{channelsUser}, #{keyActivities}, #{keyActivitiesUser}, #{keyResources}, #{keyResourcesUser}, #{keyPartners}, #{keyPartnersUser}, #{costStructure}, #{costStructureUser}, #{revenueStreams}, #{revenueStreamsUser})
 	</insert>
 	<delete id="removeBizModelSpace" parameterType="String">
 		delete from bizModelSpace where id = #{id}

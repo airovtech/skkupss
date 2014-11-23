@@ -48,8 +48,8 @@ CREATE TABLE serviceSpace (
 CREATE TABLE bizModelSpace (
 	id character varying(50) NOT NULL,
 	psId character varying(50) NOT NULL,
-	customerSegment character varying(4000),
-	customerSegmentUser character varying(4000),
+	customerSegments character varying(4000),
+	customerSegmentsUser character varying(4000),
 	CustomerRelationships character varying(4000),
 	CustomerRelationshipsUser character varying(4000),
 	channels character varying(4000),

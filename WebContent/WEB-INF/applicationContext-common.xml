@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+						http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+						http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<!-- <beans:bean	class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<beans:property name="location" value="conf/spring/smart.conf.properties" />
+	</beans:bean>
+ -->
+
+	<annotation-driven />
+	<context:component-scan base-package="net.smartworks" />
+
+	<!-- StringHttpMessageConverter UTF-8 -->
+	<beans:bean	class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<beans:property name="messageConverters">
+			<beans:list>
+				<beans:bean class="org.springframework.http.converter.StringHttpMessageConverter">
+					<beans:property name="supportedMediaTypes">
+						<beans:value>text/plain;charset=UTF-8</beans:value>
+					</beans:property>
+				</beans:bean>
+			</beans:list>
+		</beans:property>
+	</beans:bean>
+	
+</beans:beans>

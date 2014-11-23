@@ -14,9 +14,9 @@ public class Db_BizModelSpaceCond extends Cond {
 
 	private String id;
 	private String psId;
-	private String customerSegment;
+	private String customerSegments;
 	private String customerSegmentLike;
-	private String customerSegmentUser;
+	private String customerSegmentsUser;
 	private String customerSegmentUserLike;
 	private String CustomerRelationships;
 	private String CustomerRelationshipsLike;
@@ -38,7 +38,6 @@ public class Db_BizModelSpaceCond extends Cond {
 	private String keyPartnersLike;
 	private String keyPartnersUser;
 	private String keyPartnersUserLike;
-	private String valuePropositionsUser;
 	private String costStructure;
 	private String costStructureLike;
 	private String costStructureUser;
@@ -66,11 +65,11 @@ public class Db_BizModelSpaceCond extends Cond {
 	public void setCustomerSegmentLike(String customerSegmentLike) {
 		this.customerSegmentLike = customerSegmentLike;
 	}
-	public String getCustomerSegmentUser() {
-		return customerSegmentUser;
+	public String getCustomerSegmentsUser() {
+		return customerSegmentsUser;
 	}
-	public void setCustomerSegmentUser(String customerSegmentUser) {
-		this.customerSegmentUser = customerSegmentUser;
+	public void setCustomerSegmentsUser(String customerSegmentsUser) {
+		this.customerSegmentsUser = customerSegmentsUser;
 	}
 	public String getCustomerSegmentUserLike() {
 		return customerSegmentUserLike;
@@ -198,12 +197,6 @@ public class Db_BizModelSpaceCond extends Cond {
 	}
 	public void setKeyPartnersUserLike(String keyPartnersUserLike) {
 		this.keyPartnersUserLike = keyPartnersUserLike;
-	}
-	public String getValuePropositionsUser() {
-		return valuePropositionsUser;
-	}
-	public void setValuePropositionsUser(String valuePropositionsUser) {
-		this.valuePropositionsUser = valuePropositionsUser;
 	}
 	public String getCostStructure() {
 		return costStructure;
