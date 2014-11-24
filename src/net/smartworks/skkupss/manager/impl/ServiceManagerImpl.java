@@ -24,7 +24,9 @@ import net.smartworks.skkupss.model.ProductServiceCond;
 import net.smartworks.skkupss.model.RequestParams;
 import net.smartworks.skkupss.model.SortingField;
 
+import org.springframework.stereotype.Service;
 
+@Service
 public class ServiceManagerImpl implements IServiceManager {
 
 	@Override

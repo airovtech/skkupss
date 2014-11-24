@@ -121,8 +121,8 @@ public class DbManagerImpl implements IDbManager {
 				bizModelSpace.setId(bms.getId());
 				bizModelSpace.setPsId(bms.getPsId());
 
-				bizModelSpace.setCustomerSegment(makeStringWithDelimiters(bms.getCustomerSegment()));
-				bizModelSpace.setCustomerRelationshipsUser(makeStringWithDelimiters(bms.getCustomerRelationshipsUser()));
+				bizModelSpace.setCustomerSegments(makeStringWithDelimiters(bms.getCustomerSegments()));
+				bizModelSpace.setCustomerSegmentsUser(makeStringWithDelimiters(bms.getCustomerSegmentsUser()));
 				bizModelSpace.setCustomerRelationships(makeStringWithDelimiters(bms.getCustomerRelationships()));
 				bizModelSpace.setCustomerRelationshipsUser(makeStringWithDelimiters(bms.getCustomerRelationshipsUser()));
 				bizModelSpace.setChannels(makeStringWithDelimiters(bms.getChannels()));
@@ -218,8 +218,8 @@ public class DbManagerImpl implements IDbManager {
 				bizModelSpace.setId(dbBms.getId());
 				bizModelSpace.setPsId(dbBms.getPsId());
 
-				bizModelSpace.setCustomerSegment(StringUtils.tokenizeToStringArray(dbBms.getCustomerSegment(), delimiters));
-				bizModelSpace.setCustomerRelationshipsUser(StringUtils.tokenizeToStringArray(dbBms.getCustomerRelationshipsUser(), delimiters));
+				bizModelSpace.setCustomerSegments(StringUtils.tokenizeToStringArray(dbBms.getCustomerSegments(), delimiters));
+				bizModelSpace.setCustomerSegmentsUser(StringUtils.tokenizeToStringArray(dbBms.getCustomerSegmentsUser(), delimiters));
 				bizModelSpace.setCustomerRelationships(StringUtils.tokenizeToStringArray(dbBms.getCustomerRelationships(), delimiters));
 				bizModelSpace.setCustomerRelationshipsUser(StringUtils.tokenizeToStringArray(dbBms.getCustomerRelationshipsUser(), delimiters));
 				bizModelSpace.setChannels(StringUtils.tokenizeToStringArray(dbBms.getChannels(), delimiters));
@@ -355,8 +355,8 @@ public class DbManagerImpl implements IDbManager {
 			bizModelSpace.setId(dbBms[0].getId());
 			bizModelSpace.setPsId(dbBms[0].getPsId());
 
-			bizModelSpace.setCustomerSegment(StringUtils.tokenizeToStringArray(dbBms[0].getCustomerSegment(), delimiters));
-			bizModelSpace.setCustomerRelationshipsUser(StringUtils.tokenizeToStringArray(dbBms[0].getCustomerRelationshipsUser(), delimiters));
+			bizModelSpace.setCustomerSegments(StringUtils.tokenizeToStringArray(dbBms[0].getCustomerSegments(), delimiters));
+			bizModelSpace.setCustomerSegmentsUser(StringUtils.tokenizeToStringArray(dbBms[0].getCustomerSegmentsUser(), delimiters));
 			bizModelSpace.setCustomerRelationships(StringUtils.tokenizeToStringArray(dbBms[0].getCustomerRelationships(), delimiters));
 			bizModelSpace.setCustomerRelationshipsUser(StringUtils.tokenizeToStringArray(dbBms[0].getCustomerRelationshipsUser(), delimiters));
 			bizModelSpace.setChannels(StringUtils.tokenizeToStringArray(dbBms[0].getChannels(), delimiters));
