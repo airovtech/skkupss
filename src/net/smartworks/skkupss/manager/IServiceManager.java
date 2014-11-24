@@ -8,6 +8,10 @@
 
 package net.smartworks.skkupss.manager;
 
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
 import net.smartworks.skkupss.model.InstanceList;
 import net.smartworks.skkupss.model.ProductService;
 import net.smartworks.skkupss.model.RequestParams;
@@ -22,4 +26,5 @@ public interface IServiceManager {
 	
 	public ProductService getProductService(String psId) throws Exception;
 	
+	public RequestParams setInstanceListParams(Map<String, Object> requestBody, HttpServletRequest request) throws Exception;
 }

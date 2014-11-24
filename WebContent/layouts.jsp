@@ -1,3 +1,5 @@
+<%@page import="java.util.TimeZone"%>
+<%@page import="java.util.Locale"%>
 <%@ page contentType="text/html; charset=utf-8"%>
 <%@ page session="true"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -5,6 +7,36 @@
 
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<script type="">
+try{
+	currentUser = {
+		userId : "cdiuser@skku.edu",
+		name : "CDI 사용자",
+		longName : "CDI 사용자",
+		nickName : "CDI 사용자",
+		company : "성균관대학교",
+		companyId : "skku",
+		department : "",
+		departmentId : "",
+		isUseMail : "false",
+		minPicture : "",
+		midPicture : "",
+		orgPicture : "",
+		locale : "<%=Locale.KOREAN%>",
+		timeZone : "",
+		timeOffset : "",
+		signPicture : ""
+	};
+
+	companyGeneral = {
+		useMessagingService : "false",
+		useChattingService : "false",
+		fileUploadLimit : <%=500%>
+	};
+
+}catch(e){
+}
+</script>
 
 <link href="http://meyerweb.com/eric/tools/css/reset/reset.css" rel="stylesheet" type="text/css" />
 <link href="css/default.css?v=3.5.3" type="text/css" rel="stylesheet" />

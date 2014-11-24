@@ -144,13 +144,13 @@
 		</td>
 		<td class="tc vm" style="height:100%">
 			<%
-				values = bizModelSpace.getCustomerSegments();
+				values = bizModelSpace.getCustomerSegment();
 				for(int i=0; values!=null && i<values.length; i++){
 			%>
 					<div style="color:red;font-size:11px"><%=CommonUtil.toNotNull(values[i]) %></div>
 			<%
 				}
-				userValues = bizModelSpace.getCustomerSegmentsUser();
+				userValues = bizModelSpace.getCustomerSegmentUser();
 				for(int i=0; userValues!=null && i<userValues.length; i++){
 			%>
 					<div style="color:blue;font-size:11px"><%=CommonUtil.toNotNull(userValues[i]) %></div>

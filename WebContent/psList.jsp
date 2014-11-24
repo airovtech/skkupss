@@ -10,7 +10,7 @@ try{
 		else
 			smartPop.progressCont(progressSpan);
 		console.log(JSON.stringify(paramsJson));
-		var url = "set_instance_list_params.sw";
+		var url = "setInstanceListParams.jsp";
 		$.ajax({
 			url : url,
 			contentType : 'application/json',
@@ -27,75 +27,6 @@ try{
 		});
 	};
 	
-	saveAsSearchFilter = function(filterId){
-		var iworkList = $('.js_iwork_list_page');
-		var searchFilter = $('.js_search_filter_page');
-		var url = "set_work_search_filter.sw";
-		if(isEmpty(filterId)){
-			url = "create_work_search_filter.sw";
-		}
-		searchFilter.find('input[name="txtNewFilterName"]').addClass('required');
-
-		if (!SmartWorks.GridLayout.validate(searchFilter.find('form.js_validation_required'), $('.js_filter_error_message'))) return;
-
-		var paramsJson = {};
-		var workId = iworkList.attr('workId');
-		var searchFilters = searchFilter.find('form[name="frmSearchFilter"]');
-		paramsJson['workId'] = workId;
-		if(isEmpty(filterId)) {
-			filterId = "";
-		}
-		paramsJson['filterId'] = filterId;
-		paramsJson['txtNewFilterName'] = searchFilter.find('input[name="txtNewFilterName"]').attr('value');
-
-		if(!isEmpty(searchFilters)){
-			var searchFilterArray = new Array();
-			for(var i=0; i<searchFilters.length; i++){
-				var searchFilter = $(searchFilters[i]);
-				if(searchFilter.is(':visible'))
-					searchFilterArray.push(searchFilter.serializeObject());
-			}
-			paramsJson['frmSearchFilters'] = searchFilterArray;
-		}
-		console.log(JSON.stringify(paramsJson));
-		var progressSpan = searchFilter.find('span.js_progress_span:first');
-		smartPop.progressCont(progressSpan);
-		$.ajax({
-			url : url,
-			contentType : 'application/json',
-			type : 'POST',
-			data : JSON.stringify(paramsJson),
-			success : function(data, status, jqXHR) {
-				try{
-					var selectSearchFilter = iworkList.find('.js_select_search_filter');
-					selectSearchFilter.find('.js_custom_filter').remove();
-					selectSearchFilter.append(data);
-					$('a.js_search_filter_close').click();
-					smartPop.closeProgress();
-				}catch(error){
-					smartPop.showInfo(smartPop.ERROR, smartMessage.get('technicalProblemOccured') + '[iwork_list ' + url + ']', null, error);
-				}
-			},
-			error : function(xhr, ajaxOptions, thrownError) {
-				smartPop.closeProgress();
-				smartPop.showInfo(smartPop.ERROR, smartMessage.get('setFilterError'), null, thrownError);
-			}
-		});
-	};
-	
-	saveSearchFilter = function(){
-		var searchFilter = $('.js_search_filter_page');
-		var filterId = searchFilter.attr('filterId');
-		//filterId에 system 문자열이 들어가지 않을 시,fileterId를 전달
-		if(filterId.match("system.*")){
-			console.log("system filter");
-			saveAsSearchFilter("");
-		}else{
-			console.log("filter id = " + filterId);
-			saveAsSearchFilter(filterId);
-		}
-	};
-
 	selectListParam = function(progressSpan, isGray){
 		var iworkList = $('.js_iwork_list_page');
 		var forms = iworkList.find('form:visible');
@@ -143,7 +74,7 @@ try{
 					<div class="list_title_space js_work_list_title mt15">
 						<div class="title_line_btns">
 							<div class="icon_btn_start">
-								<a href="" class="js_create_new_work icon_btn_tail">새항목 등록하기</a>
+								<a href="newProductService.jsp" class="js_create_new_work icon_btn_tail">새항목 등록하기</a>
 							</div>
 						</div>
 					

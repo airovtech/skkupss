@@ -12,8 +12,8 @@ public class Db_BizModelSpace {
 
 	private String id;
 	private String psId;
-	private String customerSegments;
-	private String customerSegmentsUser;
+	private String customerSegment;
+	private String customerSegmentUser;
 	private String CustomerRelationships;
 	private String CustomerRelationshipsUser;
 	private String channels;
@@ -42,17 +42,17 @@ public class Db_BizModelSpace {
 	public void setPsId(String psId) {
 		this.psId = psId;
 	}
-	public String getCustomerSegments() {
-		return customerSegments;
+	public String getCustomerSegment() {
+		return customerSegment;
 	}
-	public void setCustomerSegments(String customerSegments) {
-		this.customerSegments = customerSegments;
+	public void setCustomerSegment(String customerSegment) {
+		this.customerSegment = customerSegment;
 	}
-	public String getCustomerSegmentsUser() {
-		return customerSegmentsUser;
+	public String getCustomerSegmentUser() {
+		return customerSegmentUser;
 	}
-	public void setCustomerSegmentsUser(String customerSegmentsUser) {
-		this.customerSegmentsUser = customerSegmentsUser;
+	public void setCustomerSegmentUser(String customerSegmentUser) {
+		this.customerSegmentUser = customerSegmentUser;
 	}
 	public String getCustomerRelationships() {
 		return CustomerRelationships;
