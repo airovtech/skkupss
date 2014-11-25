@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import net.smartworks.skkupss.model.InstanceList;
 import net.smartworks.skkupss.model.ProductService;
 import net.smartworks.skkupss.model.RequestParams;
+import net.smartworks.skkupss.model.SimilarityMatrix;
 
 public interface IServiceManager {
 
@@ -27,4 +28,7 @@ public interface IServiceManager {
 	public ProductService getProductService(String psId, int spaceType) throws Exception;
 	
 	public RequestParams setInstanceListParams(Map<String, Object> requestBody, HttpServletRequest request) throws Exception;
+
+	public SimilarityMatrix[][] caculatePsSimilarities(String[] psIds, String spaceType) throws Exception;
+	
 }

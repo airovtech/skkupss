@@ -58,6 +58,7 @@
 	</div>
 	<div class="js_dummy_select_item" style="display:none">
 		<select class="js_select_element_item" itemName="KeyPartners" style="display:inline-block; font-size:11px;width:18px">
+			<option></option>
 			<option>R&D Contract</option>
 			<option>Design Collaboration</option>
 			<option>Joint Distribution</option>
@@ -70,6 +71,7 @@
 			<option></option>
 		</select>
 		<select class="js_select_element_item" itemName="KeyResources" style="display:inline-block; font-size:11px;width:18px">
+			<option></option>
 			<option>Recycle</option>
 			<option>Crowdsourcing</option>
 			<option>Open Innovation</option>
@@ -80,6 +82,7 @@
 			<option>Merge & Acquisition</option>
 		</select>
 		<select class="js_select_element_item" itemName="CustomerRelationships" style="display:inline-block; font-size:11px;width:18px">
+			<option></option>
 			<option>Customer Participation</option>
 			<option>Reward</option>
 			<option>Upgrade</option>
@@ -93,6 +96,7 @@
 			<option>Network Effect</option>
 		</select>
 		<select class="js_select_element_item" itemName="Channels" style="display:inline-block; font-size:11px;width:18px">
+			<option></option>
 			<option>Experience Shop</option>
 			<option>Shop in Shop</option>
 			<option>Delivery</option>
@@ -106,6 +110,7 @@
 			<option>Franchise</option>
 		</select>
 		<select class="js_select_element_item" itemName="CustomerSegments" style="display:inline-block; font-size:11px;width:18px">
+			<option></option>
 			<option>Segment Expansion</option>
 			<option>Geographical Expansion</option>
 			<option>Long-Tail Targeting</option>
@@ -120,6 +125,7 @@
 			<option></option>
 		</select>
 		<select class="js_select_element_item" itemName="RevenueStreams" style="display:inline-block; font-size:11px;width:18px">
+			<option></option>
 			<option>Recycle</option>
 			<option>Crowdsourcing</option>
 			<option>Open Innovation</option>
@@ -177,6 +183,7 @@
 							if(isEditMode){
 							%>
 								<select class="js_select_element_item" name="txtKeyPartnersItem" style="display:none; font-size:11px;width:110px">
+									<option></option>
 									<option <%if(values[i].equals("R&D Contract")){ %>selected<%} %>>R&D Contract</option>
 									<option <%if(values[i].equals("Design Collaboration")){ %>selected<%} %>>Design Collaboration</option>
 									<option <%if(values[i].equals("Joint Distribution")){ %>selected<%} %>>Joint Distribution</option>
@@ -218,7 +225,7 @@
 						</div>
 				<%
 					}
-					if(values==null && userValues==null){
+					if(values==null && userValues==null && isEditMode){
 				%>
 						<div class="edit_item js_element_item" itemName="KeyPartners" style="color:blue;font-size:11px">
 							<span class="js_view_element_item" style="display:none">
@@ -230,6 +237,7 @@
 							</span>
 							<input class="fieldline js_edit_element_item" name="" style="width:85px; display:inline-block; font-size:11px; background-color:white" type="text" value="">
 							<select class="js_select_element_item" name="" style="display:inline-block; font-size:11px;width:18px">
+								<option></option>
 								<option>R&D Contract</option>
 								<option>Design Collaboration</option>
 								<option>Joint Distribution</option>
@@ -302,7 +310,7 @@
 						</div>
 				<%
 					}
-					if(values==null && userValues==null){
+					if(values==null && userValues==null && isEditMode){
 				%>
 						<div class="edit_item js_element_item" itemName="KeyActivities" style="color:blue;font-size:11px">
 							<span class="js_view_element_item" style="display:none">
@@ -348,6 +356,7 @@
 							if(isEditMode){
 							%>
 								<select class="js_select_element_item" name="txtKeyResourcesItem" style="display:none; font-size:11px;width:110px">
+									<option></option>
 									<option <%if(values[i].equals("Recycle")){ %>selected<%} %>>Recycle</option>
 									<option <%if(values[i].equals("Crowdsourcing")){ %>selected<%} %>>Crowdsourcing</option>
 									<option <%if(values[i].equals("Open Innovation")){ %>selected<%} %>>Open Innovation</option>
@@ -390,7 +399,7 @@
 						</div>
 					<%
 						}
-						if(values==null && userValues==null){
+						if(values==null && userValues==null && isEditMode){
 					%>
 							<div class="edit_item js_element_item" itemName="KeyResources" style="color:blue;font-size:11px">
 								<span class="js_view_element_item" style="display:none">
@@ -402,6 +411,7 @@
 								</span>
 								<input class="fieldline js_edit_element_item" name="" style="width:85px; display:inline-block; font-size:11px; background-color:white" type="text" value="">
 								<select class="js_select_element_item" name="" style="display:inline-block; font-size:11px;width:18px">
+									<option></option>
 									<option>Recycle</option>
 									<option>Crowdsourcing</option>
 									<option>Open Innovation</option>
@@ -446,7 +456,7 @@
 						</div>
 				<%
 					}
-					if(userValues==null){
+					if(userValues==null && isEditMode){
 				%>
 						<div class="edit_item js_element_item" itemName="ValuePropositions" style="color:blue;font-size:11px">
 							<span class="js_view_element_item" style="display:none">
@@ -486,6 +496,7 @@
 							if(isEditMode){
 							%>
 								<select class="js_select_element_item" name="txtCustomerRelationshipsItem" style="display:none; font-size:11px;width:110px">
+									<option></option>
 									<option <%if(values[i].equals("Customer Participation")){ %>selected<%} %>>Customer Participation</option>
 									<option <%if(values[i].equals("Reward")){ %>selected<%} %>>Reward</option>
 									<option <%if(values[i].equals("Upgrade")){ %>selected<%} %>>Upgrade</option>
@@ -531,7 +542,7 @@
 						</div>
 					<%
 						}
-						if(values==null && userValues==null){
+						if(values==null && userValues==null && isEditMode){
 					%>
 							<div class="edit_item js_element_item" itemName="CustomerRelationships" style="color:blue;font-size:11px">
 								<span class="js_view_element_item" style="display:none">
@@ -543,6 +554,7 @@
 								</span>
 								<input class="fieldline js_edit_element_item" name="" style="width:85px; display:inline-block; font-size:11px; background-color:white" type="text" value="">
 								<select class="js_select_element_item" name="" style="display:inline-block; font-size:11px;width:18px">
+									<option></option>
 									<option>Customer Participation</option>
 									<option>Reward</option>
 									<option>Upgrade</option>
@@ -587,6 +599,7 @@
 							if(isEditMode){
 							%>
 								<select class="js_select_element_item" name="txtChannelsItem" style="display:none; font-size:11px;width:110px">
+									<option></option>
 									<option <%if(values[i].equals("Experience Shop")){ %>selected<%} %>>Experience Shop</option>
 									<option <%if(values[i].equals("Shop in Shop")){ %>selected<%} %>>Shop in Shop</option>
 									<option <%if(values[i].equals("Delivery")){ %>selected<%} %>>Delivery</option>
@@ -632,7 +645,7 @@
 						</div>
 					<%
 						}
-						if(values==null && userValues==null){
+						if(values==null && userValues==null && isEditMode){
 					%>
 							<div class="edit_item js_element_item" itemName="Channels" style="color:blue;font-size:11px">
 								<span class="js_view_element_item" style="display:none">
@@ -644,6 +657,7 @@
 								</span>
 								<input class="fieldline js_edit_element_item" name="" style="width:85px; display:inline-block; font-size:11px; background-color:white" type="text" value="">
 								<select class="js_select_element_item" name="" style="display:inline-block; font-size:11px;width:18px">
+									<option></option>
 									<option>Experience Shop</option>
 									<option>Shop in Shop</option>
 									<option>Delivery</option>
@@ -685,6 +699,7 @@
 							if(isEditMode){
 							%>
 								<select class="js_select_element_item" name="txtCustomerSegmentsItem" style="display:none; font-size:11px;width:110px">
+									<option></option>
 									<option <%if(values[i].equals("Segment Expansion")){ %>selected<%} %>>Segment Expansion</option>
 									<option <%if(values[i].equals("Geographical Expansion")){ %>selected<%} %>>Geographical Expansion</option>
 									<option <%if(values[i].equals("Long-Tail Targeting")){ %>selected<%} %>>Long-Tail Targeting</option>
@@ -728,7 +743,7 @@
 						</div>
 				<%
 					}
-					if(values==null && userValues==null){
+					if(values==null && userValues==null && isEditMode){
 				%>
 						<div class="edit_item js_element_item" itemName="CustomerSegments" style="color:blue;font-size:11px">
 							<span class="js_view_element_item" style="display:none">
@@ -740,6 +755,7 @@
 							</span>
 							<input class="fieldline js_edit_element_item" name="" style="width:85px; display:inline-block; font-size:11px; background-color:white" type="text" value="">
 							<select class="js_select_element_item" name="" style="display:inline-block; font-size:11px;width:18px">
+								<option></option>
 								<option>Segment Expansion</option>
 								<option>Geographical Expansion</option>
 								<option>Long-Tail Targeting</option>
@@ -827,7 +843,7 @@
 						</div>
 				<%
 					}
-					if(values==null && userValues==null){
+					if(values==null && userValues==null && isEditMode){
 				%>
 						<div class="edit_item js_element_item" itemName="CostStructure" style="color:blue;font-size:11px">
 							<span class="js_view_element_item" style="display:none">
@@ -869,6 +885,7 @@
 							if(isEditMode){
 							%>
 								<select class="js_select_element_item" name="txtRevenueStreamsItem" style="display:none; font-size:11px;width:110px">
+									<option></option>
 									<option <%if(values[i].equals("Recycle")){ %>selected<%} %>>Recycle</option>
 									<option <%if(values[i].equals("Crowdsourcing")){ %>selected<%} %>>Crowdsourcing</option>
 									<option <%if(values[i].equals("Open Innovation")){ %>selected<%} %>>Open Innovation</option>
@@ -911,7 +928,7 @@
 						</div>
 				<%
 					}
-					if(values==null && userValues==null){
+					if(values==null && userValues==null && isEditMode){
 				%>
 						<div class="edit_item js_element_item" itemName="RevenueStreams" style="color:blue;font-size:11px">
 							<span class="js_view_element_item" style="display:none">
@@ -923,6 +940,7 @@
 							</span>
 							<input class="fieldline js_edit_element_item" name="" style="width:85px; display:inline-block; font-size:11px; background-color:white" type="text" value="">
 							<select class="js_select_element_item" name="" style="display:inline-block; font-size:11px;width:18px">
+								<option></option>
 								<option>Recycle</option>
 								<option>Crowdsourcing</option>
 								<option>Open Innovation</option>

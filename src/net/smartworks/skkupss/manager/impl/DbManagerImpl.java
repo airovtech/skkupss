@@ -28,6 +28,7 @@ import net.smartworks.skkupss.model.db.Db_ServiceSpace;
 import net.smartworks.skkupss.model.db.Db_ServiceSpaceCond;
 import net.smartworks.skkupss.model.db.Db_ValueSpace;
 import net.smartworks.skkupss.model.db.Db_ValueSpaceCond;
+import net.smartworks.util.SmartUtil;
 
 import org.springframework.util.StringUtils;
 
@@ -280,7 +281,7 @@ public class DbManagerImpl implements IDbManager {
 				dbCond.setPageNo(cond.getPageNo());
 				dbCond.setPageSize(cond.getPageSize());
 			}
-			if (cond.getSearchKey() != null) {
+			if (!SmartUtil.isBlankObject(cond.getSearchKey())) {
 				dbCond.setSearchKey(cond.getSearchKey());
 			}
 			if (cond.getOrders() != null) {
@@ -434,6 +435,11 @@ public class DbManagerImpl implements IDbManager {
 		dao.removeValueSpaceByProductId(userId, id);
 		dao.removeProductService(userId, id);
 		
+	}
+	@Override
+	public ProductService[] getProductServiceWithSelectedSpace(String userId, String spaceType, String[] psIds) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

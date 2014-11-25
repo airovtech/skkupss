@@ -400,7 +400,7 @@ li.fvrt_item:hover .check_option {display:block}
 
 /* CommentsBox added by ysjung */
 tr.instance_list {}
-tr.instance_list:hover {background-color:#fff7eb; cursor:pointer;text-decoration: none!important}
+tr.instance_list:hover {cursor:pointer;text-decoration: none!important}
 tr.instance_list .user_actions{display:none}
 tr.instance_list:hover .user_actions{display:block}
 

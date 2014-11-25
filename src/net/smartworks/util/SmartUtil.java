@@ -42,6 +42,21 @@ public class SmartUtil {
 		super();
 	}
 
+	public static int getNumOfValidStrings(String[] strings){
+		int count = 0;
+		for(int i=0; !SmartUtil.isBlankObject(strings) && i<strings.length; i++){
+			if(!SmartUtil.isBlankObject(strings[i])) 
+				count++;
+		}
+		return count;
+	}
+
+	public static void appendValidStringsToList(String[] strings, List<String> stringList){
+		for(int i=0; !SmartUtil.isBlankObject(strings) && i<strings.length; i++){
+			if(!SmartUtil.isBlankObject(strings[i])) 
+				stringList.add(strings[i]);
+		}
+	}	
 
 	public static String[] getStringArray(Object object){
 		if(object==null) return null;

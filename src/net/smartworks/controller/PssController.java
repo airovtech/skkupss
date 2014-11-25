@@ -23,6 +23,7 @@ import net.smartworks.skkupss.model.DefaultSpace;
 import net.smartworks.skkupss.model.ProductService;
 import net.smartworks.skkupss.model.RequestParams;
 import net.smartworks.skkupss.model.ServiceSpace;
+import net.smartworks.skkupss.model.SimilarityMatrix;
 import net.smartworks.skkupss.model.SortingField;
 import net.smartworks.skkupss.model.ValueSpace;
 import net.smartworks.util.ServiceUtil;
@@ -118,8 +119,6 @@ public class PssController {
 			}else{
 				requestParams.setSpaceType(ProductService.PSS_SPACE_VALUE);				
 			}
-
-
 			
 			Map<String, Object> frmInstanceListPaging = (Map<String, Object>)requestBody.get("frmInstanceListPaging");
 			Map<String, Object> frmWorkHourListPaging = (Map<String, Object>)requestBody.get("frmWorkHourListPaging");
@@ -170,6 +169,34 @@ public class PssController {
 		String href = (String)requestBody.get("href");
 		ModelAndView mnv = new ModelAndView();
 		mnv.addObject("requestParams", requestParams);
+		mnv.setViewName(href);
+		return mnv;
+
+	}
+
+	@RequestMapping(value = "/calculate_ps_similarities", method = RequestMethod.POST)
+	@ResponseStatus(HttpStatus.OK)
+	public ModelAndView calculatePsSimilarities(@RequestBody Map<String, Object> requestBody, HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		SimilarityMatrix[][] psSimilarities = null;
+		try{
+			
+			List<String> psIdList = (ArrayList<String>)requestBody.get("psIds");
+			if(psIdList!=null){
+				String[] psIds = new String[psIdList.size()];
+				psIdList.toArray(psIds);
+				psSimilarities = ManagerFactory.getInstance().getServiceManager().caculatePsSimilarities(psIds, ProductService.PSS_SPACE_VALUE);
+
+			}
+		}catch (Exception e){
+			// Exception Handling Required
+			e.printStackTrace();
+			return null;			
+			// Exception Handling Required			
+		}
+		String href = (String)requestBody.get("href");
+		ModelAndView mnv = new ModelAndView();
+		mnv.addObject("psSimilarities", psSimilarities);
 		mnv.setViewName(href);
 		return mnv;
 

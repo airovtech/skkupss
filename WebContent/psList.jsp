@@ -35,11 +35,10 @@ try{
 		paramsJson["isUserMode"] = isUserMode;
 		var workId = iworkList.attr('workId');
 		paramsJson["href"] = "psInstanceList.jsp";
+		console.log('forms=', forms);
 		for(var i=0; i<forms.length; i++){
 			var form = $(forms[i]);
-			if(form.attr('name') !== "frmSearchInstance"){
-				paramsJson[form.attr('name')] = mergeObjects(form.serializeObject(), SmartWorks.GridLayout.serializeObject(form));
-			}
+			paramsJson[form.attr('name')] = mergeObjects(form.serializeObject(), SmartWorks.GridLayout.serializeObject(form));
 		}
 		if(isEmpty(progressSpan)) progressSpan = iworkList.find('.js_search_filter_page').next('span.js_progress_span:first');
 		getIntanceList(paramsJson, progressSpan, isGray);		
@@ -65,6 +64,12 @@ try{
 						<div class="title_line_btns">
 							<div class="icon_btn_start">
 								<a href="newProductService.jsp" class="js_create_new_work icon_btn_tail">새항목 등록하기</a>
+							</div>
+							<div class="icon_btn_start">
+								<a href="newProductService.jsp" class="js_eyeball_comparison icon_btn_tail">육안 비교</a>
+							</div>
+							<div class="icon_btn_start">
+								<a href="newProductService.jsp" class="js_similarity_calculation icon_btn_tail">유사도 비교</a>
 							</div>
 						</div>
 					

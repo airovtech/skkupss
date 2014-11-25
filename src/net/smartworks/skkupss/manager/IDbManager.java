@@ -8,23 +8,20 @@
 
 package net.smartworks.skkupss.manager;
 
-import net.smartworks.skkupss.model.BizModelSpace;
-import net.smartworks.skkupss.model.BizModelSpaceCond;
 import net.smartworks.skkupss.model.ProductService;
 import net.smartworks.skkupss.model.ProductServiceCond;
-import net.smartworks.skkupss.model.ServiceSpace;
-import net.smartworks.skkupss.model.ServiceSpaceCond;
-import net.smartworks.skkupss.model.ValueSpace;
-import net.smartworks.skkupss.model.ValueSpaceCond;
 
 public interface IDbManager {
 
 	public int getProductServiceWithSelectedSpaceSize(String userId, String spaceType, ProductServiceCond cond) throws Exception;
 	public ProductService[] getProductServiceWithSelectedSpace(String userId, String spaceType, ProductServiceCond cond) throws Exception;
+
+	public ProductService[] getProductServiceWithSelectedSpace(String userId, String spaceType, String[] psIds) throws Exception;
 	
 	public ProductService getProductService(String userId, String id) throws Exception;
 	public String setProductService(String userId, ProductService productService) throws Exception;
 	public void removeProductService(String userId, String id) throws Exception;
+	
 	
 	/*	public ProductService[] getProductServices(String userId, ProductServiceCond cond) throws Exception;
 	

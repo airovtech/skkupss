@@ -119,12 +119,16 @@ $(function() {
 	});
 	
 	$('select.js_select_element_item').live('change', function(e) {
-			var input = $(targetElement(e));
-			var selectValue = input.find('option:selected').text();
+		var input = $(targetElement(e));
+		var selectValue = input.find('option:selected').text();
+		if(selectValue === ''){
+			input.parents('.js_element_item:first').find('.js_remove_element_item').click();
+		}else{
 			input.css({"width": "110px"}).prevAll('.js_edit_element_item').remove();
 			input.hide().prevAll('.js_view_element_item').show().find('.js_action_element_item').attr('title', selectValue).text(selectValue);
 			input.parents('.js_element_item:first').css({"color": "red"});
 			input.attr('name', "txt" + input.parents('.js_element_item:first').attr('itemName') + "Item");
+		}
 	});
 	
 
@@ -132,6 +136,34 @@ $(function() {
 		var input = $(targetElement(e));
 		var progressSpan = input.siblings('.js_progress_span:first');
 		selectListParam(progressSpan, false);
+		return false;
+	});
+
+	$('a.js_similarity_calculation').live('click',function(e) {
+		var input = $(targetElement(e));
+		
+		var psIds  = $("#iwork_instance_list_page tr .js_check_instance:checked").attr('psId');
+
+		if(isEmpty(psIds) || psIds.length<=1){
+			smartPop.showInfo(smartPop.WARN, "유사도 비교는 2개이상의 항목을 선택하여야 합니다. 다시 선택하고 실해하여 주시기 바랍니다!", null);
+			return false;
+		}
+		var paramsJson = {};
+		paramsJson["psIds"] = psIds;
+		paramsJson["href"] = "psSimilarityMatrix.jsp";
+		console.log(JSON.stringify(paramsJson));
+		smartPop.progressCenter();
+		$.ajax({
+			url : "calculate_ps_similarities.sw",
+			contentType : 'application/json',
+			type : 'POST',
+			data : JSON.stringify(paramsJson),
+			success : function(data, status, jqXHR) {
+				$('#iwork_instance_list_page').html(data);
+				smartPop.closeProgress();
+			}
+		});
+		
 		return false;
 	});
 

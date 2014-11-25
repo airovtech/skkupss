@@ -8,6 +8,7 @@ import net.smartworks.util.SmartUtil;
 
 public class BizModelSpace{
 
+	public static final int TOTAL_STRATEGIES_TYPES = 8;
 	
 	private String id;
 	private String psId;
@@ -141,6 +142,37 @@ public class BizModelSpace{
 	}
 	public void setRevenueStreamsUser(String[] revenueStreamsUser) {
 		this.revenueStreamsUser = revenueStreamsUser;
+	}
+
+	public int[] getNumOfStrategies(){
+		int[] numOfStrategies = new int[TOTAL_STRATEGIES_TYPES+1];
+		numOfStrategies[0] = SmartUtil.getNumOfValidStrings(this.customerSegments);
+		numOfStrategies[1] = SmartUtil.getNumOfValidStrings(this.customerRelationships);
+		numOfStrategies[2] = SmartUtil.getNumOfValidStrings(this.channels);
+		numOfStrategies[3] = SmartUtil.getNumOfValidStrings(this.keyActivities);
+		numOfStrategies[4] = SmartUtil.getNumOfValidStrings(this.keyResources);
+		numOfStrategies[5] = SmartUtil.getNumOfValidStrings(this.keyPartners);
+		numOfStrategies[6] = SmartUtil.getNumOfValidStrings(this.costStructure);
+		numOfStrategies[7] = SmartUtil.getNumOfValidStrings(this.revenueStreams);
+		numOfStrategies[TOTAL_STRATEGIES_TYPES] = 0;
+		return numOfStrategies;
+	}
+	
+	public String[] getStrategies(){
+		List<String> strategiesList = new ArrayList<String>();
+		SmartUtil.appendValidStringsToList(this.customerSegments, strategiesList);
+		SmartUtil.appendValidStringsToList(this.customerRelationships, strategiesList);
+		SmartUtil.appendValidStringsToList(this.channels, strategiesList);
+		SmartUtil.appendValidStringsToList(this.keyActivities, strategiesList);
+		SmartUtil.appendValidStringsToList(this.keyResources, strategiesList);
+		SmartUtil.appendValidStringsToList(this.keyPartners, strategiesList);
+		SmartUtil.appendValidStringsToList(this.costStructure, strategiesList);
+		SmartUtil.appendValidStringsToList(this.revenueStreams, strategiesList);
+		
+		String[] strategies = new String[strategiesList.size()+1];
+		strategiesList.toArray(strategies);
+		strategies[strategiesList.size()] = null;
+		return strategies;
 	}
 	
 	public static BizModelSpace createBizModelSpace(Map<String, Object> frmSpaceBizModel){

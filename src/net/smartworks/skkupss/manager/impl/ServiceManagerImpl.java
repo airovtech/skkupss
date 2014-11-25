@@ -18,11 +18,19 @@ import javax.servlet.http.HttpServletRequest;
 import net.smartworks.common.Order;
 import net.smartworks.factory.ManagerFactory;
 import net.smartworks.skkupss.manager.IServiceManager;
+import net.smartworks.skkupss.model.BizModelSpace;
 import net.smartworks.skkupss.model.InstanceList;
 import net.smartworks.skkupss.model.ProductService;
 import net.smartworks.skkupss.model.ProductServiceCond;
 import net.smartworks.skkupss.model.RequestParams;
+import net.smartworks.skkupss.model.ServiceSpace;
+import net.smartworks.skkupss.model.SimilarityMatrix;
 import net.smartworks.skkupss.model.SortingField;
+import net.smartworks.skkupss.model.ValueSpace;
+import net.smartworks.skkupss.smcal.SimBizModel;
+import net.smartworks.skkupss.smcal.SimService;
+import net.smartworks.skkupss.smcal.SimValue;
+import net.smartworks.util.SmartUtil;
 
 import org.springframework.stereotype.Service;
 
@@ -60,12 +68,12 @@ public class ServiceManagerImpl implements IServiceManager {
 
 		//ProductService의 ProductService.FILED_NAME, ProductService.FILED_LAST_MODIFIED_USER, ProductService.FILED_LAST_MODIFIED_DATE만 정렬함 
 		SortingField sortingField = params.getSortingField();
-//		if (sortingField != null) {
-//			String fieldId = sortingField.getFieldId();
-//			boolean isAsc = sortingField.isAscending();
-//			Order order = new Order(fieldId, isAsc);
-//			productServiceCond.setOrders(new Order[]{order});
-//		}
+		if (sortingField != null) {
+			String fieldId = sortingField.getFieldId();
+			boolean isAsc = sortingField.isAscending();
+			Order order = new Order(fieldId, isAsc);
+			productServiceCond.setOrders(new Order[]{order});
+		}
 
 		ProductService[] productServices = null;
 		try{
@@ -189,6 +197,53 @@ public class ServiceManagerImpl implements IServiceManager {
 			return null;			
 			// Exception Handling Required			
 		}
+	}
+
+	@Override
+	public SimilarityMatrix[][] caculatePsSimilarities(String[] psIds, String spaceType) throws Exception {
+		SimilarityMatrix[][] psSimilarities = null;
+		
+		try{
+			ProductService[] productServices = ManagerFactory.getInstance().getDbManager().getProductServiceWithSelectedSpace(SmartUtil.getUserId(), spaceType, psIds);
+			if(SmartUtil.isBlankObject(productServices)) return null;
+			
+			for(int i=0; i<productServices.length; i++){
+				for(int j=0; j<productServices.length; j++){		
+					SimilarityMatrix sm = new SimilarityMatrix();
+					sm.setSpaceType(ProductService.getSpaceType(spaceType));
+					sm.setSourcePsId(productServices[i].getId());
+					sm.setTargetPsId(productServices[j].getId());
+
+					ProductService source = productServices[i];
+					ProductService target = productServices[j];
+
+					switch(ProductService.getSpaceType(spaceType)){
+					case ProductService.SPACE_TYPE_VALUE:
+						ValueSpace sourceValue = source.getValueSpace();
+						ValueSpace targetValue = target.getValueSpace();
+						if(!SmartUtil.isBlankObject(sourceValue) && !SmartUtil.isBlankObject(targetValue))
+							sm.setSimilarity((new SimValue(sourceValue.getNumOfValues(), sourceValue.getValues(), targetValue.getNumOfValues(), targetValue.getValues())).calculateSimularity());
+						break;
+					case ProductService.SPACE_TYPE_SERVICE:
+						ServiceSpace sourceService = source.getServiceSpace();
+						ServiceSpace targetService = target.getServiceSpace();
+						if(!SmartUtil.isBlankObject(sourceService) && !SmartUtil.isBlankObject(targetService))
+							sm.setSimilarity((new SimService(sourceService.getNumOfActs(), targetService.getNumOfActs())).calculateSimularity());
+						break;
+					case ProductService.SPACE_TYPE_BIZ_MODEL:
+						BizModelSpace sourceBizModel = source.getBizModelSpace();
+						BizModelSpace targetBizModel = target.getBizModelSpace();
+						if(!SmartUtil.isBlankObject(sourceBizModel) && !SmartUtil.isBlankObject(targetBizModel))
+							sm.setSimilarity((new SimBizModel(sourceBizModel.getNumOfStrategies(), sourceBizModel.getStrategies(), targetBizModel.getNumOfStrategies(), targetBizModel.getStrategies())).calculateSimularity());
+						break;
+					}
+				}
+			}
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		
+		return psSimilarities;
 	}
 	
 
