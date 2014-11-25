@@ -20,11 +20,11 @@ public interface IServiceManager {
 
 	public InstanceList getProductInstanceList(RequestParams params) throws Exception;
 	
-	public String setProductService(String userId, ProductService productService) throws Exception;
+	public String setProductService(String userId, ProductService productService, int spaceType) throws Exception;
 	
 	public void removeProductService(String psId) throws Exception;
 	
-	public ProductService getProductService(String psId) throws Exception;
+	public ProductService getProductService(String psId, int spaceType) throws Exception;
 	
 	public RequestParams setInstanceListParams(Map<String, Object> requestBody, HttpServletRequest request) throws Exception;
 }

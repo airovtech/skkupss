@@ -42,6 +42,25 @@ public class SmartUtil {
 		super();
 	}
 
+
+	public static String[] getStringArray(Object object){
+		if(object==null) return null;
+		
+		if(object instanceof String)
+			return new String[]{(String)object};
+		
+		String[] values = null;
+		if(object instanceof ArrayList){
+			List<String> stringList = (ArrayList<String>)object;
+			values = new String[stringList.size()];
+			stringList.toArray(values);
+		}
+		return values;
+	}
+
+	public static String getUserId(){
+		return "cdiuser@skku.edu";
+	}
 	public static String combineStrings(String first, String second){
 		if(SmartUtil.isBlankObject(first)) return second;
 		if(SmartUtil.isBlankObject(second)) return first;

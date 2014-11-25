@@ -166,7 +166,8 @@
 		<result property="keyResourcesUser" column="keyResourcesUser"/>
 		<result property="keyPartners" column="keyPartners"/>
 		<result property="keyPartnersUser" column="keyPartnersUser"/>
-		<result property="costStructure" column="costStructure"/>
+		<result property="keyPartnersUser" column="keyPartnersUser"/>
+		<result property="valuePropositionsUser" column="valuePropositionsUser"/>
 		<result property="costStructureUser" column="costStructureUser"/>
 		<result property="revenueStreams" column="revenueStreams"/>
 		<result property="revenueStreamsUser" column="revenueStreamsUser"/>

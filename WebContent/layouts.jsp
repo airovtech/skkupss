@@ -122,6 +122,7 @@ try{
 <script type="text/javascript" src="js/sw/sw-act-settings.js?v=3.5.3"></script>
 <script type="text/javascript" src="js/sw/sw-act-builder.js?v=3.5.3"></script>
 <script type="text/javascript" src="js/sw/sw-act-mail.js?v=3.5.3"></script>
+<script type="text/javascript" src="js/sw/sw-act-pss.js?v=3.5.3.1" ></script>
 
 <script type="text/javascript" src='js/smartform/smartworks.js?v=3.5.3'></script>
 <script type="text/javascript" src='js/smartform/sw-form-layout.js?v=3.5.3'></script>

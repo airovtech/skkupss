@@ -1,5 +1,11 @@
 package net.smartworks.skkupss.model;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import net.smartworks.util.SmartUtil;
+
 public class ValueSpace{
 
 	private String id;
@@ -74,4 +80,18 @@ public class ValueSpace{
 		this.epistemic = epistemic;
 	}
 	
+	public static ValueSpace createValueSpace(Map<String, Object> frmSpaceValue){
+		if(frmSpaceValue==null) return null;
+		
+		ValueSpace valueSpace = new ValueSpace();		
+		valueSpace.setEconomical(SmartUtil.getStringArray((Object)frmSpaceValue.get("txtEconomicalItem")));		
+		valueSpace.setEcological(SmartUtil.getStringArray((Object)frmSpaceValue.get("txtEcologicalItem")));
+		valueSpace.setFunction(SmartUtil.getStringArray((Object)frmSpaceValue.get("txtFunctionItem")));
+		valueSpace.setExtrinsicSocial(SmartUtil.getStringArray((Object)frmSpaceValue.get("txtExtrinsicSocialItem")));
+		valueSpace.setActiveEmotional(SmartUtil.getStringArray((Object)frmSpaceValue.get("txtActiveEmotionalItem")));
+		valueSpace.setReactiveEmotional(SmartUtil.getStringArray((Object)frmSpaceValue.get("txtReactiveEmotionalItem")));
+		valueSpace.setIntrinsicSocial(SmartUtil.getStringArray((Object)frmSpaceValue.get("txtIntrinsicSocialItem")));
+		valueSpace.setEpistemic(SmartUtil.getStringArray((Object)frmSpaceValue.get("txtEpistemicItem")));
+		return valueSpace;
+	}
 }

@@ -60,6 +60,7 @@ CREATE TABLE bizModelSpace (
 	keyResourcesUser character varying(4000),
 	keyPartners character varying(4000),
 	keyPartnersUser character varying(4000),
+	valuePropositionsUser character varying(4000),
 	costStructure character varying(4000),
 	costStructureUser character varying(4000),
 	revenueStreams character varying(4000),

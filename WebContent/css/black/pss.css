@@ -1,2 +1,18 @@
 
 .service_bul {background: url("../../images/pss/service-bullet.png") no-repeat 0 0 transparent; height:20px; width:20px;}
+
+.kpi_tab_section { position:relative; margin: 10px 0}
+.kpi_tab_area { display:inline-block}
+.kpi_tab_area tr { margin:0 15px}
+.kpi_tab_area th {background: url("../../images/pss/kpi_tab_bg.jpg") repeat-x scroll 0 0 ;border-left: 1px solid #bbbaba; border-right: 1px solid #bbbaba; border-bottom: 1px solid #bbbaba; border-top-left-radius: 3px; border-top-right-radius: 3px; color: #323232; font-size: 12px;
+					text-align:center; line-height: 120%; overflow: hidden; padding: 6px 7px 1px; width: auto; margin:0 1px 5px}
+.kpi_tab_area th:hover {background: url("../../images/pss/kpi_tab_hover.jpg") repeat-x scroll 0 0 ; color:#3a729b}
+.kpi_tab_area th.current {background: url("../../images/pss/kpi_tab_hover.jpg") repeat-x scroll 0 0 ;height:15px; background-color:#dfeffc ; border-bottom:1px solid #dfeffc}
+.kpi_tab_area th a { display:inline-block; font-size:11px; font-weight:normal}
+.kpi_tab_area th a:hover {color:#3a729b!important}
+.kpi_tab_area th.current a {color:#23579e!important;font-size:13px;font-weight:bold}
+
+td.edit_action .edit_item > span > .edit_actions{display:none} 
+td.edit_action .edit_item:hover > span > .edit_actions{display:inline-block; cursor:pointer;} 
+td.edit_action .service_item {height:24px} 
+td.edit_action .service_item:hover{height:auto!important} 

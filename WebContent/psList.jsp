@@ -10,7 +10,7 @@ try{
 		else
 			smartPop.progressCont(progressSpan);
 		console.log(JSON.stringify(paramsJson));
-		var url = "setInstanceListParams.jsp";
+		var url = "set_instance_list_params.sw";
 		$.ajax({
 			url : url,
 			contentType : 'application/json',
@@ -34,22 +34,12 @@ try{
 		var isUserMode = iworkList.attr('isUserMode');
 		paramsJson["isUserMode"] = isUserMode;
 		var workId = iworkList.attr('workId');
-		paramsJson["href"] = "jsp/content/work/list/iwork_instance_list.jsp?workId=" + workId;
-		var searchFilters = iworkList.find('form[name="frmSearchFilter"]');
+		paramsJson["href"] = "psInstanceList.jsp";
 		for(var i=0; i<forms.length; i++){
 			var form = $(forms[i]);
-			if(form.attr('name') !== "frmSearchFilter" && !(!isEmpty(searchFilters) && form.attr('name') === "frmSearchInstance")){
+			if(form.attr('name') !== "frmSearchInstance"){
 				paramsJson[form.attr('name')] = mergeObjects(form.serializeObject(), SmartWorks.GridLayout.serializeObject(form));
 			}
-		}
-		if(!isEmpty(searchFilters)){
-			var searchFilterArray = new Array();
-			for(var i=0; i<searchFilters.length; i++){
-				var searchFilter = $(searchFilters[i]);
-				if(searchFilter.is(':visible'))
-					searchFilterArray.push(searchFilter.serializeObject());
-			}
-			paramsJson['frmSearchFilters'] = searchFilterArray;
 		}
 		if(isEmpty(progressSpan)) progressSpan = iworkList.find('.js_search_filter_page').next('span.js_progress_span:first');
 		getIntanceList(paramsJson, progressSpan, isGray);		

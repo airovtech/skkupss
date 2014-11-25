@@ -44,7 +44,10 @@ public class ServiceManagerImpl implements IServiceManager {
 		//지정한 SPACE값만 가져다 준다.
 		String spaceType = params.getSpaceType();
 		
-		int totalSize = ManagerFactory.getInstance().getDbManager().getProductServiceWithSelectedSpaceSize("", spaceType, productServiceCond);
+		int totalSize = 0;
+		try{
+			totalSize = ManagerFactory.getInstance().getDbManager().getProductServiceWithSelectedSpaceSize("", spaceType, productServiceCond);
+		}catch (Exception e){}
 		
 		int pageSize = params.getPageSize();
 		int currentPage = params.getCurrentPage();
@@ -89,7 +92,7 @@ public class ServiceManagerImpl implements IServiceManager {
 	}
 
 	@Override
-	public String setProductService(String userId, ProductService productService) throws Exception {
+	public String setProductService(String userId, ProductService productService, int spaceType) throws Exception {
 		ManagerFactory.getInstance().getDbManager().setProductService("", productService);
 		return productService.getId();
 	}
@@ -100,7 +103,7 @@ public class ServiceManagerImpl implements IServiceManager {
 	}
 
 	@Override
-	public ProductService getProductService(String psId) throws Exception {
+	public ProductService getProductService(String psId, int spaceType) throws Exception {
 
 		ProductService productService = ManagerFactory.getInstance().getDbManager().getProductService("", psId);
 		return productService;

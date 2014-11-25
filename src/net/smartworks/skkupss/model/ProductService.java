@@ -26,11 +26,20 @@ public class ProductService{
 	public static final String FIELD_CREATED_USER 		= "createdUser";
 	public static final String FIELD_CREATED_DATE 		= "createdDate";
 
+	public static final int SPACE_TYPE_NONE = -1;
 	public static final int SPACE_TYPE_ALL = 0;
 	public static final int SPACE_TYPE_VALUE = 1;
-	public static final int SPACE_TYPE_SERVICE = 2;
-	public static final int SPACE_TYPE_BIZ_MODEL = 3;
-	
+	public static final int SPACE_TYPE_PRODUCT_SERVICE = 2;
+	public static final int SPACE_TYPE_PRODUCT = 3;	
+	public static final int SPACE_TYPE_SERVICE = 4;
+	public static final int SPACE_TYPE_TOUCH_POINT = 5;
+	public static final int SPACE_TYPE_CUSTOMER = 6;
+	public static final int SPACE_TYPE_BIZ_MODEL = 7;
+	public static final int SPACE_TYPE_ACTOR = 8;
+	public static final int SPACE_TYPE_SOCIETY = 9;
+	public static final int SPACE_TYPE_CONTEXT = 10;
+	public static final int SPACE_TYPE_TIME = 11;
+	public static final int SPACE_TYPE_ENVIRONMENT = 12;
 	
 	private int spaceType=SPACE_TYPE_ALL;
 	private String id;
