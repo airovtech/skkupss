@@ -127,4 +127,12 @@ $(function() {
 			input.attr('name', "txt" + input.parents('.js_element_item:first').attr('itemName') + "Item");
 	});
 	
+
+	$('select.js_select_space_name').live('change', function(e){
+		var input = $(targetElement(e));
+		var progressSpan = input.siblings('.js_progress_span:first');
+		selectListParam(progressSpan, false);
+		return false;
+	});
+
 });

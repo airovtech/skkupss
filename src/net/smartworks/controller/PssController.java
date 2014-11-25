@@ -112,6 +112,15 @@ public class PssController {
 				requestParams.setSortingField(sortingField);
 			}
 
+			Map<String, Object> frmSpaceName = (Map<String, Object>)requestBody.get("frmSpaceName");
+			if(frmSpaceName != null){
+				requestParams.setSpaceType((String)frmSpaceName.get("selSpaceName"));
+			}else{
+				requestParams.setSpaceType(ProductService.PSS_SPACE_VALUE);				
+			}
+
+
+			
 			Map<String, Object> frmInstanceListPaging = (Map<String, Object>)requestBody.get("frmInstanceListPaging");
 			Map<String, Object> frmWorkHourListPaging = (Map<String, Object>)requestBody.get("frmWorkHourListPaging");
 			Map<String, Object> frmCompanyEventListPaging = (Map<String, Object>)requestBody.get("frmCompanyEventListPaging");
