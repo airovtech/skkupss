@@ -8,6 +8,13 @@
 
 package net.smartworks.skkupss.manager.impl;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
 import net.smartworks.common.Order;
 import net.smartworks.factory.ManagerFactory;
 import net.smartworks.skkupss.manager.IServiceManager;
@@ -37,7 +44,10 @@ public class ServiceManagerImpl implements IServiceManager {
 		//지정한 SPACE값만 가져다 준다.
 		String spaceType = params.getSpaceType();
 		
-		int totalSize = ManagerFactory.getInstance().getDbManager().getProductServiceWithSelectedSpaceSize("", spaceType, productServiceCond);
+		int totalSize = 0;
+		try{
+			totalSize = ManagerFactory.getInstance().getDbManager().getProductServiceWithSelectedSpaceSize("", spaceType, productServiceCond);
+		}catch (Exception e){}
 		
 		int pageSize = params.getPageSize();
 		int currentPage = params.getCurrentPage();
@@ -82,7 +92,7 @@ public class ServiceManagerImpl implements IServiceManager {
 	}
 
 	@Override
-	public String setProductService(String userId, ProductService productService) throws Exception {
+	public String setProductService(String userId, ProductService productService, int spaceType) throws Exception {
 		ManagerFactory.getInstance().getDbManager().setProductService("", productService);
 		return productService.getId();
 	}
@@ -93,12 +103,88 @@ public class ServiceManagerImpl implements IServiceManager {
 	}
 
 	@Override
-	public ProductService getProductService(String psId) throws Exception {
+	public ProductService getProductService(String psId, int spaceType) throws Exception {
 
 		ProductService productService = ManagerFactory.getInstance().getDbManager().getProductService("", psId);
 		return productService;
 		
 	}
 
+	@Override
+	public RequestParams setInstanceListParams(Map<String, Object> requestBody, HttpServletRequest request) throws Exception {
+
+		try{
+			RequestParams requestParams = new RequestParams();
+			
+			String isUserMode = (String)requestBody.get("isUserMode");
+	
+			Map<String, Object> frmSearchInstance = (Map<String, Object>)requestBody.get("frmSearchInstance");
+			if(frmSearchInstance != null) {
+				String txtSearchInstance = (String)frmSearchInstance.get("txtSearchInstance");
+				requestParams.setSearchKey(txtSearchInstance);
+			}
+	
+			Map<String, Object> frmSortingField = (Map<String, Object>)requestBody.get("frmSortingField");
+			if(frmSortingField != null){
+				String hdnSortingFieldId = (String)frmSortingField.get("hdnSortingFieldId");
+				String hdnSortingIsAscending = (String)frmSortingField.get("hdnSortingIsAscending");
+				SortingField sortingField = new SortingField();
+				sortingField.setFieldId(hdnSortingFieldId);
+				sortingField.setAscending(Boolean.parseBoolean(hdnSortingIsAscending));
+				requestParams.setSortingField(sortingField);
+			}
+
+			Map<String, Object> frmInstanceListPaging = (Map<String, Object>)requestBody.get("frmInstanceListPaging");
+			Map<String, Object> frmWorkHourListPaging = (Map<String, Object>)requestBody.get("frmWorkHourListPaging");
+			Map<String, Object> frmCompanyEventListPaging = (Map<String, Object>)requestBody.get("frmCompanyEventListPaging");
+			Map<String, Object> frmApprovalLineListPaging = (Map<String, Object>)requestBody.get("frmApprovalLineListPaging");
+			Map<String, Object> frmWebServiceListPaging = (Map<String, Object>)requestBody.get("frmWebServiceListPaging");
+			Map<String, Object> frmExternalFormListPaging = (Map<String, Object>)requestBody.get("frmExternalFormListPaging");
+
+			Map<String, Object> existListPaging = new LinkedHashMap<String, Object>();
+
+			if(frmInstanceListPaging != null)
+				existListPaging = frmInstanceListPaging;
+			else if(frmWorkHourListPaging != null)
+				existListPaging = frmWorkHourListPaging;
+			else if(frmCompanyEventListPaging != null)
+				existListPaging = frmCompanyEventListPaging;
+			else if(frmApprovalLineListPaging != null)
+				existListPaging = frmApprovalLineListPaging;
+			else if(frmWebServiceListPaging != null)
+				existListPaging = frmWebServiceListPaging;
+			else if(frmExternalFormListPaging != null)
+				existListPaging = frmExternalFormListPaging;
+
+			String hdnCurrentPage = (String)existListPaging.get("hdnCurrentPage");
+			String selPageSize = (String)existListPaging.get("selPageSize");
+			boolean hdnNext10 = Boolean.parseBoolean((String)existListPaging.get("hdnNext10"));
+			boolean hdnNextEnd = Boolean.parseBoolean((String)existListPaging.get("hdnNextEnd"));
+			boolean hdnPrev10 = Boolean.parseBoolean((String)existListPaging.get("hdnPrev10"));
+			boolean hdnPrevEnd = Boolean.parseBoolean((String)existListPaging.get("hdnPrevEnd"));
+			if(hdnCurrentPage != null)
+				requestParams.setCurrentPage(Integer.parseInt(hdnCurrentPage));
+			if(selPageSize != null)
+				requestParams.setPageSize(Integer.parseInt(selPageSize));
+			if(hdnNext10)
+				requestParams.setPagingAction(RequestParams.PAGING_ACTION_NEXT10);
+			else if(hdnNextEnd)
+				requestParams.setPagingAction(RequestParams.PAGING_ACTION_NEXTEND);
+			else if(hdnPrev10)
+				requestParams.setPagingAction(RequestParams.PAGING_ACTION_PREV10);
+			else if(hdnPrevEnd)
+				requestParams.setPagingAction(RequestParams.PAGING_ACTION_PREVEND);
+
+			List<Map<String, Object>> frmSearchFilters = (ArrayList<Map<String, Object>>)requestBody.get("frmSearchFilters");
+
+			return requestParams;
+		}catch (Exception e){
+			// Exception Handling Required
+			e.printStackTrace();
+			return null;			
+			// Exception Handling Required			
+		}
+	}
+	
 
 }

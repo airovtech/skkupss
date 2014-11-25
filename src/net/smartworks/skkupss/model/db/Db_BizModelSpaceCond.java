@@ -59,6 +59,12 @@ public class Db_BizModelSpaceCond extends Cond {
 	public void setPsId(String psId) {
 		this.psId = psId;
 	}
+	public String getCustomerSegments() {
+		return customerSegments;
+	}
+	public void setCustomerSegments(String customerSegments) {
+		this.customerSegments = customerSegments;
+	}
 	public String getCustomerSegmentLike() {
 		return customerSegmentLike;
 	}

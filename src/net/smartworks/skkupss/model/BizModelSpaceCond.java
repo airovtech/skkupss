@@ -8,6 +8,10 @@
 
 package net.smartworks.skkupss.model;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import net.smartworks.common.Cond;
 
 public class BizModelSpaceCond extends Cond {
@@ -27,5 +31,4 @@ public class BizModelSpaceCond extends Cond {
 	public void setPsId(String psId) {
 		this.psId = psId;
 	}
-
 }

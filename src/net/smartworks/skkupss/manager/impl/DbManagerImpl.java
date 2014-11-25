@@ -133,6 +133,7 @@ public class DbManagerImpl implements IDbManager {
 				bizModelSpace.setKeyResourcesUser(makeStringWithDelimiters(bms.getKeyResourcesUser()));
 				bizModelSpace.setKeyPartners(makeStringWithDelimiters(bms.getKeyPartners()));
 				bizModelSpace.setKeyPartnersUser(makeStringWithDelimiters(bms.getKeyPartnersUser()));
+				bizModelSpace.setValuePropositionsUser(makeStringWithDelimiters(bms.getValuePropositionsUser()));
 				bizModelSpace.setCostStructure(makeStringWithDelimiters(bms.getCostStructure()));
 				bizModelSpace.setCostStructureUser(makeStringWithDelimiters(bms.getCostStructureUser()));
 				bizModelSpace.setRevenueStreams(makeStringWithDelimiters(bms.getRevenueStreams()));
@@ -407,13 +408,21 @@ public class DbManagerImpl implements IDbManager {
 		
 		String id = dao.setProductService(userId, dbPs[0]);
 		
-		if (dbPs[0].getValueSpace() != null)
-			dao.setValueSpace(userId, dbPs[0].getValueSpace());
-		if (dbPs[0].getServiceSpace() != null)
-			dao.setServiceSpace(userId, dbPs[0].getServiceSpace());
-		if (dbPs[0].getBizModelSpace() != null)
-			dao.setBizModelSpace(userId, dbPs[0].getBizModelSpace());
-		
+		if (dbPs[0].getValueSpace() != null){
+			Db_ValueSpace valueSpace = dbPs[0].getValueSpace();
+			valueSpace.setPsId(id);
+			dao.setValueSpace(userId, valueSpace);
+		}
+		if (dbPs[0].getServiceSpace() != null){
+			Db_ServiceSpace serviceSpace = dbPs[0].getServiceSpace();
+			serviceSpace.setPsId(id);
+			dao.setServiceSpace(userId, serviceSpace);
+		}
+		if (dbPs[0].getBizModelSpace() != null){
+			Db_BizModelSpace bizModelSpace = dbPs[0].getBizModelSpace();
+			bizModelSpace.setPsId(id);
+			dao.setBizModelSpace(userId, bizModelSpace);
+		}
 		return id;
 	}
 

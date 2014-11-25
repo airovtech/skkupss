@@ -24,6 +24,7 @@ public class Db_BizModelSpace {
 	private String keyResourcesUser;
 	private String keyPartners;
 	private String keyPartnersUser;
+	private String valuePropositionsUser;
 	private String costStructure;
 	private String costStructureUser;
 	private String revenueStreams;
@@ -112,6 +113,12 @@ public class Db_BizModelSpace {
 	}
 	public void setKeyPartnersUser(String keyPartnersUser) {
 		this.keyPartnersUser = keyPartnersUser;
+	}
+	public String getValuePropositionsUser() {
+		return valuePropositionsUser;
+	}
+	public void setValuePropositionsUser(String valuePropositionsUser) {
+		this.valuePropositionsUser = valuePropositionsUser;
 	}
 	public String getCostStructure() {
 		return costStructure;

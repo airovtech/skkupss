@@ -1,5 +1,11 @@
 package net.smartworks.skkupss.model;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import net.smartworks.util.SmartUtil;
+
 public class BizModelSpace{
 
 	
@@ -7,8 +13,8 @@ public class BizModelSpace{
 	private String psId;
 	private String[] customerSegments;
 	private String[] customerSegmentsUser;
-	private String[] CustomerRelationships;
-	private String[] CustomerRelationshipsUser;
+	private String[] customerRelationships;
+	private String[] customerRelationshipsUser;
 	private String[] channels;
 	private String[] channelsUser;
 	private String[] keyActivities;
@@ -17,6 +23,7 @@ public class BizModelSpace{
 	private String[] keyResourcesUser;
 	private String[] keyPartners;
 	private String[] keyPartnersUser;
+	private String[] valuePropositionsUser;
 	private String[] costStructure;
 	private String[] costStructureUser;
 	private String[] revenueStreams;
@@ -46,16 +53,16 @@ public class BizModelSpace{
 		this.customerSegmentsUser = customerSegmentsUser;
 	}
 	public String[] getCustomerRelationships() {
-		return CustomerRelationships;
+		return customerRelationships;
 	}
 	public void setCustomerRelationships(String[] customerRelationships) {
-		CustomerRelationships = customerRelationships;
+		this.customerRelationships = customerRelationships;
 	}
 	public String[] getCustomerRelationshipsUser() {
-		return CustomerRelationshipsUser;
+		return customerRelationshipsUser;
 	}
 	public void setCustomerRelationshipsUser(String[] customerRelationshipsUser) {
-		CustomerRelationshipsUser = customerRelationshipsUser;
+		this.customerRelationshipsUser = customerRelationshipsUser;
 	}
 	public String[] getChannels() {
 		return channels;
@@ -105,6 +112,12 @@ public class BizModelSpace{
 	public void setKeyPartnersUser(String[] keyPartnersUser) {
 		this.keyPartnersUser = keyPartnersUser;
 	}
+	public String[] getValuePropositionsUser() {
+		return valuePropositionsUser;
+	}
+	public void setValuePropositionsUser(String[] valuePropositionsUser) {
+		this.valuePropositionsUser = valuePropositionsUser;
+	}
 	public String[] getCostStructure() {
 		return costStructure;
 	}
@@ -130,4 +143,27 @@ public class BizModelSpace{
 		this.revenueStreamsUser = revenueStreamsUser;
 	}
 	
+	public static BizModelSpace createBizModelSpace(Map<String, Object> frmSpaceBizModel){
+		if(frmSpaceBizModel==null) return null;
+		
+		BizModelSpace bizModelSpace = new BizModelSpace();		
+		
+		bizModelSpace.setCustomerSegments(SmartUtil.getStringArray((Object)frmSpaceBizModel.get("txtCustomerSegmentsItem")));
+		bizModelSpace.setCustomerSegmentsUser(SmartUtil.getStringArray((Object)frmSpaceBizModel.get("txtCustomerSegmentsUserItem")));
+		bizModelSpace.setCustomerRelationships(SmartUtil.getStringArray((Object)frmSpaceBizModel.get("txtCustomerRelationshipsItem")));
+		bizModelSpace.setCustomerRelationshipsUser(SmartUtil.getStringArray((Object)frmSpaceBizModel.get("txtCustomerRelationshipsUserItem")));
+		bizModelSpace.setChannels(SmartUtil.getStringArray((Object)frmSpaceBizModel.get("txtChannelsItem")));
+		bizModelSpace.setChannelsUser(SmartUtil.getStringArray((Object)frmSpaceBizModel.get("txtChannelsUserItem")));
+		bizModelSpace.setKeyActivities(SmartUtil.getStringArray((Object)frmSpaceBizModel.get("txtKeyActivitiesItem")));
+		bizModelSpace.setKeyActivitiesUser(SmartUtil.getStringArray((Object)frmSpaceBizModel.get("txtKeyActivitiesUserItem")));
+		bizModelSpace.setKeyResources(SmartUtil.getStringArray((Object)frmSpaceBizModel.get("txtKeyResourcesItem")));
+		bizModelSpace.setKeyPartners(SmartUtil.getStringArray((Object)frmSpaceBizModel.get("txtKeyPartnersItem")));
+		bizModelSpace.setKeyPartnersUser(SmartUtil.getStringArray((Object)frmSpaceBizModel.get("txtKeyPartnersUserItem")));
+		bizModelSpace.setValuePropositionsUser(SmartUtil.getStringArray((Object)frmSpaceBizModel.get("txtValuePropositionsUserItem")));
+		bizModelSpace.setCostStructure(SmartUtil.getStringArray((Object)frmSpaceBizModel.get("txtCostStructureItem")));
+		bizModelSpace.setCostStructureUser(SmartUtil.getStringArray((Object)frmSpaceBizModel.get("txtCostStructureUserItem")));
+		bizModelSpace.setRevenueStreams(SmartUtil.getStringArray((Object)frmSpaceBizModel.get("txtRevenueStreamsItem")));
+		bizModelSpace.setRevenueStreamsUser(SmartUtil.getStringArray((Object)frmSpaceBizModel.get("txtRevenueStreamsUserItem")));
+		return bizModelSpace;
+	}
 }
