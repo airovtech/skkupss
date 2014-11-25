@@ -28,7 +28,7 @@
 	    	and ((a.name like '%'|| #{searchKey} ||'%') or (a.description like '%'|| #{searchKey} ||'%') or (a.lastModifiedUser like '%'|| #{searchKey} ||'%'))
 	    </if>
 	    <if test="orders != null">
-			ordery by ${orderQuery}
+			order by ${orderQuery}
 	    </if>
 	</select>
 	<resultMap id="productServiceValueResult" type="net.smartworks.skkupss.model.db.Db_ProductService">
@@ -79,7 +79,7 @@
 	    	and ((a.name like '%'|| #{searchKey} ||'%') or (a.description like '%'|| #{searchKey} ||'%') or (a.lastModifiedUser like '%'|| #{searchKey} ||'%'))
 	    </if>
 	    <if test="orders != null">
-			ordery by ${orderQuery}
+			order by ${orderQuery}
 	    </if>
 	</select>
 	<resultMap id="productServiceServiceResult" type="net.smartworks.skkupss.model.db.Db_ProductService">
@@ -128,7 +128,7 @@
 	    	and ((a.name like '%'|| #{searchKey} ||'%') or (a.description like '%'|| #{searchKey} ||'%') or (a.lastModifiedUser like '%'|| #{searchKey} ||'%'))
 	    </if>
 	    <if test="orders != null">
-			ordery by ${orderQuery}
+			order by ${orderQuery}
 	    </if>
 	</select>
 	<resultMap id="productServiceBizModelResult" type="net.smartworks.skkupss.model.db.Db_ProductService">
