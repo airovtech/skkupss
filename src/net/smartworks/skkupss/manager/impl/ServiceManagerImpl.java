@@ -80,6 +80,8 @@ public class ServiceManagerImpl implements IServiceManager {
 			boolean isAsc = sortingField.isAscending();
 			Order order = new Order(fieldId, isAsc);
 			productServiceCond.setOrders(new Order[]{order});
+		}else{
+			productServiceCond.setOrders(new Order[]{new Order(ProductService.FIELD_LAST_MODIFIED_DATE, false)});			
 		}
 
 		ProductService[] productServices = null;

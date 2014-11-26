@@ -120,7 +120,12 @@
  --%>						</div>
 						<div class="noti_in_s">
  							<span class="t_name"><img class="profile_size_s mb3 mr3" src="images/no_user_picture_min.jpg"/>CDI사용자</span>
- 							<div class="t_date"><%=new LocalDate(productService.getLastModifiedDate().getTime()).toLocalString()%></div>
+ 							<%
+ 							if(productService.getLastModifiedDate()!=null){%>
+ 								<div class="t_date"><%=new LocalDate(productService.getLastModifiedDate().getTime()).toLocalString()%></div>
+ 							<%
+ 							}
+ 							%>
  						</div>
 					</td>
 				</tr>
