@@ -80,7 +80,7 @@
 			for (ProductService productService : productServices) {
 				productService.setSpaceType(ProductService.getSpaceType(params.getSpaceType()));
 			%>
-				<tr class="instance_list js_work_instance_list js_inline_content" href="" psId="<%=productService.getId()%>">
+				<tr class="instance_list js_work_instance_list js_inline_content" href="" psId="<%=productService.getId()%>" psName="<%=productService.getName()%>">
 					<td class="tc"><input class="js_check_instance" name="chkSelectInstance" type="checkbox"/></td>
 					<td class="tc"><%=currentCount--%></td>
 					<td class="tc">

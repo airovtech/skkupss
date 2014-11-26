@@ -142,14 +142,21 @@ $(function() {
 	$('a.js_similarity_calculation').live('click',function(e) {
 		var input = $(targetElement(e));
 		
-		var psIds  = $("#iwork_instance_list_page tr .js_check_instance:checked").attr('psId');
-
+		var checkInstances  = $("#iwork_instance_list_page tr .js_check_instance:checked");
+		var psIds = new Array();
+		var psNames = new Array();
+		for(var i=0; i<checkInstances.length; i++){
+			psIds[i] = $(checkInstances[i]).parents('.js_work_instance_list:first').attr('psId');
+			psNames[i] = $(checkInstances[i]).parents('.js_work_instance_list:first').attr('psName');
+		}
+			
 		if(isEmpty(psIds) || psIds.length<=1){
-			smartPop.showInfo(smartPop.WARN, "À¯»çµµ ºñ±³´Â 2°³ÀÌ»óÀÇ Ç×¸ñÀ» ¼±ÅÃÇÏ¿©¾ß ÇÕ´Ï´Ù. ´Ù½Ã ¼±ÅÃÇÏ°í ½ÇÇØÇÏ¿© ÁÖ½Ã±â ¹Ù¶ø´Ï´Ù!", null);
+			smartPop.showInfo(smartPop.WARN, "ìœ ì‚¬ë„ ë¹„êµëŠ” 2ê°œì´ìƒì˜ í•­ëª©ì„ ì„ íƒí•˜ì—¬ì•¼ í•©ë‹ˆë‹¤. ë‹¤ì‹œ ì„ íƒí•˜ê³  ì‹¤í•´í•˜ì—¬ ì£¼ì‹œê¸° ë°”ëžë‹ˆë‹¤!", null);
 			return false;
 		}
 		var paramsJson = {};
 		paramsJson["psIds"] = psIds;
+		paramsJson["psNames"] = psNames;
 		paramsJson["href"] = "psSimilarityMatrix.jsp";
 		console.log(JSON.stringify(paramsJson));
 		smartPop.progressCenter();

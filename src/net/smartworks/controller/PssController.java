@@ -182,10 +182,13 @@ public class PssController {
 		try{
 			
 			List<String> psIdList = (ArrayList<String>)requestBody.get("psIds");
-			if(psIdList!=null){
+			List<String> psNameList = (ArrayList<String>)requestBody.get("psNames");
+			if(psIdList!=null && psNameList!=null){
 				String[] psIds = new String[psIdList.size()];
 				psIdList.toArray(psIds);
-				psSimilarities = ManagerFactory.getInstance().getServiceManager().caculatePsSimilarities(psIds, ProductService.PSS_SPACE_VALUE);
+				String[] psNames = new String[psNameList.size()];
+				psNameList.toArray(psNames);
+				psSimilarities = ManagerFactory.getInstance().getServiceManager().caculatePsSimilarities(psIds, psNames, ProductService.PSS_SPACE_VALUE);
 
 			}
 		}catch (Exception e){

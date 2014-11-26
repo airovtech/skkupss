@@ -53,6 +53,10 @@ try{
 <link href="css/ext/ext-all.css" type="text/css" rel="stylesheet" />
 <link href="css/fileuploader/fileuploader.css" type="text/css" rel="stylesheet"/>
 <link href="css/fullcalendar/fullcalendar.css" type="text/css" rel="stylesheet"/>
+
+<link rel="stylesheet" type="text/css" href="js/jqgrid/themes/redmond/jquery-ui-1.8.2.custom.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="js/jqgrid/themes/ui.jqgrid.css"  media="screen"/>
+
 <!-- <link href="smarteditor/css/default_kor.css" rel="stylesheet" type="text/css" />
  --><link rel="shortcut icon" href="images/favicon/smartworks.ico"/>
 
@@ -89,9 +93,13 @@ try{
 <script type="text/javascript" src="js/jquery/i18n/grid.locale-en.js"></script>
 <script type="text/javascript" src="js/jquery/jquery.jqGrid.min.js"></script>
 
+<script src="js/jqgrid/js/i18n/grid.locale-en.js" type="text/javascript"></script>
+<script src="js/jqgrid/js/jquery.jqGrid.min.js" type="text/javascript"></script>
+
 <!-- <script type="text/javascript" src="js/ext/bootstrap.js"></script> -->
 <script type="text/javascript" src="js/ext/ext-all.js"></script>
 
+<script src="js/smartChart-sencha.js" type="text/javascript"></script>
 
 <script type="text/javascript" src="js/sw/sw-jquery.js?v=3.5.3"></script>
 <script type="text/javascript" src="js/sw/sw-common.js?v=3.5.3"></script>

@@ -200,7 +200,7 @@ public class ServiceManagerImpl implements IServiceManager {
 	}
 
 	@Override
-	public SimilarityMatrix[][] caculatePsSimilarities(String[] psIds, String spaceType) throws Exception {
+	public SimilarityMatrix[][] caculatePsSimilarities(String[] psIds, String[] psNames, String spaceType) throws Exception {
 		SimilarityMatrix[][] psSimilarities = null;
 		
 		try{
@@ -213,6 +213,8 @@ public class ServiceManagerImpl implements IServiceManager {
 					sm.setSpaceType(ProductService.getSpaceType(spaceType));
 					sm.setSourcePsId(productServices[i].getId());
 					sm.setTargetPsId(productServices[j].getId());
+					sm.setSourcePsName(productServices[i].getName());
+					sm.setTargetPsName(productServices[j].getName());
 
 					ProductService source = productServices[i];
 					ProductService target = productServices[j];

@@ -4,7 +4,9 @@ public class SimilarityMatrix{
 
 	private int spaceType;
 	private String sourcePsId;
+	private String sourcePsName;
 	private String targetPsId;
+	private String targetPsName;
 	private float similarity;
 	
 	public int getSpaceType() {
@@ -24,6 +26,18 @@ public class SimilarityMatrix{
 	}
 	public void setTargetPsId(String targetPsId) {
 		this.targetPsId = targetPsId;
+	}
+	public String getSourcePsName() {
+		return sourcePsName;
+	}
+	public void setSourcePsName(String sourcePsName) {
+		this.sourcePsName = sourcePsName;
+	}
+	public String getTargetPsName() {
+		return targetPsName;
+	}
+	public void setTargetPsName(String targetPsName) {
+		this.targetPsName = targetPsName;
 	}
 	public float getSimilarity() {
 		return similarity;

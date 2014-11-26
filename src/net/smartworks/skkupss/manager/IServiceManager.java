@@ -29,6 +29,6 @@ public interface IServiceManager {
 	
 	public RequestParams setInstanceListParams(Map<String, Object> requestBody, HttpServletRequest request) throws Exception;
 
-	public SimilarityMatrix[][] caculatePsSimilarities(String[] psIds, String spaceType) throws Exception;
+	public SimilarityMatrix[][] caculatePsSimilarities(String[] psIds, String[] psNames, String spaceType) throws Exception;
 	
 }
