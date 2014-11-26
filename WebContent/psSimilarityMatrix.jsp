@@ -24,7 +24,9 @@
 	
 	session.setAttribute("psIds", psIds);
 	session.setAttribute("psNames", psNames);
+	session.setAttribute("psNames", psNames);
 
+	
 /* 	SimilarityMatrix sm1 = new SimilarityMatrix();
 	sm1.setSourcePsId("s1");
 	sm1.setSourcePsName("이름1");
