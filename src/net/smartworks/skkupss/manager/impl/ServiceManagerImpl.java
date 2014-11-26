@@ -55,7 +55,9 @@ public class ServiceManagerImpl implements IServiceManager {
 		int totalSize = 0;
 		try{
 			totalSize = ManagerFactory.getInstance().getDbManager().getProductServiceWithSelectedSpaceSize("", spaceType, productServiceCond);
-		}catch (Exception e){}
+		}catch (Exception e){
+			e.printStackTrace();
+		}
 		
 		int pageSize = params.getPageSize();
 		int currentPage = params.getCurrentPage();
