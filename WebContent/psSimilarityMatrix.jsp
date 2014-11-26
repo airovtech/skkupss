@@ -25,7 +25,7 @@
 	session.setAttribute("psIds", psIds);
 	session.setAttribute("psNames", psNames);
 
-	SimilarityMatrix sm1 = new SimilarityMatrix();
+/* 	SimilarityMatrix sm1 = new SimilarityMatrix();
 	sm1.setSourcePsId("s1");
 	sm1.setSourcePsName("이름1");
 	sm1.setTargetPsId("s1");
@@ -54,7 +54,9 @@
 	sm4.setSimilarity(new Float(1.0));
 
 	data = new SimilarityMatrix[][]{{sm1, sm2},{sm3, sm4}};
-	if(SmartUtil.isBlankObject(data)) return;
+ */
+ 
+ 	if(SmartUtil.isBlankObject(data)) return;
 	
 	
 
