@@ -35,7 +35,17 @@ public class DbDaoImpl implements IDbDao {
 		try {
 			SqlSessionFactory factory = SessionFactory.getInstance().getSqlSessionFactory();
 			session = factory.openSession();
-			int totalSize = session.selectOne("getProductServiceWithSelectedSpaceSize", cond);
+			
+			String selectId = "getProductServiceSize";
+			if (spaceType != null && spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_VALUE)) {
+				selectId = "getProductServiceWithValueSpaceSize";
+			} else if (spaceType != null && spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_SERVICE)) {
+				selectId = "getProductServiceWithServiceSpaceSize";
+			} else if (spaceType != null && spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_BIZ_MODEL)) {
+				selectId = "getProductServiceWithBizModelSpaceSize";
+			}
+			
+			int totalSize = session.selectOne(selectId, cond);
 			
 			return totalSize;
 		} catch (Exception e) {

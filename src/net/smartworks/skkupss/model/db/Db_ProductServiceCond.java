@@ -15,6 +15,7 @@ import net.smartworks.common.Cond;
 public class Db_ProductServiceCond extends Cond {
 	
 	private String id;
+	private String[] idIns;
 	private String name;
 	private String nameLike;
 	private String picture;
@@ -48,6 +49,12 @@ public class Db_ProductServiceCond extends Cond {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public String[] getIdIns() {
+		return idIns;
+	}
+	public void setIdIns(String[] idIns) {
+		this.idIns = idIns;
 	}
 	public String getName() {
 		return name;

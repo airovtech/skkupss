@@ -76,7 +76,7 @@
 	Db_ProductService[] result = DaoFactory.getInstance().getDbDao().getProductServiceWithSpace("", ProductService.PSS_SPACE_BIZ_MODEL , cond);
 	 */
 	 
-	RequestParams params = new RequestParams();
+/* 	RequestParams params = new RequestParams();
 	
 	params.setCurrentPage(1);
 	params.setPageSize(20);
@@ -86,12 +86,19 @@
 	
 	InstanceList il = ManagerFactory.getInstance().getServiceManager().getProductInstanceList(params);
 	
-	out.println(il);
+	out.println(il); */
 	
+	Db_ProductServiceCond cond = new Db_ProductServiceCond();
+	cond.setIdIns(new String[]{"3","4","5"});
+	cond.setSearchKey("3");
 	
+	String selectId = ProductService.PSS_SPACE_SERVICE; 
 	
+	Db_ProductService[] re = DaoFactory.getInstance().getDbDao().getProductServiceWithSelectedSpace("", selectId, cond);
 	
+	int size = DaoFactory.getInstance().getDbDao().getProductServiceWithSelectedSpaceSize("", selectId, cond);
 	
+	out.println(re.length + "  =  " + size);
 	
 %>
 </body>

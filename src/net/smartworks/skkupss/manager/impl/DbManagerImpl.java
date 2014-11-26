@@ -292,6 +292,17 @@ public class DbManagerImpl implements IDbManager {
 		return convertDbProductServiceToProductService(productService);
 	}
 
+	@Override
+	public ProductService[] getProductServiceWithSelectedSpace(String userId, String spaceType, String[] psIds) throws Exception {
+		
+		Db_ProductServiceCond dbCond = new Db_ProductServiceCond();
+		if (psIds != null && psIds.length != 0) {
+			dbCond.setIdIns(psIds);
+		}
+		Db_ProductService[] productService = DaoFactory.getInstance().getDbDao().getProductServiceWithSelectedSpace(userId, spaceType, dbCond);
+		return convertDbProductServiceToProductService(productService);
+	}
+	
 	public ProductService getProductService(String userId, String psId) throws Exception {
 
 		if (psId == null)
@@ -435,11 +446,6 @@ public class DbManagerImpl implements IDbManager {
 		dao.removeValueSpaceByProductId(userId, id);
 		dao.removeProductService(userId, id);
 		
-	}
-	@Override
-	public ProductService[] getProductServiceWithSelectedSpace(String userId, String spaceType, String[] psIds) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 
