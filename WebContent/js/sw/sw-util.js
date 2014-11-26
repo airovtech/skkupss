@@ -68,7 +68,7 @@ var getBytesWithUnit = function( bytes ){
 
 function getDepartNameFromFullpath(departFullpathName){
 	if(isEmpty(departFullpathName)) return "";
-	var tokens = departFullpathName.split("▶");
+	var tokens = departFullpathName.split("���");
 	return tokens[tokens.length-1];
 }
 
@@ -344,7 +344,7 @@ var printTimeByMinute = function(time){
 	minutes = minutes % 60;
 	hours = hours % 24;		
 	return "" + (days>0?days + smartMessage.get("dayText") + " ":"") + sprintf("%02d", hours) + ":" + sprintf("%02d", minutes);
-}
+};
 
 var printCurrentTime = function(){
 	var today = new Date();
@@ -412,6 +412,14 @@ var smartDecode = function(value){
 
 var getServerDomain = function(){
     return location.href.split('//')[1].split('/')[0].split(':')[0];
+};
+
+var cloneSelectedValues = function(cloneSource, cloned){
+	var selects = $(cloneSource).find("select");
+	$(selects).each(function(i) {
+		var select = this;
+		$(cloned).find("select").eq(i).val($(select).val());
+	});
 };
 
 var refreshCurrentContent = function(js_page){

@@ -16,16 +16,6 @@
 			productService = ManagerFactory.getInstance().getServiceManager().getProductService(psId, ProductService.SPACE_TYPE_VALUE);
 		}catch(Exception e){}
 		if(!SmartUtil.isBlankObject(productService)) valueSpace = productService.getValueSpace();
-		
-		valueSpace = new ValueSpace();
-		valueSpace.setEconomical(new String[]{"경제성", "비용절감"});
-		valueSpace.setEcological(new String[]{"에너지 절약", "재활용", "위생"});
-		valueSpace.setFunction(new String[]{"어려움", "편리한", "효율성", "안전성", "유용성", "품질"});
-		valueSpace.setExtrinsicSocial(new String[]{"연결되는", "환영해주는", "자랑하고 싶은", "알아봐주는"});
-		valueSpace.setActiveEmotional(new String[]{"즐거움", "믿을수 있는", "재미", "새로움", "짜증남", "안심되는", "행복"});
-		valueSpace.setReactiveEmotional(new String[]{"귀찮음", "무관심", "호감", "회피", "혼란스러움", "불만족스러운"});
-		valueSpace.setIntrinsicSocial(new String[]{"신뢰가 가는", "자유로운", "부담스러운"});
-		valueSpace.setEpistemic(new String[]{"호기심", "정보", "다양성", "지식", "정보전달"});
 	}
 	String isEditModeStr = request.getParameter("isEditMode");
 	boolean isEditMode = SmartUtil.isBlankObject(isEditModeStr) || !isEditModeStr.equalsIgnoreCase("true") ? false : true;

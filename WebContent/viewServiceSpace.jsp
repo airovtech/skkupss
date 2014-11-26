@@ -15,11 +15,6 @@
 			productService = ManagerFactory.getInstance().getServiceManager().getProductService(psId, ProductService.SPACE_TYPE_SERVICE);
 		}catch(Exception e){}
 		if(!SmartUtil.isBlankObject(productService)) serviceSpace = productService.getServiceSpace();
-		
-		serviceSpace = new ServiceSpace();
-		serviceSpace.setSsp(new String[]{"대여", "세척/수리"});
-		serviceSpace.setSsc(new String[]{"육아교육"});
-		serviceSpace.setSscc(new String[]{"예방접종 알림", "베이비백 증정", "앨범제작"});
 	}
 	
 	String isEditModeStr = request.getParameter("isEditMode");

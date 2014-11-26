@@ -17,7 +17,11 @@
 		params = new RequestParams();
 		params.setPageSize(20);
 		params.setCurrentPage(1);
-		params.setSpaceType(ProductService.PSS_SPACE_VALUE);
+		String spaceType = request.getParameter("spaceType");
+		if(SmartUtil.isBlankObject(spaceType))
+			params.setSpaceType(ProductService.PSS_SPACE_VALUE);
+		else
+			params.setSpaceType(spaceType);			
 	}
 
 	InstanceList instanceList = null;
@@ -80,7 +84,7 @@
 			for (ProductService productService : productServices) {
 				productService.setSpaceType(ProductService.getSpaceType(params.getSpaceType()));
 			%>
-				<tr class="instance_list js_work_instance_list js_inline_content" href="" psId="<%=productService.getId()%>" psName="<%=productService.getName()%>">
+				<tr class="instance_list js_work_instance_list js_instance_detail" href="newProductService.jsp?psId=<%=productService.getId() %>" psId="<%=productService.getId()%>" psName="<%=productService.getName()%>">
 					<td class="tc"><input class="js_check_instance" name="chkSelectInstance" type="checkbox"/></td>
 					<td class="tc"><%=currentCount--%></td>
 					<td class="tc">
@@ -122,7 +126,7 @@
  							<span class="t_name"><img class="profile_size_s mb3 mr3" src="images/no_user_picture_min.jpg"/>CDI사용자</span>
  							<%
  							if(productService.getLastModifiedDate()!=null){%>
- 								<div class="t_date"><%=new LocalDate(productService.getLastModifiedDate().getTime()).toLocalString()%></div>
+ 								<div class="t_date"><%=new LocalDate(productService.getLastModifiedDate().getTime()-LocalDate.ONE_HOUR*9).toLocalString()%></div>
  							<%
  							}
  							%>

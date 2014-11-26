@@ -50,10 +50,7 @@
 				defaultSpace = productService.getEnvironmentSpace();
 				break;
 			}
-		}
-		
-		defaultSpace = new DefaultSpace();
-		defaultSpace.setElements(new String[]{"경제성", "비용절감"});
+		}		
 	}
 	String isEditModeStr = request.getParameter("isEditMode");
 	boolean isEditMode = SmartUtil.isBlankObject(isEditModeStr) || !isEditModeStr.equalsIgnoreCase("true") ? false : true;

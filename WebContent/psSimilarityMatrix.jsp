@@ -108,7 +108,7 @@
 					<div class="list_title_space js_work_list_title mt15">
 						<div class="title_line_btns">
 							<div class="icon_btn_start">
-								<a href="home.sw" class="icon_btn_tail">목록으로 이동하기</a>
+								<a href="home.sw?spaceType=<%=spaceType %>" class="icon_btn_tail">목록으로 이동하기</a>
 							</div>
 						</div>
 					

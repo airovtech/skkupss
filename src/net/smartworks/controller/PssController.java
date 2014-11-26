@@ -181,9 +181,10 @@ public class PssController {
 		SimilarityMatrix[][] psSimilarities = null;
 		String[] psIds = null;
 		String[] psNames = null;
-		String spaceType = ProductService.PSS_SPACE_VALUE;
+		String spaceType = null;
 		try{
 			
+			spaceType = (String)requestBody.get("spaceType");
 			List<String> psIdList = (ArrayList<String>)requestBody.get("psIds");
 			List<String> psNameList = (ArrayList<String>)requestBody.get("psNames");
 			if(psIdList!=null && psNameList!=null){

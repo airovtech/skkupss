@@ -48,6 +48,10 @@ try{
 }
 </script>
 
+<%
+	String spaceType = request.getParameter("spaceType");
+%>
+
 
 <!-- 컨텐츠 레이아웃-->
 <div class="section_portlet js_iwork_list_page js_work_list_page">
@@ -63,7 +67,7 @@ try{
 					<div class="list_title_space js_work_list_title mt15">
 						<div class="title_line_btns">
 							<div class="icon_btn_start">
-								<a href="newProductService.jsp" class="js_create_new_work icon_btn_tail">새항목 등록하기</a>
+								<a href="newProductService.jsp" class="js_instance_detail icon_btn_tail">새항목 등록하기</a>
 							</div>
 							<div class="icon_btn_start">
 								<a href="newProductService.jsp" class="js_eyeball_comparison icon_btn_tail">육안 비교</a>
@@ -92,7 +96,9 @@ try{
 					<!-- 목록 테이블 -->
 					<div class="list_contents">
 						<div id='iwork_instance_list_page' >
- 							<jsp:include page="psInstanceList.jsp"/>
+ 							<jsp:include page="psInstanceList.jsp">
+ 								<jsp:param value="<%=spaceType %>" name="spaceType"/>
+ 							</jsp:include>
 						</div>
 					</div>
 					<!-- 목록 테이블 //-->
@@ -105,3 +111,6 @@ try{
 	<div class="portlet_b" style="display: block;"></div>
 </div>
 <!-- 컨텐츠 레이아웃//-->
+
+
+

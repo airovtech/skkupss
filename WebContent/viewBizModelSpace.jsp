@@ -17,21 +17,6 @@
 			productService = ManagerFactory.getInstance().getServiceManager().getProductService(psId, ProductService.SPACE_TYPE_BIZ_MODEL);
 		}catch(Exception e){}
 		if(!SmartUtil.isBlankObject(productService)) bizModelSpace = productService.getBizModelSpace();
-		
-		bizModelSpace = new BizModelSpace();
-		bizModelSpace.setKeyPartners(new String[]{"Sub Contractor Network"});
-		bizModelSpace.setKeyPartnersUser(new String[]{"소독약 제공업체", "소독도구 제공업체", "육아 전문가"});
-		bizModelSpace.setKeyActivities(new String[]{"Added Service"});
-		bizModelSpace.setKeyActivitiesUser(new String[]{"장남감 소독", "육아 상담"});
-		bizModelSpace.setValuePropositionsUser(new String[]{"주기적인 장남감 소독", "전문적인 육아 상담"});	
-		bizModelSpace.setCustomerRelationships(new String[]{"Membership"});
-		bizModelSpace.setChannels(new String[]{"Internet", "Sales Person"});
-		bizModelSpace.setChannelsUser(new String[]{"On-line 예약", "Off-line 방문"});	
-		bizModelSpace.setCustomerSegments(new String[]{"Niche Targeting"});
-		bizModelSpace.setCustomerSegmentsUser(new String[]{"영유아를 둔 부모, 유아원, 유치원"});
-		bizModelSpace.setCostStructureUser(new String[]{"소독약", "소독도구", "마케팅"});	
-		bizModelSpace.setRevenueStreams(new String[]{"Pay per Use", "Subscription"});
-		bizModelSpace.setRevenueStreamsUser(new String[]{"서비스 비용", "멤버쉽 비용"});
 	}
 	
 	String isEditModeStr = request.getParameter("isEditMode");
@@ -45,8 +30,8 @@
 <!-- 컨텐츠 레이아웃-->
 <div class="js_space_tab js_biz_model_space" spaceType="<%=ProductService.SPACE_TYPE_BIZ_MODEL%>">
 	<div class="js_dummy_element_item" style="display:none">
-		<div class="edit_item js_element_item" style="color:blue;font-size:11px">
-			<span class="js_view_element_item">
+		<div class="js_element_item" style="color:blue;font-size:11px">
+			<span class="edit_item js_view_element_item">
 				<span class="js_action_element_item"></span>
 				<span class="edit_actions">
 					<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
@@ -69,6 +54,17 @@
 		</select>
 		<select class="js_select_element_item" itemName="KeyActivities" style="display:inline-block; font-size:11px;width:18px">
 			<option></option>
+			<option>Added Service</option>
+			<option>Service Productization</option>
+			<option>Standardization</option>
+			<option>Economies of Scale</option>
+			<option>Economies of Scope</option>
+			<option>No Frill</option>
+			<option>Lean Mfg</option>
+			<option>Responsiveness</option>
+			<option>Vertical Integration</option>
+			<option>Self Service</option>
+			<option>Peer to Peer</option>
 		</select>
 		<select class="js_select_element_item" itemName="KeyResources" style="display:inline-block; font-size:11px;width:18px">
 			<option></option>
@@ -165,8 +161,8 @@
 					values = bizModelSpace.getKeyPartners();
 					for(int i=0; values!=null && i<values.length; i++){
 				%>
-						<div class="edit_item js_element_item" itemName="KeyPartners" style="color:red;font-size:11px">
-							<span class="js_view_element_item">
+						<div class="js_element_item" itemName="KeyPartners" style="color:red;font-size:11px">
+							<span class="edit_item js_view_element_item">
 								<span class="<%if(isEditMode){ %>js_action_element_item<%}%>"><%=CommonUtil.toNotNull(values[i]) %></span>
 								<%
 								if(isEditMode){
@@ -201,8 +197,8 @@
 					userValues = bizModelSpace.getKeyPartnersUser();
 					for(int i=0; userValues!=null && i<userValues.length; i++){
 				%>
-						<div class="edit_item js_element_item" itemName="KeyPartners" style="color:blue;font-size:11px">
-							<span class="js_view_element_item">
+						<div class="js_element_item" itemName="KeyPartners" style="color:blue;font-size:11px">
+							<span class="edit_item js_view_element_item">
 								<span class="<%if(isEditMode){ %>js_action_element_item<%}%>"><%=CommonUtil.toNotNull(userValues[i]) %></span>
 								<%
 								if(isEditMode){
@@ -227,8 +223,8 @@
 					}
 					if(values==null && userValues==null && isEditMode){
 				%>
-						<div class="edit_item js_element_item" itemName="KeyPartners" style="color:blue;font-size:11px">
-							<span class="js_view_element_item" style="display:none">
+						<div class="js_element_item" itemName="KeyPartners" style="color:blue;font-size:11px">
+							<span class="edit_item js_view_element_item" style="display:none">
 								<span class="js_action_element_item"></span>
 								<span class="edit_actions">
 									<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
@@ -257,8 +253,8 @@
 						values = bizModelSpace.getKeyActivities();
 						for(int i=0; values!=null && i<values.length; i++){
 					%>
-						<div class="edit_item js_element_item" itemName="KeyActivities" style="color:red;font-size:11px">
-							<span class="js_view_element_item">
+						<div class="js_element_item" itemName="KeyActivities" style="color:red;font-size:11px">
+							<span class="edit_item js_view_element_item">
 								<span class="<%if(isEditMode){ %>js_action_element_item<%}%>"><%=CommonUtil.toNotNull(values[i]) %></span>
 								<%
 								if(isEditMode){
@@ -275,7 +271,18 @@
 							if(isEditMode){
 							%>
 								<select class="js_select_element_item" name="txtKeyActivitiesItem" style="display:none; font-size:11px;width:110px">
-									<option <%if(values[i].equals("")){ %>selected<%} %>></option>
+									<option></option>
+									<option <%if(values[i].equals("Added Service")){ %>selected<%} %>>Added Service</option>
+									<option <%if(values[i].equals("Service Productization")){ %>selected<%} %>>Service Productization</option>
+									<option <%if(values[i].equals("Standardization")){ %>selected<%} %>>Standardization</option>
+									<option <%if(values[i].equals("Economies of Scale")){ %>selected<%} %>>Economies of Scale</option>
+									<option <%if(values[i].equals("Economies of Scope")){ %>selected<%} %>>Economies of Scope</option>
+									<option <%if(values[i].equals("No Frill")){ %>selected<%} %>>No Frill</option>
+									<option <%if(values[i].equals("Lean Mfg")){ %>selected<%} %>>Lean Mfg</option>
+									<option <%if(values[i].equals("Responsiveness")){ %>selected<%} %>>Responsiveness</option>
+									<option <%if(values[i].equals("Vertical Integration")){ %>selected<%} %>>Vertical Integration</option>
+									<option <%if(values[i].equals("Self Service")){ %>selected<%} %>>Self Service</option>
+									<option <%if(values[i].equals("Peer to Peer")){ %>selected<%} %>>Peer to Peer</option>
 								</select>
 							<%
 							}
@@ -286,8 +293,8 @@
 						userValues = bizModelSpace.getKeyActivitiesUser();
 						for(int i=0; userValues!=null && i<userValues.length; i++){
 					%>
-						<div class="edit_item js_element_item" itemName="KeyActivities" style="color:blue;font-size:11px">
-							<span class="js_view_element_item">
+						<div class="js_element_item" itemName="KeyActivities" style="color:blue;font-size:11px">
+							<span class="edit_item js_view_element_item">
 								<span class="<%if(isEditMode){ %>js_action_element_item<%}%>"><%=CommonUtil.toNotNull(userValues[i]) %></span>
 								<%
 								if(isEditMode){
@@ -312,8 +319,8 @@
 					}
 					if(values==null && userValues==null && isEditMode){
 				%>
-						<div class="edit_item js_element_item" itemName="KeyActivities" style="color:blue;font-size:11px">
-							<span class="js_view_element_item" style="display:none">
+						<div class="js_element_item" itemName="KeyActivities" style="color:blue;font-size:11px">
+							<span class="edit_item js_view_element_item" style="display:none">
 								<span class="js_action_element_item"></span>
 								<span class="edit_actions">
 									<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
@@ -323,6 +330,17 @@
 							<input class="fieldline js_edit_element_item" name="" style="width:85px; display:inline-block; font-size:11px; background-color:white" type="text" value="">
 							<select class="js_select_element_item" name="" style="display:inline-block; font-size:11px;width:18px">
 								<option></option>
+								<option>Added Service</option>
+								<option>Service Productization</option>
+								<option>Standardization</option>
+								<option>Economies of Scale</option>
+								<option>Economies of Scope</option>
+								<option>No Frill</option>
+								<option>Lean Mfg</option>
+								<option>Responsiveness</option>
+								<option>Vertical Integration</option>
+								<option>Self Service</option>
+								<option>Peer to Peer</option>
 							</select>
 						</div>
 					<%
@@ -338,8 +356,8 @@
 						values = bizModelSpace.getKeyResources();
 						for(int i=0; values!=null && i<values.length; i++){
 					%>
-						<div class="edit_item js_element_item" itemName="KeyResources" style="color:red;font-size:11px">
-							<span class="js_view_element_item">
+						<div class="js_element_item" itemName="KeyResources" style="color:red;font-size:11px">
+							<span class="edit_item js_view_element_item">
 								<span class="<%if(isEditMode){ %>js_action_element_item<%}%>"><%=CommonUtil.toNotNull(values[i]) %></span>
 								<%
 								if(isEditMode){
@@ -375,8 +393,8 @@
 						userValues = bizModelSpace.getKeyResourcesUser();
 						for(int i=0; userValues!=null && i<userValues.length; i++){
 					%>
-						<div class="edit_item js_element_item" itemName="KeyResources" style="color:blue;font-size:11px">
-							<span class="js_view_element_item">
+						<div class="js_element_item" itemName="KeyResources" style="color:blue;font-size:11px">
+							<span class="edit_item js_view_element_item">
 								<span class="<%if(isEditMode){ %>js_action_element_item<%}%>"><%=CommonUtil.toNotNull(userValues[i]) %></span>
 								<%
 								if(isEditMode){
@@ -401,8 +419,8 @@
 						}
 						if(values==null && userValues==null && isEditMode){
 					%>
-							<div class="edit_item js_element_item" itemName="KeyResources" style="color:blue;font-size:11px">
-								<span class="js_view_element_item" style="display:none">
+							<div class="js_element_item" itemName="KeyResources" style="color:blue;font-size:11px">
+								<span class="edit_item js_view_element_item" style="display:none">
 									<span class="js_action_element_item"></span>
 									<span class="edit_actions">
 										<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
@@ -432,8 +450,8 @@
 					userValues = bizModelSpace.getValuePropositionsUser();
 					for(int i=0; userValues!=null && i<userValues.length; i++){
 				%>
-						<div class="edit_item js_element_item" itemName="ValuePropositions" style="color:blue;font-size:11px">
-							<span class="js_view_element_item">
+						<div class="js_element_item" itemName="ValuePropositions" style="color:blue;font-size:11px">
+							<span class="edit_item js_view_element_item">
 								<span class="<%if(isEditMode){ %>js_action_element_item<%}%>"><%=CommonUtil.toNotNull(userValues[i]) %></span>
 								<%
 								if(isEditMode){
@@ -458,8 +476,8 @@
 					}
 					if(userValues==null && isEditMode){
 				%>
-						<div class="edit_item js_element_item" itemName="ValuePropositions" style="color:blue;font-size:11px">
-							<span class="js_view_element_item" style="display:none">
+						<div class="js_element_item" itemName="ValuePropositions" style="color:blue;font-size:11px">
+							<span class="edit_item js_view_element_item" style="display:none">
 								<span class="js_action_element_item"></span>
 								<span class="edit_actions">
 									<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
@@ -478,8 +496,8 @@
 						values = bizModelSpace.getCustomerRelationships();
 						for(int i=0; values!=null && i<values.length; i++){
 					%>
-						<div class="edit_item js_element_item" itemName="CustomerRelationships" style="color:red;font-size:11px">
-							<span class="js_view_element_item">
+						<div class="js_element_item" itemName="CustomerRelationships" style="color:red;font-size:11px">
+							<span class="edit_item js_view_element_item">
 								<span class="<%if(isEditMode){ %>js_action_element_item<%}%>"><%=CommonUtil.toNotNull(values[i]) %></span>
 								<%
 								if(isEditMode){
@@ -518,8 +536,8 @@
 						userValues = bizModelSpace.getCustomerRelationshipsUser();
 						for(int i=0; userValues!=null && i<userValues.length; i++){
 					%>
-						<div class="edit_item js_element_item" itemName="CustomerRelationships" style="color:blue;font-size:11px">
-							<span class="js_view_element_item">
+						<div class="js_element_item" itemName="CustomerRelationships" style="color:blue;font-size:11px">
+							<span class="edit_item js_view_element_item">
 								<span class="<%if(isEditMode){ %>js_action_element_item<%}%>"><%=CommonUtil.toNotNull(userValues[i]) %></span>
 								<%
 								if(isEditMode){
@@ -544,8 +562,8 @@
 						}
 						if(values==null && userValues==null && isEditMode){
 					%>
-							<div class="edit_item js_element_item" itemName="CustomerRelationships" style="color:blue;font-size:11px">
-								<span class="js_view_element_item" style="display:none">
+							<div class="js_element_item" itemName="CustomerRelationships" style="color:blue;font-size:11px">
+								<span class="edit_item js_view_element_item" style="display:none">
 									<span class="js_action_element_item"></span>
 									<span class="edit_actions">
 										<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
@@ -581,8 +599,8 @@
 						values = bizModelSpace.getChannels();
 						for(int i=0; values!=null && i<values.length; i++){
 					%>
-						<div class="edit_item js_element_item" itemName="Channels" style="color:red;font-size:11px">
-							<span class="js_view_element_item">
+						<div class="js_element_item" itemName="Channels" style="color:red;font-size:11px">
+							<span class="edit_item js_view_element_item">
 								<span class="<%if(isEditMode){ %>js_action_element_item<%}%>"><%=CommonUtil.toNotNull(values[i]) %></span>
 								<%
 								if(isEditMode){
@@ -621,8 +639,8 @@
 						userValues = bizModelSpace.getChannelsUser();
 						for(int i=0; userValues!=null && i<userValues.length; i++){
 					%>
-						<div class="edit_item js_element_item" itemName="Channels" style="color:blue;font-size:11px">
-							<span class="js_view_element_item">
+						<div class="js_element_item" itemName="Channels" style="color:blue;font-size:11px">
+							<span class="edit_item js_view_element_item">
 								<span class="<%if(isEditMode){ %>js_action_element_item<%}%>"><%=CommonUtil.toNotNull(userValues[i]) %></span>
 								<%
 								if(isEditMode){
@@ -647,8 +665,8 @@
 						}
 						if(values==null && userValues==null && isEditMode){
 					%>
-							<div class="edit_item js_element_item" itemName="Channels" style="color:blue;font-size:11px">
-								<span class="js_view_element_item" style="display:none">
+							<div class="js_element_item" itemName="Channels" style="color:blue;font-size:11px">
+								<span class="edit_item js_view_element_item" style="display:none">
 									<span class="js_action_element_item"></span>
 									<span class="edit_actions">
 										<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
@@ -681,8 +699,8 @@
 					values = bizModelSpace.getCustomerSegments();
 					for(int i=0; values!=null && i<values.length; i++){
 				%>
-						<div class="edit_item js_element_item" itemName="CustomerSegments" style="color:red;font-size:11px">
-							<span class="js_view_element_item">
+						<div class="js_element_item" itemName="CustomerSegments" style="color:red;font-size:11px">
+							<span class="edit_item js_view_element_item">
 								<span class="<%if(isEditMode){ %>js_action_element_item<%}%>"><%=CommonUtil.toNotNull(values[i]) %></span>
 								<%
 								if(isEditMode){
@@ -719,8 +737,8 @@
 					userValues = bizModelSpace.getCustomerSegmentsUser();
 					for(int i=0; userValues!=null && i<userValues.length; i++){
 				%>
-						<div class="edit_item js_element_item" itemName="CustomerSegments" style="color:blue;font-size:11px">
-							<span class="js_view_element_item">
+						<div class="js_element_item" itemName="CustomerSegments" style="color:blue;font-size:11px">
+							<span class="edit_item js_view_element_item">
 								<span class="<%if(isEditMode){ %>js_action_element_item<%}%>"><%=CommonUtil.toNotNull(userValues[i]) %></span>
 								<%
 								if(isEditMode){
@@ -745,8 +763,8 @@
 					}
 					if(values==null && userValues==null && isEditMode){
 				%>
-						<div class="edit_item js_element_item" itemName="CustomerSegments" style="color:blue;font-size:11px">
-							<span class="js_view_element_item" style="display:none">
+						<div class="js_element_item" itemName="CustomerSegments" style="color:blue;font-size:11px">
+							<span class="edit_item js_view_element_item" style="display:none">
 								<span class="js_action_element_item"></span>
 								<span class="edit_actions">
 									<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
@@ -790,8 +808,8 @@
 					values = bizModelSpace.getCostStructure();
 					for(int i=0; values!=null && i<values.length; i++){
 				%>
-						<div class="edit_item js_element_item" itemName="CostStructure" style="color:red;font-size:11px">
-							<span class="js_view_element_item">
+						<div class="js_element_item" itemName="CostStructure" style="color:red;font-size:11px">
+							<span class="edit_item js_view_element_item">
 								<span class="<%if(isEditMode){ %>js_action_element_item<%}%>"><%=CommonUtil.toNotNull(values[i]) %></span>
 								<%
 								if(isEditMode){
@@ -819,8 +837,8 @@
 					userValues = bizModelSpace.getCostStructureUser();
 					for(int i=0; userValues!=null && i<userValues.length; i++){
 				%>
-						<div class="edit_item js_element_item" itemName="CostStructure" style="color:blue;font-size:11px">
-							<span class="js_view_element_item">
+						<div class="js_element_item" itemName="CostStructure" style="color:blue;font-size:11px">
+							<span class="edit_item js_view_element_item">
 								<span class="<%if(isEditMode){ %>js_action_element_item<%}%>"><%=CommonUtil.toNotNull(userValues[i]) %></span>
 								<%
 								if(isEditMode){
@@ -845,8 +863,8 @@
 					}
 					if(values==null && userValues==null && isEditMode){
 				%>
-						<div class="edit_item js_element_item" itemName="CostStructure" style="color:blue;font-size:11px">
-							<span class="js_view_element_item" style="display:none">
+						<div class="js_element_item" itemName="CostStructure" style="color:blue;font-size:11px">
+							<span class="edit_item js_view_element_item" style="display:none">
 								<span class="js_action_element_item"></span>
 								<span class="edit_actions">
 									<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
@@ -867,8 +885,8 @@
 					values = bizModelSpace.getRevenueStreams();
 					for(int i=0; values!=null && i<values.length; i++){
 				%>
-						<div class="edit_item js_element_item" itemName="RevenueStreams" style="color:red;font-size:11px">
-							<span class="js_view_element_item">
+						<div class="js_element_item" itemName="RevenueStreams" style="color:red;font-size:11px">
+							<span class="edit_item js_view_element_item">
 								<span class="<%if(isEditMode){ %>js_action_element_item<%}%>"><%=CommonUtil.toNotNull(values[i]) %></span>
 								<%
 								if(isEditMode){
@@ -904,8 +922,8 @@
 					userValues = bizModelSpace.getRevenueStreamsUser();
 					for(int i=0; userValues!=null && i<userValues.length; i++){
 				%>
-						<div class="edit_item js_element_item" itemName="RevenueStreams" style="color:blue;font-size:11px">
-							<span class="js_view_element_item">
+						<div class="js_element_item" itemName="RevenueStreams" style="color:blue;font-size:11px">
+							<span class="edit_item js_view_element_item">
 								<span class="<%if(isEditMode){ %>js_action_element_item<%}%>"><%=CommonUtil.toNotNull(userValues[i]) %></span>
 								<%
 								if(isEditMode){
@@ -930,8 +948,8 @@
 					}
 					if(values==null && userValues==null && isEditMode){
 				%>
-						<div class="edit_item js_element_item" itemName="RevenueStreams" style="color:blue;font-size:11px">
-							<span class="js_view_element_item" style="display:none">
+						<div class="js_element_item" itemName="RevenueStreams" style="color:blue;font-size:11px">
+							<span class="edit_item js_view_element_item" style="display:none">
 								<span class="js_action_element_item"></span>
 								<span class="edit_actions">
 									<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>

@@ -75,14 +75,14 @@ public class ServiceManagerImpl implements IServiceManager {
 
 		//ProductService의 ProductService.FILED_NAME, ProductService.FILED_LAST_MODIFIED_USER, ProductService.FILED_LAST_MODIFIED_DATE만 정렬함 
 		SortingField sortingField = params.getSortingField();
-		if (sortingField != null) {
-			String fieldId = sortingField.getFieldId();
-			boolean isAsc = sortingField.isAscending();
-			Order order = new Order(fieldId, isAsc);
-			productServiceCond.setOrders(new Order[]{order});
-		}else{
-			productServiceCond.setOrders(new Order[]{new Order(ProductService.FIELD_LAST_MODIFIED_DATE, false)});			
+		if (sortingField == null) {
+			sortingField = new SortingField(ProductService.FIELD_LAST_MODIFIED_DATE, false);
+			params.setSortingField(sortingField);
 		}
+		String fieldId = sortingField.getFieldId();
+		boolean isAsc = sortingField.isAscending();
+		Order order = new Order(fieldId, isAsc);
+		productServiceCond.setOrders(new Order[]{order});
 
 		ProductService[] productServices = null;
 		try{
