@@ -179,16 +179,19 @@ public class PssController {
 	public ModelAndView calculatePsSimilarities(@RequestBody Map<String, Object> requestBody, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		SimilarityMatrix[][] psSimilarities = null;
+		String[] psIds = null;
+		String[] psNames = null;
+		String spaceType = ProductService.PSS_SPACE_VALUE;
 		try{
 			
 			List<String> psIdList = (ArrayList<String>)requestBody.get("psIds");
 			List<String> psNameList = (ArrayList<String>)requestBody.get("psNames");
 			if(psIdList!=null && psNameList!=null){
-				String[] psIds = new String[psIdList.size()];
+				psIds = new String[psIdList.size()];
 				psIdList.toArray(psIds);
-				String[] psNames = new String[psNameList.size()];
+				psNames = new String[psNameList.size()];
 				psNameList.toArray(psNames);
-				psSimilarities = ManagerFactory.getInstance().getServiceManager().caculatePsSimilarities(psIds, psNames, ProductService.PSS_SPACE_VALUE);
+				psSimilarities = ManagerFactory.getInstance().getServiceManager().caculatePsSimilarities(psIds, psNames, spaceType);
 
 			}
 		}catch (Exception e){
@@ -200,6 +203,9 @@ public class PssController {
 		String href = (String)requestBody.get("href");
 		ModelAndView mnv = new ModelAndView();
 		mnv.addObject("psSimilarities", psSimilarities);
+		mnv.addObject("psIds", psIds);
+		mnv.addObject("psNames", psNames);
+		mnv.addObject("spaceType", spaceType);		
 		mnv.setViewName(href);
 		return mnv;
 

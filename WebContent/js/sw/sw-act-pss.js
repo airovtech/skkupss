@@ -135,7 +135,19 @@ $(function() {
 	$('select.js_select_space_name').live('change', function(e){
 		var input = $(targetElement(e));
 		var progressSpan = input.siblings('.js_progress_span:first');
-		selectListParam(progressSpan, false);
+		if(isEmpty(input.parents('.js_similarity_matrix_page'))){
+			selectListParam(progressSpan, false);
+		}else{
+			var spaceType = input.find('option:selected').attr('value');
+			smartPop.progressCenter();
+			$.ajax({
+				url : "psSimilarityMatrix.jsp?spaceType=" + spaceType,
+				success : function(data, status, jqXHR) {
+					$('#content').html(data);
+					smartPop.closeProgress();
+				}
+			});
+		}
 		return false;
 	});
 
@@ -166,7 +178,7 @@ $(function() {
 			type : 'POST',
 			data : JSON.stringify(paramsJson),
 			success : function(data, status, jqXHR) {
-				$('#iwork_instance_list_page').html(data);
+				$('#content').html(data);
 				smartPop.closeProgress();
 			}
 		});
