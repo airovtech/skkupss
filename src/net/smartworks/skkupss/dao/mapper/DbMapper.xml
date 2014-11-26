@@ -62,10 +62,10 @@
 		    		or (b.economical like '%'|| #{searchKey} ||'%') or (b.ecological like '%'|| #{searchKey} ||'%') or (b.function like '%'|| #{searchKey} ||'%') or (b.extrinsicSocial like '%'|| #{searchKey} ||'%') or (b.activeEmotional like '%'|| #{searchKey} ||'%') or (b.reactiveEmotional like '%'|| #{searchKey} ||'%') or (b.intrinsicSocial like '%'|| #{searchKey} ||'%') or (b.epistemic like '%'|| #{searchKey} ||'%')
 		    	)
 		    </if>
-		    <if test="orders != null">
-				order by ${orderQuery}
-		    </if>
 		</trim>
+	    <if test="orders != null">
+			order by ${orderQuery}
+	    </if>
 	</select>
 	<resultMap id="productServiceValueResult" type="net.smartworks.skkupss.model.db.Db_ProductService">
 		<id property="id" column="id" />	
@@ -145,10 +145,10 @@
 		    		or (b.sspp like '%'|| #{searchKey} ||'%') or (b.ssp like '%'|| #{searchKey} ||'%') or (b.sspc like '%'|| #{searchKey} ||'%') or (b.ssc like '%'|| #{searchKey} ||'%') or (b.sscc like '%'|| #{searchKey} ||'%')
 		    	)
 		    </if>
-		    <if test="orders != null">
-				order by ${orderQuery}
-		    </if>
 		 </trim>
+	    <if test="orders != null">
+			order by ${orderQuery}
+	    </if>
 	</select>
 	<resultMap id="productServiceServiceResult" type="net.smartworks.skkupss.model.db.Db_ProductService">
 		<id property="id" column="id" />	
@@ -230,10 +230,10 @@
 		    				or (b.keyPartnersUser like '%'|| #{searchKey} ||'%') or (b.costStructure like '%'|| #{searchKey} ||'%') or (b.costStructureUser like '%'|| #{searchKey} ||'%') or (b.revenueStreams like '%'|| #{searchKey} ||'%') or (b.revenueStreamsUser like '%'|| #{searchKey} ||'%')
 		    	)
 		    </if>
-		    <if test="orders != null">
-				order by ${orderQuery}
-		    </if>
 		 </trim>
+	    <if test="orders != null">
+			order by ${orderQuery}
+	    </if>
 	</select>
 	<resultMap id="productServiceBizModelResult" type="net.smartworks.skkupss.model.db.Db_ProductService">
 		<id property="id" column="id" />	
@@ -411,10 +411,10 @@
 			<if test="createdDate != null">
 				and createdDate = #{createdDate}
 			</if>
-			<if test="orders != null">
-				order by ${orderQuery}
-			</if>
 		</trim>
+		<if test="orders != null">
+			order by ${orderQuery}
+		</if>
 	</select>
   	<insert id="setProductService" parameterType="net.smartworks.skkupss.model.db.Db_ProductService">
 		insert into productService(id, name, picture, description, productServiceSpace, productSpace, touchPointSpace, customerSpace, actorSpace, societySpace, contextSpace, timeSpace, environmentSpace, lastModifiedUser, lastModifiedDate, createdUser, createdDate)
@@ -458,10 +458,10 @@
 		    <if test="epistemicLike != null">
 				and epistemic like '%'|| #{epistemicLike} ||'%'
 		    </if>
-		    <if test="orders != null">
-				order by ${orderQuery}
-		    </if>
 		 </trim>
+	    <if test="orders != null">
+			order by ${orderQuery}
+	    </if>
 	</select>
 	<insert id="setValueSpace" parameterType="net.smartworks.skkupss.model.db.Db_ValueSpace">
 		insert into valueSpace(id, psId, economical, ecological, function, extrinsicSocial, activeEmotional, reactiveEmotional, intrinsicSocial, epistemic)
@@ -499,10 +499,10 @@
 		    <if test="ssccLike != null">
 				and sscc like '%'|| #{ssccLike} ||'%'
 		    </if>
-		    <if test="orders != null">
-				order by ${orderQuery}
-		    </if>
 		 </trim>
+	    <if test="orders != null">
+			order by ${orderQuery}
+	    </if>
 	</select>
 	<insert id="setServiceSpace" parameterType="net.smartworks.skkupss.model.db.Db_ServiceSpace">
   		insert into serviceSpace(id, psId, sspp, ssp, sspc, ssc, sscc)
@@ -573,10 +573,10 @@
 			<if test="revenueStreamsUserLIke != null">
 				and revenueStreamsUser like '%'|| #{revenueStreamsUserLIke} ||'%'
 			</if>
-			<if test="orders != null">
-				order by ${orderQuery}
-			</if>
 		</trim>
+		<if test="orders != null">
+			order by ${orderQuery}
+		</if>
 	</select>
 	<insert id="setBizModelSpace" parameterType="net.smartworks.skkupss.model.db.Db_BizModelSpace">
 		insert into bizModelSpace(id, psId, customerSegments, customerSegmentsUser, CustomerRelationships, CustomerRelationshipsUser, channels, channelsUser, keyActivities, keyActivitiesUser, keyResources, keyResourcesUser, keyPartners, keyPartnersUser, costStructure, costStructureUser, revenueStreams, revenueStreamsUser)
