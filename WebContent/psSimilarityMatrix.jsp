@@ -26,42 +26,8 @@
 	session.setAttribute("psNames", psNames);
 	session.setAttribute("psNames", psNames);
 
-	
-/* 	SimilarityMatrix sm1 = new SimilarityMatrix();
-	sm1.setSourcePsId("s1");
-	sm1.setSourcePsName("이름1");
-	sm1.setTargetPsId("s1");
-	sm1.setTargetPsName("이름1");
-	sm1.setSimilarity(new Float(1.0));
-
-	SimilarityMatrix sm2 = new SimilarityMatrix();
-	sm2.setSourcePsId("s1");
-	sm2.setSourcePsName("이름1");
-	sm2.setTargetPsId("s2");
-	sm2.setTargetPsName("이름2");
-	sm2.setSimilarity(new Float(0.5));
-	
-	SimilarityMatrix sm3 = new SimilarityMatrix();
-	sm3.setSourcePsId("s2");
-	sm3.setSourcePsName("이름2");
-	sm3.setTargetPsId("s1");
-	sm3.setTargetPsName("이름1");
-	sm3.setSimilarity(new Float(0.5));
-
-	SimilarityMatrix sm4 = new SimilarityMatrix();
-	sm4.setSourcePsId("s2");
-	sm4.setSourcePsName("이름2");
-	sm4.setTargetPsId("s2");
-	sm4.setTargetPsName("이름2");
-	sm4.setSimilarity(new Float(1.0));
-
-	data = new SimilarityMatrix[][]{{sm1, sm2},{sm3, sm4}};
- */
- 
  	if(SmartUtil.isBlankObject(data)) return;
 	
-	
-
 %>
 
 <script type="text/javascript">
@@ -77,7 +43,7 @@
 		SimilarityMatrix sm = data[0][i];
 	%>
 		colNames[<%=i+1%>]  = "<%=sm.getTargetPsName()%>";
-		colModels[<%=i+1%>] =  {name: "<%=sm.getTargetPsId()%>", index: "<%=sm.getTargetPsId()%>", align: 'right',  sortable:false, formatter:'integer',  formatoptions:{defaultValue:'0', thousandsSeparator: ",",  decimalPlaces: 2 }};
+		colModels[<%=i+1%>] =  {name: "<%=sm.getTargetPsId()%>", index: "<%=sm.getTargetPsId()%>", align: 'right',  sortable:false, formatter:'integer',  formatoptions:{defaultValue:'', thousandsSeparator: ",",  decimalPlaces: 2 }};
 	<%
 	}
 	%>
@@ -95,6 +61,8 @@
 		%>
 			rowData['<%=sm.getTargetPsId()%>'] = <%=sm.getSimilarity()%>;		
 		<%	
+			if(data[i][j].getSourcePsId().equals(data[i][j].getTargetPsId()))
+				break;
 		}
 		%>
 		matrixData[<%=i%>] = rowData;

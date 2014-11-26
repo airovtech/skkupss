@@ -46,7 +46,12 @@ public class ServiceManagerImpl implements IServiceManager {
 		ProductServiceCond productServiceCond = new ProductServiceCond();
 
 		//ProductService의 name, desc, lastModifiedUser 필드들만 like 검색
-		productServiceCond.setSearchKey(params.getSearchKey());
+		if(!SmartUtil.isBlankObject(params.getSearchKey())){
+				productServiceCond.setSearchKey(params.getSearchKey());
+		}else{
+			productServiceCond.setSearchKey(null);
+			
+		}
 
 		//PSS_SPACE_VALUE, PSS_SPACE_SERVICE, PSS_SPACE_BIZ_MODEL 3가지중 하나가 항상 전달되며,
 		//지정한 SPACE값만 가져다 준다.
@@ -209,6 +214,8 @@ public class ServiceManagerImpl implements IServiceManager {
 			ProductService[] productServices = ManagerFactory.getInstance().getDbManager().getProductServiceWithSelectedSpace(SmartUtil.getUserId(), spaceType, psIds);
 			if(SmartUtil.isBlankObject(productServices)) return null;
 			
+			psSimilarities = new SimilarityMatrix[productServices.length][productServices.length];
+			
 			for(int i=0; i<productServices.length; i++){
 				for(int j=0; j<productServices.length; j++){		
 					SimilarityMatrix sm = new SimilarityMatrix();
@@ -241,6 +248,7 @@ public class ServiceManagerImpl implements IServiceManager {
 							sm.setSimilarity((new SimBizModel(sourceBizModel.getNumOfStrategies(), sourceBizModel.getStrategies(), targetBizModel.getNumOfStrategies(), targetBizModel.getStrategies())).calculateSimularity());
 						break;
 					}
+					psSimilarities[i][j] = sm;
 				}
 			}
 		}catch (Exception e){
