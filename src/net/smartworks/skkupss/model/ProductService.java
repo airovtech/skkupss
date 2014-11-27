@@ -17,6 +17,11 @@ public class ProductService{
 	public static final String PSS_SPACE_TIME = "timeSpace";
 	public static final String PSS_SPACE_ENVIRONMENT = "environmentSpace";
 	
+	public static final String PSS_SPACE_VALUE_SERVICE = "valueServiceSpace";
+	public static final String PSS_SPACE_VALUE_BIZ_MODEL = "valueBizModelSpace";
+	public static final String PSS_SPACE_SERVICE_BIZ_MODEL = "serviceBizModelSpace";
+	public static final String PSS_SPACE_VALUE_SERVICE_BIZ_MODEL = "valueServiceBizModelSpace";
+		
 	public static final String FIELD_ID 				= "id";	
 	public static final String FIELD_NAME 				= "name";
 	public static final String FIELD_PICTURE 			= "picture";
@@ -40,6 +45,11 @@ public class ProductService{
 	public static final int SPACE_TYPE_CONTEXT = 10;
 	public static final int SPACE_TYPE_TIME = 11;
 	public static final int SPACE_TYPE_ENVIRONMENT = 12;
+	
+	public static final int SPACE_TYPE_VALUE_SERVICE = 914;
+	public static final int SPACE_TYPE_VALUE_BIZ_MODEL = 917;
+	public static final int SPACE_TYPE_SERVICE_BIZ_MODEL = 947;
+	public static final int SPACE_TYPE_VALUE_SERVICE_BIZ_MODEL = 9147;
 	
 	private int spaceType=SPACE_TYPE_ALL;
 	private String id;
@@ -205,6 +215,11 @@ public class ProductService{
 		if(spaceName.equals(PSS_SPACE_SOCIETY)) return SPACE_TYPE_SOCIETY;
 		if(spaceName.equals(PSS_SPACE_TIME)) return SPACE_TYPE_TIME;
 		if(spaceName.equals(PSS_SPACE_ENVIRONMENT)) return SPACE_TYPE_ENVIRONMENT;
+		if(spaceName.equals(PSS_SPACE_VALUE_SERVICE)) return SPACE_TYPE_VALUE_SERVICE;
+		if(spaceName.equals(PSS_SPACE_VALUE_BIZ_MODEL)) return SPACE_TYPE_VALUE_BIZ_MODEL;
+		if(spaceName.equals(PSS_SPACE_SERVICE_BIZ_MODEL)) return SPACE_TYPE_SERVICE_BIZ_MODEL;
+		if(spaceName.equals(PSS_SPACE_VALUE_SERVICE_BIZ_MODEL)) return SPACE_TYPE_VALUE_SERVICE_BIZ_MODEL;
+
 		return SPACE_TYPE_NONE;
 	}
 }

@@ -74,9 +74,7 @@
 	    var gridData = $("#matrix_list").jqGrid('getRowData');
 	    for(var i=0; i<=gridData.length; i++) {
 	        var rowData = $("#matrix_list").jqGrid('getRowData',i+1);
-	        console.log('rowData['+i+']=', rowData);
 	        for(var j=1; j<colModels.length; j++){
-	        	console.log('colModels[' + j +']=' + rowData[colModels[j].name])
 		        if(rowData[colModels[j].name] >= 0.9) { 
 		            $("#matrix_list").jqGrid('setCell', i+1, j,"",{color:'blue'});
 		        }else if(rowData[colModels[j].name] < 0.9 && rowData[colModels[j].name] >= 0.8) { 
@@ -92,9 +90,7 @@
 	    var gridData = $("#matrix_list").jqGrid('getRowData');
 	    for(var i=0; i<=gridData.length; i++) {
 	        var rowData = $("#matrix_list").jqGrid('getRowData',i+1);
-	        console.log('rowData['+i+']=', rowData);
 	        for(var j=1; j<colModels.length; j++){
-	        	console.log('colModels[' + j +']=' + rowData[colModels[j].name]);
 	            $("#matrix_list").jqGrid('setCell', i+1, j,"",{color:'#363636'});
 	        }
   		}
@@ -143,6 +139,10 @@
 								<option value="<%=ProductService.PSS_SPACE_VALUE%>" <%if(spaceType.equals(ProductService.PSS_SPACE_VALUE)){%>selected<%} %>>가치공간(Value Space)</option>
 								<option value="<%=ProductService.PSS_SPACE_SERVICE%>" <%if(spaceType.equals(ProductService.PSS_SPACE_SERVICE)){%>selected<%} %>>서비스공간(Service Space)</option>
 								<option value="<%=ProductService.PSS_SPACE_BIZ_MODEL%>" <%if(spaceType.equals(ProductService.PSS_SPACE_BIZ_MODEL)){%>selected<%} %>>비즈모델공간(Biz Model Space)</option>
+								<option value="<%=ProductService.PSS_SPACE_VALUE_SERVICE%>" <%if(spaceType.equals(ProductService.PSS_SPACE_VALUE_SERVICE)){%>selected<%} %>>가치 및 서비스 공간 (Value & Service Space)</option>
+								<option value="<%=ProductService.PSS_SPACE_VALUE_BIZ_MODEL%>" <%if(spaceType.equals(ProductService.PSS_SPACE_VALUE_BIZ_MODEL)){%>selected<%} %>>가치 및 비즈모델 공간(Value & Biz Model Space)</option>
+								<option value="<%=ProductService.PSS_SPACE_SERVICE_BIZ_MODEL%>" <%if(spaceType.equals(ProductService.PSS_SPACE_SERVICE_BIZ_MODEL)){%>selected<%} %>>서비스 및 비즈모델 공간(Service & Biz Model Space)</option>
+								<option value="<%=ProductService.PSS_SPACE_VALUE_SERVICE_BIZ_MODEL%>" <%if(spaceType.equals(ProductService.PSS_SPACE_VALUE_SERVICE_BIZ_MODEL)){%>selected<%} %>>가치, 서비스 및 비즈모델 공간(Value, Service & Biz Model Space)</option>
 							</select>
 							<span class="js_progress_span"></span>
 							<input style="margin-left:20px" class="js_toggle_use_sim_color" type="checkbox"/><span>컬러로 유사도 구분하기(0.9이상:파랑, 0.8이상:녹색, 0.6이하:빨강)</span>

@@ -19,7 +19,7 @@
 		params.setPageSize(20);
 		params.setCurrentPage(1);
 		String spaceType = request.getParameter("spaceType");
-		if(SmartUtil.isBlankObject(spaceType))
+		if(SmartUtil.isBlankObject(spaceType) || ProductService.getSpaceType(spaceType)>100)
 			params.setSpaceType(ProductService.PSS_SPACE_VALUE);
 		else
 			params.setSpaceType(spaceType);			
@@ -89,7 +89,7 @@
 					<td class="tc"><input class="js_check_instance" name="chkSelectInstance" type="checkbox"/></td>
 					<td class="tc"><%=currentCount--%></td>
 					<td class="tc">
-						<img class="vt up" src="<%=DocFileManagerImpl.PSS_PICTURE_URL + productService.getPicture() %>" style="width:158px" />
+						<img class="vt up" <%if(!SmartUtil.isBlankObject(productService.getPicture())){ %> src="<%=DocFileManagerImpl.PSS_PICTURE_URL + productService.getPicture() %>"<%} %> style="width:158px<%if(SmartUtil.isBlankObject(productService.getPicture())){ %>;height:158px<%} %>" />
 						<div><%=CommonUtil.toNotNull(productService.getName()) %></div>
 					</td>
 					<td class="tl vt">

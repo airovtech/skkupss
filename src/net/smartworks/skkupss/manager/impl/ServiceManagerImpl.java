@@ -230,24 +230,55 @@ public class ServiceManagerImpl implements IServiceManager {
 					ProductService source = productServices[i];
 					ProductService target = productServices[j];
 
+					ValueSpace sourceValue = source.getValueSpace();
+					ValueSpace targetValue = target.getValueSpace();
+					ServiceSpace sourceService = source.getServiceSpace();
+					ServiceSpace targetService = target.getServiceSpace();
+					BizModelSpace sourceBizModel = source.getBizModelSpace();
+					BizModelSpace targetBizModel = target.getBizModelSpace();
+					
 					switch(ProductService.getSpaceType(spaceType)){
 					case ProductService.SPACE_TYPE_VALUE:
-						ValueSpace sourceValue = source.getValueSpace();
-						ValueSpace targetValue = target.getValueSpace();
 						if(!SmartUtil.isBlankObject(sourceValue) && !SmartUtil.isBlankObject(targetValue))
 							sm.setSimilarity((new SimValue(sourceValue.getNumOfValues(), sourceValue.getValues(), targetValue.getNumOfValues(), targetValue.getValues())).calculateSimularity());
 						break;
 					case ProductService.SPACE_TYPE_SERVICE:
-						ServiceSpace sourceService = source.getServiceSpace();
-						ServiceSpace targetService = target.getServiceSpace();
 						if(!SmartUtil.isBlankObject(sourceService) && !SmartUtil.isBlankObject(targetService))
 							sm.setSimilarity((new SimService(sourceService.getNumOfActs(), targetService.getNumOfActs())).calculateSimularity());
 						break;
 					case ProductService.SPACE_TYPE_BIZ_MODEL:
-						BizModelSpace sourceBizModel = source.getBizModelSpace();
-						BizModelSpace targetBizModel = target.getBizModelSpace();
 						if(!SmartUtil.isBlankObject(sourceBizModel) && !SmartUtil.isBlankObject(targetBizModel))
 							sm.setSimilarity((new SimBizModel(sourceBizModel.getNumOfStrategies(), sourceBizModel.getStrategies(), targetBizModel.getNumOfStrategies(), targetBizModel.getStrategies())).calculateSimularity());
+						break;
+					case ProductService.SPACE_TYPE_VALUE_SERVICE:
+						if(!SmartUtil.isBlankObject(sourceValue) && !SmartUtil.isBlankObject(targetValue)
+							&& !SmartUtil.isBlankObject(sourceService) && !SmartUtil.isBlankObject(targetService))
+							sm.setSimilarity(
+									((new SimValue(sourceValue.getNumOfValues(), sourceValue.getValues(), targetValue.getNumOfValues(), targetValue.getValues())).calculateSimularity()
+									+(new SimService(sourceService.getNumOfActs(), targetService.getNumOfActs())).calculateSimularity())/2);
+						break;
+					case ProductService.SPACE_TYPE_VALUE_BIZ_MODEL:
+						if(!SmartUtil.isBlankObject(sourceValue) && !SmartUtil.isBlankObject(targetValue)
+							&& !SmartUtil.isBlankObject(sourceBizModel) && !SmartUtil.isBlankObject(targetBizModel))
+							sm.setSimilarity(
+									((new SimValue(sourceValue.getNumOfValues(), sourceValue.getValues(), targetValue.getNumOfValues(), targetValue.getValues())).calculateSimularity()
+									+(new SimBizModel(sourceBizModel.getNumOfStrategies(), sourceBizModel.getStrategies(), targetBizModel.getNumOfStrategies(), targetBizModel.getStrategies())).calculateSimularity())/2);
+						break;
+					case ProductService.SPACE_TYPE_SERVICE_BIZ_MODEL:
+						if(!SmartUtil.isBlankObject(sourceService) && !SmartUtil.isBlankObject(targetService)
+							&& !SmartUtil.isBlankObject(sourceBizModel) && !SmartUtil.isBlankObject(targetBizModel))
+							sm.setSimilarity(
+									((new SimService(sourceService.getNumOfActs(), targetService.getNumOfActs())).calculateSimularity()
+									+(new SimBizModel(sourceBizModel.getNumOfStrategies(), sourceBizModel.getStrategies(), targetBizModel.getNumOfStrategies(), targetBizModel.getStrategies())).calculateSimularity())/2);
+						break;
+					case ProductService.SPACE_TYPE_VALUE_SERVICE_BIZ_MODEL:
+						if(!SmartUtil.isBlankObject(sourceValue) && !SmartUtil.isBlankObject(targetValue)
+							&& !SmartUtil.isBlankObject(sourceService) && !SmartUtil.isBlankObject(targetService)
+							&& !SmartUtil.isBlankObject(sourceBizModel) && !SmartUtil.isBlankObject(targetBizModel))
+							sm.setSimilarity(
+									((new SimValue(sourceValue.getNumOfValues(), sourceValue.getValues(), targetValue.getNumOfValues(), targetValue.getValues())).calculateSimularity()
+									+(new SimService(sourceService.getNumOfActs(), targetService.getNumOfActs())).calculateSimularity()
+									+(new SimBizModel(sourceBizModel.getNumOfStrategies(), sourceBizModel.getStrategies(), targetBizModel.getNumOfStrategies(), targetBizModel.getStrategies())).calculateSimularity())/3);
 						break;
 					}
 					psSimilarities[i][j] = sm;

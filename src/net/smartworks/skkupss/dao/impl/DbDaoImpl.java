@@ -43,6 +43,14 @@ public class DbDaoImpl implements IDbDao {
 				selectId = "getProductServiceWithServiceSpaceSize";
 			} else if (spaceType != null && spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_BIZ_MODEL)) {
 				selectId = "getProductServiceWithBizModelSpaceSize";
+			} else if (spaceType != null && spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_VALUE_SERVICE)) {
+				selectId = "getProductServiceWithValueServiceSpaceSize";
+			} else if (spaceType != null && spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_VALUE_BIZ_MODEL)) {
+				selectId = "getProductServiceWithValueBizModelSpaceSize";
+			} else if (spaceType != null && spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_SERVICE_BIZ_MODEL)) {
+				selectId = "getProductServiceWithServiceBizModelSpaceSize";
+			} else if (spaceType != null && spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_VALUE_SERVICE_BIZ_MODEL)) {
+				selectId = "getProductServiceWithValueServiceBizModelSpaceSize";
 			}
 			
 			int totalSize = session.selectOne(selectId, cond);
@@ -80,6 +88,14 @@ public class DbDaoImpl implements IDbDao {
 				selectId = "getProductServiceWithServiceSpace";
 			} else if (spaceType != null && spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_BIZ_MODEL)) {
 				selectId = "getProductServiceWithBizModelSpace";
+			} else if (spaceType != null && spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_VALUE_SERVICE)) {
+				selectId = "getProductServiceWithValueServiceSpace";
+			} else if (spaceType != null && spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_VALUE_BIZ_MODEL)) {
+				selectId = "getProductServiceWithValueBizModelSpace";
+			} else if (spaceType != null && spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_SERVICE_BIZ_MODEL)) {
+				selectId = "getProductServiceWithServiceBizModelSpace";
+			} else if (spaceType != null && spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_VALUE_SERVICE_BIZ_MODEL)) {
+				selectId = "getProductServiceWithValueServiceBizModelSpace";
 			}
 			
 			List<Db_ProductService> productServiceList = session.selectList(selectId, cond, Rb);
