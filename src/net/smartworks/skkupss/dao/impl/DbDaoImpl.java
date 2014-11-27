@@ -199,6 +199,25 @@ public class DbDaoImpl implements IDbDao {
 	}
 
 	@Override
+	public String getProductServicePicture(String userId, String psId) throws Exception {
+
+		SqlSession session = null;
+		try {
+			SqlSessionFactory factory = SessionFactory.getInstance().getSqlSessionFactory();
+			session = factory.openSession();
+			
+			String picture = session.selectOne("getProductServicePicture", psId);
+			
+			return picture;
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			if (session != null)
+				session.close();
+		}
+	}
+	
+	@Override
 	public Db_ValueSpace getValueSpace(String userId, String id) throws Exception {
 		SqlSession session = null;
 		try {
@@ -541,4 +560,5 @@ public class DbDaoImpl implements IDbDao {
 				session.close();
 		}		
 	}
+
 }

@@ -27,6 +27,8 @@ public interface IDbDao {
 	public void removeProductService(String userId, String id) throws Exception;
 	public Db_ProductService[] getProductServices(String userId, Db_ProductServiceCond cond) throws Exception;
 	
+	public String getProductServicePicture(String userId, String psId) throws Exception;
+	
 	public Db_ValueSpace getValueSpace(String userId, String id) throws Exception;
 	public void setValueSpace(String userId, Db_ValueSpace valueSpace) throws Exception;
 	public void removeValueSpace(String userId, String id) throws Exception;

@@ -447,6 +447,12 @@ public class DbManagerImpl implements IDbManager {
 		dao.removeProductService(userId, id);
 		
 	}
+	@Override
+	public String getProductServicePicture(String user, String psId) throws Exception {
+
+		String picture = DaoFactory.getInstance().getDbDao().getProductServicePicture(user, psId);
+		return picture;
+	}
 
 
 	/*public ProductService[] getProductServices(String userId, ProductServiceCond cond) throws Exception {

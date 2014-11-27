@@ -424,6 +424,13 @@
 		delete from productService where id = #{id}
   	</delete>
   
+	<select id="getProductServicePicture" parameterType="java.lang.String" resultType="java.lang.String">
+		select picture
+		from
+		productService
+		where id = #{id}
+	</select>
+  
   	<select id="getValueSpace" parameterType="net.smartworks.skkupss.model.db.Db_ValueSpaceCond" resultType="net.smartworks.skkupss.model.db.Db_ValueSpace">
 		select * 
 		from valueSpace 
