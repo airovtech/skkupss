@@ -22,6 +22,17 @@
 		}catch(Exception e){}
 	}
 	
+	String spaceName = ProductService.PSS_SPACE_VALUE;
+	switch(ProductService.getSpaceType(spaceType)){
+	case ProductService.SPACE_TYPE_SERVICE:
+	case ProductService.SPACE_TYPE_SERVICE_BIZ_MODEL:
+		spaceName = ProductService.PSS_SPACE_SERVICE;
+		break;
+	case ProductService.SPACE_TYPE_BIZ_MODEL:
+		spaceName = ProductService.PSS_SPACE_BIZ_MODEL;
+		break;	
+	}
+	
 	session.setAttribute("psIds", psIds);
 	session.setAttribute("psNames", psNames);
 	session.setAttribute("psNames", psNames);
@@ -105,6 +116,21 @@
 			autowidth:true,
 			colNames:colNames,
 			colModel:colModels,
+			onCellSelect : function(rowid, colid, value){
+				if(rowid==0 || colid==0 || value==null || value=="" || rowid==colid) return;
+				console.log('colModels=', colModels[rowid]);
+				var sourcePsId = colModels[rowid].name;
+				var targetPsId = colModels[colid].name;
+				smartPop.progressCenter();
+				$.ajax({
+					url : "doubleProductServices.jsp?sourcePsId=" + sourcePsId + "&targetPsId=" + targetPsId + "&spaceType=<%=spaceName%>" + "&isSim=true",
+					success : function(data, status, jqXHR) {
+						$('#double_product_service').html(data);
+						smartPop.closeProgress();
+					}
+				});
+				
+			},
 			gridComplete : function() { 	        	  
 			},
 			loadError:function(xhr, status, error) {
@@ -145,7 +171,7 @@
 								<option value="<%=ProductService.PSS_SPACE_VALUE_SERVICE_BIZ_MODEL%>" <%if(spaceType.equals(ProductService.PSS_SPACE_VALUE_SERVICE_BIZ_MODEL)){%>selected<%} %>>가치, 서비스 및 비즈모델 공간(Value, Service & Biz Model Space)</option>
 							</select>
 							<span class="js_progress_span"></span>
-							<input style="margin-left:20px" class="js_toggle_use_sim_color" type="checkbox"/><span>컬러로 유사도 구분하기(0.9이상:파랑, 0.8이상:녹색, 0.6이하:빨강)</span>
+							<input style="margin-left:20px" class="js_toggle_use_sim_color" type="checkbox"/><span style="margin-left:6px">컬러로 유사도 구분하기(0.9이상:파랑, 0.8이상:녹색, 0.6이하:빨강)</span>
 						</div>
 					</div>
 					<!-- 목록보기 타이틀-->
@@ -165,6 +191,8 @@
 				<!-- 목록 보기 -->
 			</div>
 			<!-- 목록영역 // -->
+			
+			<div id="double_product_service"></div>
 		</ul>
 	</div>
 	<div class="portlet_b" style="display: block;"></div>
