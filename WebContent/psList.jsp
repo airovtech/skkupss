@@ -70,10 +70,10 @@ try{
 								<a href="newProductService.jsp" class="js_instance_detail icon_btn_tail">새항목 등록하기</a>
 							</div>
 							<div class="icon_btn_start">
-								<a href="newProductService.jsp" class="js_eyeball_comparison icon_btn_tail">육안 비교</a>
+								<a href="" class="js_eyeball_comparison icon_btn_tail">육안 비교</a>
 							</div>
 							<div class="icon_btn_start">
-								<a href="newProductService.jsp" class="js_similarity_calculation icon_btn_tail">유사도 비교</a>
+								<a href="" class="js_similarity_calculation icon_btn_tail">유사도 비교</a>
 							</div>
 						</div>
 					

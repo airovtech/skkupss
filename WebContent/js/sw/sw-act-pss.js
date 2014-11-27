@@ -158,6 +158,7 @@ $(function() {
 		var input = $(targetElement(e));
 		
 		var checkInstances  = $("#iwork_instance_list_page tr .js_check_instance:checked");
+		
 		var psIds = new Array();
 		var psNames = new Array();
 		for(var i=0; i<checkInstances.length; i++){
@@ -209,7 +210,7 @@ $(function() {
 		var spaceType = $('select.js_select_space_name option:selected').attr('value');
 		smartPop.progressCenter();
 		$.ajax({
-			url : "psEyeballComparison.jsp?sourcePsId=" + psIds[0] + "&targetPsId=" + psIds[1] + "&spaceType=" + spaceType,
+			url : "doubleProductServices.jsp?sourcePsId=" + psIds[0] + "&targetPsId=" + psIds[1] + "&spaceType=" + spaceType,
 			success : function(data, status, jqXHR) {
 				$('#content').html(data);
 				smartPop.closeProgress();
@@ -310,5 +311,30 @@ $(function() {
 			clearColorValues();
 		}
 	});			
+
+	$('select.js_select_double_space_name').live('change', function(e){
+		var input = $(targetElement(e));
+		var progressSpan = input.siblings('.js_progress_span:first');
+		var spaceType = input.find('option:selected').attr('spaceType');
+		var url = input.find('option:selected').attr('href');
+		var sourcePsId = input.attr('sourcePsId');
+		var targetPsId = input.attr('targetPsId');
+		smartPop.progressCenter();
+		$.ajax({
+			url : url + "?psId=" + sourcePsId + "&spaceType=" + spaceType,
+			success : function(data, status, jqXHR) {
+				$('#source_view_target').html(data);
+				smartPop.closeProgress();
+			}
+		});
+		$.ajax({
+			url : url + "?psId=" + targetPsId + "&spaceType=" + spaceType,
+			success : function(data, status, jqXHR) {
+				$('#target_view_target').html(data);
+				smartPop.closeProgress();
+			}
+		});
+	});
+	
 	
 });
