@@ -11,7 +11,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 <!-- 				<property name="url" value="jdbc:postgresql://localhost:5433/skkupss" />
  					<property name="url" value="jdbc:postgresql://192.168.0.86:5432/skkupss" />
  -->
- 					<property name="url" value="jdbc:postgresql://192.168.0.86:5432/skkupss" />
+ 					<property name="url" value="jdbc:postgresql://smartworks.net:5432/skkupss" />
 				<property name="username" value="postgres" />
 				<property name="password" value="postgres" />
 			</dataSource>
