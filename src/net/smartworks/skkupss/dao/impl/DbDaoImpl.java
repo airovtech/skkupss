@@ -265,6 +265,8 @@ public class DbDaoImpl implements IDbDao {
 			
 			if (valueSpace.getId() == null) {
 				valueSpace.setId(IdUtil.getInstance().generate());
+				if (valueSpace.getPsId() != null)
+					session.delete("removeValueSpaceByProductId", valueSpace.getPsId());
 			} else {
 				session.delete("removeValueSpace", valueSpace.getId());
 			}
@@ -380,6 +382,8 @@ public class DbDaoImpl implements IDbDao {
 			
 			if (serviceSpace.getId() == null) {
 				serviceSpace.setId(IdUtil.getInstance().generate());
+				if (serviceSpace.getPsId() != null)
+					session.delete("removeServiceSpaceByProductId", serviceSpace.getPsId());
 			} else {
 				session.delete("removeServiceSpace", serviceSpace.getId());
 			}
@@ -494,6 +498,8 @@ public class DbDaoImpl implements IDbDao {
 			
 			if (bizModelSpace.getId() == null) {
 				bizModelSpace.setId(IdUtil.getInstance().generate());
+				if (bizModelSpace.getPsId() != null)
+					session.delete("removeBizModelSpaceByProductId", bizModelSpace.getPsId());
 			} else {
 				session.delete("removeBizModelSpace", bizModelSpace.getId());
 			}
