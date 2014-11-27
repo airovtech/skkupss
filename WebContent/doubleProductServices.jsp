@@ -15,6 +15,7 @@
 	String sourcePsId = request.getParameter("sourcePsId");
 	String targetPsId = request.getParameter("targetPsId");
 	String spaceType = request.getParameter("spaceType");
+	String value = request.getParameter("value");
 	String isSimStr = request.getParameter("isSim");
 	boolean isNotSim = SmartUtil.isBlankObject(isSimStr) ? true : !isSimStr.equals("true");
 	
@@ -65,6 +66,9 @@
 								<option href="viewDefaultSpace.jsp" spaceType="11" value="<%=ProductService.PSS_SPACE_TIME%>" <%if(spaceType.equals(ProductService.PSS_SPACE_TIME)){%>selected<%} %>>시간공간(Time Space)</option>
 								<option href="viewDefaultSpace.jsp" spaceType="12" value="<%=ProductService.PSS_SPACE_ENVIRONMENT%>" <%if(spaceType.equals(ProductService.PSS_SPACE_ENVIRONMENT)){%>selected<%} %>>환경공간(Environment Space)</option>
 							</select>
+							<%if(!SmartUtil.isBlankObject(value)) {%>
+								<span style="font-size: 12px;font-weight: bold;margin-left: 10px;">[유사도 : <%=value %>]</span>
+							<%} %>
 						</div>
 					</div>
 					<!-- 목록보기 타이틀-->

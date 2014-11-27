@@ -186,7 +186,7 @@ try{
 		<!-- Header//-->
 
 		<!-- Contents-->
-		<div id="content">
+		<div id="content" style="min-width:1200px">
 			<jsp:include page="psList.jsp">
 				<jsp:param value="<%=spaceType %>" name="spaceType"/>
 			</jsp:include>
