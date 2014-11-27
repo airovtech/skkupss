@@ -101,11 +101,10 @@
 	out.println(re.length + "  =  " + size); */
 	
 	
-	String psId = "402880a049ef651c0149ef651c710000";
+	Db_ProductServiceCond cond = new Db_ProductServiceCond();
+	Db_ProductService[] ps = DaoFactory.getInstance().getDbDao().getProductServiceWithSelectedSpace("", ProductService.PSS_SPACE_VALUE_SERVICE_BIZ_MODEL , cond);
 	
-	String pic = DaoFactory.getInstance().getDbDao().getProductServicePicture("", psId);
-	
-	out.println(pic);
+	out.println(ps);
 	
 	
 	

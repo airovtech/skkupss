@@ -4,71 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.smartworks.skkupss.dao.mapper.DbMapper">
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	<select id="getProductServiceWithValueSpaceSize" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultType="java.lang.Integer">
-		select count(*)
-		from
-		productService a 
-		right join
-		valueSpace b
-		on a.id = b.psId
-  		<trim prefix="WHERE" prefixOverrides="AND|OR">
-		    <if test="id != null">
-		       	and a.id = #{id}
-		    </if>
-			<if test="idIns != null">
-				and a.id in (
-	            <foreach collection="idIns" item="a" separator=",">#{a}</foreach>
-	            )
-			</if>
-		    <if test="searchKey != null">
-		    	and ((a.name like '%'|| #{searchKey} ||'%') or (a.description like '%'|| #{searchKey} ||'%') or (a.lastModifiedUser like '%'|| #{searchKey} ||'%') or (a.createdUser like '%'|| #{searchKey} ||'%')
-		    		or (b.economical like '%'|| #{searchKey} ||'%') or (b.ecological like '%'|| #{searchKey} ||'%') or (b.function like '%'|| #{searchKey} ||'%') or (b.extrinsicSocial like '%'|| #{searchKey} ||'%') or (b.activeEmotional like '%'|| #{searchKey} ||'%') or (b.reactiveEmotional like '%'|| #{searchKey} ||'%') or (b.intrinsicSocial like '%'|| #{searchKey} ||'%') or (b.epistemic like '%'|| #{searchKey} ||'%')
-		    	)
-		    </if>
-		</trim>
-	</select>
-	<select id="getProductServiceWithValueSpace" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultMap="productServiceValueResult">
-		select a.*, b.id as valueId, b.psId, b.economical, b.ecological, b.function, b.extrinsicSocial, b.activeEmotional, b.reactiveEmotional, b.intrinsicSocial, b.epistemic
-		from
-		productService a 
-		right join
-		valueSpace b
-		on a.id = b.psId
-  		<trim prefix="WHERE" prefixOverrides="AND|OR">
-		    <if test="id != null">
-		       	and a.id = #{id}
-		    </if>
-			<if test="idIns != null">
-				and a.id in (
-	            <foreach collection="idIns" item="a" separator=",">#{a}</foreach>
-	            )
-			</if>
-		    <if test="searchKey != null">
-		    	and ((a.name like '%'|| #{searchKey} ||'%') or (a.description like '%'|| #{searchKey} ||'%') or (a.lastModifiedUser like '%'|| #{searchKey} ||'%') or (a.createdUser like '%'|| #{searchKey} ||'%')
-		    		or (b.economical like '%'|| #{searchKey} ||'%') or (b.ecological like '%'|| #{searchKey} ||'%') or (b.function like '%'|| #{searchKey} ||'%') or (b.extrinsicSocial like '%'|| #{searchKey} ||'%') or (b.activeEmotional like '%'|| #{searchKey} ||'%') or (b.reactiveEmotional like '%'|| #{searchKey} ||'%') or (b.intrinsicSocial like '%'|| #{searchKey} ||'%') or (b.epistemic like '%'|| #{searchKey} ||'%')
-		    	)
-		    </if>
-		</trim>
-	    <if test="orders != null">
-			order by ${orderQuery}
-	    </if>
-	</select>
-	<resultMap id="productServiceValueResult" type="net.smartworks.skkupss.model.db.Db_ProductService">
+	<resultMap id="productServiceAllSpaceResult" type="net.smartworks.skkupss.model.db.Db_ProductService">
 		<id property="id" column="id" />	
 		<result property="name" column="name"/>
 		<result property="picture" column="picture"/>
@@ -87,10 +23,12 @@
 		<result property="createdUser" column="createdUser"/>
 		<result property="createdDate" column="createdDate"/>
   		<association property="valueSpace" javaType="net.smartworks.skkupss.model.db.Db_ValueSpace" resultMap="valueSpaceResult"/>
+  		<association property="serviceSpace" javaType="net.smartworks.skkupss.model.db.Db_ServiceSpace" resultMap="serviceSpaceResult"/>
+  		<association property="bizModelSpace" javaType="net.smartworks.skkupss.model.db.Db_BizModelSpace" resultMap="bizModelSpaceResult"/>
 	</resultMap>
 	<resultMap id="valueSpaceResult" type="net.smartworks.skkupss.model.db.Db_ValueSpace">
 		<id property="id" column="valueId" />	
-		<result property="psId" column="psId"/>
+		<result property="psId" column="valuePsId"/>
 		<result property="economical" column="economical"/>
 		<result property="ecological" column="ecological"/>
 		<result property="function" column="function"/>
@@ -100,165 +38,18 @@
 		<result property="intrinsicSocial" column="intrinsicSocial"/>
 		<result property="epistemic" column="epistemic"/>
 	</resultMap>
-	
-	
-	<select id="getProductServiceWithServiceSpaceSize" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultType="java.lang.Integer">
-		select count(*)
-		from
-		productService a 
-		right join
-		serviceSpace b
-		on a.id = b.psId
-  		<trim prefix="WHERE" prefixOverrides="AND|OR">
-		    <if test="id != null">
-		       	and a.id = #{id}
-		    </if>
-			<if test="idIns != null">
-				and a.id in (
-	            <foreach collection="idIns" item="a" separator=",">#{a}</foreach>
-	            )
-			</if>
-		    <if test="searchKey != null">
-		    	and ((a.name like '%'|| #{searchKey} ||'%') or (a.description like '%'|| #{searchKey} ||'%') or (a.lastModifiedUser like '%'|| #{searchKey} ||'%') or (a.createdUser like '%'|| #{searchKey} ||'%')
-		    		or (b.sspp like '%'|| #{searchKey} ||'%') or (b.ssp like '%'|| #{searchKey} ||'%') or (b.sspc like '%'|| #{searchKey} ||'%') or (b.ssc like '%'|| #{searchKey} ||'%') or (b.sscc like '%'|| #{searchKey} ||'%')
-		    	)
-		    </if>
-		 </trim>
-	</select>
-	<select id="getProductServiceWithServiceSpace" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultMap="productServiceServiceResult">
-		select a.*, b.id as serviceId, b.psId, b.sspp, b.ssp, b.sspc, b.ssc, b.sscc
-		from
-		productService a 
-		right join
-		serviceSpace b
-		on a.id = b.psId
-  		<trim prefix="WHERE" prefixOverrides="AND|OR">
-		    <if test="id != null">
-		       	and a.id = #{id}
-		    </if>
-			<if test="idIns != null">
-				and a.id in (
-	            <foreach collection="idIns" item="a" separator=",">#{a}</foreach>
-	            )
-			</if>
-		    <if test="searchKey != null">
-		    	and ((a.name like '%'|| #{searchKey} ||'%') or (a.description like '%'|| #{searchKey} ||'%') or (a.lastModifiedUser like '%'|| #{searchKey} ||'%') or (a.createdUser like '%'|| #{searchKey} ||'%')
-		    		or (b.sspp like '%'|| #{searchKey} ||'%') or (b.ssp like '%'|| #{searchKey} ||'%') or (b.sspc like '%'|| #{searchKey} ||'%') or (b.ssc like '%'|| #{searchKey} ||'%') or (b.sscc like '%'|| #{searchKey} ||'%')
-		    	)
-		    </if>
-		 </trim>
-	    <if test="orders != null">
-			order by ${orderQuery}
-	    </if>
-	</select>
-	<resultMap id="productServiceServiceResult" type="net.smartworks.skkupss.model.db.Db_ProductService">
-		<id property="id" column="id" />	
-		<result property="name" column="name"/>
-		<result property="picture" column="picture"/>
-		<result property="description" column="description"/>
-		<result property="productServiceSpace" column="productServiceSpace"/>
-		<result property="productSpace" column="productSpace"/>
-		<result property="touchPointSpace" column="touchPointSpace"/>
-		<result property="customerSpace" column="customerSpace"/>
-		<result property="actorSpace" column="actorSpace"/>
-		<result property="societySpace" column="societySpace"/>
-		<result property="contextSpace" column="contextSpace"/>
-		<result property="timeSpace" column="timeSpace"/>
-		<result property="environmentSpace" column="environmentSpace"/>
-		<result property="lastModifiedUser" column="lastModifiedUser"/>
-		<result property="lastModifiedDate" column="lastModifiedDate"/>
-		<result property="createdUser" column="createdUser"/>
-		<result property="createdDate" column="createdDate"/>
-  		<association property="serviceSpace" javaType="net.smartworks.skkupss.model.db.Db_ServiceSpace" resultMap="serviceSpaceResult"/>
-	</resultMap>
 	<resultMap id="serviceSpaceResult" type="net.smartworks.skkupss.model.db.Db_ServiceSpace">
 		<id property="id" column="serviceId" />	
-		<result property="psId" column="psId"/>
+		<result property="psId" column="servicePsId"/>
 		<result property="sspp" column="sspp"/>
 		<result property="ssp" column="ssp"/>
 		<result property="sspc" column="sspc"/>
 		<result property="ssc" column="ssc"/>
 		<result property="sscc" column="sscc"/>
 	</resultMap>
-	
-	
-	<select id="getProductServiceWithBizModelSpaceSize" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultType="java.lang.Integer">
-		select count(*)
-		from
-		productService a 
-		right join
-		bizModelSpace b
-		on a.id = b.psId
-  		<trim prefix="WHERE" prefixOverrides="AND|OR">
-		    <if test="id != null">
-		       	and a.id = #{id}
-		    </if>
-			<if test="idIns != null">
-				and a.id in (
-	            <foreach collection="idIns" item="a" separator=",">#{a}</foreach>
-	            )
-			</if>
-		    <if test="searchKey != null">
-		    	and ((a.name like '%'|| #{searchKey} ||'%') or (a.description like '%'|| #{searchKey} ||'%') or (a.lastModifiedUser like '%'|| #{searchKey} ||'%') or (a.createdUser like '%'|| #{searchKey} ||'%')
-		    		or (b.customerSegments like '%'|| #{searchKey} ||'%') or (b.customerSegmentsUser like '%'|| #{searchKey} ||'%') or (b.CustomerRelationships like '%'|| #{searchKey} ||'%') or (b.CustomerRelationshipsUser like '%'|| #{searchKey} ||'%') or (b.channels like '%'|| #{searchKey} ||'%')
-		    			or (b.channelsUser like '%'|| #{searchKey} ||'%') or (b.keyActivities like '%'|| #{searchKey} ||'%') or (b.keyActivitiesUser like '%'|| #{searchKey} ||'%') or (b.keyResources like '%'|| #{searchKey} ||'%') or (b.keyResourcesUser like '%'|| #{searchKey} ||'%') or (b.keyPartners like '%'|| #{searchKey} ||'%') 
-		    				or (b.keyPartnersUser like '%'|| #{searchKey} ||'%') or (b.costStructure like '%'|| #{searchKey} ||'%') or (b.costStructureUser like '%'|| #{searchKey} ||'%') or (b.revenueStreams like '%'|| #{searchKey} ||'%') or (b.revenueStreamsUser like '%'|| #{searchKey} ||'%')
-		    	)
-		    </if>
-		 </trim>
-	</select>
-	<select id="getProductServiceWithBizModelSpace" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultMap="productServiceBizModelResult">
-		select a.*, b.id as bizModelId, b.psId, b.customerSegments, b.customerSegmentsUser, b.CustomerRelationships, b.CustomerRelationshipsUser, b.channels
-		, b.channelsUser, b.keyActivities, b.keyActivitiesUser, b.keyResources, b.keyResourcesUser, b.keyPartners, b.keyPartnersUser, b.costStructure, b.costStructureUser, b.revenueStreams, b.revenueStreamsUser
-		from
-		productService a 
-		right join
-		bizModelSpace b
-		on a.id = b.psId
-  		<trim prefix="WHERE" prefixOverrides="AND|OR">
-		    <if test="id != null">
-		       	and a.id = #{id}
-		    </if>
-			<if test="idIns != null">
-				and a.id in (
-	            <foreach collection="idIns" item="a" separator=",">#{a}</foreach>
-	            )
-			</if>
-		    <if test="searchKey != null">
-		    	and ((a.name like '%'|| #{searchKey} ||'%') or (a.description like '%'|| #{searchKey} ||'%') or (a.lastModifiedUser like '%'|| #{searchKey} ||'%') or (a.createdUser like '%'|| #{searchKey} ||'%')
-		    		or (b.customerSegments like '%'|| #{searchKey} ||'%') or (b.customerSegmentsUser like '%'|| #{searchKey} ||'%') or (b.CustomerRelationships like '%'|| #{searchKey} ||'%') or (b.CustomerRelationshipsUser like '%'|| #{searchKey} ||'%') or (b.channels like '%'|| #{searchKey} ||'%')
-		    			or (b.channelsUser like '%'|| #{searchKey} ||'%') or (b.keyActivities like '%'|| #{searchKey} ||'%') or (b.keyActivitiesUser like '%'|| #{searchKey} ||'%') or (b.keyResources like '%'|| #{searchKey} ||'%') or (b.keyResourcesUser like '%'|| #{searchKey} ||'%') or (b.keyPartners like '%'|| #{searchKey} ||'%') 
-		    				or (b.keyPartnersUser like '%'|| #{searchKey} ||'%') or (b.costStructure like '%'|| #{searchKey} ||'%') or (b.costStructureUser like '%'|| #{searchKey} ||'%') or (b.revenueStreams like '%'|| #{searchKey} ||'%') or (b.revenueStreamsUser like '%'|| #{searchKey} ||'%')
-		    	)
-		    </if>
-		 </trim>
-	    <if test="orders != null">
-			order by ${orderQuery}
-	    </if>
-	</select>
-	<resultMap id="productServiceBizModelResult" type="net.smartworks.skkupss.model.db.Db_ProductService">
-		<id property="id" column="id" />	
-		<result property="name" column="name"/>
-		<result property="picture" column="picture"/>
-		<result property="description" column="description"/>
-		<result property="productServiceSpace" column="productServiceSpace"/>
-		<result property="productSpace" column="productSpace"/>
-		<result property="touchPointSpace" column="touchPointSpace"/>
-		<result property="customerSpace" column="customerSpace"/>
-		<result property="actorSpace" column="actorSpace"/>
-		<result property="societySpace" column="societySpace"/>
-		<result property="contextSpace" column="contextSpace"/>
-		<result property="timeSpace" column="timeSpace"/>
-		<result property="environmentSpace" column="environmentSpace"/>
-		<result property="lastModifiedUser" column="lastModifiedUser"/>
-		<result property="lastModifiedDate" column="lastModifiedDate"/>
-		<result property="createdUser" column="createdUser"/>
-		<result property="createdDate" column="createdDate"/>
-  		<association property="bizModelSpace" javaType="net.smartworks.skkupss.model.db.Db_BizModelSpace" resultMap="bizModelSpaceResult"/>
-	</resultMap>
 	<resultMap id="bizModelSpaceResult" type="net.smartworks.skkupss.model.db.Db_BizModelSpace">
 		<id property="id" column="bizModelId" />	
-		<result property="psId" column="psId"/>
+		<result property="psId" column="bizModelPsId"/>
 		<result property="customerSegments" column="customerSegments"/>
 		<result property="customerSegmentsUser" column="customerSegmentsUser"/>
 		<result property="CustomerRelationships" column="CustomerRelationships"/>
@@ -277,7 +68,378 @@
 		<result property="revenueStreams" column="revenueStreams"/>
 		<result property="revenueStreamsUser" column="revenueStreamsUser"/>
 	</resultMap>
+
+
+	<select id="getProductServiceWithValueServiceBizModelSpaceSize" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultType="java.lang.Integer">
+		select count(*)
+		from
+		productService a 
+		,serviceSpace b
+		,bizModelSpace c
+		,valueSpace d
+		where a.id = b.psId
+		and a.id = c.psId
+		and a.id = d.psId
+	    <if test="id != null">
+	       	and a.id = #{id}
+	    </if>
+		<if test="idIns != null">
+			and a.id in (
+            <foreach collection="idIns" item="a" separator=",">#{a}</foreach>
+            )
+		</if>
+	    <if test="searchKey != null">
+	    	and ((a.name like '%'|| #{searchKey} ||'%') or (a.description like '%'|| #{searchKey} ||'%') or (a.lastModifiedUser like '%'|| #{searchKey} ||'%') or (a.createdUser like '%'|| #{searchKey} ||'%')
+	    		or (b.sspp like '%'|| #{searchKey} ||'%') or (b.ssp like '%'|| #{searchKey} ||'%') or (b.sspc like '%'|| #{searchKey} ||'%') or (b.ssc like '%'|| #{searchKey} ||'%') or (b.sscc like '%'|| #{searchKey} ||'%')
+					or (c.customerSegments like '%'|| #{searchKey} ||'%') or (c.customerSegmentsUser like '%'|| #{searchKey} ||'%') or (c.CustomerRelationships like '%'|| #{searchKey} ||'%') or (c.CustomerRelationshipsUser like '%'|| #{searchKey} ||'%') or (c.channels like '%'|| #{searchKey} ||'%')
+		    		or (c.channelsUser like '%'|| #{searchKey} ||'%') or (c.keyActivities like '%'|| #{searchKey} ||'%') or (c.keyActivitiesUser like '%'|| #{searchKey} ||'%') or (c.keyResources like '%'|| #{searchKey} ||'%') or (c.keyResourcesUser like '%'|| #{searchKey} ||'%') or (c.keyPartners like '%'|| #{searchKey} ||'%') 
+		    		or (c.keyPartnersUser like '%'|| #{searchKey} ||'%') or (c.costStructure like '%'|| #{searchKey} ||'%') or (c.costStructureUser like '%'|| #{searchKey} ||'%') or (c.revenueStreams like '%'|| #{searchKey} ||'%') or (c.revenueStreamsUser like '%'|| #{searchKey} ||'%')
+		    			or (d.economical like '%'|| #{searchKey} ||'%') or (d.ecological like '%'|| #{searchKey} ||'%') or (d.function like '%'|| #{searchKey} ||'%') or (d.extrinsicSocial like '%'|| #{searchKey} ||'%') or (d.activeEmotional like '%'|| #{searchKey} ||'%') or (d.reactiveEmotional like '%'|| #{searchKey} ||'%') or (d.intrinsicSocial like '%'|| #{searchKey} ||'%') or (d.epistemic like '%'|| #{searchKey} ||'%')
+	    	)
+	    </if>
+	</select>
+	<select id="getProductServiceWithValueServiceBizModelSpace" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultMap="productServiceAllSpaceResult">
+		select a.* 
+		, b.id as serviceId, b.psId as servicePsId, b.sspp, b.ssp, b.sspc, b.ssc, b.sscc
+		, c.id as bizModelId, c.psId as bizModelPsId, c.customerSegments, c.customerSegmentsUser, c.CustomerRelationships, c.CustomerRelationshipsUser, c.channels
+		, c.channelsUser, c.keyActivities, c.keyActivitiesUser, c.keyResources, c.keyResourcesUser, c.keyPartners, c.keyPartnersUser, c.costStructure, c.costStructureUser, c.revenueStreams, c.revenueStreamsUser
+		, d.id as valueId, d.psId as valuePsId, d.economical, d.ecological, d.function, d.extrinsicSocial, d.activeEmotional, d.reactiveEmotional, d.intrinsicSocial, d.epistemic
+		from
+		productService a 
+		,serviceSpace b
+		,bizModelSpace c
+		,valueSpace d
+		where a.id = b.psId
+		and a.id = c.psId
+		and a.id = d.psId
+	    <if test="id != null">
+	       	and a.id = #{id}
+	    </if>
+		<if test="idIns != null">
+			and a.id in (
+            <foreach collection="idIns" item="a" separator=",">#{a}</foreach>
+            )
+		</if>
+	    <if test="searchKey != null">
+	    	and ((a.name like '%'|| #{searchKey} ||'%') or (a.description like '%'|| #{searchKey} ||'%') or (a.lastModifiedUser like '%'|| #{searchKey} ||'%') or (a.createdUser like '%'|| #{searchKey} ||'%')
+	    		or (b.sspp like '%'|| #{searchKey} ||'%') or (b.ssp like '%'|| #{searchKey} ||'%') or (b.sspc like '%'|| #{searchKey} ||'%') or (b.ssc like '%'|| #{searchKey} ||'%') or (b.sscc like '%'|| #{searchKey} ||'%')
+	    			or (c.customerSegments like '%'|| #{searchKey} ||'%') or (c.customerSegmentsUser like '%'|| #{searchKey} ||'%') or (c.CustomerRelationships like '%'|| #{searchKey} ||'%') or (c.CustomerRelationshipsUser like '%'|| #{searchKey} ||'%') or (c.channels like '%'|| #{searchKey} ||'%')
+		    		or (c.channelsUser like '%'|| #{searchKey} ||'%') or (c.keyActivities like '%'|| #{searchKey} ||'%') or (c.keyActivitiesUser like '%'|| #{searchKey} ||'%') or (c.keyResources like '%'|| #{searchKey} ||'%') or (c.keyResourcesUser like '%'|| #{searchKey} ||'%') or (c.keyPartners like '%'|| #{searchKey} ||'%') 
+		    		or (c.keyPartnersUser like '%'|| #{searchKey} ||'%') or (c.costStructure like '%'|| #{searchKey} ||'%') or (c.costStructureUser like '%'|| #{searchKey} ||'%') or (c.revenueStreams like '%'|| #{searchKey} ||'%') or (c.revenueStreamsUser like '%'|| #{searchKey} ||'%')
+		    			or (d.economical like '%'|| #{searchKey} ||'%') or (d.ecological like '%'|| #{searchKey} ||'%') or (d.function like '%'|| #{searchKey} ||'%') or (d.extrinsicSocial like '%'|| #{searchKey} ||'%') or (d.activeEmotional like '%'|| #{searchKey} ||'%') or (d.reactiveEmotional like '%'|| #{searchKey} ||'%') or (d.intrinsicSocial like '%'|| #{searchKey} ||'%') or (d.epistemic like '%'|| #{searchKey} ||'%')
+	    	)
+	    </if>
+	    <if test="orders != null">
+			order by ${orderQuery}
+	    </if>
+	</select>
+
+	<select id="getProductServiceWithServiceBizModelSpaceSize" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultType="java.lang.Integer">
+		select count(*)
+		from
+		productService a 
+		,serviceSpace b
+		,bizModelSpace c
+		where a.id = b.psId
+		and a.id = c.psId
+	    <if test="id != null">
+	       	and a.id = #{id}
+	    </if>
+		<if test="idIns != null">
+			and a.id in (
+            <foreach collection="idIns" item="a" separator=",">#{a}</foreach>
+            )
+		</if>
+	    <if test="searchKey != null">
+	    	and ((a.name like '%'|| #{searchKey} ||'%') or (a.description like '%'|| #{searchKey} ||'%') or (a.lastModifiedUser like '%'|| #{searchKey} ||'%') or (a.createdUser like '%'|| #{searchKey} ||'%')
+	    		or (b.sspp like '%'|| #{searchKey} ||'%') or (b.ssp like '%'|| #{searchKey} ||'%') or (b.sspc like '%'|| #{searchKey} ||'%') or (b.ssc like '%'|| #{searchKey} ||'%') or (b.sscc like '%'|| #{searchKey} ||'%')
+					or (c.customerSegments like '%'|| #{searchKey} ||'%') or (c.customerSegmentsUser like '%'|| #{searchKey} ||'%') or (c.CustomerRelationships like '%'|| #{searchKey} ||'%') or (c.CustomerRelationshipsUser like '%'|| #{searchKey} ||'%') or (c.channels like '%'|| #{searchKey} ||'%')
+		    		or (c.channelsUser like '%'|| #{searchKey} ||'%') or (c.keyActivities like '%'|| #{searchKey} ||'%') or (c.keyActivitiesUser like '%'|| #{searchKey} ||'%') or (c.keyResources like '%'|| #{searchKey} ||'%') or (c.keyResourcesUser like '%'|| #{searchKey} ||'%') or (c.keyPartners like '%'|| #{searchKey} ||'%') 
+		    		or (c.keyPartnersUser like '%'|| #{searchKey} ||'%') or (c.costStructure like '%'|| #{searchKey} ||'%') or (c.costStructureUser like '%'|| #{searchKey} ||'%') or (c.revenueStreams like '%'|| #{searchKey} ||'%') or (c.revenueStreamsUser like '%'|| #{searchKey} ||'%')
+	    	)
+	    </if>
+	</select>
+	<select id="getProductServiceWithServiceBizModelSpace" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultMap="productServiceAllSpaceResult">
+		select a.* 
+		, b.id as serviceId, b.psId as servicePsId, b.sspp, b.ssp, b.sspc, b.ssc, b.sscc
+		, c.id as bizModelId, c.psId as bizModelPsId, c.customerSegments, c.customerSegmentsUser, c.CustomerRelationships, c.CustomerRelationshipsUser, c.channels
+		, c.channelsUser, c.keyActivities, c.keyActivitiesUser, c.keyResources, c.keyResourcesUser, c.keyPartners, c.keyPartnersUser, c.costStructure, c.costStructureUser, c.revenueStreams, c.revenueStreamsUser
+		from
+		productService a 
+		,serviceSpace b
+		,bizModelSpace c
+		where a.id = b.psId
+		and a.id = c.psId
+	    <if test="id != null">
+	       	and a.id = #{id}
+	    </if>
+		<if test="idIns != null">
+			and a.id in (
+            <foreach collection="idIns" item="a" separator=",">#{a}</foreach>
+            )
+		</if>
+	    <if test="searchKey != null">
+	    	and ((a.name like '%'|| #{searchKey} ||'%') or (a.description like '%'|| #{searchKey} ||'%') or (a.lastModifiedUser like '%'|| #{searchKey} ||'%') or (a.createdUser like '%'|| #{searchKey} ||'%')
+	    		or (b.sspp like '%'|| #{searchKey} ||'%') or (b.ssp like '%'|| #{searchKey} ||'%') or (b.sspc like '%'|| #{searchKey} ||'%') or (b.ssc like '%'|| #{searchKey} ||'%') or (b.sscc like '%'|| #{searchKey} ||'%')
+	    			or (c.customerSegments like '%'|| #{searchKey} ||'%') or (c.customerSegmentsUser like '%'|| #{searchKey} ||'%') or (c.CustomerRelationships like '%'|| #{searchKey} ||'%') or (c.CustomerRelationshipsUser like '%'|| #{searchKey} ||'%') or (c.channels like '%'|| #{searchKey} ||'%')
+		    		or (c.channelsUser like '%'|| #{searchKey} ||'%') or (c.keyActivities like '%'|| #{searchKey} ||'%') or (c.keyActivitiesUser like '%'|| #{searchKey} ||'%') or (c.keyResources like '%'|| #{searchKey} ||'%') or (c.keyResourcesUser like '%'|| #{searchKey} ||'%') or (c.keyPartners like '%'|| #{searchKey} ||'%') 
+		    		or (c.keyPartnersUser like '%'|| #{searchKey} ||'%') or (c.costStructure like '%'|| #{searchKey} ||'%') or (c.costStructureUser like '%'|| #{searchKey} ||'%') or (c.revenueStreams like '%'|| #{searchKey} ||'%') or (c.revenueStreamsUser like '%'|| #{searchKey} ||'%')
+	    	)
+	    </if>
+	    <if test="orders != null">
+			order by ${orderQuery}
+	    </if>
+	</select>
 	
+	<select id="getProductServiceWithValueBizModelSpaceSize" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultType="java.lang.Integer">
+		select count(*)
+		from
+		productService a 
+		,valueSpace b
+		,bizModelSpace c
+		where a.id = b.psId
+		and a.id = c.psId
+	    <if test="id != null">
+	       	and a.id = #{id}
+	    </if>
+		<if test="idIns != null">
+			and a.id in (
+            <foreach collection="idIns" item="a" separator=",">#{a}</foreach>
+            )
+		</if>
+	    <if test="searchKey != null">
+	    	and ((a.name like '%'|| #{searchKey} ||'%') or (a.description like '%'|| #{searchKey} ||'%') or (a.lastModifiedUser like '%'|| #{searchKey} ||'%') or (a.createdUser like '%'|| #{searchKey} ||'%')
+	    		or (b.economical like '%'|| #{searchKey} ||'%') or (b.ecological like '%'|| #{searchKey} ||'%') or (b.function like '%'|| #{searchKey} ||'%') or (b.extrinsicSocial like '%'|| #{searchKey} ||'%') or (b.activeEmotional like '%'|| #{searchKey} ||'%') or (b.reactiveEmotional like '%'|| #{searchKey} ||'%') or (b.intrinsicSocial like '%'|| #{searchKey} ||'%') or (b.epistemic like '%'|| #{searchKey} ||'%')
+					or (c.customerSegments like '%'|| #{searchKey} ||'%') or (c.customerSegmentsUser like '%'|| #{searchKey} ||'%') or (c.CustomerRelationships like '%'|| #{searchKey} ||'%') or (c.CustomerRelationshipsUser like '%'|| #{searchKey} ||'%') or (c.channels like '%'|| #{searchKey} ||'%')
+		    		or (c.channelsUser like '%'|| #{searchKey} ||'%') or (c.keyActivities like '%'|| #{searchKey} ||'%') or (c.keyActivitiesUser like '%'|| #{searchKey} ||'%') or (c.keyResources like '%'|| #{searchKey} ||'%') or (c.keyResourcesUser like '%'|| #{searchKey} ||'%') or (c.keyPartners like '%'|| #{searchKey} ||'%') 
+		    		or (c.keyPartnersUser like '%'|| #{searchKey} ||'%') or (c.costStructure like '%'|| #{searchKey} ||'%') or (c.costStructureUser like '%'|| #{searchKey} ||'%') or (c.revenueStreams like '%'|| #{searchKey} ||'%') or (c.revenueStreamsUser like '%'|| #{searchKey} ||'%')
+	    	)
+	    </if>
+	</select>
+	<select id="getProductServiceWithValueBizModelSpace" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultMap="productServiceAllSpaceResult">
+		select a.* 
+		, b.id as valueId, b.psId as valuePsId, b.economical, b.ecological, b.function, b.extrinsicSocial, b.activeEmotional, b.reactiveEmotional, b.intrinsicSocial, b.epistemic
+		, c.id as bizModelId, c.psId as bizModelPsId, c.customerSegments, c.customerSegmentsUser, c.CustomerRelationships, c.CustomerRelationshipsUser, c.channels
+		, c.channelsUser, c.keyActivities, c.keyActivitiesUser, c.keyResources, c.keyResourcesUser, c.keyPartners, c.keyPartnersUser, c.costStructure, c.costStructureUser, c.revenueStreams, c.revenueStreamsUser
+		from
+		productService a 
+		,valueSpace b
+		,bizModelSpace c
+		where a.id = b.psId
+		and a.id = c.psId
+	    <if test="id != null">
+	       	and a.id = #{id}
+	    </if>
+		<if test="idIns != null">
+			and a.id in (
+            <foreach collection="idIns" item="a" separator=",">#{a}</foreach>
+            )
+		</if>
+	    <if test="searchKey != null">
+	    	and ((a.name like '%'|| #{searchKey} ||'%') or (a.description like '%'|| #{searchKey} ||'%') or (a.lastModifiedUser like '%'|| #{searchKey} ||'%') or (a.createdUser like '%'|| #{searchKey} ||'%')
+	    		or (b.economical like '%'|| #{searchKey} ||'%') or (b.ecological like '%'|| #{searchKey} ||'%') or (b.function like '%'|| #{searchKey} ||'%') or (b.extrinsicSocial like '%'|| #{searchKey} ||'%') or (b.activeEmotional like '%'|| #{searchKey} ||'%') or (b.reactiveEmotional like '%'|| #{searchKey} ||'%') or (b.intrinsicSocial like '%'|| #{searchKey} ||'%') or (b.epistemic like '%'|| #{searchKey} ||'%')
+	    			or (c.customerSegments like '%'|| #{searchKey} ||'%') or (c.customerSegmentsUser like '%'|| #{searchKey} ||'%') or (c.CustomerRelationships like '%'|| #{searchKey} ||'%') or (c.CustomerRelationshipsUser like '%'|| #{searchKey} ||'%') or (c.channels like '%'|| #{searchKey} ||'%')
+		    		or (c.channelsUser like '%'|| #{searchKey} ||'%') or (c.keyActivities like '%'|| #{searchKey} ||'%') or (c.keyActivitiesUser like '%'|| #{searchKey} ||'%') or (c.keyResources like '%'|| #{searchKey} ||'%') or (c.keyResourcesUser like '%'|| #{searchKey} ||'%') or (c.keyPartners like '%'|| #{searchKey} ||'%') 
+		    		or (c.keyPartnersUser like '%'|| #{searchKey} ||'%') or (c.costStructure like '%'|| #{searchKey} ||'%') or (c.costStructureUser like '%'|| #{searchKey} ||'%') or (c.revenueStreams like '%'|| #{searchKey} ||'%') or (c.revenueStreamsUser like '%'|| #{searchKey} ||'%')
+	    	)
+	    </if>
+	    <if test="orders != null">
+			order by ${orderQuery}
+	    </if>
+	</select>
+
+	<select id="getProductServiceWithValueServiceSpaceSize" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultType="java.lang.Integer">
+		select count(*)
+		from
+		productService a 
+		,valueSpace b
+		,serviceSpace c
+		where a.id = b.psId
+		and a.id = c.psId
+	    <if test="id != null">
+	       	and a.id = #{id}
+	    </if>
+		<if test="idIns != null">
+			and a.id in (
+            <foreach collection="idIns" item="a" separator=",">#{a}</foreach>
+            )
+		</if>
+	    <if test="searchKey != null">
+	    	and ((a.name like '%'|| #{searchKey} ||'%') or (a.description like '%'|| #{searchKey} ||'%') or (a.lastModifiedUser like '%'|| #{searchKey} ||'%') or (a.createdUser like '%'|| #{searchKey} ||'%')
+	    		or (b.economical like '%'|| #{searchKey} ||'%') or (b.ecological like '%'|| #{searchKey} ||'%') or (b.function like '%'|| #{searchKey} ||'%') or (b.extrinsicSocial like '%'|| #{searchKey} ||'%') or (b.activeEmotional like '%'|| #{searchKey} ||'%') or (b.reactiveEmotional like '%'|| #{searchKey} ||'%') or (b.intrinsicSocial like '%'|| #{searchKey} ||'%') or (b.epistemic like '%'|| #{searchKey} ||'%')
+	    			or (c.sspp like '%'|| #{searchKey} ||'%') or (c.ssp like '%'|| #{searchKey} ||'%') or (c.sspc like '%'|| #{searchKey} ||'%') or (c.ssc like '%'|| #{searchKey} ||'%') or (c.sscc like '%'|| #{searchKey} ||'%')
+	    	)
+	    </if>
+	</select>
+	<select id="getProductServiceWithValueServiceSpace" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultMap="productServiceAllSpaceResult">
+		select a.* 
+		,b.id as valueId, b.psId as valuePsId, b.economical, b.ecological, b.function, b.extrinsicSocial, b.activeEmotional, b.reactiveEmotional, b.intrinsicSocial, b.epistemic
+		,c.id as serviceId, c.psId as servicePsId, c.sspp, c.ssp, c.sspc, c.ssc, c.sscc
+		from
+		productService a 
+		,valueSpace b
+		,serviceSpace c
+		where a.id = b.psId
+		and a.id = c.psId
+	    <if test="id != null">
+	       	and a.id = #{id}
+	    </if>
+		<if test="idIns != null">
+			and a.id in (
+            <foreach collection="idIns" item="a" separator=",">#{a}</foreach>
+            )
+		</if>
+	    <if test="searchKey != null">
+	    	and ((a.name like '%'|| #{searchKey} ||'%') or (a.description like '%'|| #{searchKey} ||'%') or (a.lastModifiedUser like '%'|| #{searchKey} ||'%') or (a.createdUser like '%'|| #{searchKey} ||'%')
+	    		or (b.economical like '%'|| #{searchKey} ||'%') or (b.ecological like '%'|| #{searchKey} ||'%') or (b.function like '%'|| #{searchKey} ||'%') or (b.extrinsicSocial like '%'|| #{searchKey} ||'%') or (b.activeEmotional like '%'|| #{searchKey} ||'%') or (b.reactiveEmotional like '%'|| #{searchKey} ||'%') or (b.intrinsicSocial like '%'|| #{searchKey} ||'%') or (b.epistemic like '%'|| #{searchKey} ||'%')
+	    			or (c.sspp like '%'|| #{searchKey} ||'%') or (c.ssp like '%'|| #{searchKey} ||'%') or (c.sspc like '%'|| #{searchKey} ||'%') or (c.ssc like '%'|| #{searchKey} ||'%') or (c.sscc like '%'|| #{searchKey} ||'%')
+	    	)
+	    </if>
+	    <if test="orders != null">
+			order by ${orderQuery}
+	    </if>
+	</select>
+
+	<select id="getProductServiceWithValueSpaceSize" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultType="java.lang.Integer">
+		select count(*)
+		from
+		productService a 
+		,valueSpace b
+		where a.id = b.psId
+	    <if test="id != null">
+	       	and a.id = #{id}
+	    </if>
+		<if test="idIns != null">
+			and a.id in (
+            <foreach collection="idIns" item="a" separator=",">#{a}</foreach>
+            )
+		</if>
+	    <if test="searchKey != null">
+	    	and ((a.name like '%'|| #{searchKey} ||'%') or (a.description like '%'|| #{searchKey} ||'%') or (a.lastModifiedUser like '%'|| #{searchKey} ||'%') or (a.createdUser like '%'|| #{searchKey} ||'%')
+	    		or (b.economical like '%'|| #{searchKey} ||'%') or (b.ecological like '%'|| #{searchKey} ||'%') or (b.function like '%'|| #{searchKey} ||'%') or (b.extrinsicSocial like '%'|| #{searchKey} ||'%') or (b.activeEmotional like '%'|| #{searchKey} ||'%') or (b.reactiveEmotional like '%'|| #{searchKey} ||'%') or (b.intrinsicSocial like '%'|| #{searchKey} ||'%') or (b.epistemic like '%'|| #{searchKey} ||'%')
+	    	)
+	    </if>
+	</select>
+	<select id="getProductServiceWithValueSpace" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultMap="productServiceAllSpaceResult">
+		select a.*, b.id as valueId, b.psId as valuePsId, b.economical, b.ecological, b.function, b.extrinsicSocial, b.activeEmotional, b.reactiveEmotional, b.intrinsicSocial, b.epistemic
+		from
+		productService a 
+		,valueSpace b
+		where a.id = b.psId
+	    <if test="id != null">
+	       	and a.id = #{id}
+	    </if>
+		<if test="idIns != null">
+			and a.id in (
+            <foreach collection="idIns" item="a" separator=",">#{a}</foreach>
+            )
+		</if>
+	    <if test="searchKey != null">
+	    	and ((a.name like '%'|| #{searchKey} ||'%') or (a.description like '%'|| #{searchKey} ||'%') or (a.lastModifiedUser like '%'|| #{searchKey} ||'%') or (a.createdUser like '%'|| #{searchKey} ||'%')
+	    		or (b.economical like '%'|| #{searchKey} ||'%') or (b.ecological like '%'|| #{searchKey} ||'%') or (b.function like '%'|| #{searchKey} ||'%') or (b.extrinsicSocial like '%'|| #{searchKey} ||'%') or (b.activeEmotional like '%'|| #{searchKey} ||'%') or (b.reactiveEmotional like '%'|| #{searchKey} ||'%') or (b.intrinsicSocial like '%'|| #{searchKey} ||'%') or (b.epistemic like '%'|| #{searchKey} ||'%')
+	    	)
+	    </if>
+	    <if test="orders != null">
+			order by ${orderQuery}
+	    </if>
+	</select>
+	
+	<select id="getProductServiceWithServiceSpaceSize" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultType="java.lang.Integer">
+		select count(*)
+		from
+		productService a 
+		,serviceSpace b
+		where a.id = b.psId
+	    <if test="id != null">
+	       	and a.id = #{id}
+	    </if>
+		<if test="idIns != null">
+			and a.id in (
+            <foreach collection="idIns" item="a" separator=",">#{a}</foreach>
+            )
+		</if>
+	    <if test="searchKey != null">
+	    	and ((a.name like '%'|| #{searchKey} ||'%') or (a.description like '%'|| #{searchKey} ||'%') or (a.lastModifiedUser like '%'|| #{searchKey} ||'%') or (a.createdUser like '%'|| #{searchKey} ||'%')
+	    		or (b.sspp like '%'|| #{searchKey} ||'%') or (b.ssp like '%'|| #{searchKey} ||'%') or (b.sspc like '%'|| #{searchKey} ||'%') or (b.ssc like '%'|| #{searchKey} ||'%') or (b.sscc like '%'|| #{searchKey} ||'%')
+	    	)
+	    </if>
+	</select>
+	<select id="getProductServiceWithServiceSpace" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultMap="productServiceAllSpaceResult">
+		select a.*, b.id as serviceId, b.psId as servicePsId, b.sspp, b.ssp, b.sspc, b.ssc, b.sscc
+		from
+		productService a 
+		,serviceSpace b
+		where a.id = b.psId
+	    <if test="id != null">
+	       	and a.id = #{id}
+	    </if>
+		<if test="idIns != null">
+			and a.id in (
+            <foreach collection="idIns" item="a" separator=",">#{a}</foreach>
+            )
+		</if>
+	    <if test="searchKey != null">
+	    	and ((a.name like '%'|| #{searchKey} ||'%') or (a.description like '%'|| #{searchKey} ||'%') or (a.lastModifiedUser like '%'|| #{searchKey} ||'%') or (a.createdUser like '%'|| #{searchKey} ||'%')
+	    		or (b.sspp like '%'|| #{searchKey} ||'%') or (b.ssp like '%'|| #{searchKey} ||'%') or (b.sspc like '%'|| #{searchKey} ||'%') or (b.ssc like '%'|| #{searchKey} ||'%') or (b.sscc like '%'|| #{searchKey} ||'%')
+	    	)
+	    </if>
+	    <if test="orders != null">
+			order by ${orderQuery}
+	    </if>
+	</select>
+	
+	<select id="getProductServiceWithBizModelSpaceSize" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultType="java.lang.Integer">
+		select count(*)
+		from
+		productService a 
+		,bizModelSpace b
+		where a.id = b.psId
+	    <if test="id != null">
+	       	and a.id = #{id}
+	    </if>
+		<if test="idIns != null">
+			and a.id in (
+            <foreach collection="idIns" item="a" separator=",">#{a}</foreach>
+            )
+		</if>
+	    <if test="searchKey != null">
+	    	and ((a.name like '%'|| #{searchKey} ||'%') or (a.description like '%'|| #{searchKey} ||'%') or (a.lastModifiedUser like '%'|| #{searchKey} ||'%') or (a.createdUser like '%'|| #{searchKey} ||'%')
+	    		or (b.customerSegments like '%'|| #{searchKey} ||'%') or (b.customerSegmentsUser like '%'|| #{searchKey} ||'%') or (b.CustomerRelationships like '%'|| #{searchKey} ||'%') or (b.CustomerRelationshipsUser like '%'|| #{searchKey} ||'%') or (b.channels like '%'|| #{searchKey} ||'%')
+	    			or (b.channelsUser like '%'|| #{searchKey} ||'%') or (b.keyActivities like '%'|| #{searchKey} ||'%') or (b.keyActivitiesUser like '%'|| #{searchKey} ||'%') or (b.keyResources like '%'|| #{searchKey} ||'%') or (b.keyResourcesUser like '%'|| #{searchKey} ||'%') or (b.keyPartners like '%'|| #{searchKey} ||'%') 
+	    				or (b.keyPartnersUser like '%'|| #{searchKey} ||'%') or (b.costStructure like '%'|| #{searchKey} ||'%') or (b.costStructureUser like '%'|| #{searchKey} ||'%') or (b.revenueStreams like '%'|| #{searchKey} ||'%') or (b.revenueStreamsUser like '%'|| #{searchKey} ||'%')
+	    	)
+	    </if>
+	</select>
+	<select id="getProductServiceWithBizModelSpace" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultMap="productServiceAllSpaceResult">
+		select a.*
+		, b.id as bizModelId, b.psId as bizModelPsId, b.customerSegments, b.customerSegmentsUser, b.CustomerRelationships, b.CustomerRelationshipsUser, b.channels
+		, b.channelsUser, b.keyActivities, b.keyActivitiesUser, b.keyResources, b.keyResourcesUser, b.keyPartners, b.keyPartnersUser, b.costStructure, b.costStructureUser, b.revenueStreams, b.revenueStreamsUser
+		from
+		productService a 
+		,bizModelSpace b
+		where a.id = b.psId
+	    <if test="id != null">
+	       	and a.id = #{id}
+	    </if>
+		<if test="idIns != null">
+			and a.id in (
+            <foreach collection="idIns" item="a" separator=",">#{a}</foreach>
+            )
+		</if>
+	    <if test="searchKey != null">
+	    	and ((a.name like '%'|| #{searchKey} ||'%') or (a.description like '%'|| #{searchKey} ||'%') or (a.lastModifiedUser like '%'|| #{searchKey} ||'%') or (a.createdUser like '%'|| #{searchKey} ||'%')
+	    		or (b.customerSegments like '%'|| #{searchKey} ||'%') or (b.customerSegmentsUser like '%'|| #{searchKey} ||'%') or (b.CustomerRelationships like '%'|| #{searchKey} ||'%') or (b.CustomerRelationshipsUser like '%'|| #{searchKey} ||'%') or (b.channels like '%'|| #{searchKey} ||'%')
+	    			or (b.channelsUser like '%'|| #{searchKey} ||'%') or (b.keyActivities like '%'|| #{searchKey} ||'%') or (b.keyActivitiesUser like '%'|| #{searchKey} ||'%') or (b.keyResources like '%'|| #{searchKey} ||'%') or (b.keyResourcesUser like '%'|| #{searchKey} ||'%') or (b.keyPartners like '%'|| #{searchKey} ||'%') 
+	    				or (b.keyPartnersUser like '%'|| #{searchKey} ||'%') or (b.costStructure like '%'|| #{searchKey} ||'%') or (b.costStructureUser like '%'|| #{searchKey} ||'%') or (b.revenueStreams like '%'|| #{searchKey} ||'%') or (b.revenueStreamsUser like '%'|| #{searchKey} ||'%')
+	    	)
+	    </if>
+	    <if test="orders != null">
+			order by ${orderQuery}
+	    </if>
+	</select>
+
+
+
 	<select id="getProductServiceSize" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultType="java.lang.Integer">
 		select count(*) 
 		from productService 
