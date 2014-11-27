@@ -34,6 +34,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -45,22 +46,33 @@ public class PssController {
 		return ServiceUtil.returnMnv(request, "layouts.jsp", "layouts.jsp");
 	}
 	
-	@RequestMapping(value = "/create_product_service", method = RequestMethod.POST)
+	@RequestMapping(value = "/set_product_service", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
-	public void createProductService(@RequestBody Map<String, Object> requestBody, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public void setProductService(@RequestBody Map<String, Object> requestBody, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		try{
+			
+			String psId = (String)requestBody.get("psId");
 			
 			Map<String, Object> frmNewProductService = (Map<String, Object>)requestBody.get("frmNewProductService");
 			if(frmNewProductService == null) return;
 			
 			ProductService productService = new ProductService();
 
+			if(!SmartUtil.isBlankObject(psId))
+				productService.setId(psId);
 			productService.setName((String)frmNewProductService.get("txtName"));
 			productService.setDesc((String)frmNewProductService.get("txtDesc"));			
-			// TODO
-			Map<String, Object> psPicture = (Map<String, Object>)frmNewProductService.get("imgPicture");
-			// TODO
+			
+			Map<String, Object> imgPicture = (Map<String, Object>)frmNewProductService.get("imgPicture");
+			if(imgPicture!=null){
+				List<Map<String, String>> files = (ArrayList<Map<String, String>>)imgPicture.get("files");
+				if(files!=null && files.size()==1){
+					productService.setPicture(files.get(0).get("fileId"));
+				}else if(!SmartUtil.isBlankObject(psId)){
+					productService.setPicture(ManagerFactory.getInstance().getServiceManager().getProductServicePicture("", psId));
+				}
+			}
 			
 			Map<String, Object> frmSpaceTabs = (Map<String, Object>)requestBody.get("frmSpaceTabs");
 			if(frmSpaceTabs!=null){
@@ -181,9 +193,10 @@ public class PssController {
 		SimilarityMatrix[][] psSimilarities = null;
 		String[] psIds = null;
 		String[] psNames = null;
-		String spaceType = ProductService.PSS_SPACE_VALUE;
+		String spaceType = null;
 		try{
 			
+			spaceType = (String)requestBody.get("spaceType");
 			List<String> psIdList = (ArrayList<String>)requestBody.get("psIds");
 			List<String> psNameList = (ArrayList<String>)requestBody.get("psNames");
 			if(psIdList!=null && psNameList!=null){
@@ -210,4 +223,47 @@ public class PssController {
 		return mnv;
 
 	}
+	
+	@RequestMapping(value = "/remove_product_service", method = RequestMethod.POST)
+	@ResponseStatus(HttpStatus.OK)
+	public void removeProductService(@RequestBody Map<String, Object> requestBody, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String psId = (String)requestBody.get("psId");
+		try{
+			ManagerFactory.getInstance().getServiceManager().removeProductService(psId);
+		}catch (Exception e){e.printStackTrace();}
+	}
+	
+	@RequestMapping(value = "/ajax_upload_file", method = RequestMethod.POST)
+	@ResponseStatus(HttpStatus.CREATED)
+	public @ResponseBody void ajaxUploadFile(HttpServletRequest request, HttpServletResponse response) throws Exception {
+//		smartworks.ajaxUploadFile(request, response);
+	}
+
+	@RequestMapping(value = "/upload_temp_file", method = RequestMethod.POST)
+	@ResponseStatus(HttpStatus.CREATED)
+	public @ResponseBody void uploadTempFile(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ManagerFactory.getInstance().getDocFileManager().uploadTempFile(request, response);
+	}
+
+//	@RequestMapping(value = "/find_file_group", method = RequestMethod.GET)
+//	@ResponseStatus(HttpStatus.OK)
+//	public @ResponseBody
+//	List<IFileModel> findFileGroup(HttpServletRequest request, HttpServletResponse response) throws Exception {
+//
+//		List<IFileModel> list = new ArrayList<IFileModel>();
+//		list = smartworks.findFileGroup(request);
+//
+//		return list;
+//	}
+//
+//	@RequestMapping(value = "/delete_file", method = RequestMethod.POST)
+//	@ResponseStatus(HttpStatus.OK)
+//	public @ResponseBody
+//	void deleteFile(HttpServletRequest request, HttpServletResponse response) throws Exception {
+//		smartworks.deleteFile(request, response);
+//		// TO DO : Exception handler
+//	}
+
+
+
 }

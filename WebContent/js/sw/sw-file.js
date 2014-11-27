@@ -22,7 +22,7 @@ function fileUploader(groupId, target) {
 	
 	var template = '<div class="qq-uploader js_form_file_field">' + 
     '<div class="qq-upload-drop-area"><span>' + smartMessage.get("uploadDropArea") + '</span></div>' +
-    '<div class="qq-upload-button">' + smartMessage.get("uploadFile") + '</div>' +
+    '<div class="qq-upload-button">' + "제품사진" + '</div>' +
     '<ul class="qq-upload-list"></ul>' + 
     '</div>';
 
@@ -89,7 +89,7 @@ function fileUploader(groupId, target) {
         		smartPop.showInfo(smartPop.ERROR, smartMessage.get('technicalProblemOccured') + '[sw-file fileUploader onSubmit]', null, error);
         	}			
         },
-        onComplete : function(id, fileName, responseJSON){
+        onComplete : function(id, fileName, responseJSON, arg1, arg2){
         	try{
 	//        	var file = $(this.element).find('.qq-upload-list li[qqFileId=' + id + ']');
 	        	var files = $(this.element).find('.qq-upload-list li');

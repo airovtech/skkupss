@@ -9,8 +9,10 @@
 package net.smartworks.factory;
 
 import net.smartworks.skkupss.manager.IDbManager;
+import net.smartworks.skkupss.manager.IDocFileManager;
 import net.smartworks.skkupss.manager.IServiceManager;
 import net.smartworks.skkupss.manager.impl.DbManagerImpl;
+import net.smartworks.skkupss.manager.impl.DocFileManagerImpl;
 import net.smartworks.skkupss.manager.impl.ServiceManagerImpl;
 
 
@@ -19,6 +21,7 @@ public class ManagerFactory {
 	private static ManagerFactory managerFactory;
 	private static IServiceManager serviceManager;
 	private static IDbManager dbManager;
+	private static IDocFileManager docFileManager;
 	
 	public static ManagerFactory getInstance() {
 		if (managerFactory != null) {
@@ -42,6 +45,14 @@ public class ManagerFactory {
 		} else {
 			dbManager = new DbManagerImpl();
 			return dbManager;
+		}
+	}
+	public IDocFileManager getDocFileManager() throws Exception {
+		if (docFileManager != null) {
+			return docFileManager;
+		} else {
+			docFileManager = new DocFileManagerImpl();
+			return docFileManager;
 		}
 	}
 }

@@ -15,9 +15,9 @@ public class Db_BizModelSpaceCond extends Cond {
 	private String id;
 	private String psId;
 	private String customerSegments;
-	private String customerSegmentLike;
+	private String customerSegmentsLike;
 	private String customerSegmentsUser;
-	private String customerSegmentUserLike;
+	private String customerSegmentsUserLike;
 	private String CustomerRelationships;
 	private String CustomerRelationshipsLike;
 	private String CustomerRelationshipsUser;
@@ -65,11 +65,11 @@ public class Db_BizModelSpaceCond extends Cond {
 	public void setCustomerSegments(String customerSegments) {
 		this.customerSegments = customerSegments;
 	}
-	public String getCustomerSegmentLike() {
-		return customerSegmentLike;
+	public String getCustomerSegmentsLike() {
+		return customerSegmentsLike;
 	}
-	public void setCustomerSegmentLike(String customerSegmentLike) {
-		this.customerSegmentLike = customerSegmentLike;
+	public void setCustomerSegmentsLike(String customerSegmentsLike) {
+		this.customerSegmentsLike = customerSegmentsLike;
 	}
 	public String getCustomerSegmentsUser() {
 		return customerSegmentsUser;
@@ -77,11 +77,11 @@ public class Db_BizModelSpaceCond extends Cond {
 	public void setCustomerSegmentsUser(String customerSegmentsUser) {
 		this.customerSegmentsUser = customerSegmentsUser;
 	}
-	public String getCustomerSegmentUserLike() {
-		return customerSegmentUserLike;
+	public String getCustomerSegmentsUserLike() {
+		return customerSegmentsUserLike;
 	}
-	public void setCustomerSegmentUserLike(String customerSegmentUserLike) {
-		this.customerSegmentUserLike = customerSegmentUserLike;
+	public void setCustomerSegmentsUserLike(String customerSegmentsUserLike) {
+		this.customerSegmentsUserLike = customerSegmentsUserLike;
 	}
 	public String getCustomerRelationships() {
 		return CustomerRelationships;

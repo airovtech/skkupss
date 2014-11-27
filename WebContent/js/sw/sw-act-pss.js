@@ -13,6 +13,8 @@ $(function() {
 			input.parent().addClass('current').siblings().removeClass('current');
 
 			var newSpaceTab = newProductService.find('.js_space_tab:visible').clone();
+			cloneSelectedValues(newProductService.find('.js_space_tab:visible'), newSpaceTab);
+
 			var newSpaceType = newSpaceTab.attr();
 			var oldSameSpaceTab = newProductService.find('form[name="frmNewProductService"]').find('.js_space_tab[spaceType="' + newSpaceTab.attr('spaceType') + '"]:hidden');
 			if(!isEmpty(oldSameSpaceTab)) oldSameSpaceTab.parent().remove();
@@ -27,7 +29,9 @@ $(function() {
 					}
 				});
 			}else{
-				newProductService.find('.js_space_view_target').html(savedSpaceTab.clone());
+				var newSavedSpaceTab = savedSpaceTab.clone();
+				cloneSelectedValues(savedSpaceTab, newSavedSpaceTab);
+				newProductService.find('.js_space_view_target').html(newSavedSpaceTab);
 				savedSpaceTab.parent().remove();
 			}
 		}catch(error){
@@ -81,23 +85,23 @@ $(function() {
 	});
 
 	$('input.js_edit_element_item').live('focusout',function(e) {
-		try{
-			var input = $(targetElement(e));
-			if(input.attr('value') === ''){
-				if(isEmpty(input.nextAll('.js_select_element_item'))){
-					input.prev().find('.js_remove_element_item').click();
-				}
-			}else{
-				input.css({"width": "auto"}).nextAll('.js_select_element_item').remove();
-				input.hide().prevAll('.js_view_element_item').show().find('.js_action_element_item').attr('title', input.attr('value')).text(input.attr('value'));
-				if(!isEmpty(input.parents('.js_biz_model_space'))){
-					input.parents('.js_element_item:first').css({"color": "blue"});
-					input.attr('name', "txt" + input.parents('.js_element_item:first').attr('itemName') + "UserItem");
-				}
-			}
-		}catch(error){
-			smartPop.showInfo(smartPop.ERROR, smartMessage.get('technicalProblemOccured') + '[sw-act-pss js_edit_element_item]', null, error);
-		}			
+//		try{
+//			var input = $(targetElement(e));
+//			if(input.attr('value') === ''){
+//				if(isEmpty(input.nextAll('.js_select_element_item'))){
+//					input.prev().find('.js_remove_element_item').click();
+//				}
+//			}else{
+//				input.css({"width": "auto"}).nextAll('.js_select_element_item').remove();
+//				input.hide().prevAll('.js_view_element_item').show().find('.js_action_element_item').attr('title', input.attr('value')).text(input.attr('value'));
+//				if(!isEmpty(input.parents('.js_biz_model_space'))){
+//					input.parents('.js_element_item:first').css({"color": "blue"});
+//					input.attr('name', "txt" + input.parents('.js_element_item:first').attr('itemName') + "UserItem");
+//				}
+//			}
+//		}catch(error){
+//			smartPop.showInfo(smartPop.ERROR, smartMessage.get('technicalProblemOccured') + '[sw-act-pss js_edit_element_item]', null, error);
+//		}			
 	});
 
 	$('input.js_edit_element_item').live('keydown', function(e) {
@@ -131,7 +135,6 @@ $(function() {
 		}
 	});
 	
-
 	$('select.js_select_space_name').live('change', function(e){
 		var input = $(targetElement(e));
 		var progressSpan = input.siblings('.js_progress_span:first');
@@ -150,7 +153,7 @@ $(function() {
 		}
 		return false;
 	});
-
+	
 	$('a.js_similarity_calculation').live('click',function(e) {
 		var input = $(targetElement(e));
 		
@@ -166,7 +169,10 @@ $(function() {
 			smartPop.showInfo(smartPop.WARN, "유사도 비교는 2개이상의 항목을 선택하여야 합니다. 다시 선택하고 실해하여 주시기 바랍니다!", null);
 			return false;
 		}
+		var spaceType = $('select.js_select_space_name option:selected').attr('value');
+
 		var paramsJson = {};
+		paramsJson["spaceType"] = spaceType;
 		paramsJson["psIds"] = psIds;
 		paramsJson["psNames"] = psNames;
 		paramsJson["href"] = "psSimilarityMatrix.jsp";
@@ -185,5 +191,124 @@ $(function() {
 		
 		return false;
 	});
+	
+	$('a.js_eyeball_comparison').live('click',function(e) {
+		var input = $(targetElement(e));
+		
+		var checkInstances  = $("#iwork_instance_list_page tr .js_check_instance:checked");
+		var psIds = new Array();
+		for(var i=0; i<checkInstances.length; i++){
+			psIds[i] = $(checkInstances[i]).parents('.js_work_instance_list:first').attr('psId');
+		}
+			
+		if(isEmpty(psIds) || psIds.length!=2){
+			smartPop.showInfo(smartPop.WARN, "육안비교는 2개의 항목을 선택하여야 합니다. 다시 선택하고 실해하여 주시기 바랍니다!", null);
+			return false;
+		}
+		
+		var spaceType = $('select.js_select_space_name option:selected').attr('value');
+		smartPop.progressCenter();
+		$.ajax({
+			url : "psEyeballComparison.jsp?sourcePsId=" + psIds[0] + "&targetPsId=" + psIds[1] + "&spaceType=" + spaceType,
+			success : function(data, status, jqXHR) {
+				$('#content').html(data);
+				smartPop.closeProgress();
+			}
+		});
+		
+		return false;
+	});
 
+	$('.js_instance_detail').live('click', function(e) {
+		try{
+			var input = $(targetElement(e));
+			if(!input.hasClass('js_instance_detail')) input = input.parents('.js_instance_detail:first');
+			var url = input.attr('href');
+			var target = $('#content');
+			$.ajax({
+				url : url,
+				success : function(data, status, jqXHR) {
+					target.html(data);
+				}				
+			});
+		}catch(error){
+			smartPop.showInfo(smartPop.ERROR, smartMessage.get('technicalProblemOccured') + '[sw-act-work js_create_new_work]', null, error);
+		}			
+		return false;
+	});	
+	
+	$('a.js_remove_product_service').live('click', function(e) {
+		try{
+			var input = $(targetElement(e));
+			input = input.parents('.js_remove_product_service:first');
+			var psId = input.attr('psId');
+			smartPop.confirm( "현재의 제품-서비스 내용을 완전히 삭제하려고 합니다. 정말로 삭제하시겠습니까?", function(){			
+				var paramsJson = {};
+				paramsJson["psId"] = psId;
+				console.log(JSON.stringify(paramsJson));
+				smartPop.progressCenter();
+				$.ajax({
+					url : "remove_product_service.sw",
+					contentType : 'application/json',
+					type : 'POST',
+					data : JSON.stringify(paramsJson),
+					success : function(data, status, jqXHR) {
+						smartPop.closeProgress();
+						location.href = "home.sw";
+					}
+				});
+			});			
+		}catch(error){
+			smartPop.showInfo(smartPop.ERROR, smartMessage.get('technicalProblemOccured') + '[sw-act-work js_create_new_work]', null, error);
+		}			
+		return false;
+	});	
+	
+	$('.js_modify_product_service').live('click', function(e) {
+		try{
+			var input = $(targetElement(e));
+			input = input.parents('.js_modify_product_service');
+			var psId = input.attr('psId');
+			var url = 'newProductService.jsp?psId=' + psId + '&isEditMode=true';
+			var target = $('#content');
+			$.ajax({
+				url : url,
+				success : function(data, status, jqXHR) {
+					target.html(data);
+				}				
+			});
+		}catch(error){
+			smartPop.showInfo(smartPop.ERROR, smartMessage.get('technicalProblemOccured') + '[sw-act-work js_create_new_work]', null, error);
+		}			
+		return false;
+	});	
+	
+	$('.js_cancel_modify_ps').live('click', function(e) {
+		try{
+			var input = $(targetElement(e));
+			input = input.parents('.js_cancel_modify_ps');
+			var psId = input.attr('psId');
+			var url = 'newProductService.jsp?psId=' + psId + '&isEditMode=false';
+			var target = $('#content');
+			$.ajax({
+				url : url,
+				success : function(data, status, jqXHR) {
+					target.html(data);
+				}				
+			});
+		}catch(error){
+			smartPop.showInfo(smartPop.ERROR, smartMessage.get('technicalProblemOccured') + '[sw-act-work js_create_new_work]', null, error);
+		}			
+		return false;
+	});	
+
+	$('input.js_toggle_use_sim_color').live('click', function(e) {
+		var input = $(targetElement(e));
+		if(input.is(":checked")){
+			useColorValues();
+		}else{
+			clearColorValues();
+		}
+	});			
+	
 });

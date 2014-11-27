@@ -75,12 +75,14 @@ public class ServiceManagerImpl implements IServiceManager {
 
 		//ProductService의 ProductService.FILED_NAME, ProductService.FILED_LAST_MODIFIED_USER, ProductService.FILED_LAST_MODIFIED_DATE만 정렬함 
 		SortingField sortingField = params.getSortingField();
-		if (sortingField != null) {
-			String fieldId = sortingField.getFieldId();
-			boolean isAsc = sortingField.isAscending();
-			Order order = new Order(fieldId, isAsc);
-			productServiceCond.setOrders(new Order[]{order});
+		if (sortingField == null) {
+			sortingField = new SortingField(ProductService.FIELD_LAST_MODIFIED_DATE, false);
+			params.setSortingField(sortingField);
 		}
+		String fieldId = sortingField.getFieldId();
+		boolean isAsc = sortingField.isAscending();
+		Order order = new Order(fieldId, isAsc);
+		productServiceCond.setOrders(new Order[]{order});
 
 		ProductService[] productServices = null;
 		try{
@@ -256,6 +258,13 @@ public class ServiceManagerImpl implements IServiceManager {
 		}
 		
 		return psSimilarities;
+	}
+
+	@Override
+	public String getProductServicePicture(String userId, String psId)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 

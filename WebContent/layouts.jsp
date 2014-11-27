@@ -173,6 +173,11 @@ try{
 
 <script type="">smartPop.progressCenter();</script>
 
+<%
+
+	String spaceType = request.getParameter("spaceType");
+%>
+
 	<div id="wrap">
 		<!-- Header -->
 		<div id="header" style="">
@@ -182,7 +187,9 @@ try{
 
 		<!-- Contents-->
 		<div id="content">
-			<jsp:include page="psList.jsp" />
+			<jsp:include page="psList.jsp">
+				<jsp:param value="<%=spaceType %>" name="spaceType"/>
+			</jsp:include>
 		</div>
 		<!-- Contents//-->
 

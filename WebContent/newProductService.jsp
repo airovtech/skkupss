@@ -1,3 +1,4 @@
+<%@page import="net.smartworks.skkupss.manager.impl.DocFileManagerImpl"%>
 <%@page import="java.util.Date"%>
 <%@page import="net.smartworks.skkupss.model.BizModelSpace"%>
 <%@page import="net.smartworks.skkupss.model.ServiceSpace"%>
@@ -26,9 +27,10 @@ function submitForms(tempSave) {
 		var spaceTab = $(spaceTabs[i]);
 		// 폼이름 키값으로 하여 해당 폼에 있는 모든 입력항목들을 JSON형식으로 Serialize 한다...
 		if(isEmpty(spaceTab.parent('form'))){
-			spaceTab = spaceTab.clone();
-			newProductService.find('form[name="frmNewProductService"]').append($('<form name="frmSpaceTab"></form>').html(spaceTab).hide());
-			paramsJsonHiddens[spaceTab.attr('spaceType')] = mergeObjects(spaceTab.parent('form').serializeObject(), SmartWorks.GridLayout.serializeObject(spaceTab.parent('form')));
+			newSpaceTab = spaceTab.clone();
+			cloneSelectedValues(spaceTab, newSpaceTab);
+			newProductService.find('form[name="frmNewProductService"]').append($('<form name="frmSpaceTab"></form>').html(newSpaceTab).hide());
+			paramsJsonHiddens[spaceTab.attr('spaceType')] = mergeObjects(newSpaceTab.parent('form').serializeObject(), SmartWorks.GridLayout.serializeObject(newSpaceTab.parent('form')));
 			spaceTab.parent().remove();
 		}else{
 			paramsJsonHiddens[spaceTab.attr('spaceType')] = mergeObjects(spaceTab.parent('form').serializeObject(), SmartWorks.GridLayout.serializeObject(spaceTab.parent('form')));
@@ -42,12 +44,16 @@ function submitForms(tempSave) {
 		paramsJson[form.attr('name')] = mergeObjects(form.serializeObject(), SmartWorks.GridLayout.serializeObject(form));
 	}
 	paramsJson["frmSpaceTabs"] = paramsJsonHiddens;
+
+	var psId = newProductService.attr('psId');
+	if(!isEmpty(psId))
+		paramsJson["psId"] = psId;
 	
 	console.log(JSON.stringify(paramsJson));
 	// 서비스요청 프로그래스바를 나타나게 한다....
 	var progressSpan = newProductService.find('.js_progress_span');
 	smartPop.progressCont(progressSpan);
-	var url = "create_product_service.sw";
+	var url = "set_product_service.sw";
 	$.ajax({
 		url : url,
 		contentType : 'application/json',
@@ -55,8 +61,33 @@ function submitForms(tempSave) {
 		data : JSON.stringify(paramsJson),
 		success : function(data, status, jqXHR) {
 			// 성공시에 프로그래스바를 제거하고 성공메시지를 보여준다...
- 			location.href = "home.sw";
-			smartPop.closeProgress();
+			if(isEmpty(psId)){
+				smartPop.confirm( "성공적으로 새항목이 등록되었습니다. 계속 새항목 등록하기를 하시겠습니까?", function(){
+					var url = 'newProductService.jsp';
+					var target = $('#content');
+					$.ajax({
+						url : url,
+						success : function(data, status, jqXHR) {
+							target.html(data);
+							smartPop.closeProgress();
+						}				
+					});
+				},
+				function(){
+					location.href = "home.sw";
+					smartPop.closeProgress();
+				});
+			}else{
+				var url = 'newProductService.jsp?psId=' + psId + '&isEditMode=false';
+				var target = $('#content');
+				$.ajax({
+					url : url,
+					success : function(data, status, jqXHR) {
+						target.html(data);
+						smartPop.closeProgress();
+					}				
+				});
+			}
 		}
 	});
 }
@@ -70,71 +101,157 @@ function submitForms(tempSave) {
 
 	String psId = request.getParameter("psId");
 	String isEditModeStr = request.getParameter("isEditMode");
-	boolean isEditMode = SmartUtil.isBlankObject(isEditModeStr) ? true : isEditModeStr.equalsIgnoreCase("true"); 
+	boolean isEditMode = SmartUtil.isBlankObject(isEditModeStr) ? false : isEditModeStr.equalsIgnoreCase("true"); 
 	ProductService productService = new ProductService();
 	if(!SmartUtil.isBlankObject(psId)){
 		try{
 			productService = ManagerFactory.getInstance().getServiceManager().getProductService(psId, ProductService.SPACE_TYPE_NONE);
 		}catch(Exception e){}
+	}else{
+		isEditMode = true;
 	}
+	
+	String psPictureUrl = SmartUtil.isBlankObject(productService.getPicture()) ? "" : DocFileManagerImpl.PSS_PICTURE_URL +  productService.getPicture();
 
 %>
 
-<div class="form_wrap up js_form_wrap js_new_iwork_page js_new_product_service_page" psId="<%=psId%>" isEditMode="<%=isEditMode%>">
-	<div class="form_title js_form_header">
-		<!-- 해당 업무이름을 표시하는 곳 -->
-		<div class="title">새항목 등록하기</div>
-		
-		<!-- 전자결재, 업무전달 버튼들 -->
-		<div class="txt_btn mb2">
-		</div>
-		<!-- 전자결재, 업무전달 버튼들 //-->
-		<div class="solid_line"></div>
-	</div>
-	<!-- 폼- 확장 -->
-	<!-- 스마트폼에서 해당 업무화면을 그려주는 곳 -->
-	<form name="frmNewProductService" class="js_validation_required form_layout">
-		<div class="js_new_product_service_fields"></div>
-	</form>
-	<div class="js_hidden_form_content" style="display:none"></div>
-	<!-- 새이벤트를 등록하기위한 완료 버튼과 취소 버튼 -->
-	<div class="js_upload_buttons">
-		<div class="glo_btn_space js_upload_buttons_page">		
-			<!--  완료 및 취소 버튼 -->
-			<div class="fr">
-				<span class="btn_gray"> 
-					<!--  완료버튼을 클릭시 해당 업로드 화면페이지에 있는 submitForms()함수를 실행한다.. -->
-					<a href="" class="js_complete_action" onclick='submitForms();return false;'> 
-						<span class="txt_btn_start"></span>
-						<span class="txt_btn_center">완료</span> 
-						<span class="txt_btn_end"></span> 
-					</a>
-				</span> 
-						
-				<span class="btn_gray">
-					<!--  취소버튼을 클릭시 sw_act_work 에서 click event 로 정의 되어있는 함수를 실행한다... -->
-					<a href="" class="js_cancel_action"> 
-						<span class="txt_btn_start"></span> 
-						<span class="txt_btn_center">취소</span> 
-						<span class="txt_btn_end"></span> 
-					</a> 
-				</span>
+<!-- 컨텐츠 레이아웃-->
+<div class="section_portlet js_iwork_list_page js_work_list_page">
+	<div class="portlet_t"><div class="portlet_tl"></div></div>
+	<div class="portlet_l" style="display: block;">
+		<ul class="portlet_r" style="display: block;">
+			<!-- 타이틀 -->
+			<div class="body_titl"></div>
+			<!-- 목록영역  -->
+			<div class="contents_space">
+				<div>
+					<!-- 목록보기 타이틀-->
+					<div class="list_title_space js_work_list_title mt15">
+						<div class="title_line_btns">
+							<div class="icon_btn_start">
+								<a href="home.sw" class="icon_btn_tail">목록으로 이동하기</a>
+							</div>
+						</div>					
+					</div>
+					<!-- 목록보기 타이틀-->
+
+					<!-- 상세필터 및 새업무등록하기 화면 -->
+					<div id="search_filter" class="filter_section js_new_work_form">
+						<div class="form_wrap up js_form_wrap js_new_iwork_page js_new_product_service_page" psId="<%=psId%>" isEditMode="<%=isEditMode%>">
+							<div class="form_title js_form_header">
+								<!-- 해당 업무이름을 표시하는 곳 -->
+								<%
+								if(SmartUtil.isBlankObject(psId)){
+								%>
+									<div class="title">새항목 등록하기</div>
+								<%
+								}else{
+								%>
+									<div class="title">항목 상세보기</div>
+								<%
+								}
+								%>
+								
+								<!-- 전자결재, 업무전달 버튼들 -->
+								<div class="txt_btn mb2">
+								</div>
+								<!-- 전자결재, 업무전달 버튼들 //-->
+								<div class="solid_line"></div>
+							</div>
+							<!-- 폼- 확장 -->
+							<!-- 스마트폼에서 해당 업무화면을 그려주는 곳 -->
+							<form name="frmNewProductService" class="js_validation_required form_layout">
+								<div class="js_new_product_service_fields"></div>
+							</form>
+							<div class="js_hidden_form_content" style="display:none"></div>
+							<!-- 새이벤트를 등록하기위한 완료 버튼과 취소 버튼 -->
+							<div class="js_upload_buttons">
+								<div class="glo_btn_space js_upload_buttons_page">		
+									<!--  완료 및 취소 버튼 -->
+									<div class="fr">
+										<%if(SmartUtil.isBlankObject(psId)){ %>
+											<span class="btn_gray"> 
+												<!--  완료버튼을 클릭시 해당 업로드 화면페이지에 있는 submitForms()함수를 실행한다.. -->
+												<a href="" class="js_complete_action" onclick='submitForms();return false;'> 
+													<span class="txt_btn_start"></span>
+													<span class="txt_btn_center">등록하기</span> 
+													<span class="txt_btn_end"></span> 
+												</a>
+											</span>
+										<%}else if(isEditMode){ %>
+											<span class="btn_gray"> 
+												<!--  완료버튼을 클릭시 해당 업로드 화면페이지에 있는 submitForms()함수를 실행한다.. -->
+												<a href="" class="js_complete_action" onclick='submitForms();return false;'> 
+													<span class="txt_btn_start"></span>
+													<span class="txt_btn_center">수정완료</span> 
+													<span class="txt_btn_end"></span> 
+												</a>
+											</span>
+											<span class="btn_gray"> 
+												<!--  완료버튼을 클릭시 해당 업로드 화면페이지에 있는 submitForms()함수를 실행한다.. -->
+												<a href="" class="js_cancel_modify_ps" psId="<%=productService.getId() %>"> 
+													<span class="txt_btn_start"></span>
+													<span class="txt_btn_center">수정취소</span> 
+													<span class="txt_btn_end"></span> 
+												</a>
+											</span>
+										<%}else{ %>
+											<span class="btn_gray"> 
+												<!--  완료버튼을 클릭시 해당 업로드 화면페이지에 있는 submitForms()함수를 실행한다.. -->
+												<a href="" class="js_modify_product_service" psId="<%=productService.getId() %>"> 
+													<span class="txt_btn_start"></span>
+													<span class="txt_btn_center">수정하기</span> 
+													<span class="txt_btn_end"></span> 
+												</a>
+											</span>
+											<span class="btn_gray"> 
+												<!--  완료버튼을 클릭시 해당 업로드 화면페이지에 있는 submitForms()함수를 실행한다.. -->
+												<a href="" class="js_remove_product_service" psId="<%=productService.getId() %>"> 
+													<span class="txt_btn_start"></span>
+													<span class="txt_btn_center">삭제하기</span> 
+													<span class="txt_btn_end"></span> 
+												</a>
+											</span>
+										<%} %> 
+												
+										<span class="btn_gray">
+											<!--  취소버튼을 클릭시 sw_act_work 에서 click event 로 정의 되어있는 함수를 실행한다... -->
+											<a href="home.sw"> 
+												<span class="txt_btn_start"></span> 
+												<span class="txt_btn_center">취소</span> 
+												<span class="txt_btn_end"></span> 
+											</a> 
+										</span>
+									</div>
+									<!--  완료 및 취소 버튼 //-->
+								
+									<!--  실행시 표시되는 프로그래스아이콘을 표시할 공간 -->
+									<div class="fr form_space js_progress_span"></div>
+									
+									<!-- 실행시 데이터 유효성 검사이상시 에러메시지를 표시할 공간 -->
+									<span class="form_space sw_error_message js_upload_error_message" style="text-align:right; color: red; line-height:20px"></span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- 상세필터 -->
+				</div>
+				<!-- 목록 보기 -->
 			</div>
-			<!--  완료 및 취소 버튼 //-->
-		
-			<!--  실행시 표시되는 프로그래스아이콘을 표시할 공간 -->
-			<div class="fr form_space js_progress_span"></div>
-			
-			<!-- 실행시 데이터 유효성 검사이상시 에러메시지를 표시할 공간 -->
-			<span class="form_space sw_error_message js_upload_error_message" style="text-align:right; color: red; line-height:20px"></span>
-		</div>
+			<!-- 목록영역 // -->
+		</ul>
 	</div>
+	<div class="portlet_b" style="display: block;"></div>
 </div>
+<!-- 컨텐츠 레이아웃//-->
+
+
+
 <script>
 try{
 	
 	var psName = "<%=CommonUtil.toNotNull(productService.getName())%>";
-	var psPicture = "<%=CommonUtil.toNotNull(productService.getPicture())%>";
+	var psPicture = "<%=psPictureUrl%>";
 	var psDesc = "<%=CommonUtil.toNotNull(productService.getDesc())%>";
 	
 	var newProductServiceFields = $('div.js_new_product_service_fields');
@@ -154,7 +271,7 @@ try{
 			required: true,
 			readOnly: <%=!isEditMode%>
 		});
- 		
+		
 		gridRow = SmartWorks.GridLayout.newGridRow().appendTo(gridTable);
  		SmartWorks.FormRuntime.ImageBoxBuilder.buildEx({
 			container: gridRow,
@@ -163,10 +280,12 @@ try{
 			imgSource: psPicture,
 			columns: 3,
 			colSpan: 1,
-			required: false
+			pictureHeight: 90,
+			required: false,
+			readOnly: <%=!isEditMode%>			
 		});
- 		gridRow.find('td[fieldId="imgPicture"]').addClass("vt").find('.qq-upload-button').text("제품사진");
- 		
+		gridRow.find('.form_col[fieldId="imgPicture"]').addClass('vt');
+  		
 		SmartWorks.FormRuntime.TextInputBuilder.buildEx({
 			container: gridRow,
 			fieldId: "txtDesc",

@@ -2,7 +2,7 @@
 <div class="company_logo">
 	<span>
 		<a href="layouts.jsp">
-			<img class="js_auto_picture js_company_logo_src" src="images/pss/company_logo.png" />
+			<img style="width:auto" class="js_auto_picture js_company_logo_src" src="images/pss/company_logo.png" />
 		</a>
 	</span>
 </div>

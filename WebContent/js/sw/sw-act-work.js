@@ -195,8 +195,8 @@ $(function() {
 	});
 
 	/*
-	 * 세업무시작하기에서, 입력창에 값을 입력하여 나오는 검색결과를 선택하면 실행되는 이벤트로, 검색결과항목의 href값으로 ajax를
-	 * 실행하여 가져온 값으로 id가 form_works 인 곳 화면을 그려서, 아래로 펼쳐준다.
+	 * ��몄��臾댁��������湲곗�����, �����μ갹��� 媛���� �����ν����� �����ㅻ�� 寃����寃곌낵瑜� ���������硫� ��ㅽ�������� ��대깽��몃��, 寃����寃곌낵���紐⑹�� href媛���쇰�� ajax瑜�
+	 * ��ㅽ�������� 媛���몄�� 媛���쇰�� id媛� form_works ��� 怨� ���硫댁�� 洹몃�ㅼ��, ������濡� ��쇱��以����.
 	 */
 	$('.js_select_work').swnavi({
 		before : function(event) {
@@ -342,7 +342,7 @@ $(function() {
 		try{
 			var input = $(targetElement(e));
 			var url = input.attr('href');
-			var target = input.parents('.js_work_list_page').find('div.js_new_work_form');
+			var target = $('#content');
 			$('a.js_work_report_close').click();
 			$('a.js_search_filter_close').click();
 			$('a.js_excel_import_close').click();
@@ -915,7 +915,7 @@ $(function() {
 					else autoComplete.removeClass('required');
 				}
 			}
-			// iwork_instance 에 있는 활성화되어 있는 모든 입력화면들을 validation하여 이상이 없으면 submit를 진행한다...
+			// iwork_instance ��� ������ �����깊�������� ������ 紐⑤�� �����ν��硫대�ㅼ�� validation������ ��댁����� �����쇰㈃ submit瑜� 吏����������...
 			if (!SmartWorks.GridLayout.validate(iworkSpace.find('form.js_validation_required'), $('.js_space_error_message'))) return false;
 			
 			smartPop.confirm(smartMessage.get("saveConfirmation"), function(){
@@ -927,23 +927,23 @@ $(function() {
 					for(var i=0; i<forms.length; i++){
 						var form = $(forms[i]);
 						
-						// 폼이 스마트폼이면 formId와 formName 값을 전달한다...
+						// ��쇱�� ��ㅻ����명�쇱�대㈃ formId��� formName 媛���� �����ы�����...
 						if(form.attr('name') === 'frmSmartForm'){
 							paramsJson['formId'] = form.attr('formId');
 							paramsJson['formName'] = form.attr('formName');
 						}
 						
-						// 폼이름 키값으로 하여 해당 폼에 있는 모든 입력항목들을 JSON형식으로 Serialize 한다...
+						// ��쇱�대�� ��ㅺ����쇰�� ������ ��대�� ��쇱�� ������ 紐⑤�� �����ν��紐⑸�ㅼ�� JSON��������쇰�� Serialize ������...
 						paramsJson[form.attr('name')] = mergeObjects(form.serializeObject(), SmartWorks.GridLayout.serializeObject(form));
 					}
 					console.log(JSON.stringify(paramsJson));
 					var url = "set_iwork_instance.sw";
 					
-					// 서비스요청 프로그래스바를 나타나게 한다....
+					// ���鍮���ㅼ��泥� ���濡�洹몃����ㅻ��瑜� ���������寃� ������....
 					var progressSpan = iworkSpace.find('.js_progress_span:first');
 					smartPop.progressCont(progressSpan);
 					
-					// set_iwork_instance.sw서비스를 요청한다..
+					// set_iwork_instance.sw���鍮���ㅻ�� ���泥�������..
 					$.ajax({
 						url : url,
 						contentType : 'application/json',
@@ -964,7 +964,7 @@ $(function() {
 						},
 						error : function(xhr, ajaxOptions, e) {
 							try{
-								// 서비스 에러시에는 메시지를 보여주고 현재페이지에 그래도 있는다...
+								// ���鍮���� �����ъ�������� 硫����吏�瑜� 蹂댁�ъ＜怨� �����ы����댁����� 洹몃����� ���������...
 								smartPop.closeProgress();
 								if(xhr.responseText === "duplicateKeyException")
 									smartPop.showInfo(smartPop.ERROR, smartMessage.get("duplicateKeyException"), null, e);
@@ -1000,7 +1000,7 @@ $(function() {
 			}
 			var workId = workSpacePage.attr("workId");
 			var instId = workSpacePage.attr("instId");
-			// iwork_instance 에 있는 활성화되어 있는 모든 입력화면들을 validation하여 이상이 없으면 submit를 진행한다...
+			// iwork_instance ��� ������ �����깊�������� ������ 紐⑤�� �����ν��硫대�ㅼ�� validation������ ��댁����� �����쇰㈃ submit瑜� 吏����������...
 			if (!SmartWorks.GridLayout.validate(workSpacePage.find('.js_form_task_forward form'), $('.js_space_error_message'))) return false;
 			
 			smartPop.confirm(smartMessage.get("forwardConfirmation"), function(){
@@ -1013,24 +1013,24 @@ $(function() {
 					for(var i=0; i<forms.length; i++){
 						var form = $(forms[i]);
 						
-						// 폼이 스마트폼이면 formId와 formName 값을 전달한다...
+						// ��쇱�� ��ㅻ����명�쇱�대㈃ formId��� formName 媛���� �����ы�����...
 						if(form.attr('name') === 'frmSmartForm'){
 							if(isIworkView) continue;
 							paramsJson['formId'] = form.attr('formId');
 							paramsJson['formName'] = form.attr('formName');
 						}
 						
-						// 폼이름 키값으로 하여 해당 폼에 있는 모든 입력항목들을 JSON형식으로 Serialize 한다...
+						// ��쇱�대�� ��ㅺ����쇰�� ������ ��대�� ��쇱�� ������ 紐⑤�� �����ν��紐⑸�ㅼ�� JSON��������쇰�� Serialize ������...
 						paramsJson[form.attr('name')] = mergeObjects(form.serializeObject(), SmartWorks.GridLayout.serializeObject(form));
 					}
 					console.log(JSON.stringify(paramsJson));
 					var url = workSpacePage.hasClass('js_iwork_space_page') ? "forward_iwork_instance.sw" : "forward_pwork_instance.sw";			
 					
-					// 서비스요청 프로그래스바를 나타나게 한다....
+					// ���鍮���ㅼ��泥� ���濡�洹몃����ㅻ��瑜� ���������寃� ������....
 					var progressSpan = workSpacePage.find('.js_progress_span:first');
 					smartPop.progressCont(progressSpan);
 					
-					// set_iwork_instance.sw서비스를 요청한다..
+					// set_iwork_instance.sw���鍮���ㅻ�� ���泥�������..
 					$.ajax({
 						url : url,
 						contentType : 'application/json',
@@ -1051,7 +1051,7 @@ $(function() {
 							return false;
 						},
 						error : function(xhr, ajaxOptions, e) {
-							// 서비스 에러시에는 메시지를 보여주고 현재페이지에 그래도 있는다...
+							// ���鍮���� �����ъ�������� 硫����吏�瑜� 蹂댁�ъ＜怨� �����ы����댁����� 洹몃����� ���������...
 							smartPop.showInfo(smartPop.ERROR, smartMessage.get("forwardWorkInstanceError"), function(){
 								return false;
 							}, e);
@@ -1090,7 +1090,7 @@ $(function() {
 					else autoComplete.removeClass('required');
 				}
 			}
-			// iwork_instance 에 있는 활성화되어 있는 모든 입력화면들을 validation하여 이상이 없으면 submit를 진행한다...
+			// iwork_instance ��� ������ �����깊�������� ������ 紐⑤�� �����ν��硫대�ㅼ�� validation������ ��댁����� �����쇰㈃ submit瑜� 吏����������...
 			if (!SmartWorks.GridLayout.validate(workSpacePage.find('.js_form_task_approval form'), $('.js_space_error_message'))) return false;
 			
 			smartPop.confirm(smartMessage.get("approvalConfirmation"), function(){
@@ -1102,23 +1102,23 @@ $(function() {
 					for(var i=0; i<forms.length; i++){
 						var form = $(forms[i]);
 						
-						// 폼이 스마트폼이면 formId와 formName 값을 전달한다...
+						// ��쇱�� ��ㅻ����명�쇱�대㈃ formId��� formName 媛���� �����ы�����...
 						if(form.attr('name') === 'frmSmartForm'){
 							paramsJson['formId'] = form.attr('formId');
 							paramsJson['formName'] = form.attr('formName');
 						}
 						
-						// 폼이름 키값으로 하여 해당 폼에 있는 모든 입력항목들을 JSON형식으로 Serialize 한다...
+						// ��쇱�대�� ��ㅺ����쇰�� ������ ��대�� ��쇱�� ������ 紐⑤�� �����ν��紐⑸�ㅼ�� JSON��������쇰�� Serialize ������...
 						paramsJson[form.attr('name')] = mergeObjects(form.serializeObject(), SmartWorks.GridLayout.serializeObject(form));
 					}
 					console.log(JSON.stringify(paramsJson));
 					var url = workSpacePage.hasClass('js_iwork_space_page') ? "approval_iwork_instance.sw" : "approval_pwork_instance.sw";			
 					
-					// 서비스요청 프로그래스바를 나타나게 한다....
+					// ���鍮���ㅼ��泥� ���濡�洹몃����ㅻ��瑜� ���������寃� ������....
 					var progressSpan = workSpacePage.find('.js_progress_span:first');
 					smartPop.progressCont(progressSpan);
 					
-					// set_iwork_instance.sw서비스를 요청한다..
+					// set_iwork_instance.sw���鍮���ㅻ�� ���泥�������..
 					$.ajax({
 						url : url,
 						contentType : 'application/json',
@@ -1139,7 +1139,7 @@ $(function() {
 							return false;
 						},
 						error : function(xhr, ajaxOptions, e) {
-							// 서비스 에러시에는 메시지를 보여주고 현재페이지에 그래도 있는다...
+							// ���鍮���� �����ъ�������� 硫����吏�瑜� 蹂댁�ъ＜怨� �����ы����댁����� 洹몃����� ���������...
 							smartPop.showInfo(smartPop.ERROR, smartMessage.get("forwardWorkInstanceError"), function(){
 								return false;
 							}, e);
@@ -1182,11 +1182,11 @@ $(function() {
 							console.log(JSON.stringify(paramsJson));
 							var url = "remove_iwork_instance.sw";
 							
-							// 서비스요청 프로그래스바를 나타나게 한다....
+							// ���鍮���ㅼ��泥� ���濡�洹몃����ㅻ��瑜� ���������寃� ������....
 							var progressSpan = iworkSpace.find('.js_progress_span:first');
 							smartPop.progressCont(progressSpan);
 							
-							// set_iwork_instance.sw서비스를 요청한다..
+							// set_iwork_instance.sw���鍮���ㅻ�� ���泥�������..
 							$.ajax({
 								url : url,
 								contentType : 'application/json',
@@ -1194,7 +1194,7 @@ $(function() {
 								data : JSON.stringify(paramsJson),
 								success : function(data, status, jqXHR) {
 									try{
-									// 정보관리업무 목록 페이지로 이동한다.....
+									// ���蹂닿��由ъ��臾� 紐⑸�� �����댁��濡� ��대��������.....
 									smartPop.closeProgress();
 									var inlineTarget = input.parents('.js_content_target');
 									if(isEmpty(inlineTarget)){
@@ -1207,7 +1207,7 @@ $(function() {
 									}			
 								},
 								error : function(xhr, ajaxOptions, e) {
-									// 서비스 에러시에는 메시지를 보여주고 현재페이지에 그래도 있는다...
+									// ���鍮���� �����ъ�������� 硫����吏�瑜� 蹂댁�ъ＜怨� �����ы����댁����� 洹몃����� ���������...
 									smartPop.showInfo(smartPop.ERROR, smartMessage.get("removeIWorkInstanceError"), function(){
 										return false;
 									}, e);
@@ -1222,11 +1222,11 @@ $(function() {
 							console.log(JSON.stringify(paramsJson));
 							var url = "remove_iwork_instance.sw";
 							
-							// 서비스요청 프로그래스바를 나타나게 한다....
+							// ���鍮���ㅼ��泥� ���濡�洹몃����ㅻ��瑜� ���������寃� ������....
 							var progressSpan = iworkSpace.find('.js_progress_span:first');
 							smartPop.progressCont(progressSpan);
 							
-							// set_iwork_instance.sw서비스를 요청한다..
+							// set_iwork_instance.sw���鍮���ㅻ�� ���泥�������..
 							$.ajax({
 								url : url,
 								contentType : 'application/json',
@@ -1234,7 +1234,7 @@ $(function() {
 								data : JSON.stringify(paramsJson),
 								success : function(data, status, jqXHR) {
 									try{
-										// 정보관리업무 목록 페이지로 이동한다.....
+										// ���蹂닿��由ъ��臾� 紐⑸�� �����댁��濡� ��대��������.....
 										smartPop.closeProgress();
 										var inlineTarget = input.parents('.js_content_target');
 										if(isEmpty(inlineTarget)){
@@ -1247,7 +1247,7 @@ $(function() {
 									}			
 								},
 								error : function(xhr, ajaxOptions, e) {
-									// 서비스 에러시에는 메시지를 보여주고 현재페이지에 그래도 있는다...
+									// ���鍮���� �����ъ�������� 硫����吏�瑜� 蹂댁�ъ＜怨� �����ы����댁����� 洹몃����� ���������...
 									smartPop.showInfo(smartPop.ERROR, smartMessage.get("removeIWorkInstanceError"), function(){
 										return false;
 									}, e);
@@ -1264,11 +1264,11 @@ $(function() {
 					console.log(JSON.stringify(paramsJson));
 					var url = "remove_iwork_instance.sw";
 					
-					// 서비스요청 프로그래스바를 나타나게 한다....
+					// ���鍮���ㅼ��泥� ���濡�洹몃����ㅻ��瑜� ���������寃� ������....
 					var progressSpan = iworkSpace.find('.js_progress_span:first');
 					smartPop.progressCont(progressSpan);
 					
-					// set_iwork_instance.sw서비스를 요청한다..
+					// set_iwork_instance.sw���鍮���ㅻ�� ���泥�������..
 					$.ajax({
 						url : url,
 						contentType : 'application/json',
@@ -1276,7 +1276,7 @@ $(function() {
 						data : JSON.stringify(paramsJson),
 						success : function(data, status, jqXHR) {
 							try{
-								// 정보관리업무 목록 페이지로 이동한다.....
+								// ���蹂닿��由ъ��臾� 紐⑸�� �����댁��濡� ��대��������.....
 								smartPop.closeProgress();
 								var inlineTarget = input.parents('.js_content_target');
 								if(isEmpty(inlineTarget)){
@@ -1289,7 +1289,7 @@ $(function() {
 							}			
 						},
 						error : function(xhr, ajaxOptions, e) {
-							// 서비스 에러시에는 메시지를 보여주고 현재페이지에 그래도 있는다...
+							// ���鍮���� �����ъ�������� 硫����吏�瑜� 蹂댁�ъ＜怨� �����ы����댁����� 洹몃����� ���������...
 							smartPop.showInfo(smartPop.ERROR, smartMessage.get("removeIWorkInstanceError"), function(){
 								return false;
 							}, e);
@@ -1315,7 +1315,7 @@ $(function() {
 			var instId = pworkSpace.attr("instId");
 			var formContent = pworkSpace.find('.js_submit_forms div.js_form_content');
 			var taskInstId = formContent.attr("taskInstId");
-			// iwork_instance 에 있는 활성화되어 있는 모든 입력화면들을 validation하여 이상이 없으면 submit를 진행한다...
+			// iwork_instance ��� ������ �����깊�������� ������ 紐⑤�� �����ν��硫대�ㅼ�� validation������ ��댁����� �����쇰㈃ submit瑜� 吏����������...
 			if (!SmartWorks.GridLayout.validate(formContent.find('form.js_validation_required'), $('.js_space_error_message'))) return false;
 			
 			smartPop.confirm(smartMessage.get("performConfirmation"), function(){
@@ -1328,22 +1328,22 @@ $(function() {
 					for(var i=0; i<forms.length; i++){
 						var form = $(forms[i]);
 						
-						// 폼이 스마트폼이면 formId와 formName 값을 전달한다...
+						// ��쇱�� ��ㅻ����명�쇱�대㈃ formId��� formName 媛���� �����ы�����...
 						if(form.attr('name') === 'frmSmartForm'){
 							paramsJson['formId'] = form.attr('formId');
 							paramsJson['formName'] = form.attr('formName');
 						}
 						
-						// 폼이름 키값으로 하여 해당 폼에 있는 모든 입력항목들을 JSON형식으로 Serialize 한다...
+						// ��쇱�대�� ��ㅺ����쇰�� ������ ��대�� ��쇱�� ������ 紐⑤�� �����ν��紐⑸�ㅼ�� JSON��������쇰�� Serialize ������...
 						paramsJson[form.attr('name')] = mergeObjects(form.serializeObject(), SmartWorks.GridLayout.serializeObject(form));
 					}
 					console.log(JSON.stringify(paramsJson));
 					var url = "perform_task_instance.sw";
 					
-					// 서비스요청 프로그래스바를 나타나게 한다....
+					// ���鍮���ㅼ��泥� ���濡�洹몃����ㅻ��瑜� ���������寃� ������....
 					var progressSpan = pworkSpace.find('.js_progress_span:first');
 					smartPop.progressCont(progressSpan);
-					// perform_task_instance.sw서비스를 요청한다..
+					// perform_task_instance.sw���鍮���ㅻ�� ���泥�������..
 					$.ajax({
 						url : url,
 						contentType : 'application/json',
@@ -1351,7 +1351,7 @@ $(function() {
 						data : JSON.stringify(paramsJson),
 						success : function(data, status, jqXHR) {
 							try{
-								// 성공시에 프로그래스바를 제거하고 성공메시지를 보여준다...
+								// ��깃났������ ���濡�洹몃����ㅻ��瑜� ���嫄고��怨� ��깃났硫����吏�瑜� 蹂댁�ъ�����...
 								var inlineTarget = input.parents('.js_content_target');
 								if(isEmpty(inlineTarget)){
 									var lastHref = pworkSpace.attr('lastHref');
@@ -1369,7 +1369,7 @@ $(function() {
 							return;
 						},
 						error : function(xhr, ajaxOptions, e) {
-							// 서비스 에러시에는 메시지를 보여주고 현재페이지에 그래도 있는다...
+							// ���鍮���� �����ъ�������� 硫����吏�瑜� 蹂댁�ъ＜怨� �����ы����댁����� 洹몃����� ���������...
 							smartPop.showInfo(smartPop.ERROR, smartMessage.get("performTaskInstanceError"), function(){
 								return;
 							}, e);
@@ -1408,23 +1408,23 @@ $(function() {
 					for(var i=0; i<forms.length; i++){
 						var form = $(forms[i]);
 						
-						// 폼이 스마트폼이면 formId와 formName 값을 전달한다...
+						// ��쇱�� ��ㅻ����명�쇱�대㈃ formId��� formName 媛���� �����ы�����...
 						if(form.attr('name') === 'frmSmartForm'){
 							paramsJson['formId'] = form.attr('formId');
 							paramsJson['formName'] = form.attr('formName');
 						}
 						
-						// 폼이름 키값으로 하여 해당 폼에 있는 모든 입력항목들을 JSON형식으로 Serialize 한다...
+						// ��쇱�대�� ��ㅺ����쇰�� ������ ��대�� ��쇱�� ������ 紐⑤�� �����ν��紐⑸�ㅼ�� JSON��������쇰�� Serialize ������...
 						paramsJson[form.attr('name')] = mergeObjects(form.serializeObject(), SmartWorks.GridLayout.serializeObject(form));
 					}
 					console.log(JSON.stringify(paramsJson));
 					var url = "return_task_instance.sw";
 					
-					// 서비스요청 프로그래스바를 나타나게 한다....
+					// ���鍮���ㅼ��泥� ���濡�洹몃����ㅻ��瑜� ���������寃� ������....
 					var progressSpan = pworkSpace.find('.js_progress_span:first');
 					smartPop.progressCont(progressSpan);
 					
-					// perform_task_instance.sw서비스를 요청한다..
+					// perform_task_instance.sw���鍮���ㅻ�� ���泥�������..
 					$.ajax({
 						url : url,
 						contentType : 'application/json',
@@ -1432,7 +1432,7 @@ $(function() {
 						data : JSON.stringify(paramsJson),
 						success : function(data, status, jqXHR) {
 							try{
-								// 성공시에 프로그래스바를 제거하고 성공메시지를 보여준다...
+								// ��깃났������ ���濡�洹몃����ㅻ��瑜� ���嫄고��怨� ��깃났硫����吏�瑜� 蹂댁�ъ�����...
 								var inlineTarget = input.parents('.js_content_target');
 								if(isEmpty(inlineTarget)){
 									var lastHref = pworkSpace.attr('lastHref');
@@ -1450,7 +1450,7 @@ $(function() {
 							return;
 						},
 						error : function(xhr, ajaxOptions, e) {
-							// 서비스 에러시에는 메시지를 보여주고 현재페이지에 그래도 있는다...
+							// ���鍮���� �����ъ�������� 硫����吏�瑜� 蹂댁�ъ＜怨� �����ы����댁����� 洹몃����� ���������...
 							smartPop.showInfo(smartPop.ERROR, smartMessage.get("returnTaskInstanceError"), function(){
 								return;
 							}, e);
@@ -1489,23 +1489,23 @@ $(function() {
 					for(var i=0; i<forms.length; i++){
 						var form = $(forms[i]);
 						
-						// 폼이 스마트폼이면 formId와 formName 값을 전달한다...
+						// ��쇱�� ��ㅻ����명�쇱�대㈃ formId��� formName 媛���� �����ы�����...
 						if(form.attr('name') === 'frmSmartForm'){
 							paramsJson['formId'] = form.attr('formId');
 							paramsJson['formName'] = form.attr('formName');
 						}
 						
-						// 폼이름 키값으로 하여 해당 폼에 있는 모든 입력항목들을 JSON형식으로 Serialize 한다...
+						// ��쇱�대�� ��ㅺ����쇰�� ������ ��대�� ��쇱�� ������ 紐⑤�� �����ν��紐⑸�ㅼ�� JSON��������쇰�� Serialize ������...
 						paramsJson[form.attr('name')] = mergeObjects(form.serializeObject(), SmartWorks.GridLayout.serializeObject(form));
 					}
 					console.log(JSON.stringify(paramsJson));
 					var url = "temp_save_task_instance.sw";
 					
-					// 서비스요청 프로그래스바를 나타나게 한다....
+					// ���鍮���ㅼ��泥� ���濡�洹몃����ㅻ��瑜� ���������寃� ������....
 					var progressSpan = pworkSpace.find('.js_progress_span:first');
 					smartPop.progressCont(progressSpan);
 					
-					// perform_task_instance.sw서비스를 요청한다..
+					// perform_task_instance.sw���鍮���ㅻ�� ���泥�������..
 					$.ajax({
 						url : url,
 						contentType : 'application/json',
@@ -1513,7 +1513,7 @@ $(function() {
 						data : JSON.stringify(paramsJson),
 						success : function(data, status, jqXHR) {
 							try{
-								// 성공시에 프로그래스바를 제거하고 성공메시지를 보여준다...
+								// ��깃났������ ���濡�洹몃����ㅻ��瑜� ���嫄고��怨� ��깃났硫����吏�瑜� 蹂댁�ъ�����...
 								smartPop.closeProgress();
 							}catch(error){
 								smartPop.showInfo(smartPop.ERROR, smartMessage.get('technicalProblemOccured') + '[sw-act-work js_temp_save_task_instance]', null, error);
@@ -1521,7 +1521,7 @@ $(function() {
 							return;
 						},
 						error : function(xhr, ajaxOptions, e) {
-							// 서비스 에러시에는 메시지를 보여주고 현재페이지에 그래도 있는다...
+							// ���鍮���� �����ъ�������� 硫����吏�瑜� 蹂댁�ъ＜怨� �����ы����댁����� 洹몃����� ���������...
 							if(xhr.responseText === "duplicateKeyException")
 								smartPop.showInfo(smartPop.ERROR, smartMessage.get("duplicateKeyException"), null, e);
 							else
@@ -1633,11 +1633,11 @@ $(function() {
 				console.log(JSON.stringify(paramsJson));
 				var url = "remove_pwork_instance.sw";
 				
-				// 서비스요청 프로그래스바를 나타나게 한다....
+				// ���鍮���ㅼ��泥� ���濡�洹몃����ㅻ��瑜� ���������寃� ������....
 				var progressSpan = pworkSpace.find('.js_progress_span:first');
 				smartPop.progressCont(progressSpan);
 				
-				// set_iwork_instance.sw서비스를 요청한다..
+				// set_iwork_instance.sw���鍮���ㅻ�� ���泥�������..
 				$.ajax({
 					url : url,
 					contentType : 'application/json',
@@ -1645,7 +1645,7 @@ $(function() {
 					data : JSON.stringify(paramsJson),
 					success : function(data, status, jqXHR) {
 						try{
-							// 정보관리업무 목록 페이지로 이동한다.....
+							// ���蹂닿��由ъ��臾� 紐⑸�� �����댁��濡� ��대��������.....
 							smartPop.closeProgress();
 							document.location.href = lastHref;					
 						}catch(error){
@@ -1653,7 +1653,7 @@ $(function() {
 						}			
 					},
 					error : function(xhr, ajaxOptions, e) {
-						// 서비스 에러시에는 메시지를 보여주고 현재페이지에 그래도 있는다...
+						// ���鍮���� �����ъ�������� 硫����吏�瑜� 蹂댁�ъ＜怨� �����ы����댁����� 洹몃����� ���������...
 						smartPop.showInfo(smartPop.ERROR, smartMessage.get("removeIWorkInstanceError"), function(){
 							return false;
 						}, e);
@@ -1685,11 +1685,11 @@ $(function() {
 
 			var url = "more_pwork_space.sw";
 			
-			// 서비스요청 프로그래스바를 나타나게 한다....
+			// ���鍮���ㅼ��泥� ���濡�洹몃����ㅻ��瑜� ���������寃� ������....
 			var progressSpan = pworkSpace.find('.js_progress_span:first');
 			smartPop.progressCont(progressSpan);
 			
-			// set_iwork_instance.sw서비스를 요청한다..
+			// set_iwork_instance.sw���鍮���ㅻ�� ���泥�������..
 			$.ajax({
 				url : url,
 				data : {

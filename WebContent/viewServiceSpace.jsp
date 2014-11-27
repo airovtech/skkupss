@@ -15,11 +15,6 @@
 			productService = ManagerFactory.getInstance().getServiceManager().getProductService(psId, ProductService.SPACE_TYPE_SERVICE);
 		}catch(Exception e){}
 		if(!SmartUtil.isBlankObject(productService)) serviceSpace = productService.getServiceSpace();
-		
-		serviceSpace = new ServiceSpace();
-		serviceSpace.setSsp(new String[]{"대여", "세척/수리"});
-		serviceSpace.setSsc(new String[]{"육아교육"});
-		serviceSpace.setSscc(new String[]{"예방접종 알림", "베이비백 증정", "앨범제작"});
 	}
 	
 	String isEditModeStr = request.getParameter("isEditMode");
@@ -83,7 +78,7 @@
 							</div>
 						<%
 						}
-						if(values==null && isEditMode){
+						if(SmartUtil.isBlankObject(values) && isEditMode){
 						%>
 							<div class="edit_item <%if(isEditMode){ %>service_item<%} %> js_element_item" itemName="Sspp" style="height:24px; overflow:hidden; border: 1px solid #c7c7c7;background-color:#BFF7F5;margin:5px 0;width:88px;font-size:11px">
 								<span class="js_view_element_item" style="display:none">
@@ -131,7 +126,7 @@
 							</div>
 						<%
 						}
-						if(values==null && isEditMode){
+						if(SmartUtil.isBlankObject(values) && isEditMode){
 						%>
 							<div class="edit_item <%if(isEditMode){ %>service_item<%} %> js_element_item" itemName="Ssp" style="height:24px; overflow:hidden; border: 1px solid #c7c7c7;background-color:#BFF7F5;margin:5px 0;width:88px;font-size:11px">
 								<span class="js_view_element_item" style="display:none">
@@ -179,7 +174,7 @@
 							</div>
 						<%
 						}
-						if(values==null && isEditMode){
+						if(SmartUtil.isBlankObject(values) && isEditMode){
 						%>
 							<div class="edit_item <%if(isEditMode){ %>service_item<%} %> js_element_item" itemName="Sspc" style="height:24px; overflow:hidden; border: 1px solid #c7c7c7;background-color:#BFF7F5;margin:5px 0;width:88px;font-size:11px">
 								<span class="js_view_element_item" style="display:none">
@@ -227,7 +222,7 @@
 							</div>
 						<%
 						}
-						if(values==null && isEditMode){
+						if(SmartUtil.isBlankObject(values) && isEditMode){
 						%>
 							<div class="edit_item <%if(isEditMode){ %>service_item<%} %> js_element_item" itemName="Ssc" style="height:24px; overflow:hidden; border: 1px solid #c7c7c7;background-color:#BFF7F5;margin:5px 0;width:88px;font-size:11px">
 								<span class="js_view_element_item" style="display:none">
@@ -275,7 +270,7 @@
 							</div>
 						<%
 						}
-						if(values==null && isEditMode){
+						if(SmartUtil.isBlankObject(values) && isEditMode){
 						%>
 							<div class="edit_item <%if(isEditMode){ %>service_item<%} %> js_element_item" itemName="Sscc" style="height:24px; overflow:hidden; border: 1px solid #c7c7c7;background-color:#BFF7F5;margin:5px 0;width:88px;font-size:11px">
 								<span class="js_view_element_item" style="display:none">
