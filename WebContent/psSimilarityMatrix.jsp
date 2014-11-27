@@ -70,9 +70,35 @@
 	}
 	%>
 
-	console.log(colNames);
-	console.log(colModels);
-	console.log(matrixData);
+	function useColorValues(){
+	    var gridData = $("#matrix_list").jqGrid('getRowData');
+	    for(var i=0; i<=gridData.length; i++) {
+	        var rowData = $("#matrix_list").jqGrid('getRowData',i+1);
+	        console.log('rowData['+i+']=', rowData);
+	        for(var j=1; j<colModels.length; j++){
+	        	console.log('colModels[' + j +']=' + rowData[colModels[j].name])
+		        if(rowData[colModels[j].name] >= 0.9) { 
+		            $("#matrix_list").jqGrid('setCell', i+1, j,"",{color:'blue'});
+		        }else if(rowData[colModels[j].name] < 0.9 && rowData[colModels[j].name] >= 0.8) { 
+		            $("#matrix_list").jqGrid('setCell', i+1, j,"",{color:'green'});
+		        }else if(rowData[colModels[j].name] <= 0.6) { 
+		            $("#matrix_list").jqGrid('setCell', i+1, j,"",{color:'red'});
+		        }   			        	
+	        }
+  		}
+	}
+	
+	function clearColorValues(){
+	    var gridData = $("#matrix_list").jqGrid('getRowData');
+	    for(var i=0; i<=gridData.length; i++) {
+	        var rowData = $("#matrix_list").jqGrid('getRowData',i+1);
+	        console.log('rowData['+i+']=', rowData);
+	        for(var j=1; j<colModels.length; j++){
+	        	console.log('colModels[' + j +']=' + rowData[colModels[j].name]);
+	            $("#matrix_list").jqGrid('setCell', i+1, j,"",{color:'#363636'});
+	        }
+  		}
+	}
 	
 	$(document).ready( function() { 	
 		jQuery("#matrix_list").jqGrid({
@@ -84,7 +110,7 @@
 			colNames:colNames,
 			colModel:colModels,
 			gridComplete : function() { 	        	  
-	 		},
+			},
 			loadError:function(xhr, status, error) {
 				console.log("error=" + error);
 			},
@@ -119,6 +145,7 @@
 								<option value="<%=ProductService.PSS_SPACE_BIZ_MODEL%>" <%if(spaceType.equals(ProductService.PSS_SPACE_BIZ_MODEL)){%>selected<%} %>>비즈모델공간(Biz Model Space)</option>
 							</select>
 							<span class="js_progress_span"></span>
+							<input style="margin-left:20px" class="js_toggle_use_sim_color" type="checkbox"/><span>컬러로 유사도 구분하기(0.9이상:파랑, 0.8이상:녹색, 0.6이하:빨강)</span>
 						</div>
 					</div>
 					<!-- 목록보기 타이틀-->

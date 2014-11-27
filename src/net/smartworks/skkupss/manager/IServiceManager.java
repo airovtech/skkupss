@@ -31,4 +31,6 @@ public interface IServiceManager {
 
 	public SimilarityMatrix[][] caculatePsSimilarities(String[] psIds, String[] psNames, String spaceType) throws Exception;
 	
+	public String getProductServicePicture(String userId, String psId) throws Exception;
+	
 }

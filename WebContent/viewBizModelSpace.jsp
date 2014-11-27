@@ -221,7 +221,7 @@
 						</div>
 				<%
 					}
-					if(values==null && userValues==null && isEditMode){
+					if(SmartUtil.isBlankObject(values) && SmartUtil.isBlankObject(userValues) && isEditMode){
 				%>
 						<div class="js_element_item" itemName="KeyPartners" style="color:blue;font-size:11px">
 							<span class="edit_item js_view_element_item" style="display:none">
@@ -317,7 +317,7 @@
 						</div>
 				<%
 					}
-					if(values==null && userValues==null && isEditMode){
+					if(SmartUtil.isBlankObject(values) && SmartUtil.isBlankObject(userValues) && isEditMode){
 				%>
 						<div class="js_element_item" itemName="KeyActivities" style="color:blue;font-size:11px">
 							<span class="edit_item js_view_element_item" style="display:none">
@@ -417,7 +417,7 @@
 						</div>
 					<%
 						}
-						if(values==null && userValues==null && isEditMode){
+						if(SmartUtil.isBlankObject(values) && SmartUtil.isBlankObject(userValues) && isEditMode){
 					%>
 							<div class="js_element_item" itemName="KeyResources" style="color:blue;font-size:11px">
 								<span class="edit_item js_view_element_item" style="display:none">
@@ -474,7 +474,7 @@
 						</div>
 				<%
 					}
-					if(userValues==null && isEditMode){
+					if(SmartUtil.isBlankObject(userValues) && isEditMode){
 				%>
 						<div class="js_element_item" itemName="ValuePropositions" style="color:blue;font-size:11px">
 							<span class="edit_item js_view_element_item" style="display:none">
@@ -560,7 +560,7 @@
 						</div>
 					<%
 						}
-						if(values==null && userValues==null && isEditMode){
+						if(SmartUtil.isBlankObject(values) && SmartUtil.isBlankObject(userValues) && isEditMode){
 					%>
 							<div class="js_element_item" itemName="CustomerRelationships" style="color:blue;font-size:11px">
 								<span class="edit_item js_view_element_item" style="display:none">
@@ -663,7 +663,7 @@
 						</div>
 					<%
 						}
-						if(values==null && userValues==null && isEditMode){
+						if(SmartUtil.isBlankObject(values) && SmartUtil.isBlankObject(userValues) && isEditMode){
 					%>
 							<div class="js_element_item" itemName="Channels" style="color:blue;font-size:11px">
 								<span class="edit_item js_view_element_item" style="display:none">
@@ -761,7 +761,7 @@
 						</div>
 				<%
 					}
-					if(values==null && userValues==null && isEditMode){
+					if(SmartUtil.isBlankObject(values) && SmartUtil.isBlankObject(userValues) && isEditMode){
 				%>
 						<div class="js_element_item" itemName="CustomerSegments" style="color:blue;font-size:11px">
 							<span class="edit_item js_view_element_item" style="display:none">
@@ -861,7 +861,7 @@
 						</div>
 				<%
 					}
-					if(values==null && userValues==null && isEditMode){
+					if(SmartUtil.isBlankObject(values) && SmartUtil.isBlankObject(userValues) && isEditMode){
 				%>
 						<div class="js_element_item" itemName="CostStructure" style="color:blue;font-size:11px">
 							<span class="edit_item js_view_element_item" style="display:none">
@@ -946,7 +946,7 @@
 						</div>
 				<%
 					}
-					if(values==null && userValues==null && isEditMode){
+					if(SmartUtil.isBlankObject(values) && SmartUtil.isBlankObject(userValues) && isEditMode){
 				%>
 						<div class="js_element_item" itemName="RevenueStreams" style="color:blue;font-size:11px">
 							<span class="edit_item js_view_element_item" style="display:none">

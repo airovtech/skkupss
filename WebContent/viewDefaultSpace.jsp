@@ -103,7 +103,7 @@
 					</span>
 				<%
 				}
-				if(values==null && isEditMode){
+				if(SmartUtil.isBlankObject(values) && isEditMode){
 				%>
 					<span class="edit_item js_element_item" style="background-color: rgb(234, 232, 230);text-align: center;border: black 1px solid;font-size: 12px;height: 24px;margin:4px; padding:4px 6px; line-height:30px">
 						<span class="js_view_element_item" style="display:none">

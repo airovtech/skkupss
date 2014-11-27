@@ -259,6 +259,13 @@ public class ServiceManagerImpl implements IServiceManager {
 		
 		return psSimilarities;
 	}
+
+	@Override
+	public String getProductServicePicture(String userId, String psId)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 
 }

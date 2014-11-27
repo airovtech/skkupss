@@ -1,3 +1,4 @@
+<%@page import="net.smartworks.skkupss.manager.impl.DocFileManagerImpl"%>
 <%@page import="net.smartworks.util.CommonUtil"%>
 <%@page import="net.smartworks.skkupss.model.BizModelSpace"%>
 <%@page import="net.smartworks.skkupss.model.ServiceSpace"%>
@@ -88,7 +89,7 @@
 					<td class="tc"><input class="js_check_instance" name="chkSelectInstance" type="checkbox"/></td>
 					<td class="tc"><%=currentCount--%></td>
 					<td class="tc">
-						<img class="vt up" src="images/pss/test-picture.png" style="width:158px;height:158px" />
+						<img class="vt up" src="<%=DocFileManagerImpl.PSS_PICTURE_URL + productService.getPicture() %>" style="width:158px" />
 						<div><%=CommonUtil.toNotNull(productService.getName()) %></div>
 					</td>
 					<td class="tl vt">

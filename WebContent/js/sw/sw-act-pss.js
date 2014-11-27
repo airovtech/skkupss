@@ -237,4 +237,78 @@ $(function() {
 		return false;
 	});	
 	
+	$('a.js_remove_product_service').live('click', function(e) {
+		try{
+			var input = $(targetElement(e));
+			input = input.parents('.js_remove_product_service:first');
+			var psId = input.attr('psId');
+			smartPop.confirm( "현재의 제품-서비스 내용을 완전히 삭제하려고 합니다. 정말로 삭제하시겠습니까?", function(){			
+				var paramsJson = {};
+				paramsJson["psId"] = psId;
+				console.log(JSON.stringify(paramsJson));
+				smartPop.progressCenter();
+				$.ajax({
+					url : "remove_product_service.sw",
+					contentType : 'application/json',
+					type : 'POST',
+					data : JSON.stringify(paramsJson),
+					success : function(data, status, jqXHR) {
+						smartPop.closeProgress();
+						location.href = "home.sw";
+					}
+				});
+			});			
+		}catch(error){
+			smartPop.showInfo(smartPop.ERROR, smartMessage.get('technicalProblemOccured') + '[sw-act-work js_create_new_work]', null, error);
+		}			
+		return false;
+	});	
+	
+	$('.js_modify_product_service').live('click', function(e) {
+		try{
+			var input = $(targetElement(e));
+			input = input.parents('.js_modify_product_service');
+			var psId = input.attr('psId');
+			var url = 'newProductService.jsp?psId=' + psId + '&isEditMode=true';
+			var target = $('#content');
+			$.ajax({
+				url : url,
+				success : function(data, status, jqXHR) {
+					target.html(data);
+				}				
+			});
+		}catch(error){
+			smartPop.showInfo(smartPop.ERROR, smartMessage.get('technicalProblemOccured') + '[sw-act-work js_create_new_work]', null, error);
+		}			
+		return false;
+	});	
+	
+	$('.js_cancel_modify_ps').live('click', function(e) {
+		try{
+			var input = $(targetElement(e));
+			input = input.parents('.js_cancel_modify_ps');
+			var psId = input.attr('psId');
+			var url = 'newProductService.jsp?psId=' + psId + '&isEditMode=false';
+			var target = $('#content');
+			$.ajax({
+				url : url,
+				success : function(data, status, jqXHR) {
+					target.html(data);
+				}				
+			});
+		}catch(error){
+			smartPop.showInfo(smartPop.ERROR, smartMessage.get('technicalProblemOccured') + '[sw-act-work js_create_new_work]', null, error);
+		}			
+		return false;
+	});	
+
+	$('input.js_toggle_use_sim_color').live('click', function(e) {
+		var input = $(targetElement(e));
+		if(input.is(":checked")){
+			useColorValues();
+		}else{
+			clearColorValues();
+		}
+	});			
+	
 });

@@ -1,3 +1,4 @@
+<%@page import="net.smartworks.skkupss.manager.impl.DocFileManagerImpl"%>
 <%@page import="java.util.Date"%>
 <%@page import="net.smartworks.skkupss.model.BizModelSpace"%>
 <%@page import="net.smartworks.skkupss.model.ServiceSpace"%>
@@ -43,12 +44,16 @@ function submitForms(tempSave) {
 		paramsJson[form.attr('name')] = mergeObjects(form.serializeObject(), SmartWorks.GridLayout.serializeObject(form));
 	}
 	paramsJson["frmSpaceTabs"] = paramsJsonHiddens;
+
+	var psId = newProductService.attr('psId');
+	if(!isEmpty(psId))
+		paramsJson["psId"] = psId;
 	
 	console.log(JSON.stringify(paramsJson));
 	// 서비스요청 프로그래스바를 나타나게 한다....
 	var progressSpan = newProductService.find('.js_progress_span');
 	smartPop.progressCont(progressSpan);
-	var url = "create_product_service.sw";
+	var url = "set_product_service.sw";
 	$.ajax({
 		url : url,
 		contentType : 'application/json',
@@ -56,8 +61,33 @@ function submitForms(tempSave) {
 		data : JSON.stringify(paramsJson),
 		success : function(data, status, jqXHR) {
 			// 성공시에 프로그래스바를 제거하고 성공메시지를 보여준다...
- 			location.href = "home.sw";
-			smartPop.closeProgress();
+			if(isEmpty(psId)){
+				smartPop.confirm( "성공적으로 새항목이 등록되었습니다. 계속 새항목 등록하기를 하시겠습니까?", function(){
+					var url = 'newProductService.jsp';
+					var target = $('#content');
+					$.ajax({
+						url : url,
+						success : function(data, status, jqXHR) {
+							target.html(data);
+							smartPop.closeProgress();
+						}				
+					});
+				},
+				function(){
+					location.href = "home.sw";
+					smartPop.closeProgress();
+				});
+			}else{
+				var url = 'newProductService.jsp?psId=' + psId + '&isEditMode=false';
+				var target = $('#content');
+				$.ajax({
+					url : url,
+					success : function(data, status, jqXHR) {
+						target.html(data);
+						smartPop.closeProgress();
+					}				
+				});
+			}
 		}
 	});
 }
@@ -77,7 +107,11 @@ function submitForms(tempSave) {
 		try{
 			productService = ManagerFactory.getInstance().getServiceManager().getProductService(psId, ProductService.SPACE_TYPE_NONE);
 		}catch(Exception e){}
+	}else{
+		isEditMode = true;
 	}
+	
+	String psPictureUrl = SmartUtil.isBlankObject(productService.getPicture()) ? "" : DocFileManagerImpl.PSS_PICTURE_URL +  productService.getPicture();
 
 %>
 
@@ -135,14 +169,50 @@ function submitForms(tempSave) {
 								<div class="glo_btn_space js_upload_buttons_page">		
 									<!--  완료 및 취소 버튼 -->
 									<div class="fr">
-										<span class="btn_gray"> 
-											<!--  완료버튼을 클릭시 해당 업로드 화면페이지에 있는 submitForms()함수를 실행한다.. -->
-											<a href="" class="js_complete_action" onclick='submitForms();return false;'> 
-												<span class="txt_btn_start"></span>
-												<span class="txt_btn_center">완료</span> 
-												<span class="txt_btn_end"></span> 
-											</a>
-										</span> 
+										<%if(SmartUtil.isBlankObject(psId)){ %>
+											<span class="btn_gray"> 
+												<!--  완료버튼을 클릭시 해당 업로드 화면페이지에 있는 submitForms()함수를 실행한다.. -->
+												<a href="" class="js_complete_action" onclick='submitForms();return false;'> 
+													<span class="txt_btn_start"></span>
+													<span class="txt_btn_center">등록하기</span> 
+													<span class="txt_btn_end"></span> 
+												</a>
+											</span>
+										<%}else if(isEditMode){ %>
+											<span class="btn_gray"> 
+												<!--  완료버튼을 클릭시 해당 업로드 화면페이지에 있는 submitForms()함수를 실행한다.. -->
+												<a href="" class="js_complete_action" onclick='submitForms();return false;'> 
+													<span class="txt_btn_start"></span>
+													<span class="txt_btn_center">수정완료</span> 
+													<span class="txt_btn_end"></span> 
+												</a>
+											</span>
+											<span class="btn_gray"> 
+												<!--  완료버튼을 클릭시 해당 업로드 화면페이지에 있는 submitForms()함수를 실행한다.. -->
+												<a href="" class="js_cancel_modify_ps" psId="<%=productService.getId() %>"> 
+													<span class="txt_btn_start"></span>
+													<span class="txt_btn_center">수정취소</span> 
+													<span class="txt_btn_end"></span> 
+												</a>
+											</span>
+										<%}else{ %>
+											<span class="btn_gray"> 
+												<!--  완료버튼을 클릭시 해당 업로드 화면페이지에 있는 submitForms()함수를 실행한다.. -->
+												<a href="" class="js_modify_product_service" psId="<%=productService.getId() %>"> 
+													<span class="txt_btn_start"></span>
+													<span class="txt_btn_center">수정하기</span> 
+													<span class="txt_btn_end"></span> 
+												</a>
+											</span>
+											<span class="btn_gray"> 
+												<!--  완료버튼을 클릭시 해당 업로드 화면페이지에 있는 submitForms()함수를 실행한다.. -->
+												<a href="" class="js_remove_product_service" psId="<%=productService.getId() %>"> 
+													<span class="txt_btn_start"></span>
+													<span class="txt_btn_center">삭제하기</span> 
+													<span class="txt_btn_end"></span> 
+												</a>
+											</span>
+										<%} %> 
 												
 										<span class="btn_gray">
 											<!--  취소버튼을 클릭시 sw_act_work 에서 click event 로 정의 되어있는 함수를 실행한다... -->
@@ -181,7 +251,7 @@ function submitForms(tempSave) {
 try{
 	
 	var psName = "<%=CommonUtil.toNotNull(productService.getName())%>";
-	var psPicture = "<%=CommonUtil.toNotNull(productService.getPicture())%>";
+	var psPicture = "<%=psPictureUrl%>";
 	var psDesc = "<%=CommonUtil.toNotNull(productService.getDesc())%>";
 	
 	var newProductServiceFields = $('div.js_new_product_service_fields');
@@ -201,7 +271,7 @@ try{
 			required: true,
 			readOnly: <%=!isEditMode%>
 		});
- 		
+		
 		gridRow = SmartWorks.GridLayout.newGridRow().appendTo(gridTable);
  		SmartWorks.FormRuntime.ImageBoxBuilder.buildEx({
 			container: gridRow,
@@ -210,10 +280,12 @@ try{
 			imgSource: psPicture,
 			columns: 3,
 			colSpan: 1,
-			required: false
+			pictureHeight: 90,
+			required: false,
+			readOnly: <%=!isEditMode%>			
 		});
- 		gridRow.find('td[fieldId="imgPicture"]').addClass("vt").find('.qq-upload-button').text("제품사진");
- 		
+		gridRow.find('.form_col[fieldId="imgPicture"]').addClass('vt');
+  		
 		SmartWorks.FormRuntime.TextInputBuilder.buildEx({
 			container: gridRow,
 			fieldId: "txtDesc",

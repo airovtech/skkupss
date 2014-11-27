@@ -88,7 +88,7 @@
 						</div>
 					<%
 					}
-					if(values==null && isEditMode){
+					if(SmartUtil.isBlankObject(values) && isEditMode){
 					%>
 						<div class="edit_item js_element_item" itemName="Economical" style="background-color: rgb(234, 232, 230);text-align: center;border: black 1px solid;font-size: 11px;line-height: 15px;margin: 2px 2px;width:73px">
 							<span class="js_view_element_item" style="display:none">
@@ -138,7 +138,7 @@
 						</div>
 					<%
 					}
-					if(values==null && isEditMode){
+					if(SmartUtil.isBlankObject(values) && isEditMode){
 					%>
 						<div class="edit_item js_element_item" itemName="Ecological" style="background-color: rgb(234, 232, 230);text-align: center;border: black 1px solid;font-size: 11px;line-height: 15px;margin: 2px 2px;width:73px">
 							<span class="js_view_element_item" style="display:none">
@@ -213,7 +213,7 @@
 									</div>
 								<%
 								}
-								if(values==null && isEditMode){
+								if(SmartUtil.isBlankObject(values) && isEditMode){
 								%>
 									<div class="edit_item js_element_item" itemName="Function" style="background-color: rgb(234, 232, 230);text-align: center;border: black 1px solid;font-size: 11px;line-height: 15px;margin: 2px 2px;width:73px">
 										<span class="js_view_element_item" style="display:none">
@@ -262,7 +262,7 @@
 									</div>
 								<%
 								}
-								if(values==null && isEditMode){
+								if(SmartUtil.isBlankObject(values) && isEditMode){
 								%>
 									<div class="edit_item js_element_item" itemName="ExtrinsicSocial" style="background-color: rgb(234, 232, 230);text-align: center;border: black 1px solid;font-size: 11px;line-height: 15px;margin: 2px 2px;width:73px">
 										<span class="js_view_element_item" style="display:none">
@@ -311,7 +311,7 @@
 									</div>
 								<%
 								}
-								if(values==null && isEditMode){
+								if(SmartUtil.isBlankObject(values) && isEditMode){
 								%>
 									<div class="edit_item js_element_item" itemName="ActiveEmotional" style="background-color: rgb(234, 232, 230);text-align: center;border: black 1px solid;font-size: 11px;line-height: 15px;margin: 2px 2px;width:73px">
 										<span class="js_view_element_item" style="display:none">
@@ -361,7 +361,7 @@
 									</div>
 								<%
 								}
-								if(values==null && isEditMode){
+								if(SmartUtil.isBlankObject(values) && isEditMode){
 								%>
 									<div class="edit_item js_element_item" itemName="ReactiveEmotional" style="background-color: rgb(234, 232, 230);text-align: center;border: black 1px solid;font-size: 11px;line-height: 15px;margin: 2px 2px;width:73px">
 										<span class="js_view_element_item" style="display:none">
@@ -411,7 +411,7 @@
 									</div>
 								<%
 								}
-								if(values==null && isEditMode){
+								if(SmartUtil.isBlankObject(values) && isEditMode){
 								%>
 									<div class="edit_item js_element_item" itemName="IntrinsicSocial" style="background-color: rgb(234, 232, 230);text-align: center;border: black 1px solid;font-size: 11px;line-height: 15px;margin: 2px 2px;width:73px">
 										<span class="js_view_element_item" style="display:none">
@@ -460,7 +460,7 @@
 									</div>
 								<%
 								}
-								if(values==null && isEditMode){
+								if(SmartUtil.isBlankObject(values) && isEditMode){
 								%>
 									<div class="edit_item js_element_item" itemName="Epistemic" style="background-color: rgb(234, 232, 230);text-align: center;border: black 1px solid;font-size: 11px;line-height: 15px;margin: 2px 2px;width:73px">
 										<span class="js_view_element_item" style="display:none">

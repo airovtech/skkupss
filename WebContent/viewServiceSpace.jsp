@@ -78,7 +78,7 @@
 							</div>
 						<%
 						}
-						if(values==null && isEditMode){
+						if(SmartUtil.isBlankObject(values) && isEditMode){
 						%>
 							<div class="edit_item <%if(isEditMode){ %>service_item<%} %> js_element_item" itemName="Sspp" style="height:24px; overflow:hidden; border: 1px solid #c7c7c7;background-color:#BFF7F5;margin:5px 0;width:88px;font-size:11px">
 								<span class="js_view_element_item" style="display:none">
@@ -126,7 +126,7 @@
 							</div>
 						<%
 						}
-						if(values==null && isEditMode){
+						if(SmartUtil.isBlankObject(values) && isEditMode){
 						%>
 							<div class="edit_item <%if(isEditMode){ %>service_item<%} %> js_element_item" itemName="Ssp" style="height:24px; overflow:hidden; border: 1px solid #c7c7c7;background-color:#BFF7F5;margin:5px 0;width:88px;font-size:11px">
 								<span class="js_view_element_item" style="display:none">
@@ -174,7 +174,7 @@
 							</div>
 						<%
 						}
-						if(values==null && isEditMode){
+						if(SmartUtil.isBlankObject(values) && isEditMode){
 						%>
 							<div class="edit_item <%if(isEditMode){ %>service_item<%} %> js_element_item" itemName="Sspc" style="height:24px; overflow:hidden; border: 1px solid #c7c7c7;background-color:#BFF7F5;margin:5px 0;width:88px;font-size:11px">
 								<span class="js_view_element_item" style="display:none">
@@ -222,7 +222,7 @@
 							</div>
 						<%
 						}
-						if(values==null && isEditMode){
+						if(SmartUtil.isBlankObject(values) && isEditMode){
 						%>
 							<div class="edit_item <%if(isEditMode){ %>service_item<%} %> js_element_item" itemName="Ssc" style="height:24px; overflow:hidden; border: 1px solid #c7c7c7;background-color:#BFF7F5;margin:5px 0;width:88px;font-size:11px">
 								<span class="js_view_element_item" style="display:none">
@@ -270,7 +270,7 @@
 							</div>
 						<%
 						}
-						if(values==null && isEditMode){
+						if(SmartUtil.isBlankObject(values) && isEditMode){
 						%>
 							<div class="edit_item <%if(isEditMode){ %>service_item<%} %> js_element_item" itemName="Sscc" style="height:24px; overflow:hidden; border: 1px solid #c7c7c7;background-color:#BFF7F5;margin:5px 0;width:88px;font-size:11px">
 								<span class="js_view_element_item" style="display:none">
