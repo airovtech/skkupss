@@ -292,10 +292,9 @@ public class ServiceManagerImpl implements IServiceManager {
 	}
 
 	@Override
-	public String getProductServicePicture(String userId, String psId)
-			throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public String getProductServicePicture(String userId, String psId) throws Exception {
+		String picture = ManagerFactory.getInstance().getDbManager().getProductServicePicture(userId, psId);
+		return picture;
 	}
 	
 

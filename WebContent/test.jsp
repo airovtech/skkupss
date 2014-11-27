@@ -88,7 +88,7 @@
 	
 	out.println(il); */
 	
-	Db_ProductServiceCond cond = new Db_ProductServiceCond();
+	/* Db_ProductServiceCond cond = new Db_ProductServiceCond();
 	cond.setIdIns(new String[]{"3","4","5"});
 	cond.setSearchKey("3");
 	
@@ -98,7 +98,16 @@
 	
 	int size = DaoFactory.getInstance().getDbDao().getProductServiceWithSelectedSpaceSize("", selectId, cond);
 	
-	out.println(re.length + "  =  " + size);
+	out.println(re.length + "  =  " + size); */
+	
+	
+	String psId = "402880a049ef651c0149ef651c710000";
+	
+	String pic = DaoFactory.getInstance().getDbDao().getProductServicePicture("", psId);
+	
+	out.println(pic);
+	
+	
 	
 %>
 </body>

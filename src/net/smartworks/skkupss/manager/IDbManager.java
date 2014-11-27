@@ -22,6 +22,7 @@ public interface IDbManager {
 	public String setProductService(String userId, ProductService productService) throws Exception;
 	public void removeProductService(String userId, String id) throws Exception;
 	
+	public String getProductServicePicture(String user, String psId) throws Exception;
 	
 	/*	public ProductService[] getProductServices(String userId, ProductServiceCond cond) throws Exception;
 	
