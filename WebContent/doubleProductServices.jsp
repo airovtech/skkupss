@@ -185,3 +185,7 @@
 </div>
 <%} %>
 <!-- 컨텐츠 레이아웃//-->
+
+<script>
+	$('#content').css({"min-width": "1360px"});
+</script>
