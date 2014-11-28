@@ -29,10 +29,10 @@ import org.springframework.util.StringUtils;
 @Service
 public class DocFileManagerImpl implements IDocFileManager {
 
-	final public static String PSS_PICTURE_URL = "http://localhost:8088/product-images/";
-	final private static String PSS_SERVER_DIR =  "/Users/ysjung/smartworksV3/servers/apache-tomcat-7.0.22-skkupss";
+	final public static String PSS_PICTURE_URL = "http://www.smartworks.net/product-images/";
+	final private static String PSS_SERVER_DIR =  "/smartworks/apache-tomcat-7.0.56";
 
-	
+	 
 	private void writeAjaxFile(HttpServletRequest request, HttpServletResponse response, String fileId, String filePath, long fileSize) throws Exception {
 
         InputStream is = null;
