@@ -241,7 +241,10 @@ function submitForms(tempSave) {
 				<!-- 목록 보기 -->
 			</div>
 			<!-- 목록영역 // -->
+			
 		</ul>
+		
+		
 	</div>
 	<div class="portlet_b" style="display: block;"></div>
 </div>
@@ -254,8 +257,8 @@ try{
 	
 	var psName = "<%=CommonUtil.toNotNull(productService.getName())%>";
 	var psPicture = "<%=psPictureUrl%>";
-	var psDesc = "<%=CommonUtil.toNotNull(productService.getDesc())%>";
-	
+ 	var psDesc = "<%=SmartUtil.smartEncode(CommonUtil.toNotNull(productService.getDesc()))%>";
+ 	
 	var newProductServiceFields = $('div.js_new_product_service_fields');
 	if(!isEmpty(newProductServiceFields)) {
 		var newProductServiceField = $(newProductServiceFields[0]);

@@ -7,6 +7,8 @@
 <%@ page contentType="text/html; charset=utf-8"%>
 
 <%
+
+
 	ValueSpace valueSpace = (ValueSpace)request.getAttribute("valueSpace");
 	String psId = request.getParameter("psId");
 	if(SmartUtil.isBlankObject(valueSpace) && !SmartUtil.isBlankObject(psId)){

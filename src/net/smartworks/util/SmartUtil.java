@@ -259,6 +259,7 @@ public class SmartUtil {
 		value = value.replaceAll("\'", "&squo;");
 		value = value.replaceAll("<", "&lt;");
 		value = value.replaceAll(">", "&gt;");
+		value = value.replaceAll("\r\n", "<br>");
 		return value;
 	}
 	
