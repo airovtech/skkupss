@@ -1,3 +1,4 @@
+<%@page import="net.smartworks.util.PropertiesLoader"%>
 <%@page import="net.smartworks.skkupss.manager.impl.DocFileManagerImpl"%>
 <%@page import="java.util.Date"%>
 <%@page import="net.smartworks.skkupss.model.BizModelSpace"%>
@@ -12,6 +13,8 @@
 <%@ page contentType="text/html; charset=utf-8"%>
 <%
 
+	String PSS_PICTURE_URL = PropertiesLoader.loadPropByClassPath("/net/smartworks/conf/config.properties").getProperty("pss.picture.url");
+
 	String sourcePsId = request.getParameter("sourcePsId");
 	String targetPsId = request.getParameter("targetPsId");
 	String spaceType = request.getParameter("spaceType");
@@ -24,8 +27,8 @@
 
 	if(sourcePs==null || targetPs==null) return;
 	
-	String sourcePsPicUrl = SmartUtil.isBlankObject(sourcePs.getPicture()) ? "" : DocFileManagerImpl.PSS_PICTURE_URL +  sourcePs.getPicture();
-	String targetPsPicUrl = SmartUtil.isBlankObject(targetPs.getPicture()) ? "" : DocFileManagerImpl.PSS_PICTURE_URL +  targetPs.getPicture();
+	String sourcePsPicUrl = SmartUtil.isBlankObject(sourcePs.getPicture()) ? "" : PSS_PICTURE_URL +  sourcePs.getPicture();
+	String targetPsPicUrl = SmartUtil.isBlankObject(targetPs.getPicture()) ? "" : PSS_PICTURE_URL +  targetPs.getPicture();
 
 %>
 
