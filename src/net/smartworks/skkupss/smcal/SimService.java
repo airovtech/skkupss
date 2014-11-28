@@ -75,18 +75,15 @@ public class SimService{
 	    
 	    float SIM_ST02 = 0;
 	    
-	    int score_A = 0;
-	    int score_B = 0;
-	    
-	    float tna = tot_numofacts_A;
-	    float tnb = tot_numofacts_B;
+	    float score_A = 0;
+	    float score_B = 0;
 	    
 	    for (int i = 0; i < 5; i++) {
 	      score_A = score_A + (numofacts_A[i])*(i + 1);
 	      score_B = score_B + (numofacts_B[i])*(i + 1);
 	    }
 	    	    
-	    SIM_ST02 = (score_A + score_B)/((5)*(tna + tnb));
+	    SIM_ST02 = 1- (Math.abs(score_A - score_B))/(score_A + score_B);
 	    System.out.print(SIM_ST02);
 	    	    
 	    /////////////////////////////////////////////////////////////
@@ -94,7 +91,7 @@ public class SimService{
 	    /////////////////////////////////////////////////////////////
 	    
 	    float SIM = (SIM_ST01 + SIM_ST02)/2;
-	    
+
 //	    System.out.print(SIM);
 	    
 		return SIM;
