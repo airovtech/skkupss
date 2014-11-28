@@ -67,7 +67,7 @@
 					<span class="js_progress_span"></span>
 				</form>
 			</th>
-			<th class="r_line">
+			<th class="r_line" style="width:145px">
 				<a href="" class="js_select_field_sorting" fieldId="<%=ProductService.FIELD_LAST_MODIFIED_USER%>">최종수정자
 					<span class="<%if(sortedField.getFieldId().equals(ProductService.FIELD_LAST_MODIFIED_USER)){
 						if(sortedField.isAscending()){ %>icon_in_up<%}else{ %>icon_in_down<%}}%>"></span>
