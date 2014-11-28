@@ -23,6 +23,7 @@
 	boolean isEditMode = SmartUtil.isBlankObject(isEditModeStr) || !isEditModeStr.equalsIgnoreCase("true") ? false : true;
 	if(SmartUtil.isBlankObject(bizModelSpace)) bizModelSpace = new BizModelSpace();;
 
+	String visHidden = null;
 	String[] values = null;
 	String[] userValues = null;
 %>
@@ -224,31 +225,28 @@
 						</div>
 				<%
 					}
-					if(SmartUtil.isBlankObject(values) && SmartUtil.isBlankObject(userValues) && isEditMode){
+					visHidden = (SmartUtil.isBlankObject(values) && SmartUtil.isBlankObject(userValues) && isEditMode) ? "" : ";visibility:hidden";
 				%>
-						<div class="js_element_item" itemName="KeyPartners" style="color:blue;font-size:11px">
-							<span class="edit_item js_view_element_item" style="display:none">
-								<span class="js_action_element_item"></span>
-								<span class="edit_actions">
-									<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
-									<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
-								</span>
+					<div class="js_element_item" itemName="KeyPartners" style="color:blue;font-size:11px<%=visHidden%>">
+						<span class="edit_item js_view_element_item" style="display:none">
+							<span class="js_action_element_item"></span>
+							<span class="edit_actions">
+								<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
+								<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
 							</span>
-							<input class="fieldline js_edit_element_item" name="" style="width:85px; display:inline-block; font-size:11px; background-color:white" type="text" value="">
-							<select class="js_select_element_item" name="" style="display:inline-block; font-size:11px;width:18px">
-								<option></option>
-								<option>R&D Contract</option>
-								<option>Design Collaboration</option>
-								<option>Joint Distribution</option>
-								<option>Cross Servicing</option>
-								<option>Shared Investement</option>
-								<option>Cross Promotion</option>
-								<option>Sub contractor network</option>
-							</select>
-						</div>
-				<%
-					}
-				%>
+						</span>
+						<input class="fieldline js_edit_element_item" name="" style="width:85px; display:inline-block; font-size:11px; background-color:white" type="text" value="">
+						<select class="js_select_element_item" name="" style="display:inline-block; font-size:11px;width:18px">
+							<option></option>
+							<option>R&D Contract</option>
+							<option>Design Collaboration</option>
+							<option>Joint Distribution</option>
+							<option>Cross Servicing</option>
+							<option>Shared Investement</option>
+							<option>Cross Promotion</option>
+							<option>Sub contractor network</option>
+						</select>
+					</div>
 			</td>
 			
 			
@@ -322,35 +320,32 @@
 						</div>
 				<%
 					}
-					if(SmartUtil.isBlankObject(values) && SmartUtil.isBlankObject(userValues) && isEditMode){
+					visHidden = (SmartUtil.isBlankObject(values) && SmartUtil.isBlankObject(userValues) && isEditMode) ? "" : ";visibility:hidden";
 				%>
-						<div class="js_element_item" itemName="KeyActivities" style="color:blue;font-size:11px">
-							<span class="edit_item js_view_element_item" style="display:none">
-								<span class="js_action_element_item"></span>
-								<span class="edit_actions">
-									<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
-									<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
-								</span>
+					<div class="js_element_item" itemName="KeyActivities" style="color:blue;font-size:11px<%=visHidden%>">
+						<span class="edit_item js_view_element_item" style="display:none">
+							<span class="js_action_element_item"></span>
+							<span class="edit_actions">
+								<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
+								<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
 							</span>
-							<input class="fieldline js_edit_element_item" name="" style="width:85px; display:inline-block; font-size:11px; background-color:white" type="text" value="">
-							<select class="js_select_element_item" name="" style="display:inline-block; font-size:11px;width:18px">
-								<option></option>
-								<option>Added Service</option>
-								<option>Service Productization</option>
-								<option>Standardization</option>
-								<option>Economies of Scale</option>
-								<option>Economies of Scope</option>
-								<option>No Frill</option>
-								<option>Lean Mfg</option>
-								<option>Responsiveness</option>
-								<option>Vertical Integration</option>
-								<option>Self Service</option>
-								<option>Peer to Peer</option>
-							</select>
-						</div>
-					<%
-						}
-					%>
+						</span>
+						<input class="fieldline js_edit_element_item" name="" style="width:85px; display:inline-block; font-size:11px; background-color:white" type="text" value="">
+						<select class="js_select_element_item" name="" style="display:inline-block; font-size:11px;width:18px">
+							<option></option>
+							<option>Added Service</option>
+							<option>Service Productization</option>
+							<option>Standardization</option>
+							<option>Economies of Scale</option>
+							<option>Economies of Scope</option>
+							<option>No Frill</option>
+							<option>Lean Mfg</option>
+							<option>Responsiveness</option>
+							<option>Vertical Integration</option>
+							<option>Self Service</option>
+							<option>Peer to Peer</option>
+						</select>
+					</div>
 				</div>
 				<div style="height:27px;border-top: 1px solid #c7c7c7;padding:2px">
 					<div class="fl" style="font-size:11px; font-style:italic;line-height: 11px;color: gray;text-align: left;">Key<br>Resources</div>
@@ -422,32 +417,29 @@
 						</div>
 					<%
 						}
-						if(SmartUtil.isBlankObject(values) && SmartUtil.isBlankObject(userValues) && isEditMode){
+						visHidden = (SmartUtil.isBlankObject(values) && SmartUtil.isBlankObject(userValues) && isEditMode) ? "" : ";visibility:hidden";
 					%>
-							<div class="js_element_item" itemName="KeyResources" style="color:blue;font-size:11px">
-								<span class="edit_item js_view_element_item" style="display:none">
-									<span class="js_action_element_item"></span>
-									<span class="edit_actions">
-										<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
-										<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
-									</span>
+						<div class="js_element_item" itemName="KeyResources" style="color:blue;font-size:11px<%=visHidden%>">
+							<span class="edit_item js_view_element_item" style="display:none">
+								<span class="js_action_element_item"></span>
+								<span class="edit_actions">
+									<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
+									<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
 								</span>
-								<input class="fieldline js_edit_element_item" name="" style="width:85px; display:inline-block; font-size:11px; background-color:white" type="text" value="">
-								<select class="js_select_element_item" name="" style="display:inline-block; font-size:11px;width:18px">
-									<option></option>
-									<option>Recycle</option>
-									<option>Crowdsourcing</option>
-									<option>Open Innovation</option>
-									<option>Outsourcing</option>
-									<option>Alliance</option>
-									<option>Platform Utilization</option>
-									<option>Brand Leverage</option>
-									<option>Merge & Acquisition</option>
-								</select>
-							</div>
-					<%
-						}
-					%>
+							</span>
+							<input class="fieldline js_edit_element_item" name="" style="width:85px; display:inline-block; font-size:11px; background-color:white" type="text" value="">
+							<select class="js_select_element_item" name="" style="display:inline-block; font-size:11px;width:18px">
+								<option></option>
+								<option>Recycle</option>
+								<option>Crowdsourcing</option>
+								<option>Open Innovation</option>
+								<option>Outsourcing</option>
+								<option>Alliance</option>
+								<option>Platform Utilization</option>
+								<option>Brand Leverage</option>
+								<option>Merge & Acquisition</option>
+							</select>
+						</div>
 				</div>
 			</td>
 			<td class="tc vm r_line edit_action" style="height:100%">
@@ -479,21 +471,18 @@
 						</div>
 				<%
 					}
-					if(SmartUtil.isBlankObject(userValues) && isEditMode){
+					visHidden = (SmartUtil.isBlankObject(values) && isEditMode) ? "" : ";visibility:hidden";
 				%>
-						<div class="js_element_item" itemName="ValuePropositions" style="color:blue;font-size:11px">
-							<span class="edit_item js_view_element_item" style="display:none">
-								<span class="js_action_element_item"></span>
-								<span class="edit_actions">
-									<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
-									<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
-								</span>
+					<div class="js_element_item" itemName="ValuePropositions" style="color:blue;font-size:11px<%=visHidden%>">
+						<span class="edit_item js_view_element_item" style="display:none">
+							<span class="js_action_element_item"></span>
+							<span class="edit_actions">
+								<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
+								<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
 							</span>
-							<input class="fieldline js_edit_element_item" name="" style="width:110px; display:inline-block; font-size:11px; background-color:white" type="text" value="">
-						</div>
-				<%
-					}
-				%>
+						</span>
+						<input class="fieldline js_edit_element_item" name="" style="width:110px; display:inline-block; font-size:11px; background-color:white" type="text" value="">
+					</div>
 			</td>
 			<td class="tc r_line edit_action" style="height:100%;padding:0">
 				<div class="vm" style="padding:4px 5px;height:110px;overflow:auto">
@@ -565,35 +554,32 @@
 						</div>
 					<%
 						}
-						if(SmartUtil.isBlankObject(values) && SmartUtil.isBlankObject(userValues) && isEditMode){
+						visHidden = (SmartUtil.isBlankObject(values) && SmartUtil.isBlankObject(userValues) && isEditMode) ? "" : ";visibility:hidden";
 					%>
-							<div class="js_element_item" itemName="CustomerRelationships" style="color:blue;font-size:11px">
-								<span class="edit_item js_view_element_item" style="display:none">
-									<span class="js_action_element_item"></span>
-									<span class="edit_actions">
-										<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
-										<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
-									</span>
+						<div class="js_element_item" itemName="CustomerRelationships" style="color:blue;font-size:11px<%=visHidden%>">
+							<span class="edit_item js_view_element_item" style="display:none">
+								<span class="js_action_element_item"></span>
+								<span class="edit_actions">
+									<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
+									<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
 								</span>
-								<input class="fieldline js_edit_element_item" name="" style="width:85px; display:inline-block; font-size:11px; background-color:white" type="text" value="">
-								<select class="js_select_element_item" name="" style="display:inline-block; font-size:11px;width:18px">
-									<option></option>
-									<option>Customer Participation</option>
-									<option>Reward</option>
-									<option>Upgrade</option>
-									<option>Blockbuster Marketing</option>
-									<option>Life-cycle Care</option>
-									<option>Customization</option>
-									<option>Education</option>
-									<option>Community</option>
-									<option>Social Network</option>
-									<option>Membership</option>
-									<option>Network Effect</option>
-								</select>
-							</div>
-					<%
-						}
-					%>
+							</span>
+							<input class="fieldline js_edit_element_item" name="" style="width:85px; display:inline-block; font-size:11px; background-color:white" type="text" value="">
+							<select class="js_select_element_item" name="" style="display:inline-block; font-size:11px;width:18px">
+								<option></option>
+								<option>Customer Participation</option>
+								<option>Reward</option>
+								<option>Upgrade</option>
+								<option>Blockbuster Marketing</option>
+								<option>Life-cycle Care</option>
+								<option>Customization</option>
+								<option>Education</option>
+								<option>Community</option>
+								<option>Social Network</option>
+								<option>Membership</option>
+								<option>Network Effect</option>
+							</select>
+						</div>
 				</div>
 				<div style="height:27px;border-top: 1px solid #c7c7c7;padding:2px">
 					<div class="fl" style="font-size:11px; font-style:italic;line-height: 11px;color: gray;text-align: left;">Channels</div>
@@ -668,35 +654,32 @@
 						</div>
 					<%
 						}
-						if(SmartUtil.isBlankObject(values) && SmartUtil.isBlankObject(userValues) && isEditMode){
+						visHidden = (SmartUtil.isBlankObject(values) && SmartUtil.isBlankObject(userValues) && isEditMode) ? "" : ";visibility:hidden";
 					%>
-							<div class="js_element_item" itemName="Channels" style="color:blue;font-size:11px">
-								<span class="edit_item js_view_element_item" style="display:none">
-									<span class="js_action_element_item"></span>
-									<span class="edit_actions">
-										<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
-										<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
-									</span>
+						<div class="js_element_item" itemName="Channels" style="color:blue;font-size:11px<%=visHidden%>">
+							<span class="edit_item js_view_element_item" style="display:none">
+								<span class="js_action_element_item"></span>
+								<span class="edit_actions">
+									<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
+									<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
 								</span>
-								<input class="fieldline js_edit_element_item" name="" style="width:85px; display:inline-block; font-size:11px; background-color:white" type="text" value="">
-								<select class="js_select_element_item" name="" style="display:inline-block; font-size:11px;width:18px">
-									<option></option>
-									<option>Experience Shop</option>
-									<option>Shop in Shop</option>
-									<option>Delivery</option>
-									<option>Sales Person</option>
-									<option>Road Shop (Booth)</option>
-									<option>홈쇼핑/카탈로그</option>
-									<option>Internet (mobile)</option>
-									<option>Intermediation</option>
-									<option>Disintermediation</option>
-									<option>Channel Sharing</option>
-									<option>Franchise</option>
-								</select>
-							</div>
-					<%
-						}
-					%>
+							</span>
+							<input class="fieldline js_edit_element_item" name="" style="width:85px; display:inline-block; font-size:11px; background-color:white" type="text" value="">
+							<select class="js_select_element_item" name="" style="display:inline-block; font-size:11px;width:18px">
+								<option></option>
+								<option>Experience Shop</option>
+								<option>Shop in Shop</option>
+								<option>Delivery</option>
+								<option>Sales Person</option>
+								<option>Road Shop (Booth)</option>
+								<option>홈쇼핑/카탈로그</option>
+								<option>Internet (mobile)</option>
+								<option>Intermediation</option>
+								<option>Disintermediation</option>
+								<option>Channel Sharing</option>
+								<option>Franchise</option>
+							</select>
+						</div>
 				</div>
 			</td>
 			<td class="tc vm edit_action" style="height:100%">
@@ -766,33 +749,30 @@
 						</div>
 				<%
 					}
-					if(SmartUtil.isBlankObject(values) && SmartUtil.isBlankObject(userValues) && isEditMode){
+					visHidden = (SmartUtil.isBlankObject(values) && SmartUtil.isBlankObject(userValues) && isEditMode) ? "" : ";visibility:hidden";
 				%>
-						<div class="js_element_item" itemName="CustomerSegments" style="color:blue;font-size:11px">
-							<span class="edit_item js_view_element_item" style="display:none">
-								<span class="js_action_element_item"></span>
-								<span class="edit_actions">
-									<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
-									<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
-								</span>
+					<div class="js_element_item" itemName="CustomerSegments" style="color:blue;font-size:11px<%=visHidden%>">
+						<span class="edit_item js_view_element_item" style="display:none">
+							<span class="js_action_element_item"></span>
+							<span class="edit_actions">
+								<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
+								<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
 							</span>
-							<input class="fieldline js_edit_element_item" name="" style="width:85px; display:inline-block; font-size:11px; background-color:white" type="text" value="">
-							<select class="js_select_element_item" name="" style="display:inline-block; font-size:11px;width:18px">
-								<option></option>
-								<option>Segment Expansion</option>
-								<option>Geographical Expansion</option>
-								<option>Long-Tail Targeting</option>
-								<option>Niche Targeting</option>
-								<option>Premium Targeting</option>
-								<option>Low-price Targeting</option>
-								<option>공익고려 Targeting</option>
-								<option>Environmental Targeting</option>
-								<option>2-sided Targeting</option>
-							</select>
-						</div>
-				<%
-					}
-				%>
+						</span>
+						<input class="fieldline js_edit_element_item" name="" style="width:85px; display:inline-block; font-size:11px; background-color:white" type="text" value="">
+						<select class="js_select_element_item" name="" style="display:inline-block; font-size:11px;width:18px">
+							<option></option>
+							<option>Segment Expansion</option>
+							<option>Geographical Expansion</option>
+							<option>Long-Tail Targeting</option>
+							<option>Niche Targeting</option>
+							<option>Premium Targeting</option>
+							<option>Low-price Targeting</option>
+							<option>공익고려 Targeting</option>
+							<option>Environmental Targeting</option>
+							<option>2-sided Targeting</option>
+						</select>
+					</div>
 			</td>
 		</tr>
 	</table>
@@ -866,24 +846,21 @@
 						</div>
 				<%
 					}
-					if(SmartUtil.isBlankObject(values) && SmartUtil.isBlankObject(userValues) && isEditMode){
+					visHidden = (SmartUtil.isBlankObject(values) && SmartUtil.isBlankObject(userValues) && isEditMode) ? "" : ";visibility:hidden";
 				%>
-						<div class="js_element_item" itemName="CostStructure" style="color:blue;font-size:11px">
-							<span class="edit_item js_view_element_item" style="display:none">
-								<span class="js_action_element_item"></span>
-								<span class="edit_actions">
-									<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
-									<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
-								</span>
+					<div class="js_element_item" itemName="CostStructure" style="color:blue;font-size:11px<%=visHidden%>">
+						<span class="edit_item js_view_element_item" style="display:none">
+							<span class="js_action_element_item"></span>
+							<span class="edit_actions">
+								<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
+								<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
 							</span>
-							<input class="fieldline js_edit_element_item" name="" style="width:85px; display:inline-block; font-size:11px; background-color:white" type="text" value="">
-							<select class="js_select_element_item" name="" style="display:inline-block; font-size:11px;width:18px">
-								<option></option>
-							</select>
-						</div>
-				<%
-					}
-				%>
+						</span>
+						<input class="fieldline js_edit_element_item" name="" style="width:85px; display:inline-block; font-size:11px; background-color:white" type="text" value="">
+						<select class="js_select_element_item" name="" style="display:inline-block; font-size:11px;width:18px">
+							<option></option>
+						</select>
+					</div>
 			</td>
 			<td class="tc vm edit_action" style="height:100%;overflow:auto">
 				<%
@@ -954,35 +931,32 @@
 						</div>
 				<%
 					}
-					if(SmartUtil.isBlankObject(values) && SmartUtil.isBlankObject(userValues) && isEditMode){
+					visHidden = (SmartUtil.isBlankObject(values) && SmartUtil.isBlankObject(userValues) && isEditMode) ? "" : ";visibility:hidden";
 				%>
-						<div class="js_element_item" itemName="RevenueStreams" style="color:blue;font-size:11px">
-							<span class="edit_item js_view_element_item" style="display:none">
-								<span class="js_action_element_item"></span>
-								<span class="edit_actions">
-									<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
-									<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
-								</span>
+					<div class="js_element_item" itemName="RevenueStreams" style="color:blue;font-size:11px<%=visHidden%>">
+						<span class="edit_item js_view_element_item" style="display:none">
+							<span class="js_action_element_item"></span>
+							<span class="edit_actions">
+								<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
+								<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
 							</span>
-							<input class="fieldline js_edit_element_item" name="" style="width:85px; display:inline-block; font-size:11px; background-color:white" type="text" value="">
-							<select class="js_select_element_item" name="" style="display:inline-block; font-size:11px;width:18px">
-								<option></option>
-								<option>Pay per Unit (use)</option>
-								<option>Subscription</option>
-								<option>Razor Blade</option>
-								<option>Ad-based</option>
-								<option>Freemium</option>
-								<option>Donation</option>
-								<option>Commission</option>
-								<option>Loyalty</option>
-								<option>Subsidiary</option>
-								<option>Pay as you want</option>
-								<option>Pay per use</option>
-							</select>
-						</div>
-				<%
-					}
-				%>
+						</span>
+						<input class="fieldline js_edit_element_item" name="" style="width:85px; display:inline-block; font-size:11px; background-color:white" type="text" value="">
+						<select class="js_select_element_item" name="" style="display:inline-block; font-size:11px;width:18px">
+							<option></option>
+							<option>Pay per Unit (use)</option>
+							<option>Subscription</option>
+							<option>Razor Blade</option>
+							<option>Ad-based</option>
+							<option>Freemium</option>
+							<option>Donation</option>
+							<option>Commission</option>
+							<option>Loyalty</option>
+							<option>Subsidiary</option>
+							<option>Pay as you want</option>
+							<option>Pay per use</option>
+						</select>
+					</div>
 			</td>
 		</tr>
 	</table>
