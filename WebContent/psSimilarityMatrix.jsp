@@ -126,7 +126,6 @@
 					url : "doubleProductServices.jsp?sourcePsId=" + sourcePsId + "&targetPsId=" + targetPsId + "&spaceType=<%=spaceName%>" + "&isSim=true&value=" + value,
 					success : function(data, status, jqXHR) {
 						$('#double_product_service').html(data);
-						$('#content').css({"min-width": "1360px"});
 						smartPop.closeProgress();
 					}
 				});

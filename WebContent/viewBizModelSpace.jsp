@@ -122,14 +122,17 @@
 		</select>
 		<select class="js_select_element_item" itemName="RevenueStreams" style="display:inline-block; font-size:11px;width:18px">
 			<option></option>
-			<option>Recycle</option>
-			<option>Crowdsourcing</option>
-			<option>Open Innovation</option>
-			<option>Outsourcing</option>
-			<option>Alliance</option>
-			<option>Platform Utilization</option>
-			<option>Brand Leverage</option>
-			<option>Merge & Acquisition</option>
+			<option>Pay per Unit (use)</option>
+			<option>Subscription</option>
+			<option>Razor Blade</option>
+			<option>Ad-based</option>
+			<option>Freemium</option>
+			<option>Donation</option>
+			<option>Commission</option>
+			<option>Loyalty</option>
+			<option>Subsidiary</option>
+			<option>Pay as you want</option>
+			<option>Pay per use</option>
 		</select>
 	</div>
 	<table class="tc" style="width:600px;height:300px;border: 1px solid #c7c7c7;padding: 0;">
@@ -248,7 +251,7 @@
 				%>
 			</td>
 			<td class="tc r_line edit_action" style="height:100%;padding:0">
-				<div class="vm" style="padding:4px 5px;height:110px">
+				<div class="vm" style="padding:4px 5px;height:110px;overflow:auto">
 					<%
 						values = bizModelSpace.getKeyActivities();
 						for(int i=0; values!=null && i<values.length; i++){
@@ -351,7 +354,7 @@
 					<div class="fl" style="font-size:11px; font-style:italic;line-height: 11px;color: gray;text-align: left;">Key<br>Resources</div>
 					<img class="fr" src="images/pss/biz-model/key-resources.png" style="height:70%"/>
 				</div>
-				<div class="vm"  style="padding:4px 5px;height:110px">
+				<div class="vm"  style="padding:4px 5px;height:110px;overflow:auto">
 					<%
 						values = bizModelSpace.getKeyResources();
 						for(int i=0; values!=null && i<values.length; i++){
@@ -491,7 +494,7 @@
 				%>
 			</td>
 			<td class="tc r_line edit_action" style="height:100%;padding:0">
-				<div class="vm" style="padding:4px 5px;height:110px">
+				<div class="vm" style="padding:4px 5px;height:110px;overflow:auto">
 					<%
 						values = bizModelSpace.getCustomerRelationships();
 						for(int i=0; values!=null && i<values.length; i++){
@@ -594,7 +597,7 @@
 					<div class="fl" style="font-size:11px; font-style:italic;line-height: 11px;color: gray;text-align: left;">Channels</div>
 					<img class="fr" src="images/pss/biz-model/channels.png" style="height:70%"/>
 				</div>
-				<div class="vm" style="padding:4px 5px;height:110px">
+				<div class="vm" style="padding:4px 5px;height:110px;overflow:auto">
 					<%
 						values = bizModelSpace.getChannels();
 						for(int i=0; values!=null && i<values.length; i++){
@@ -803,7 +806,7 @@
 			</th>
 		</tr>
 		<tr>
-			<td class="tc vm r_line edit_action" style="height:100%">
+			<td class="tc vm r_line edit_action" style="height:100%;overflow:auto">
 				<%
 					values = bizModelSpace.getCostStructure();
 					for(int i=0; values!=null && i<values.length; i++){
@@ -880,7 +883,7 @@
 					}
 				%>
 			</td>
-			<td class="tc vm edit_action" style="height:100%">
+			<td class="tc vm edit_action" style="height:100%;overflow:auto">
 				<%
 					values = bizModelSpace.getRevenueStreams();
 					for(int i=0; values!=null && i<values.length; i++){
@@ -904,14 +907,17 @@
 							%>
 								<select class="js_select_element_item" name="txtRevenueStreamsItem" style="display:none; font-size:11px;width:110px">
 									<option></option>
-									<option <%if(values[i].equals("Recycle")){ %>selected<%} %>>Recycle</option>
-									<option <%if(values[i].equals("Crowdsourcing")){ %>selected<%} %>>Crowdsourcing</option>
-									<option <%if(values[i].equals("Open Innovation")){ %>selected<%} %>>Open Innovation</option>
-									<option <%if(values[i].equals("Outsourcing")){ %>selected<%} %>>Outsourcing</option>
-									<option <%if(values[i].equals("Alliance")){ %>selected<%} %>>Alliance</option>
-									<option <%if(values[i].equals("Platform Utilization")){ %>selected<%} %>>Platform Utilization</option>
-									<option <%if(values[i].equals("Brand Leverage")){ %>selected<%} %>>Brand Leverage</option>
-									<option <%if(values[i].equals("Merge & Acquisition")){ %>selected<%} %>>Merge & Acquisition</option>
+									<option <%if(values[i].equals("Pay per Unit (use)")){ %>selected<%} %>>Pay per Unit (use)</option>
+									<option <%if(values[i].equals("Subscription")){ %>selected<%} %>>Subscription</option>
+									<option <%if(values[i].equals("Razor Blade")){ %>selected<%} %>>Razor Blade</option>
+									<option <%if(values[i].equals("Ad-based")){ %>selected<%} %>>Ad-based</option>
+									<option <%if(values[i].equals("Freemium")){ %>selected<%} %>>Freemium</option>
+									<option <%if(values[i].equals("Donation")){ %>selected<%} %>>Donation</option>
+									<option <%if(values[i].equals("Commission")){ %>selected<%} %>>Commission</option>
+									<option <%if(values[i].equals("Loyalty")){ %>selected<%} %>>Loyalty</option>
+									<option <%if(values[i].equals("Subsidiary")){ %>selected<%} %>>Subsidiary</option>
+									<option <%if(values[i].equals("Pay as you want")){ %>selected<%} %>>Pay as you want</option>
+									<option <%if(values[i].equals("Pay per use")){ %>selected<%} %>>Pay per use</option>
 								</select>
 							<%
 							}
@@ -959,14 +965,17 @@
 							<input class="fieldline js_edit_element_item" name="" style="width:85px; display:inline-block; font-size:11px; background-color:white" type="text" value="">
 							<select class="js_select_element_item" name="" style="display:inline-block; font-size:11px;width:18px">
 								<option></option>
-								<option>Recycle</option>
-								<option>Crowdsourcing</option>
-								<option>Open Innovation</option>
-								<option>Outsourcing</option>
-								<option>Alliance</option>
-								<option>Platform Utilization</option>
-								<option>Brand Leverage</option>
-								<option>Merge & Acquisition</option>
+								<option>Pay per Unit (use)</option>
+								<option>Subscription</option>
+								<option>Razor Blade</option>
+								<option>Ad-based</option>
+								<option>Freemium</option>
+								<option>Donation</option>
+								<option>Commission</option>
+								<option>Loyalty</option>
+								<option>Subsidiary</option>
+								<option>Pay as you want</option>
+								<option>Pay per use</option>
 							</select>
 						</div>
 				<%
