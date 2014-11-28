@@ -191,4 +191,5 @@
 
 <script>
 	$('#content').css({"min-width": "1360px"});
+	$('#wrap').css({"min-width": "1385px"});
 </script>
