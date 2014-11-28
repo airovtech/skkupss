@@ -258,7 +258,8 @@ try{
 	var psName = "<%=CommonUtil.toNotNull(productService.getName())%>";
 	var psPicture = "<%=psPictureUrl%>";
  	var psDesc = "<%=SmartUtil.smartEncode(CommonUtil.toNotNull(productService.getDesc()))%>";
- 	
+ 		psDesc = smartDecode(psDesc);
+ 		
 	var newProductServiceFields = $('div.js_new_product_service_fields');
 	if(!isEmpty(newProductServiceFields)) {
 		var newProductServiceField = $(newProductServiceFields[0]);

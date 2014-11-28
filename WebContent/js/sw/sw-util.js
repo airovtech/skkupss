@@ -398,6 +398,7 @@ var smartEncode = function(value){
 	value = value.replace(/\'/g,"&squo;");
 	value = value.replace(/</g,"&lt;");
 	value = value.replace(/>/g,"&gt;");
+	value = value.replace(/\r\n/g,"<br>");
 	return value;
 };
 
@@ -407,6 +408,7 @@ var smartDecode = function(value){
 	value = value.replace(/&squo;/g,"\'");
 	value = value.replace(/&lt;/g,"<");
 	value = value.replace(/&gt;/g,">");
+	value = value.replace(/<br>/g,"\r\n");
 	return value;
 };
 
