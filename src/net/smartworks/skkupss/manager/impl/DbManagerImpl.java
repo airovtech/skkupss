@@ -236,6 +236,7 @@ public class DbManagerImpl implements IDbManager {
 				bizModelSpace.setCostStructureUser(StringUtils.tokenizeToStringArray(dbBms.getCostStructureUser(), delimiters));
 				bizModelSpace.setRevenueStreams(StringUtils.tokenizeToStringArray(dbBms.getRevenueStreams(), delimiters));
 				bizModelSpace.setRevenueStreamsUser(StringUtils.tokenizeToStringArray(dbBms.getRevenueStreamsUser(), delimiters));
+				bizModelSpace.setValuePropositionsUser(StringUtils.tokenizeToStringArray(dbBms.getValuePropositionsUser(), delimiters));
 				
 				productService.setBizModelSpace(bizModelSpace);
 			}
@@ -384,6 +385,7 @@ public class DbManagerImpl implements IDbManager {
 			bizModelSpace.setCostStructureUser(StringUtils.tokenizeToStringArray(dbBms[0].getCostStructureUser(), delimiters));
 			bizModelSpace.setRevenueStreams(StringUtils.tokenizeToStringArray(dbBms[0].getRevenueStreams(), delimiters));
 			bizModelSpace.setRevenueStreamsUser(StringUtils.tokenizeToStringArray(dbBms[0].getRevenueStreamsUser(), delimiters));
+			bizModelSpace.setValuePropositionsUser(StringUtils.tokenizeToStringArray(dbBms[0].getValuePropositionsUser(), delimiters));
 			
 			productService.setBizModelSpace(bizModelSpace);
 		}

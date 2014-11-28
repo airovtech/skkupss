@@ -46,6 +46,9 @@ public class Db_BizModelSpaceCond extends Cond {
 	private String revenueStreamsLike;
 	private String revenueStreamsUser;
 	private String revenueStreamsUserLIke;
+	private String valuePropositionsUser;
+	private String valuePropositionsUserLIke;
+
 	
 	public String getId() {
 		return id;
@@ -251,5 +254,17 @@ public class Db_BizModelSpaceCond extends Cond {
 	}
 	public void setRevenueStreamsUserLIke(String revenueStreamsUserLIke) {
 		this.revenueStreamsUserLIke = revenueStreamsUserLIke;
+	}
+	public String getValuePropositionsUser() {
+		return valuePropositionsUser;
+	}
+	public void setValuePropositionsUser(String valuePropositionsUser) {
+		this.valuePropositionsUser = valuePropositionsUser;
+	}
+	public String getValuePropositionsUserLIke() {
+		return valuePropositionsUserLIke;
+	}
+	public void setValuePropositionsUserLIke(String valuePropositionsUserLIke) {
+		this.valuePropositionsUserLIke = valuePropositionsUserLIke;
 	}
 }

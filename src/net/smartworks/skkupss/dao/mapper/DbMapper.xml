@@ -67,6 +67,7 @@
 		<result property="costStructureUser" column="costStructureUser"/>
 		<result property="revenueStreams" column="revenueStreams"/>
 		<result property="revenueStreamsUser" column="revenueStreamsUser"/>
+		<result property="valuePropositionsUser" column="valuePropositionsUser"/>
 	</resultMap>
 
 
@@ -155,7 +156,7 @@
 	    		or (b.sspp like '%'|| #{searchKey} ||'%') or (b.ssp like '%'|| #{searchKey} ||'%') or (b.sspc like '%'|| #{searchKey} ||'%') or (b.ssc like '%'|| #{searchKey} ||'%') or (b.sscc like '%'|| #{searchKey} ||'%')
 					or (c.customerSegments like '%'|| #{searchKey} ||'%') or (c.customerSegmentsUser like '%'|| #{searchKey} ||'%') or (c.CustomerRelationships like '%'|| #{searchKey} ||'%') or (c.CustomerRelationshipsUser like '%'|| #{searchKey} ||'%') or (c.channels like '%'|| #{searchKey} ||'%')
 		    		or (c.channelsUser like '%'|| #{searchKey} ||'%') or (c.keyActivities like '%'|| #{searchKey} ||'%') or (c.keyActivitiesUser like '%'|| #{searchKey} ||'%') or (c.keyResources like '%'|| #{searchKey} ||'%') or (c.keyResourcesUser like '%'|| #{searchKey} ||'%') or (c.keyPartners like '%'|| #{searchKey} ||'%') 
-		    		or (c.keyPartnersUser like '%'|| #{searchKey} ||'%') or (c.costStructure like '%'|| #{searchKey} ||'%') or (c.costStructureUser like '%'|| #{searchKey} ||'%') or (c.revenueStreams like '%'|| #{searchKey} ||'%') or (c.revenueStreamsUser like '%'|| #{searchKey} ||'%')
+		    		or (c.keyPartnersUser like '%'|| #{searchKey} ||'%') or (c.costStructure like '%'|| #{searchKey} ||'%') or (c.costStructureUser like '%'|| #{searchKey} ||'%') or (c.revenueStreams like '%'|| #{searchKey} ||'%') or (c.revenueStreamsUser like '%'|| #{searchKey} ||'%') or (c.valuePropositionsUser like '%'|| #{searchKey} ||'%')
 	    	)
 	    </if>
 	</select>
@@ -163,7 +164,7 @@
 		select a.* 
 		, b.id as serviceId, b.psId as servicePsId, b.sspp, b.ssp, b.sspc, b.ssc, b.sscc
 		, c.id as bizModelId, c.psId as bizModelPsId, c.customerSegments, c.customerSegmentsUser, c.CustomerRelationships, c.CustomerRelationshipsUser, c.channels
-		, c.channelsUser, c.keyActivities, c.keyActivitiesUser, c.keyResources, c.keyResourcesUser, c.keyPartners, c.keyPartnersUser, c.costStructure, c.costStructureUser, c.revenueStreams, c.revenueStreamsUser
+		, c.channelsUser, c.keyActivities, c.keyActivitiesUser, c.keyResources, c.keyResourcesUser, c.keyPartners, c.keyPartnersUser, c.costStructure, c.costStructureUser, c.revenueStreams, c.revenueStreamsUser, c.valuePropositionsUser
 		from
 		productService a 
 		,serviceSpace b
@@ -183,7 +184,7 @@
 	    		or (b.sspp like '%'|| #{searchKey} ||'%') or (b.ssp like '%'|| #{searchKey} ||'%') or (b.sspc like '%'|| #{searchKey} ||'%') or (b.ssc like '%'|| #{searchKey} ||'%') or (b.sscc like '%'|| #{searchKey} ||'%')
 	    			or (c.customerSegments like '%'|| #{searchKey} ||'%') or (c.customerSegmentsUser like '%'|| #{searchKey} ||'%') or (c.CustomerRelationships like '%'|| #{searchKey} ||'%') or (c.CustomerRelationshipsUser like '%'|| #{searchKey} ||'%') or (c.channels like '%'|| #{searchKey} ||'%')
 		    		or (c.channelsUser like '%'|| #{searchKey} ||'%') or (c.keyActivities like '%'|| #{searchKey} ||'%') or (c.keyActivitiesUser like '%'|| #{searchKey} ||'%') or (c.keyResources like '%'|| #{searchKey} ||'%') or (c.keyResourcesUser like '%'|| #{searchKey} ||'%') or (c.keyPartners like '%'|| #{searchKey} ||'%') 
-		    		or (c.keyPartnersUser like '%'|| #{searchKey} ||'%') or (c.costStructure like '%'|| #{searchKey} ||'%') or (c.costStructureUser like '%'|| #{searchKey} ||'%') or (c.revenueStreams like '%'|| #{searchKey} ||'%') or (c.revenueStreamsUser like '%'|| #{searchKey} ||'%')
+		    		or (c.keyPartnersUser like '%'|| #{searchKey} ||'%') or (c.costStructure like '%'|| #{searchKey} ||'%') or (c.costStructureUser like '%'|| #{searchKey} ||'%') or (c.revenueStreams like '%'|| #{searchKey} ||'%') or (c.revenueStreamsUser like '%'|| #{searchKey} ||'%') or (c.valuePropositionsUser like '%'|| #{searchKey} ||'%')
 	    	)
 	    </if>
 	    <if test="orders != null">
@@ -212,7 +213,7 @@
 	    		or (b.economical like '%'|| #{searchKey} ||'%') or (b.ecological like '%'|| #{searchKey} ||'%') or (b.function like '%'|| #{searchKey} ||'%') or (b.extrinsicSocial like '%'|| #{searchKey} ||'%') or (b.activeEmotional like '%'|| #{searchKey} ||'%') or (b.reactiveEmotional like '%'|| #{searchKey} ||'%') or (b.intrinsicSocial like '%'|| #{searchKey} ||'%') or (b.epistemic like '%'|| #{searchKey} ||'%')
 					or (c.customerSegments like '%'|| #{searchKey} ||'%') or (c.customerSegmentsUser like '%'|| #{searchKey} ||'%') or (c.CustomerRelationships like '%'|| #{searchKey} ||'%') or (c.CustomerRelationshipsUser like '%'|| #{searchKey} ||'%') or (c.channels like '%'|| #{searchKey} ||'%')
 		    		or (c.channelsUser like '%'|| #{searchKey} ||'%') or (c.keyActivities like '%'|| #{searchKey} ||'%') or (c.keyActivitiesUser like '%'|| #{searchKey} ||'%') or (c.keyResources like '%'|| #{searchKey} ||'%') or (c.keyResourcesUser like '%'|| #{searchKey} ||'%') or (c.keyPartners like '%'|| #{searchKey} ||'%') 
-		    		or (c.keyPartnersUser like '%'|| #{searchKey} ||'%') or (c.costStructure like '%'|| #{searchKey} ||'%') or (c.costStructureUser like '%'|| #{searchKey} ||'%') or (c.revenueStreams like '%'|| #{searchKey} ||'%') or (c.revenueStreamsUser like '%'|| #{searchKey} ||'%')
+		    		or (c.keyPartnersUser like '%'|| #{searchKey} ||'%') or (c.costStructure like '%'|| #{searchKey} ||'%') or (c.costStructureUser like '%'|| #{searchKey} ||'%') or (c.revenueStreams like '%'|| #{searchKey} ||'%') or (c.revenueStreamsUser like '%'|| #{searchKey} ||'%') or (c.valuePropositionsUser like '%'|| #{searchKey} ||'%')
 	    	)
 	    </if>
 	</select>
@@ -220,7 +221,7 @@
 		select a.* 
 		, b.id as valueId, b.psId as valuePsId, b.economical, b.ecological, b.function, b.extrinsicSocial, b.activeEmotional, b.reactiveEmotional, b.intrinsicSocial, b.epistemic
 		, c.id as bizModelId, c.psId as bizModelPsId, c.customerSegments, c.customerSegmentsUser, c.CustomerRelationships, c.CustomerRelationshipsUser, c.channels
-		, c.channelsUser, c.keyActivities, c.keyActivitiesUser, c.keyResources, c.keyResourcesUser, c.keyPartners, c.keyPartnersUser, c.costStructure, c.costStructureUser, c.revenueStreams, c.revenueStreamsUser
+		, c.channelsUser, c.keyActivities, c.keyActivitiesUser, c.keyResources, c.keyResourcesUser, c.keyPartners, c.keyPartnersUser, c.costStructure, c.costStructureUser, c.revenueStreams, c.revenueStreamsUser, c.valuePropositionsUser
 		from
 		productService a 
 		,valueSpace b
@@ -240,7 +241,7 @@
 	    		or (b.economical like '%'|| #{searchKey} ||'%') or (b.ecological like '%'|| #{searchKey} ||'%') or (b.function like '%'|| #{searchKey} ||'%') or (b.extrinsicSocial like '%'|| #{searchKey} ||'%') or (b.activeEmotional like '%'|| #{searchKey} ||'%') or (b.reactiveEmotional like '%'|| #{searchKey} ||'%') or (b.intrinsicSocial like '%'|| #{searchKey} ||'%') or (b.epistemic like '%'|| #{searchKey} ||'%')
 	    			or (c.customerSegments like '%'|| #{searchKey} ||'%') or (c.customerSegmentsUser like '%'|| #{searchKey} ||'%') or (c.CustomerRelationships like '%'|| #{searchKey} ||'%') or (c.CustomerRelationshipsUser like '%'|| #{searchKey} ||'%') or (c.channels like '%'|| #{searchKey} ||'%')
 		    		or (c.channelsUser like '%'|| #{searchKey} ||'%') or (c.keyActivities like '%'|| #{searchKey} ||'%') or (c.keyActivitiesUser like '%'|| #{searchKey} ||'%') or (c.keyResources like '%'|| #{searchKey} ||'%') or (c.keyResourcesUser like '%'|| #{searchKey} ||'%') or (c.keyPartners like '%'|| #{searchKey} ||'%') 
-		    		or (c.keyPartnersUser like '%'|| #{searchKey} ||'%') or (c.costStructure like '%'|| #{searchKey} ||'%') or (c.costStructureUser like '%'|| #{searchKey} ||'%') or (c.revenueStreams like '%'|| #{searchKey} ||'%') or (c.revenueStreamsUser like '%'|| #{searchKey} ||'%')
+		    		or (c.keyPartnersUser like '%'|| #{searchKey} ||'%') or (c.costStructure like '%'|| #{searchKey} ||'%') or (c.costStructureUser like '%'|| #{searchKey} ||'%') or (c.revenueStreams like '%'|| #{searchKey} ||'%') or (c.revenueStreamsUser like '%'|| #{searchKey} ||'%') or (c.valuePropositionsUser like '%'|| #{searchKey} ||'%')
 	    	)
 	    </if>
 	    <if test="orders != null">
@@ -406,14 +407,14 @@
 	    	and ((a.name like '%'|| #{searchKey} ||'%') or (a.description like '%'|| #{searchKey} ||'%') or (a.lastModifiedUser like '%'|| #{searchKey} ||'%') or (a.createdUser like '%'|| #{searchKey} ||'%')
 	    		or (b.customerSegments like '%'|| #{searchKey} ||'%') or (b.customerSegmentsUser like '%'|| #{searchKey} ||'%') or (b.CustomerRelationships like '%'|| #{searchKey} ||'%') or (b.CustomerRelationshipsUser like '%'|| #{searchKey} ||'%') or (b.channels like '%'|| #{searchKey} ||'%')
 	    			or (b.channelsUser like '%'|| #{searchKey} ||'%') or (b.keyActivities like '%'|| #{searchKey} ||'%') or (b.keyActivitiesUser like '%'|| #{searchKey} ||'%') or (b.keyResources like '%'|| #{searchKey} ||'%') or (b.keyResourcesUser like '%'|| #{searchKey} ||'%') or (b.keyPartners like '%'|| #{searchKey} ||'%') 
-	    				or (b.keyPartnersUser like '%'|| #{searchKey} ||'%') or (b.costStructure like '%'|| #{searchKey} ||'%') or (b.costStructureUser like '%'|| #{searchKey} ||'%') or (b.revenueStreams like '%'|| #{searchKey} ||'%') or (b.revenueStreamsUser like '%'|| #{searchKey} ||'%')
+	    				or (b.keyPartnersUser like '%'|| #{searchKey} ||'%') or (b.costStructure like '%'|| #{searchKey} ||'%') or (b.costStructureUser like '%'|| #{searchKey} ||'%') or (b.revenueStreams like '%'|| #{searchKey} ||'%') or (b.revenueStreamsUser like '%'|| #{searchKey} ||'%') or (b.valuePropositionsUser like '%'|| #{searchKey} ||'%')
 	    	)
 	    </if>
 	</select>
 	<select id="getProductServiceWithBizModelSpace" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultMap="productServiceAllSpaceResult">
 		select a.*
 		, b.id as bizModelId, b.psId as bizModelPsId, b.customerSegments, b.customerSegmentsUser, b.CustomerRelationships, b.CustomerRelationshipsUser, b.channels
-		, b.channelsUser, b.keyActivities, b.keyActivitiesUser, b.keyResources, b.keyResourcesUser, b.keyPartners, b.keyPartnersUser, b.costStructure, b.costStructureUser, b.revenueStreams, b.revenueStreamsUser
+		, b.channelsUser, b.keyActivities, b.keyActivitiesUser, b.keyResources, b.keyResourcesUser, b.keyPartners, b.keyPartnersUser, b.costStructure, b.costStructureUser, b.revenueStreams, b.revenueStreamsUser, b.valuePropositionsUser
 		from
 		productService a 
 		,bizModelSpace b
@@ -430,7 +431,7 @@
 	    	and ((a.name like '%'|| #{searchKey} ||'%') or (a.description like '%'|| #{searchKey} ||'%') or (a.lastModifiedUser like '%'|| #{searchKey} ||'%') or (a.createdUser like '%'|| #{searchKey} ||'%')
 	    		or (b.customerSegments like '%'|| #{searchKey} ||'%') or (b.customerSegmentsUser like '%'|| #{searchKey} ||'%') or (b.CustomerRelationships like '%'|| #{searchKey} ||'%') or (b.CustomerRelationshipsUser like '%'|| #{searchKey} ||'%') or (b.channels like '%'|| #{searchKey} ||'%')
 	    			or (b.channelsUser like '%'|| #{searchKey} ||'%') or (b.keyActivities like '%'|| #{searchKey} ||'%') or (b.keyActivitiesUser like '%'|| #{searchKey} ||'%') or (b.keyResources like '%'|| #{searchKey} ||'%') or (b.keyResourcesUser like '%'|| #{searchKey} ||'%') or (b.keyPartners like '%'|| #{searchKey} ||'%') 
-	    				or (b.keyPartnersUser like '%'|| #{searchKey} ||'%') or (b.costStructure like '%'|| #{searchKey} ||'%') or (b.costStructureUser like '%'|| #{searchKey} ||'%') or (b.revenueStreams like '%'|| #{searchKey} ||'%') or (b.revenueStreamsUser like '%'|| #{searchKey} ||'%')
+	    				or (b.keyPartnersUser like '%'|| #{searchKey} ||'%') or (b.costStructure like '%'|| #{searchKey} ||'%') or (b.costStructureUser like '%'|| #{searchKey} ||'%') or (b.revenueStreams like '%'|| #{searchKey} ||'%') or (b.revenueStreamsUser like '%'|| #{searchKey} ||'%') or (b.valuePropositionsUser like '%'|| #{searchKey} ||'%')
 	    	)
 	    </if>
 	    <if test="orders != null">
@@ -743,14 +744,17 @@
 			<if test="revenueStreamsUserLIke != null">
 				and revenueStreamsUser like '%'|| #{revenueStreamsUserLIke} ||'%'
 			</if>
+			<if test="valuePropositionsUserLIke != null">
+				and valuePropositionsUser like '%'|| #{valuePropositionssUserLIke} ||'%'
+			</if>
 		</trim>
 		<if test="orders != null">
 			order by ${orderQuery}
 		</if>
 	</select>
 	<insert id="setBizModelSpace" parameterType="net.smartworks.skkupss.model.db.Db_BizModelSpace">
-		insert into bizModelSpace(id, psId, customerSegments, customerSegmentsUser, CustomerRelationships, CustomerRelationshipsUser, channels, channelsUser, keyActivities, keyActivitiesUser, keyResources, keyResourcesUser, keyPartners, keyPartnersUser, costStructure, costStructureUser, revenueStreams, revenueStreamsUser)
-		values (#{id}, #{psId}, #{customerSegments}, #{customerSegmentsUser}, #{CustomerRelationships}, #{CustomerRelationshipsUser}, #{channels}, #{channelsUser}, #{keyActivities}, #{keyActivitiesUser}, #{keyResources}, #{keyResourcesUser}, #{keyPartners}, #{keyPartnersUser}, #{costStructure}, #{costStructureUser}, #{revenueStreams}, #{revenueStreamsUser})
+		insert into bizModelSpace(id, psId, customerSegments, customerSegmentsUser, CustomerRelationships, CustomerRelationshipsUser, channels, channelsUser, keyActivities, keyActivitiesUser, keyResources, keyResourcesUser, keyPartners, keyPartnersUser, costStructure, costStructureUser, revenueStreams, revenueStreamsUser, valuePropositionsUser)
+		values (#{id}, #{psId}, #{customerSegments}, #{customerSegmentsUser}, #{CustomerRelationships}, #{CustomerRelationshipsUser}, #{channels}, #{channelsUser}, #{keyActivities}, #{keyActivitiesUser}, #{keyResources}, #{keyResourcesUser}, #{keyPartners}, #{keyPartnersUser}, #{costStructure}, #{costStructureUser}, #{revenueStreams}, #{revenueStreamsUser}, #{valuePropositionsUser})
 	</insert>
 	<delete id="removeBizModelSpace" parameterType="String">
 		delete from bizModelSpace where id = #{id}
