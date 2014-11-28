@@ -1,3 +1,4 @@
+<%@page import="net.smartworks.util.PropertiesLoader"%>
 <%@page import="net.smartworks.skkupss.manager.impl.DocFileManagerImpl"%>
 <%@page import="net.smartworks.util.CommonUtil"%>
 <%@page import="net.smartworks.skkupss.model.BizModelSpace"%>
@@ -13,6 +14,9 @@
 <%@page import="net.smartworks.skkupss.model.RequestParams"%>
 <%@ page contentType="text/html; charset=utf-8"%>
 <%
+
+	String PSS_PICTURE_URL = PropertiesLoader.loadPropByClassPath("/net/smartworks/conf/config.properties").getProperty("pss.picture.url");
+
 	RequestParams params = (RequestParams)request.getAttribute("requestParams");
 	if(SmartUtil.isBlankObject(params)){
 		params = new RequestParams();
@@ -89,7 +93,7 @@
 					<td class="tc"><input class="js_check_instance" name="chkSelectInstance" type="checkbox"/></td>
 					<td class="tc"><%=currentCount--%></td>
 					<td class="tc">
-						<img class="vt up" <%if(!SmartUtil.isBlankObject(productService.getPicture())){ %> src="<%=DocFileManagerImpl.PSS_PICTURE_URL + productService.getPicture() %>"<%} %> style="width:158px<%if(SmartUtil.isBlankObject(productService.getPicture())){ %>;height:158px<%} %>" />
+						<img class="vt up" <%if(!SmartUtil.isBlankObject(productService.getPicture())){ %> src="<%=PSS_PICTURE_URL + productService.getPicture() %>"<%} %> style="width:158px<%if(SmartUtil.isBlankObject(productService.getPicture())){ %>;height:158px<%} %>" />
 						<div><%=CommonUtil.toNotNull(productService.getName()) %></div>
 					</td>
 					<td class="tl vt">

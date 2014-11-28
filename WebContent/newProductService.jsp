@@ -1,3 +1,4 @@
+<%@page import="net.smartworks.util.PropertiesLoader"%>
 <%@page import="net.smartworks.skkupss.manager.impl.DocFileManagerImpl"%>
 <%@page import="java.util.Date"%>
 <%@page import="net.smartworks.skkupss.model.BizModelSpace"%>
@@ -98,7 +99,8 @@ function submitForms(tempSave) {
 </script>
 
 <%
-
+	String PSS_PICTURE_URL = PropertiesLoader.loadPropByClassPath("/net/smartworks/conf/config.properties").getProperty("pss.picture.url");
+	
 	String psId = request.getParameter("psId");
 	String isEditModeStr = request.getParameter("isEditMode");
 	boolean isEditMode = SmartUtil.isBlankObject(isEditModeStr) ? false : isEditModeStr.equalsIgnoreCase("true"); 
@@ -110,8 +112,8 @@ function submitForms(tempSave) {
 	}else{
 		isEditMode = true;
 	}
-	
-	String psPictureUrl = SmartUtil.isBlankObject(productService.getPicture()) ? "" : DocFileManagerImpl.PSS_PICTURE_URL +  productService.getPicture();
+
+	String psPictureUrl = SmartUtil.isBlankObject(productService.getPicture()) ? "" : PSS_PICTURE_URL +  productService.getPicture();
 
 %>
 

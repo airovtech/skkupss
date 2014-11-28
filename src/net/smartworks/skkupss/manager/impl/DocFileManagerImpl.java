@@ -15,12 +15,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.Properties;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.smartworks.skkupss.manager.IDocFileManager;
 import net.smartworks.util.IDCreator;
+import net.smartworks.util.PropertiesLoader;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Service;
@@ -29,10 +31,6 @@ import org.springframework.util.StringUtils;
 @Service
 public class DocFileManagerImpl implements IDocFileManager {
 
-	final public static String PSS_PICTURE_URL = "http://www.smartworks.net/product-images/";
-	final private static String PSS_SERVER_DIR =  "/smartworks/apache-tomcat-7.0.56";
-
-	 
 	private void writeAjaxFile(HttpServletRequest request, HttpServletResponse response, String fileId, String filePath, long fileSize) throws Exception {
 
         InputStream is = null;
@@ -46,6 +44,8 @@ public class DocFileManagerImpl implements IDocFileManager {
             response.setHeader("Content-Type", "text/html");
             
             String encodingFilePath = StringUtils.replace(filePath, "\\", "[R_S]");
+            
+    		String PSS_PICTURE_URL = PropertiesLoader.loadPropByClassPath("/net/smartworks/conf/config.properties").getProperty("pss.picture.url");
             
             response.getWriter().print("{success: \"" + true + "\", fileId: \"" + fileId + "\", fullPathName: \"" + PSS_PICTURE_URL +  fileId + "\", fileSize: \"" + fileSize +"\", localFilePath: \"" + encodingFilePath + "\"}");
         } catch (FileNotFoundException ex) {
@@ -81,6 +81,9 @@ public class DocFileManagerImpl implements IDocFileManager {
 		//this.setFileDirectory(System.getenv("SMARTWORKS_FILE_DIRECTORY") == null ? System.getProperty("user.home") : System.getenv("SMARTWORKS_FILE_DIRECTORY"));
 
 		String fileId = IDCreator.createId("PS");
+
+		String PSS_SERVER_DIR = PropertiesLoader.loadPropByClassPath("/net/smartworks/conf/config.properties").getProperty("pss.server.dir");
+		
 		File repository = new File(PSS_SERVER_DIR + "/webapps/product-images");
 		String filePath = "";
 		String extension = "";
