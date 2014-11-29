@@ -104,6 +104,7 @@ function submitForms(tempSave) {
 	String psId = request.getParameter("psId");
 	String isEditModeStr = request.getParameter("isEditMode");
 	boolean isEditMode = SmartUtil.isBlankObject(isEditModeStr) ? false : isEditModeStr.equalsIgnoreCase("true"); 
+	String spaceType = request.getParameter("spaceType");
 	ProductService productService = new ProductService();
 	if(!SmartUtil.isBlankObject(psId)){
 		try{
@@ -131,7 +132,7 @@ function submitForms(tempSave) {
 					<div class="list_title_space js_work_list_title mt15">
 						<div class="title_line_btns">
 							<div class="icon_btn_start">
-								<a href="home.sw" class="icon_btn_tail">목록으로 이동하기</a>
+								<a href="home.sw?spaceType=<%=spaceType %>" class="icon_btn_tail">목록으로 이동하기</a>
 							</div>
 						</div>					
 					</div>
@@ -218,7 +219,7 @@ function submitForms(tempSave) {
 												
 										<span class="btn_gray">
 											<!--  취소버튼을 클릭시 sw_act_work 에서 click event 로 정의 되어있는 함수를 실행한다... -->
-											<a href="home.sw"> 
+											<a href="home.sw?spaceType=<%=spaceType%>"> 
 												<span class="txt_btn_start"></span> 
 												<span class="txt_btn_center">취소</span> 
 												<span class="txt_btn_end"></span> 

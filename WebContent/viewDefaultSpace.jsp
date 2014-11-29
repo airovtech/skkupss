@@ -61,24 +61,28 @@
  	 
 <!-- 컨텐츠 레이아웃-->
 <div class="js_space_tab js_default_space" spaceType="<%=spaceType%>">
-	<div class="js_dummy_element_item" style="display:none">
-		<span class="edit_item js_element_item" style="background-color: rgb(234, 232, 230);text-align: center;border: black 1px solid;font-size: 12px;height: 24px;margin:4px; padding:4px 6px; line-height:30px">
-			<span class="js_view_element_item" style="display:none">
-				<span class="<%if(isEditMode){ %>js_action_element_item<%}%>"></span>
-				<span class="edit_actions">
-					<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
-					<a href="" class="icon_show js_add_element_item" title="우측에 항목 추가"></a>
-				</span>
-			</span>
-			<input class="fieldline js_edit_element_item" name="txtElementItem" style="display:inline-block; background-color:white; width:auto" type="text" value="">
-		</span>
-	</div>
-	<table class="tc" style="width:640px;min-height:50px">
+	<table class="js_dummy_element_item" style="display:none">
 		<tr>
 			<td class="vt edit_action" style="height:100%;padding:0;border-bottom:none">
-				<%
-				for(int i=0; values!=null && i<values.length; i++){
-				%>
+				<span class="edit_item js_element_item" style="background-color: rgb(234, 232, 230);text-align: center;border: black 1px solid;font-size: 12px;height: 24px;margin:4px; padding:4px 6px; line-height:30px">
+					<span class="js_view_element_item" style="display:none">
+						<span class="<%if(isEditMode){ %>js_action_element_item<%}%>"></span>
+						<span class="edit_actions">
+							<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
+							<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
+						</span>
+					</span>
+					<input class="fieldline js_edit_element_item" name="txtElementItem" style="display:inline-block; background-color:white; width:auto" type="text" value="">
+				</span>
+			</td>
+		</tr>
+	</table>
+	<table class="tc" style="width:640px;min-height:50px">
+		<%
+		for(int i=0; values!=null && i<values.length; i++){
+		%>
+			<tr>
+				<td class="vt edit_action" style="height:100%;padding:0;border-bottom:none">
 					<span class="edit_item js_element_item" style="background-color: rgb(234, 232, 230);text-align: center;border: black 1px solid;font-size: 12px;height: 24px;margin:4px; padding:4px 6px; line-height:30px">
 						<span class="js_view_element_item">
 							<span class="<%if(isEditMode){ %>js_action_element_item<%}%>"><%=CommonUtil.toNotNull(values[i]) %></span>
@@ -87,7 +91,7 @@
 							%>
 								<span class="edit_actions">
 									<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
-									<a href="" class="icon_show js_add_element_item" title="우측에 항목 추가"></a>
+									<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
 								</span>
 							<%
 							}
@@ -101,25 +105,29 @@
 						}
 						%>
 					</span>
-				<%
-				}
-				if(SmartUtil.isBlankObject(values) && isEditMode){
-				%>
+				</td>
+			</tr>
+		<%
+		}
+		if(SmartUtil.isBlankObject(values) && isEditMode){
+		%>
+			<tr>
+				<td class="vt edit_action" style="height:100%;padding:0;border-bottom:none">
 					<span class="edit_item js_element_item" style="background-color: rgb(234, 232, 230);text-align: center;border: black 1px solid;font-size: 12px;height: 24px;margin:4px; padding:4px 6px; line-height:30px">
 						<span class="js_view_element_item" style="display:none">
 							<span class="<%if(isEditMode){ %>js_action_element_item<%}%>"></span>
 							<span class="edit_actions">
 								<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
-								<a href="" class="icon_show js_add_element_item" title="우측에 항목 추가"></a>
+								<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
 							</span>
 						</span>
 						<input class="fieldline js_edit_element_item" name="txtElementItem" style="display:inline-block; background-color:white; width:auto" type="text" value="">
 					</span>
-				<%
-				}
-				%>
-			</td>
-		</tr>
+				</td>
+			</tr>
+		<%
+		}
+		%>
 	</table>
 </div>
 <!-- 컨텐츠 레이아웃//-->

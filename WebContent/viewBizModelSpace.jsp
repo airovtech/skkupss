@@ -32,13 +32,13 @@
 <div class="js_space_tab js_biz_model_space" spaceType="<%=ProductService.SPACE_TYPE_BIZ_MODEL%>">
 	<div class="js_dummy_element_item" style="display:none">
 		<div class="js_element_item" style="color:blue;font-size:11px">
-			<span class="edit_item js_view_element_item">
+			<div class="edit_item js_view_element_item">
 				<span class="js_action_element_item"></span>
 				<span class="edit_actions">
 					<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
 					<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
 				</span>
-			</span>
+			</div>
 			<input class="fieldline js_edit_element_item" name="" style="width:85px; display:inline-block; font-size:11px; background-color:white" type="text" value="">
 		</div>
 	</div>
@@ -166,19 +166,19 @@
 					for(int i=0; values!=null && i<values.length; i++){
 				%>
 						<div class="js_element_item" itemName="KeyPartners" style="color:red;font-size:11px">
-							<span class="edit_item js_view_element_item">
+							<div class="edit_item js_view_element_item">
 								<span class="<%if(isEditMode){ %>js_action_element_item<%}%>"><%=CommonUtil.toNotNull(values[i]) %></span>
 								<%
 								if(isEditMode){
 								%>
-									<span class="edit_actions">
+									<span class="edit_actions" style="position:absolute">
 										<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
 										<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
 									</span>
 								<%
 								}
 								%>
-							</span>
+							</div>
 							<%
 							if(isEditMode){
 							%>
@@ -202,19 +202,19 @@
 					for(int i=0; userValues!=null && i<userValues.length; i++){
 				%>
 						<div class="js_element_item" itemName="KeyPartners" style="color:blue;font-size:11px">
-							<span class="edit_item js_view_element_item">
+							<div class="edit_item js_view_element_item">
 								<span class="<%if(isEditMode){ %>js_action_element_item<%}%>"><%=CommonUtil.toNotNull(userValues[i]) %></span>
 								<%
 								if(isEditMode){
 								%>
-									<span class="edit_actions">
+									<span class="edit_actions" style="position:absolute">
 										<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
 										<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
 									</span>
 								<%
 								}
 								%>
-							</span>
+							</div>
 							<%
 							if(isEditMode){
 							%>
@@ -228,13 +228,13 @@
 					visHidden = (SmartUtil.isBlankObject(values) && SmartUtil.isBlankObject(userValues) && isEditMode) ? "" : ";visibility:hidden";
 				%>
 					<div class="js_element_item" itemName="KeyPartners" style="color:blue;font-size:11px<%=visHidden%>">
-						<span class="edit_item js_view_element_item" style="display:none">
+						<div class="edit_item js_view_element_item" style="display:none">
 							<span class="js_action_element_item"></span>
-							<span class="edit_actions">
+							<span class="edit_actions" style="position:absolute">
 								<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
 								<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
 							</span>
-						</span>
+						</div>
 						<input class="fieldline js_edit_element_item" name="" style="width:85px; display:inline-block; font-size:11px; background-color:white" type="text" value="">
 						<select class="js_select_element_item" name="" style="display:inline-block; font-size:11px;width:18px">
 							<option></option>
@@ -257,19 +257,19 @@
 						for(int i=0; values!=null && i<values.length; i++){
 					%>
 						<div class="js_element_item" itemName="KeyActivities" style="color:red;font-size:11px">
-							<span class="edit_item js_view_element_item">
+							<div class="edit_item js_view_element_item">
 								<span class="<%if(isEditMode){ %>js_action_element_item<%}%>"><%=CommonUtil.toNotNull(values[i]) %></span>
 								<%
 								if(isEditMode){
 								%>
-									<span class="edit_actions">
+									<span class="edit_actions" style="position:absolute">
 										<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
 										<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
 									</span>
 								<%
 								}
 								%>
-							</span>
+							</div>
 							<%
 							if(isEditMode){
 							%>
@@ -297,19 +297,19 @@
 						for(int i=0; userValues!=null && i<userValues.length; i++){
 					%>
 						<div class="js_element_item" itemName="KeyActivities" style="color:blue;font-size:11px">
-							<span class="edit_item js_view_element_item">
+							<div class="edit_item js_view_element_item">
 								<span class="<%if(isEditMode){ %>js_action_element_item<%}%>"><%=CommonUtil.toNotNull(userValues[i]) %></span>
 								<%
 								if(isEditMode){
 								%>
-									<span class="edit_actions">
+									<span class="edit_actions" style="position:absolute">
 										<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
 										<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
 									</span>
 								<%
 								}
 								%>
-							</span>
+							</div>
 							<%
 							if(isEditMode){
 							%>
@@ -323,13 +323,13 @@
 					visHidden = (SmartUtil.isBlankObject(values) && SmartUtil.isBlankObject(userValues) && isEditMode) ? "" : ";visibility:hidden";
 				%>
 					<div class="js_element_item" itemName="KeyActivities" style="color:blue;font-size:11px<%=visHidden%>">
-						<span class="edit_item js_view_element_item" style="display:none">
+						<div class="edit_item js_view_element_item" style="display:none">
 							<span class="js_action_element_item"></span>
-							<span class="edit_actions">
+							<span class="edit_actions" style="position:absolute">
 								<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
 								<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
 							</span>
-						</span>
+						</div>
 						<input class="fieldline js_edit_element_item" name="" style="width:85px; display:inline-block; font-size:11px; background-color:white" type="text" value="">
 						<select class="js_select_element_item" name="" style="display:inline-block; font-size:11px;width:18px">
 							<option></option>
@@ -357,19 +357,19 @@
 						for(int i=0; values!=null && i<values.length; i++){
 					%>
 						<div class="js_element_item" itemName="KeyResources" style="color:red;font-size:11px">
-							<span class="edit_item js_view_element_item">
+							<div class="edit_item js_view_element_item">
 								<span class="<%if(isEditMode){ %>js_action_element_item<%}%>"><%=CommonUtil.toNotNull(values[i]) %></span>
 								<%
 								if(isEditMode){
 								%>
-									<span class="edit_actions">
+									<span class="edit_actions" style="position:absolute">
 										<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
 										<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
 									</span>
 								<%
 								}
 								%>
-							</span>
+							</div>
 							<%
 							if(isEditMode){
 							%>
@@ -394,19 +394,19 @@
 						for(int i=0; userValues!=null && i<userValues.length; i++){
 					%>
 						<div class="js_element_item" itemName="KeyResources" style="color:blue;font-size:11px">
-							<span class="edit_item js_view_element_item">
+							<div class="edit_item js_view_element_item">
 								<span class="<%if(isEditMode){ %>js_action_element_item<%}%>"><%=CommonUtil.toNotNull(userValues[i]) %></span>
 								<%
 								if(isEditMode){
 								%>
-									<span class="edit_actions">
+									<span class="edit_actions" style="position:absolute">
 										<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
 										<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
 									</span>
 								<%
 								}
 								%>
-							</span>
+							</div>
 							<%
 							if(isEditMode){
 							%>
@@ -420,13 +420,13 @@
 						visHidden = (SmartUtil.isBlankObject(values) && SmartUtil.isBlankObject(userValues) && isEditMode) ? "" : ";visibility:hidden";
 					%>
 						<div class="js_element_item" itemName="KeyResources" style="color:blue;font-size:11px<%=visHidden%>">
-							<span class="edit_item js_view_element_item" style="display:none">
+							<div class="edit_item js_view_element_item" style="display:none">
 								<span class="js_action_element_item"></span>
-								<span class="edit_actions">
+								<span class="edit_actions" style="position:absolute">
 									<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
 									<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
 								</span>
-							</span>
+							</div>
 							<input class="fieldline js_edit_element_item" name="" style="width:85px; display:inline-block; font-size:11px; background-color:white" type="text" value="">
 							<select class="js_select_element_item" name="" style="display:inline-block; font-size:11px;width:18px">
 								<option></option>
@@ -448,19 +448,19 @@
 					for(int i=0; userValues!=null && i<userValues.length; i++){
 				%>
 						<div class="js_element_item" itemName="ValuePropositions" style="color:blue;font-size:11px">
-							<span class="edit_item js_view_element_item">
+							<div class="edit_item js_view_element_item">
 								<span class="<%if(isEditMode){ %>js_action_element_item<%}%>"><%=CommonUtil.toNotNull(userValues[i]) %></span>
 								<%
 								if(isEditMode){
 								%>
-									<span class="edit_actions">
+									<span class="edit_actions" style="position:absolute">
 										<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
 										<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
 									</span>
 								<%
 								}
 								%>
-							</span>
+							</div>
 							<%
 							if(isEditMode){
 							%>
@@ -471,16 +471,16 @@
 						</div>
 				<%
 					}
-					visHidden = (SmartUtil.isBlankObject(values) && isEditMode) ? "" : ";visibility:hidden";
+					visHidden = (SmartUtil.isBlankObject(userValues) && isEditMode) ? "" : ";visibility:hidden";
 				%>
 					<div class="js_element_item" itemName="ValuePropositions" style="color:blue;font-size:11px<%=visHidden%>">
-						<span class="edit_item js_view_element_item" style="display:none">
+						<div class="edit_item js_view_element_item" style="display:none">
 							<span class="js_action_element_item"></span>
-							<span class="edit_actions">
+							<span class="edit_actions" style="position:absolute">
 								<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
 								<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
 							</span>
-						</span>
+						</div>
 						<input class="fieldline js_edit_element_item" name="" style="width:110px; display:inline-block; font-size:11px; background-color:white" type="text" value="">
 					</div>
 			</td>
@@ -491,19 +491,19 @@
 						for(int i=0; values!=null && i<values.length; i++){
 					%>
 						<div class="js_element_item" itemName="CustomerRelationships" style="color:red;font-size:11px">
-							<span class="edit_item js_view_element_item">
+							<div class="edit_item js_view_element_item">
 								<span class="<%if(isEditMode){ %>js_action_element_item<%}%>"><%=CommonUtil.toNotNull(values[i]) %></span>
 								<%
 								if(isEditMode){
 								%>
-									<span class="edit_actions">
+									<span class="edit_actions" style="position:absolute">
 										<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
 										<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
 									</span>
 								<%
 								}
 								%>
-							</span>
+							</div>
 							<%
 							if(isEditMode){
 							%>
@@ -531,19 +531,19 @@
 						for(int i=0; userValues!=null && i<userValues.length; i++){
 					%>
 						<div class="js_element_item" itemName="CustomerRelationships" style="color:blue;font-size:11px">
-							<span class="edit_item js_view_element_item">
+							<div class="edit_item js_view_element_item">
 								<span class="<%if(isEditMode){ %>js_action_element_item<%}%>"><%=CommonUtil.toNotNull(userValues[i]) %></span>
 								<%
 								if(isEditMode){
 								%>
-									<span class="edit_actions">
+									<span class="edit_actions" style="position:absolute">
 										<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
 										<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
 									</span>
 								<%
 								}
 								%>
-							</span>
+							</div>
 							<%
 							if(isEditMode){
 							%>
@@ -557,13 +557,13 @@
 						visHidden = (SmartUtil.isBlankObject(values) && SmartUtil.isBlankObject(userValues) && isEditMode) ? "" : ";visibility:hidden";
 					%>
 						<div class="js_element_item" itemName="CustomerRelationships" style="color:blue;font-size:11px<%=visHidden%>">
-							<span class="edit_item js_view_element_item" style="display:none">
+							<div class="edit_item js_view_element_item" style="display:none">
 								<span class="js_action_element_item"></span>
-								<span class="edit_actions">
+								<span class="edit_actions" style="position:absolute">
 									<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
 									<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
 								</span>
-							</span>
+							</div>
 							<input class="fieldline js_edit_element_item" name="" style="width:85px; display:inline-block; font-size:11px; background-color:white" type="text" value="">
 							<select class="js_select_element_item" name="" style="display:inline-block; font-size:11px;width:18px">
 								<option></option>
@@ -591,19 +591,19 @@
 						for(int i=0; values!=null && i<values.length; i++){
 					%>
 						<div class="js_element_item" itemName="Channels" style="color:red;font-size:11px">
-							<span class="edit_item js_view_element_item">
+							<div class="edit_item js_view_element_item">
 								<span class="<%if(isEditMode){ %>js_action_element_item<%}%>"><%=CommonUtil.toNotNull(values[i]) %></span>
 								<%
 								if(isEditMode){
 								%>
-									<span class="edit_actions">
+									<span class="edit_actions" style="position:absolute">
 										<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
 										<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
 									</span>
 								<%
 								}
 								%>
-							</span>
+							</div>
 							<%
 							if(isEditMode){
 							%>
@@ -631,19 +631,19 @@
 						for(int i=0; userValues!=null && i<userValues.length; i++){
 					%>
 						<div class="js_element_item" itemName="Channels" style="color:blue;font-size:11px">
-							<span class="edit_item js_view_element_item">
+							<div class="edit_item js_view_element_item">
 								<span class="<%if(isEditMode){ %>js_action_element_item<%}%>"><%=CommonUtil.toNotNull(userValues[i]) %></span>
 								<%
 								if(isEditMode){
 								%>
-									<span class="edit_actions">
+									<span class="edit_actions" style="position:absolute">
 										<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
 										<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
 									</span>
 								<%
 								}
 								%>
-							</span>
+							</div>
 							<%
 							if(isEditMode){
 							%>
@@ -657,13 +657,13 @@
 						visHidden = (SmartUtil.isBlankObject(values) && SmartUtil.isBlankObject(userValues) && isEditMode) ? "" : ";visibility:hidden";
 					%>
 						<div class="js_element_item" itemName="Channels" style="color:blue;font-size:11px<%=visHidden%>">
-							<span class="edit_item js_view_element_item" style="display:none">
+							<div class="edit_item js_view_element_item" style="display:none">
 								<span class="js_action_element_item"></span>
-								<span class="edit_actions">
+								<span class="edit_actions" style="position:absolute">
 									<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
 									<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
 								</span>
-							</span>
+							</div>
 							<input class="fieldline js_edit_element_item" name="" style="width:85px; display:inline-block; font-size:11px; background-color:white" type="text" value="">
 							<select class="js_select_element_item" name="" style="display:inline-block; font-size:11px;width:18px">
 								<option></option>
@@ -688,19 +688,19 @@
 					for(int i=0; values!=null && i<values.length; i++){
 				%>
 						<div class="js_element_item" itemName="CustomerSegments" style="color:red;font-size:11px">
-							<span class="edit_item js_view_element_item">
+							<div class="edit_item js_view_element_item">
 								<span class="<%if(isEditMode){ %>js_action_element_item<%}%>"><%=CommonUtil.toNotNull(values[i]) %></span>
 								<%
 								if(isEditMode){
 								%>
-									<span class="edit_actions">
+									<span class="edit_actions" style="position:absolute">
 										<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
 										<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
 									</span>
 								<%
 								}
 								%>
-							</span>
+							</div>
 							<%
 							if(isEditMode){
 							%>
@@ -726,19 +726,19 @@
 					for(int i=0; userValues!=null && i<userValues.length; i++){
 				%>
 						<div class="js_element_item" itemName="CustomerSegments" style="color:blue;font-size:11px">
-							<span class="edit_item js_view_element_item">
+							<div class="edit_item js_view_element_item">
 								<span class="<%if(isEditMode){ %>js_action_element_item<%}%>"><%=CommonUtil.toNotNull(userValues[i]) %></span>
 								<%
 								if(isEditMode){
 								%>
-									<span class="edit_actions">
+									<span class="edit_actions" style="position:absolute">
 										<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
 										<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
 									</span>
 								<%
 								}
 								%>
-							</span>
+							</div>
 							<%
 							if(isEditMode){
 							%>
@@ -752,13 +752,13 @@
 					visHidden = (SmartUtil.isBlankObject(values) && SmartUtil.isBlankObject(userValues) && isEditMode) ? "" : ";visibility:hidden";
 				%>
 					<div class="js_element_item" itemName="CustomerSegments" style="color:blue;font-size:11px<%=visHidden%>">
-						<span class="edit_item js_view_element_item" style="display:none">
+						<div class="edit_item js_view_element_item" style="display:none">
 							<span class="js_action_element_item"></span>
-							<span class="edit_actions">
+							<span class="edit_actions" style="position:absolute">
 								<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
 								<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
 							</span>
-						</span>
+						</div>
 						<input class="fieldline js_edit_element_item" name="" style="width:85px; display:inline-block; font-size:11px; background-color:white" type="text" value="">
 						<select class="js_select_element_item" name="" style="display:inline-block; font-size:11px;width:18px">
 							<option></option>
@@ -794,19 +794,19 @@
 					for(int i=0; values!=null && i<values.length; i++){
 				%>
 						<div class="js_element_item" itemName="CostStructure" style="color:red;font-size:11px">
-							<span class="edit_item js_view_element_item">
+							<div class="edit_item js_view_element_item">
 								<span class="<%if(isEditMode){ %>js_action_element_item<%}%>"><%=CommonUtil.toNotNull(values[i]) %></span>
 								<%
 								if(isEditMode){
 								%>
-									<span class="edit_actions">
+									<span class="edit_actions" style="position:absolute">
 										<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
 										<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
 									</span>
 								<%
 								}
 								%>
-							</span>
+							</div>
 							<%
 							if(isEditMode){
 							%>
@@ -823,19 +823,19 @@
 					for(int i=0; userValues!=null && i<userValues.length; i++){
 				%>
 						<div class="js_element_item" itemName="CostStructure" style="color:blue;font-size:11px">
-							<span class="edit_item js_view_element_item">
+							<div class="edit_item js_view_element_item">
 								<span class="<%if(isEditMode){ %>js_action_element_item<%}%>"><%=CommonUtil.toNotNull(userValues[i]) %></span>
 								<%
 								if(isEditMode){
 								%>
-									<span class="edit_actions">
+									<span class="edit_actions" style="position:absolute">
 										<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
 										<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
 									</span>
 								<%
 								}
 								%>
-							</span>
+							</div>
 							<%
 							if(isEditMode){
 							%>
@@ -849,13 +849,13 @@
 					visHidden = (SmartUtil.isBlankObject(values) && SmartUtil.isBlankObject(userValues) && isEditMode) ? "" : ";visibility:hidden";
 				%>
 					<div class="js_element_item" itemName="CostStructure" style="color:blue;font-size:11px<%=visHidden%>">
-						<span class="edit_item js_view_element_item" style="display:none">
+						<div class="edit_item js_view_element_item" style="display:none">
 							<span class="js_action_element_item"></span>
-							<span class="edit_actions">
+							<span class="edit_actions" style="position:absolute">
 								<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
 								<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
 							</span>
-						</span>
+						</div>
 						<input class="fieldline js_edit_element_item" name="" style="width:85px; display:inline-block; font-size:11px; background-color:white" type="text" value="">
 						<select class="js_select_element_item" name="" style="display:inline-block; font-size:11px;width:18px">
 							<option></option>
@@ -868,19 +868,19 @@
 					for(int i=0; values!=null && i<values.length; i++){
 				%>
 						<div class="js_element_item" itemName="RevenueStreams" style="color:red;font-size:11px">
-							<span class="edit_item js_view_element_item">
+							<div class="edit_item js_view_element_item">
 								<span class="<%if(isEditMode){ %>js_action_element_item<%}%>"><%=CommonUtil.toNotNull(values[i]) %></span>
 								<%
 								if(isEditMode){
 								%>
-									<span class="edit_actions">
+									<span class="edit_actions" style="position:absolute">
 										<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
 										<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
 									</span>
 								<%
 								}
 								%>
-							</span>
+							</div>
 							<%
 							if(isEditMode){
 							%>
@@ -908,19 +908,19 @@
 					for(int i=0; userValues!=null && i<userValues.length; i++){
 				%>
 						<div class="js_element_item" itemName="RevenueStreams" style="color:blue;font-size:11px">
-							<span class="edit_item js_view_element_item">
+							<div class="edit_item js_view_element_item">
 								<span class="<%if(isEditMode){ %>js_action_element_item<%}%>"><%=CommonUtil.toNotNull(userValues[i]) %></span>
 								<%
 								if(isEditMode){
 								%>
-									<span class="edit_actions">
+									<span class="edit_actions" style="position:absolute">
 										<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
 										<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
 									</span>
 								<%
 								}
 								%>
-							</span>
+							</div>
 							<%
 							if(isEditMode){
 							%>
@@ -934,13 +934,13 @@
 					visHidden = (SmartUtil.isBlankObject(values) && SmartUtil.isBlankObject(userValues) && isEditMode) ? "" : ";visibility:hidden";
 				%>
 					<div class="js_element_item" itemName="RevenueStreams" style="color:blue;font-size:11px<%=visHidden%>">
-						<span class="edit_item js_view_element_item" style="display:none">
+						<div class="edit_item js_view_element_item" style="display:none">
 							<span class="js_action_element_item"></span>
-							<span class="edit_actions">
+							<span class="edit_actions" style="position:absolute">
 								<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
 								<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
 							</span>
-						</span>
+						</div>
 						<input class="fieldline js_edit_element_item" name="" style="width:85px; display:inline-block; font-size:11px; background-color:white" type="text" value="">
 						<select class="js_select_element_item" name="" style="display:inline-block; font-size:11px;width:18px">
 							<option></option>
