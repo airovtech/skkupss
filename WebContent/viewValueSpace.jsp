@@ -60,56 +60,6 @@
 		<tr>
 			<td class="vt edit_action" colspan="1" style="height:100%;padding:0;border-bottom:none">
 				<div style="float:right;width:50%;border-top:black 2px solid;border-left: black 2px solid;height: 7px;"></div>
-				<div class="tc" style="font-size: 11px;border: black 2px solid;margin: 7px;background-color: yellow;line-height: 12px;">Economical Value</div>
-				<div>
-					<%
-					values = valueSpace.getEconomical();
-					for(int i=0; values!=null && i<values.length; i++){
-					%>
-						<div class="edit_item js_element_item" itemName="Economical" style="background-color: rgb(234, 232, 230);text-align: center;border: black 1px solid;font-size: 11px;line-height: 15px;margin: 2px 2px;width:73px">
-							<span class="js_view_element_item">
-								<span class="<%if(isEditMode){ %>js_action_element_item<%}%>"><%=CommonUtil.toNotNull(values[i]) %></span>
-								<%
-								if(isEditMode){
-								%>
-									<span class="edit_actions">
-										<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
-										<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
-									</span>
-								<%
-								}
-								%>
-							</span>
-							<%
-							if(isEditMode){
-							%>
-								<input class="fieldline js_edit_element_item" name="txtEconomicalItem" style="display:none; font-size:11px; background-color:white" type="text" value="<%=CommonUtil.toNotNull(values[i]) %>">
-							<%
-							}
-							%>
-						</div>
-					<%
-					}
-					if(SmartUtil.isBlankObject(values) && isEditMode){
-					%>
-						<div class="edit_item js_element_item" itemName="Economical" style="background-color: rgb(234, 232, 230);text-align: center;border: black 1px solid;font-size: 11px;line-height: 15px;margin: 2px 2px;width:73px">
-							<span class="js_view_element_item" style="display:none">
-								<span class="js_action_element_item"></span>
-								<span class="edit_actions">
-									<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
-									<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
-								</span>
-							</span>
-							<input class="fieldline js_edit_element_item" name="txtEconomicalItem" style="display:inline-block; font-size:11px; background-color:white" type="text" value="">
-						</div>
-					<%
-					}
-					%>
-				</div>
-			</td>
-			<td class="vt edit_action" colspan="1" style="height:100%;padding:0;border-bottom:none">
-				<div style="float:left;width:100%;border-top:black 2px solid"></div>
-				<div style="float:left;width:50%;border-right: black 2px solid;height: 7px;"></div>
 				<div class="tc" style="font-size: 11px;border: black 2px solid;margin: 7px;background-color: yellow;line-height: 12px;">Ecological Value</div>
 				<div>
 					<%
@@ -151,6 +101,56 @@
 								</span>
 							</span>
 							<input class="fieldline js_edit_element_item" name="txtEcologicalItem" style="display:inline-block; font-size:11px; background-color:white" type="text" value="">
+						</div>
+					<%
+					}
+					%>
+				</div>
+			</td>
+			<td class="vt edit_action" colspan="1" style="height:100%;padding:0;border-bottom:none">
+				<div style="float:left;width:100%;border-top:black 2px solid"></div>
+				<div style="float:left;width:50%;border-right: black 2px solid;height: 7px;"></div>
+				<div class="tc" style="font-size: 11px;border: black 2px solid;margin: 7px;background-color: yellow;line-height: 12px;">Economical Value</div>
+				<div>
+					<%
+					values = valueSpace.getEconomical();
+					for(int i=0; values!=null && i<values.length; i++){
+					%>
+						<div class="edit_item js_element_item" itemName="Economical" style="background-color: rgb(234, 232, 230);text-align: center;border: black 1px solid;font-size: 11px;line-height: 15px;margin: 2px 2px;width:73px">
+							<span class="js_view_element_item">
+								<span class="<%if(isEditMode){ %>js_action_element_item<%}%>"><%=CommonUtil.toNotNull(values[i]) %></span>
+								<%
+								if(isEditMode){
+								%>
+									<span class="edit_actions">
+										<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
+										<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
+									</span>
+								<%
+								}
+								%>
+							</span>
+							<%
+							if(isEditMode){
+							%>
+								<input class="fieldline js_edit_element_item" name="txtEconomicalItem" style="display:none; font-size:11px; background-color:white" type="text" value="<%=CommonUtil.toNotNull(values[i]) %>">
+							<%
+							}
+							%>
+						</div>
+					<%
+					}
+					if(SmartUtil.isBlankObject(values) && isEditMode){
+					%>
+						<div class="edit_item js_element_item" itemName="Economical" style="background-color: rgb(234, 232, 230);text-align: center;border: black 1px solid;font-size: 11px;line-height: 15px;margin: 2px 2px;width:73px">
+							<span class="js_view_element_item" style="display:none">
+								<span class="js_action_element_item"></span>
+								<span class="edit_actions">
+									<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
+									<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
+								</span>
+							</span>
+							<input class="fieldline js_edit_element_item" name="txtEconomicalItem" style="display:inline-block; font-size:11px; background-color:white" type="text" value="">
 						</div>
 					<%
 					}

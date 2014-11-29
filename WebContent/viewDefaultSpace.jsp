@@ -77,7 +77,7 @@
 			</td>
 		</tr>
 	</table>
-	<table class="tc" style="width:640px;min-height:50px">
+	<table class="tc" style="min-height:50px">
 		<%
 		for(int i=0; values!=null && i<values.length; i++){
 		%>

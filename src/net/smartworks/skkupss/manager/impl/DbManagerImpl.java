@@ -420,6 +420,26 @@ public class DbManagerImpl implements IDbManager {
 		if (dbPs == null || dbPs.length == 0)
 			throw new Exception("File To Convert Model! ProductService -> Db_ProductService");
 		
+		Db_ProductService tDbPs = dao.getProductService(userId,  productService.getId());
+		if(productService.getProductServiceSpace()==null)
+			dbPs[0].setProductServiceSpace(tDbPs.getProductServiceSpace());
+		if(productService.getProductSpace()==null)
+			dbPs[0].setProductSpace(tDbPs.getProductSpace());
+		if(productService.getTouchPointSpace()==null)
+			dbPs[0].setTouchPointSpace(tDbPs.getTouchPointSpace());
+		if(productService.getCustomerSpace()==null)
+			dbPs[0].setCustomerSpace(tDbPs.getCustomerSpace());
+		if(productService.getActorSpace()==null)
+			dbPs[0].setActorSpace(tDbPs.getActorSpace());
+		if(productService.getSocietySpace()==null)
+			dbPs[0].setSocietySpace(tDbPs.getSocietySpace());
+		if(productService.getContextSpace()==null)
+			dbPs[0].setContextSpace(tDbPs.getContextSpace());
+		if(productService.getTimeSpace()==null)
+			dbPs[0].setTimeSpace(tDbPs.getTimeSpace());
+		if(productService.getEnvironmentSpace()==null)
+			dbPs[0].setEnvironmentSpace(tDbPs.getEnvironmentSpace());
+		
 		String id = dao.setProductService(userId, dbPs[0]);
 		
 		if (dbPs[0].getValueSpace() != null){
