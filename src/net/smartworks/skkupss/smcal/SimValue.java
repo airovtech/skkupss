@@ -126,10 +126,11 @@ public class SimValue{
 		}
 
 		for (int j = 0; j < 6; j++) {
-		  sum_comp_prop = sum_comp_prop + (1 - Math.abs(comp_prop[j]));
+		  sum_comp_prop = sum_comp_prop + Math.abs(comp_prop[j]);
 		}
 
-		SIM_ST02 = sum_comp_prop/6;
+		SIM_ST02 = 1- (sum_comp_prop/2);
+		//System.out.print(SIM_ST02);
 
 		/////////////////////////////////////////////////////////////
 		//STEP 03

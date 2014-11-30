@@ -58,16 +58,19 @@ public class SimService{
 	    float tb = tot_numofacts_B;
 	    
 	    for (int i = 0; i < 5; i++) {
-	      prop_A[i] = numofacts_A[i]/ta;
-	      prop_B[i] = numofacts_B[i]/tb;
-	      comp_prop[i] = prop_A[i] - prop_B[i];
+	    	prop_A[i] = numofacts_A[i]/ta;
+	    	prop_B[i] = numofacts_B[i]/tb;
+	    	comp_prop[i] = prop_A[i] - prop_B[i];
+	    	//comp_prop[i] = numofacts_A[i] - numofacts_B[i];
 	    }
 	    
 	    for (int j = 0; j < 5; j++) {
-	      sum_comp_prop = sum_comp_prop + (1 - Math.abs(comp_prop[j]));
+	      sum_comp_prop = sum_comp_prop + Math.abs(comp_prop[j]);
 	    }
 	    
-	    SIM_ST01 = sum_comp_prop/5;
+	    SIM_ST01 = 1 - (sum_comp_prop/2);
+
+	    //System.out.print(SIM_ST01);
 	    	    
 	    /////////////////////////////////////////////////////////////
 	    //STEP 02
@@ -83,8 +86,8 @@ public class SimService{
 	      score_B = score_B + (numofacts_B[i])*(i + 1);
 	    }
 	    	    
-	    SIM_ST02 = 1- (Math.abs(score_A - score_B))/(score_A + score_B);
-	    System.out.print(SIM_ST02);
+	    SIM_ST02 = 1 - (Math.abs(score_A - score_B))/(score_A + score_B);
+	    //System.out.print(SIM_ST02);
 	    	    
 	    /////////////////////////////////////////////////////////////
 	    //SIM CAL RESULT REPORT
