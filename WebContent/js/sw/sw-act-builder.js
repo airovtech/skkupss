@@ -509,11 +509,13 @@ $(function() {
 	$('.js_select_access_level > input').live('change', function(e){
 		try{
 			var input = $(targetElement(e));
-			var accessLevelCustom = input.nextAll('.js_access_level_custom');
+			var accessLevelCustom = input.nextAll('.js_access_level_custom').hide();
+			var accessLevelPublicExternal = input.nextAll('.js_access_level_public_external').hide();
 			if(input.hasClass('js_security_level_custom'))
-				accessLevelCustom.show();
-			else
-				accessLevelCustom.hide();
+				accessLevelCustom.show();			
+			if(input.hasClass('js_security_level_public_external'))
+				accessLevelPublicExternal.show();
+			
 		}catch(error){
 			smartPop.showInfo(smartPop.ERROR, smartMessage.get('technicalProblemOccured') + '[sw-act-builder js_select_access_level]', null, error);
 		}			
@@ -523,11 +525,13 @@ $(function() {
 	$('.js_select_write_level > input').live('change', function(e){
 		try{
 			var input = $(targetElement(e));
-			var writeLevelCustom = input.nextAll('.js_write_level_custom');
+			var writeLevelCustom = input.nextAll('.js_write_level_custom').hide();
+			var writeLevelPublicExternal = input.nextAll('.js_write_level_public_external').hide();
 			if(input.hasClass('js_security_level_custom'))
 				writeLevelCustom.show();
-			else
-				writeLevelCustom.hide();
+			if(input.hasClass('js_security_level_public_external'))
+				writeLevelPublicExternal.show();
+			
 		}catch(error){
 			smartPop.showInfo(smartPop.ERROR, smartMessage.get('technicalProblemOccured') + '[sw-act-builder js_select_write_level]', null, error);
 		}			
@@ -537,11 +541,12 @@ $(function() {
 	$('.js_select_edit_level > input').live('change', function(e){
 		try{
 			var input = $(targetElement(e));
-			var editLevelCustom = input.nextAll('.js_edit_level_custom');
+			var editLevelCustom = input.nextAll('.js_edit_level_custom').hide();
+			var editLevelPublicExternal = input.nextAll('.js_edit_level_public_external').hide();
 			if(input.hasClass('js_security_level_custom'))
 				editLevelCustom.show();
-			else
-				editLevelCustom.hide();
+			if(input.hasClass('js_security_level_public_external'))
+				editLevelPublicExternal.show();
 		}catch(error){
 			smartPop.showInfo(smartPop.ERROR, smartMessage.get('technicalProblemOccured') + '[sw-act-builder js_select_edit_level]', null, error);
 		}			
