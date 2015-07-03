@@ -7,7 +7,7 @@ public class SimilarityMatrix{
 	private String sourcePsName;
 	private String targetPsId;
 	private String targetPsName;
-	private float similarity;
+	private double similarity;
 	
 	public int getSpaceType() {
 		return spaceType;
@@ -39,10 +39,10 @@ public class SimilarityMatrix{
 	public void setTargetPsName(String targetPsName) {
 		this.targetPsName = targetPsName;
 	}
-	public float getSimilarity() {
+	public double getSimilarity() {
 		return similarity;
 	}
-	public void setSimilarity(float similarity) {
+	public void setSimilarity(double similarity) {
 		this.similarity = similarity;
 	}
 	

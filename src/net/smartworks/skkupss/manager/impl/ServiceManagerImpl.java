@@ -244,7 +244,7 @@ public class ServiceManagerImpl implements IServiceManager {
 						break;
 					case ProductService.SPACE_TYPE_SERVICE:
 						if(!SmartUtil.isBlankObject(sourceService) && !SmartUtil.isBlankObject(targetService))
-							sm.setSimilarity((new SimService(sourceService.getNumOfActs(), targetService.getNumOfActs())).calculateSimularity());
+							sm.setSimilarity((new SimService(sourceService.getNumOfActs(), sourceService.getValues(), targetService.getNumOfActs(), targetService.getValues())).calculateSimularity());
 						break;
 					case ProductService.SPACE_TYPE_BIZ_MODEL:
 						if(!SmartUtil.isBlankObject(sourceBizModel) && !SmartUtil.isBlankObject(targetBizModel))
@@ -255,7 +255,7 @@ public class ServiceManagerImpl implements IServiceManager {
 							&& !SmartUtil.isBlankObject(sourceService) && !SmartUtil.isBlankObject(targetService))
 							sm.setSimilarity(
 									((new SimValue(sourceValue.getNumOfValues(), sourceValue.getValues(), targetValue.getNumOfValues(), targetValue.getValues())).calculateSimularity()
-									+(new SimService(sourceService.getNumOfActs(), targetService.getNumOfActs())).calculateSimularity())/2);
+									+(new SimService(sourceService.getNumOfActs(), sourceService.getValues(), targetService.getNumOfActs(), targetService.getValues())).calculateSimularity())/2);
 						break;
 					case ProductService.SPACE_TYPE_VALUE_BIZ_MODEL:
 						if(!SmartUtil.isBlankObject(sourceValue) && !SmartUtil.isBlankObject(targetValue)
@@ -268,7 +268,7 @@ public class ServiceManagerImpl implements IServiceManager {
 						if(!SmartUtil.isBlankObject(sourceService) && !SmartUtil.isBlankObject(targetService)
 							&& !SmartUtil.isBlankObject(sourceBizModel) && !SmartUtil.isBlankObject(targetBizModel))
 							sm.setSimilarity(
-									((new SimService(sourceService.getNumOfActs(), targetService.getNumOfActs())).calculateSimularity()
+									((new SimService(sourceService.getNumOfActs(), sourceService.getValues(), targetService.getNumOfActs(), targetService.getValues())).calculateSimularity()
 									+(new SimBizModel(sourceBizModel.getNumOfStrategies(), sourceBizModel.getStrategies(), targetBizModel.getNumOfStrategies(), targetBizModel.getStrategies())).calculateSimularity())/2);
 						break;
 					case ProductService.SPACE_TYPE_VALUE_SERVICE_BIZ_MODEL:
@@ -277,7 +277,7 @@ public class ServiceManagerImpl implements IServiceManager {
 							&& !SmartUtil.isBlankObject(sourceBizModel) && !SmartUtil.isBlankObject(targetBizModel))
 							sm.setSimilarity(
 									((new SimValue(sourceValue.getNumOfValues(), sourceValue.getValues(), targetValue.getNumOfValues(), targetValue.getValues())).calculateSimularity()
-									+(new SimService(sourceService.getNumOfActs(), targetService.getNumOfActs())).calculateSimularity()
+									+(new SimService(sourceService.getNumOfActs(), sourceValue.getValues(), targetService.getNumOfActs(), targetService.getValues())).calculateSimularity()
 									+(new SimBizModel(sourceBizModel.getNumOfStrategies(), sourceBizModel.getStrategies(), targetBizModel.getNumOfStrategies(), targetBizModel.getStrategies())).calculateSimularity())/3);
 						break;
 					}

@@ -78,7 +78,11 @@ $(function() {
 	$('.js_action_element_item').live('dblclick', function(e) {
 		try{
 			var input = $(targetElement(e));
-			input.parent('.js_view_element_item:first').hide().next().show().focus();;
+			if(!isEmpty(input.parents('.js_service_space'))){
+				editElementItem = input.parents('.js_view_element_item:first').next();
+				editElementItem.attr('value', editElementItem.attr('value').replace(/%KEY%/g, ""));
+			}
+			input.parents('.js_view_element_item:first').hide().next().show().focus();
 		}catch(error){
 			smartPop.showInfo(smartPop.ERROR, smartMessage.get('technicalProblemOccured') + '[sw-act-pss js_action_element_item]', null, error);
 		}			
@@ -117,8 +121,34 @@ $(function() {
 				if(!isEmpty(input.parents('.js_biz_model_space'))){
 					input.parents('.js_element_item:first').css({"color": "blue"});
 					input.attr('name', "txt" + input.parents('.js_element_item:first').attr('itemName') + "UserItem");
+				}else if(!isEmpty(input.parents('.js_service_space'))){
+					$.ajax({
+						url : "get_service_value_html.sw?serviceValue=" + input.attr('value'),
+						success : function(data, status, jqXHR) {
+							input.prevAll('.js_view_element_item').find('.js_action_element_item:first').html(data);
+						}
+					});
 				}
+
 			}
+		}
+	});
+	
+	$('input.js_edit_element_item').live('dblclick', function(e) {
+		var input = $(targetElement(e));
+		if(isEmpty(input.parents('.js_service_space'))) return false;
+		
+		if(input.attr('value') === ''){
+			input.prev().find('.js_remove_element_item').click();
+		}else{
+	        var selectedWord = getSelectedText();
+	        var regex = new RegExp(selectedWord, "gi");
+	        var valueHtml = input.attr('value').replace(regex, function(matched) {return "<span style=\"color:blue\">" + matched + "</span>";});
+	        var valueString = input.attr('value').replace(regex, function(matched) {return "%KEY%" + matched;});
+	        deselectText();
+			input.css({"width": "auto"}).nextAll('.js_select_element_item').remove();
+			input.hide().prevAll('.js_view_element_item').show().find('.js_action_element_item').attr('title', input.attr('value')).html(valueHtml);
+			input.attr('value', valueString);
 		}
 	});
 	

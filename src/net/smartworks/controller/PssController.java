@@ -8,6 +8,7 @@
 
 package net.smartworks.controller;
 
+import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
@@ -29,7 +30,9 @@ import net.smartworks.skkupss.model.ValueSpace;
 import net.smartworks.util.ServiceUtil;
 import net.smartworks.util.SmartUtil;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -245,24 +248,13 @@ public class PssController {
 		ManagerFactory.getInstance().getDocFileManager().uploadTempFile(request, response);
 	}
 
-//	@RequestMapping(value = "/find_file_group", method = RequestMethod.GET)
-//	@ResponseStatus(HttpStatus.OK)
-//	public @ResponseBody
-//	List<IFileModel> findFileGroup(HttpServletRequest request, HttpServletResponse response) throws Exception {
-//
-//		List<IFileModel> list = new ArrayList<IFileModel>();
-//		list = smartworks.findFileGroup(request);
-//
-//		return list;
-//	}
-//
-//	@RequestMapping(value = "/delete_file", method = RequestMethod.POST)
-//	@ResponseStatus(HttpStatus.OK)
-//	public @ResponseBody
-//	void deleteFile(HttpServletRequest request, HttpServletResponse response) throws Exception {
-//		smartworks.deleteFile(request, response);
-//		// TO DO : Exception handler
-//	}
+	@RequestMapping(value = "/get_service_value_html", method = RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
+	public @ResponseBody ResponseEntity<String> getServerIPAddress(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
+		return new ResponseEntity<String>(ServiceSpace.getValueHtml(request.getParameter("serviceValue")), responseHeaders, HttpStatus.CREATED);
+	}	
 
 
 

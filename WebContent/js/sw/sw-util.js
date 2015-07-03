@@ -455,6 +455,28 @@ var refreshCurrentContent = function(js_page){
 	});
 };
 
+var getSelectedText = function() {
+    var txt = '';
+    if (window.getSelection) {
+        txt = window.getSelection();
+    } else if (document.getSelection) {
+        txt = document.getSelection();
+    } else if (document.selection) {
+        txt = document.selection.createRange().text;
+    }
+    return txt;
+};
+
+var deselectText = function() {
+    if (window.getSelection) {
+        window.getSelection().removeAllRanges();
+    } else if (document.getSelection) {
+        txt = document.getSelection().removeAllRanges();
+    } else if (document.selection) {
+        txt = document.selection.empty;
+    }
+};
+
 }catch(error){
 	smartPop.showInfo(smartPop.ERROR, smartMessage.get('technicalProblemOccured') + '[sw-util script]', null, error);
 }

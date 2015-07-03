@@ -1,7 +1,5 @@
 package net.smartworks.skkupss.model;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import net.smartworks.util.SmartUtil;
@@ -9,6 +7,7 @@ import net.smartworks.util.SmartUtil;
 public class ServiceSpace{
 
 	public static final int TOTAL_ACT_TYPES = 5;
+	public static final String KEY_VALUE_STRING = "%KEY%";
 	
 	private String id;
 	private String psId;
@@ -71,6 +70,68 @@ public class ServiceSpace{
 		return numOfActs;
 	}
 	
+	public String[] getValues(){
+		int ssppSize = SmartUtil.getNumOfValidStrings(this.sspp);
+		int sspSize = SmartUtil.getNumOfValidStrings(this.ssp);
+		int sspcSize = SmartUtil.getNumOfValidStrings(this.sspc);
+		int sscSize = SmartUtil.getNumOfValidStrings(this.ssc);
+		int ssccSize = SmartUtil.getNumOfValidStrings(this.sscc);
+		String[] values = new String[ssppSize+sspSize+sspcSize+sscSize+ssccSize+1];
+		int count = 0;
+		for(int i=0; i<ssppSize; i++)
+			values[count++] = getKeyWordFromValue(this.sspp[i]);
+		for(int i=0; i<sspSize; i++)
+			values[count++] = getKeyWordFromValue(this.ssp[i]);
+		for(int i=0; i<sspcSize; i++)
+			values[count++] = getKeyWordFromValue(this.sspc[i]);
+		for(int i=0; i<sscSize; i++)
+			values[count++] = getKeyWordFromValue(this.ssc[i]);
+		for(int i=0; i<ssccSize; i++)
+			values[count++] = getKeyWordFromValue(this.sscc[i]);
+		values[values.length-1] = "0";
+		return values;
+	}
+	
+	private static boolean isKeyWord(String word){
+		if(SmartUtil.isBlankObject(word)) return false;
+		return word.startsWith(KEY_VALUE_STRING);
+	}
+	
+	private String getKeyWordFromValue(String value){
+		if(SmartUtil.isBlankObject(value)) return value;
+		String[] tokens = value.split(" ");
+		String keyWord = tokens[0];
+		for(int i=0; i<tokens.length; i++)
+			if(isKeyWord(tokens[i]))
+				return tokens[i].replaceAll(KEY_VALUE_STRING, "");
+		return keyWord;
+	}
+	
+	public static String getValueHtml(String value){
+		if(SmartUtil.isBlankObject(value)) return "";
+		String[] tokens = value.split(" ");
+		boolean found = false;
+		for(int i=0; i<tokens.length; i++){
+			if(isKeyWord(tokens[i])){
+				tokens[i] = "<span style='color:blue;'>" + tokens[i].replaceAll(KEY_VALUE_STRING, "") + "</span>";
+				found = true;
+				break;
+			}
+		}
+		if(!found){
+			tokens[0] = "<span style='color:blue;'>" + tokens[0] + "</span>";
+		}
+		String htmlString = "";
+		for(int i=0; i<tokens.length; i++)
+			htmlString = htmlString + tokens[i] + (i==tokens.length-1?"": " ");
+		return htmlString;
+		
+	}
+	
+	public static String getValueString(String value){
+		if(SmartUtil.isBlankObject(value)) return "";
+		return value.replaceAll(KEY_VALUE_STRING, "");
+	}
 	
 	public static ServiceSpace createServiceSpace(Map<String, Object> frmSpaceService){
 		if(frmSpaceService==null) return null;
