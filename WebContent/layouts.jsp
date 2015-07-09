@@ -164,6 +164,17 @@ try{
 
 <script type="text/javascript" src="js/sw/sw-work-util.js?v=3.5.3.1" ></script>
 
+<script type="text/javascript" src="js/contextdiagram/contextDiagram.js?v=3.5.3.1" ></script>
+<script type="text/javascript" src="js/contextdiagram/controller/canvasController.js?v=3.5.3.1" ></script>
+<script type="text/javascript" src="js/contextdiagram/controller/edgeLineController.js?v=3.5.3.1" ></script>
+<script type="text/javascript" src="js/contextdiagram/controller/nodeController.js?v=3.5.3.1" ></script>
+<script type="text/javascript" src="js/contextdiagram/model/canvas.js?v=3.5.3.1" ></script>
+<script type="text/javascript" src="js/contextdiagram/model/edgeLine.js?v=3.5.3.1" ></script>
+<script type="text/javascript" src="js/contextdiagram/model/node.js?v=3.5.3.1" ></script>
+<script type="text/javascript" src="js/contextdiagram/view/canvasView.js?v=3.5.3.1" ></script>
+<script type="text/javascript" src="js/contextdiagram/view/edgeLineView.js?v=3.5.3.1" ></script>
+<script type="text/javascript" src="js/contextdiagram/view/nodeView.js?v=3.5.3.1" ></script>
+
 <title>Product-Service Support System</title>
 <link rel="shortcut icon" href="images/pss/cdi-logo-s.png"/>
 

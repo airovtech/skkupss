@@ -203,7 +203,7 @@ public class ProductService{
 
 	public static int getSpaceType(String spaceName){
 		if(spaceName==null) return SPACE_TYPE_NONE;
-		
+
 		if(spaceName.equals(PSS_SPACE_VALUE)) return SPACE_TYPE_VALUE;
 		if(spaceName.equals(PSS_SPACE_SERVICE)) return SPACE_TYPE_SERVICE;
 		if(spaceName.equals(PSS_SPACE_BIZ_MODEL)) return SPACE_TYPE_BIZ_MODEL;
@@ -213,6 +213,7 @@ public class ProductService{
 		if(spaceName.equals(PSS_SPACE_CUSTOMER)) return SPACE_TYPE_CUSTOMER;
 		if(spaceName.equals(PSS_SPACE_ACTOR)) return SPACE_TYPE_ACTOR;
 		if(spaceName.equals(PSS_SPACE_SOCIETY)) return SPACE_TYPE_SOCIETY;
+		if(spaceName.equals(PSS_SPACE_CONTEXT)) return SPACE_TYPE_CONTEXT;
 		if(spaceName.equals(PSS_SPACE_TIME)) return SPACE_TYPE_TIME;
 		if(spaceName.equals(PSS_SPACE_ENVIRONMENT)) return SPACE_TYPE_ENVIRONMENT;
 		if(spaceName.equals(PSS_SPACE_VALUE_SERVICE)) return SPACE_TYPE_VALUE_SERVICE;

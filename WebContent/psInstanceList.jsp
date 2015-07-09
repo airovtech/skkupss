@@ -63,6 +63,7 @@
 						<option value="<%=ProductService.PSS_SPACE_VALUE%>" <%if(params.getSpaceType().equals(ProductService.PSS_SPACE_VALUE)){%>selected<%} %>>가치공간(Value Space)</option>
 						<option value="<%=ProductService.PSS_SPACE_SERVICE%>" <%if(params.getSpaceType().equals(ProductService.PSS_SPACE_SERVICE)){%>selected<%} %>>서비스공간(Service Space)</option>
 						<option value="<%=ProductService.PSS_SPACE_BIZ_MODEL%>" <%if(params.getSpaceType().equals(ProductService.PSS_SPACE_BIZ_MODEL)){%>selected<%} %>>비즈모델공간(Biz Model Space)</option>
+						<option value="<%=ProductService.PSS_SPACE_CONTEXT%>" <%if(params.getSpaceType().equals(ProductService.PSS_SPACE_CONTEXT)){%>selected<%} %>>컨텍스트공간(Context Space)</option>
 					</select>
 					<span class="js_progress_span"></span>
 				</form>
@@ -120,6 +121,14 @@
 							<jsp:include page="viewBizModelSpace.jsp"/>
 						<%
 							break;
+						case ProductService.SPACE_TYPE_CONTEXT:
+							request.setAttribute("contextSpace", productService.getContextSpace());
+						%>
+							<jsp:include page="viewContextSpace.jsp">
+								<jsp:param value="<%=productService.getId()%>" name="psId"/>
+							</jsp:include>
+						<%
+							break;
 						}
 						%>
 					</td>
@@ -165,6 +174,7 @@
 						<option value="<%=ProductService.PSS_SPACE_VALUE%>" <%if(params.getSpaceType().equals(ProductService.PSS_SPACE_VALUE)){%>selected<%} %>>가치공간(Value Space)</option>
 						<option value="<%=ProductService.PSS_SPACE_SERVICE%>" <%if(params.getSpaceType().equals(ProductService.PSS_SPACE_SERVICE)){%>selected<%} %>>서비스공간(Service Space)</option>
 						<option value="<%=ProductService.PSS_SPACE_BIZ_MODEL%>" <%if(params.getSpaceType().equals(ProductService.PSS_SPACE_BIZ_MODEL)){%>selected<%} %>>비즈모델공간(Biz Model Space)</option>
+						<option value="<%=ProductService.PSS_SPACE_CONTEXT%>" <%if(params.getSpaceType().equals(ProductService.PSS_SPACE_CONTEXT)){%>selected<%} %>>컨텍스트공간(Context Space)</option>
 					</select>
 					<span class="js_progress_span"></span>
 				</form>
