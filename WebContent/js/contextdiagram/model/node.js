@@ -18,7 +18,23 @@ ContextDiagram.Model.Node = function(config){
 	};
 
 	ContextDiagram.extend(options, config);
-	if(isEmpty(options.id)) options.id = ContextDiagram.generaterId(CD$TYPE_NODE);
+	if(isEmpty(options.id)) options.id = ContextDiagram.generateId(CD$TYPE_NODE);
+	if(typeof options.type === 'number'){
+		switch(options.type){
+		case CD$TOOL_NODE_PRODUCT:
+			options.type = CD$NODE_TYPE_PRODUCT;
+			break;
+		case CD$TOOL_NODE_PROVIDER:
+			options.type = CD$NODE_TYPE_PROVIDER;
+			break;
+		case CD$TOOL_NODE_TOUCHPOINT:
+			options.type = CD$NODE_TYPE_TOUCHPOINT;
+			break;
+		case CD$TOOL_NODE_USER:
+			options.type = CD$NODE_TYPE_USER;
+			break;
+		}
+	}
 	return options;
 };
 }catch(error){

@@ -330,7 +330,7 @@ try{
 					'<th><a spaceType="7" href="viewBizModelSpace.jsp">Biz Model Space</a></th>' +  
 					'<th><a spaceType="8" href="viewDefaultSpace.jsp">Actor Space</a></th>' +  
 					'<th><a spaceType="9" href="viewDefaultSpace.jsp">Society Space</a></th>' +  
-					'<th><a spaceType="10" href="viewDefaultSpace.jsp">Context Space</a></th>' +  
+					'<th><a spaceType="10" href="viewContextSpace.jsp">Context Space</a></th>' +  
 					'<th><a spaceType="11" href="viewDefaultSpace.jsp">Time Space</a></th>' +  
 					'<th><a spaceType="12" href="viewDefaultSpace.jsp">Environment Space</a></th>' +  
 				'</tr>' + 

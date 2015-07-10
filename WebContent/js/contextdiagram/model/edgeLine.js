@@ -14,11 +14,12 @@ ContextDiagram.Model.EdgeLine = function(config){
 			direction: CD$ARROW_DIR_SINGLE,
 			lineBreak: null,
 			label: '',
+			isLining: false,
 			selected: false
 	};
 
 	ContextDiagram.extend(options, config);
-	if(isEmpty(options.id)) options.id = ContextDiagram.generaterId(CD$TYPE_EDGELINE);
+	if(isEmpty(options.id)) options.id = ContextDiagram.generateId(CD$TYPE_EDGELINE);
 	return options;
 };
 }catch(error){

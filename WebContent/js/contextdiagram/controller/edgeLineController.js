@@ -31,8 +31,7 @@ ContextDiagram.Controller.EdgeLine = function(canvasId, mode, context, data){
 		ContextDiagram.redraw(canvasId);
 	};
 	this.remove = function(){
-		this.model = model;
-		CD$CONTROLLERS.remove(this.canvasId, this.model);
+		CD$CONTROLLERS.removeController(this.canvasId, this);
 		ContextDiagram.redraw(canvasId);
 	};
 	this.select = function(selected){

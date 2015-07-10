@@ -14,7 +14,7 @@ ContextDiagram.Model.Canvas = function(config){
 	};
 
 	ContextDiagram.extend(options, config);
-	if(isEmpty(options.id)) options.id = ContextDiagram.generaterId(CD$TYPE_CANVAS);
+	if(isEmpty(options.id)) options.id = ContextDiagram.generateId(CD$TYPE_CANVAS);
 	
 	return options;
 	

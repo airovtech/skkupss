@@ -21,8 +21,8 @@ ContextDiagram.Controller.Node = function(canvasId, mode, context, data){
 		});
 	};
 
-	this.move = function(targetPosition){	
-		this.model.position = targetPosition;
+	this.move = function(offset){	
+		this.model.position = {top:this.model.position.top+offset.y, left:this.model.position.left+offset.x};
 		CD$CONTROLLERS.updateModel(this.canvasId, this.model);
 		ContextDiagram.redraw(canvasId);
 	};
@@ -33,8 +33,7 @@ ContextDiagram.Controller.Node = function(canvasId, mode, context, data){
 		ContextDiagram.redraw(canvasId);
 	};
 	this.remove = function(){
-		this.model = model;
-		CD$CONTROLLERS.remove(this.canvasId, this.model);
+		CD$CONTROLLERS.removeController(this.canvasId, this);
 		ContextDiagram.redraw(canvasId);
 	};
 	this.select = function(selected){

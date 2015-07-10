@@ -365,6 +365,98 @@ $(function() {
 			}
 		});
 	});
-	
+
+	$('.js_toggle_creation_tool a').live('click', function(e) {
+		var input = $(targetElement(e));
+		var canvasId = input.parents('.js_context_space:first').find('canvas:first').attr('canvasId');
+		var canvasCtrl = CD$CONTROLLERS.findControllerById(canvasId, canvasId);
+		input.parents('tr:first').siblings().find('a.selected').removeClass('selected').parent().css('background-color', 'white');
+		if(input.hasClass('selected')){
+			input.removeClass('selected');
+			input.parent().css('background-color', 'white');
+			canvasCtrl.selectedTool = 0;
+		}else{
+			input.addClass('selected');
+			input.parent().css('background-color', 'red');
+			canvasCtrl.selectedTool = parseInt(input.attr('toolId'));
+		}
+		return false;
+	});			
+
+	$('input.js_input_node_name').live('keyup', function(e) {
+		var input = $(targetElement(e));
+		var canvasId = input.parents('.js_object_properties:first').attr('canvasId');
+		var objectId = input.parents('.js_object_properties:first').attr('objectId');
+		var canvasCtrl = CD$CONTROLLERS.findControllerById(canvasId, canvasId);
+		var ctrl = CD$CONTROLLERS.findControllerById(canvasId, objectId);
+		ctrl.model.name = input.attr('value');
+		CD$CONTROLLERS.updateModel(canvasId, ctrl.model);
+		ContextDiagram.redraw(canvasId);
+	});			
+
+	$('select.js_select_node_type').live('change', function(e) {
+		var input = $(targetElement(e));
+		var canvasId = input.parents('.js_object_properties:first').attr('canvasId');
+		var objectId = input.parents('.js_object_properties:first').attr('objectId');
+		var canvasCtrl = CD$CONTROLLERS.findControllerById(canvasId, canvasId);
+		var ctrl = CD$CONTROLLERS.findControllerById(canvasId, objectId);
+		ctrl.model.type = input.find('option:selected').attr('value');
+		CD$CONTROLLERS.updateModel(canvasId, ctrl.model);
+		ContextDiagram.redraw(canvasId);
+	});			
+
+	$('input.js_input_line_label').live('keyup', function(e) {
+		var input = $(targetElement(e));
+		var canvasId = input.parents('.js_object_properties:first').attr('canvasId');
+		var objectId = input.parents('.js_object_properties:first').attr('objectId');
+		var canvasCtrl = CD$CONTROLLERS.findControllerById(canvasId, canvasId);
+		var ctrl = CD$CONTROLLERS.findControllerById(canvasId, objectId);
+		ctrl.model.label = input.attr('value');
+		CD$CONTROLLERS.updateModel(canvasId, ctrl.model);
+		ContextDiagram.redraw(canvasId);
+	});			
+
+	$('select.js_select_line_arrow').live('change', function(e) {
+		var input = $(targetElement(e));
+		var canvasId = input.parents('.js_object_properties:first').attr('canvasId');
+		var objectId = input.parents('.js_object_properties:first').attr('objectId');
+		var canvasCtrl = CD$CONTROLLERS.findControllerById(canvasId, canvasId);
+		var ctrl = CD$CONTROLLERS.findControllerById(canvasId, objectId);
+		ctrl.model.direction = parseInt(input.find('option:selected').attr('value'));
+		CD$CONTROLLERS.updateModel(canvasId, ctrl.model);
+		ContextDiagram.redraw(canvasId);
+	});			
+
+	$('select.js_select_line_type').live('change', function(e) {
+		var input = $(targetElement(e));
+		var canvasId = input.parents('.js_object_properties:first').attr('canvasId');
+		var objectId = input.parents('.js_object_properties:first').attr('objectId');
+		var canvasCtrl = CD$CONTROLLERS.findControllerById(canvasId, canvasId);
+		var ctrl = CD$CONTROLLERS.findControllerById(canvasId, objectId);
+		var lineType = parseInt(input.find('option:selected').attr('value'));
+		var lineBreak = null;
+		switch(lineType){
+		case CD$ARROW_ALIGN_CENTER:
+			lineBreak = {align:CD$ARROW_ALIGN_CENTER, breaks:0};
+			break;
+		case CD$ARROW_ALIGN_LEFT*10+1:
+			lineBreak = {align:CD$ARROW_ALIGN_LEFT, breaks:1};
+			break;
+		case CD$ARROW_ALIGN_LEFT*10+2:
+			lineBreak = {align:CD$ARROW_ALIGN_LEFT, breaks:2};
+			break;
+		case CD$ARROW_ALIGN_RIGHT*10+1:
+			lineBreak = {align:CD$ARROW_ALIGN_RIGHT, breaks:1};
+			break;
+		case CD$ARROW_ALIGN_RIGHT*10+2:
+			lineBreak = {align:CD$ARROW_ALIGN_RIGHT, breaks:2};
+			break;
+		}
+		ctrl.model.lineBreak = lineBreak;
+		CD$CONTROLLERS.updateModel(canvasId, ctrl.model);
+		ContextDiagram.redraw(canvasId);
+	});			
+
+
 	
 });
