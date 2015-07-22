@@ -1,3 +1,4 @@
+<%@page import="net.smartworks.skkupss.model.ContextSpace"%>
 <%@page import="net.smartworks.skkupss.model.DefaultSpace"%>
 <%@page import="net.smartworks.factory.ManagerFactory"%>
 <%@page import="net.smartworks.skkupss.model.ProductService"%>
@@ -10,7 +11,7 @@
 <%
 
 
-	DefaultSpace contextSpace = (DefaultSpace)request.getAttribute("contextSpace");
+	ContextSpace contextSpace = (ContextSpace)request.getAttribute("contextSpace");
 	String psId = request.getParameter("psId");
 	if(SmartUtil.isBlankObject(contextSpace) && !SmartUtil.isBlankObject(psId)){
 
@@ -22,10 +23,9 @@
 	}
 	String isEditModeStr = request.getParameter("isEditMode");
 	boolean isEditMode = SmartUtil.isBlankObject(isEditModeStr) || !isEditModeStr.equalsIgnoreCase("true") ? false : true;
-	if(SmartUtil.isBlankObject(contextSpace)) contextSpace = new DefaultSpace();;
+	if(SmartUtil.isBlankObject(contextSpace)) contextSpace = new ContextSpace();;
 
-	String[] values = contextSpace.getElements();
-	String jsonDataString = (SmartUtil.isBlankObject(values))?"":values[0];
+	String jsonDataString = contextSpace.getContextData();
 %>
  	 
 <!-- 컨텐츠 레이아웃-->
@@ -122,13 +122,23 @@
 								</div>
 							</td>
 						</tr>
-					</table>
+<!-- 						<tr class="js_line_property" style="display:none">
+							<td class="form_col">
+								<div class="form_label" style="width:70px">꺽임 정도</div>
+								<div class="form_value" style="width:180px;padding-left:5px!important">
+									<select name="selBreakLevel" class="form_select_box js_select_break_level">
+										<option value="30">낮음</option>
+										<option value="50">보통</option>
+										<option value="70">높음</option>
+									</select>
+								</div>
+							</td>
+						</tr>
+ -->					</table>
 				</td>
 			</tr>
 		</table>
-		<ul>
-		
-		</ul>
+		<div class="js_diagram_vertical_resizer" style="height:24px"></div>
 	<%}else{ %>
 		<div class="js_context_diagram_target" psId="<%=psId%>"></div>
 	<%} %>
@@ -136,10 +146,18 @@
 <!-- 컨텐츠 레이아웃//-->
 <script type="text/javascript">
 $(function() {
-	ContextDiagram.draw({
-		mode : <%if(isEditMode){%>CD$MODE_EDIT<%}else{%>CD$MODE_VIEW<%}%>,
-		target : $('.js_context_diagram_target[psId="' + '<%=psId%>' + '"]'),
-		jsonDataString : '<%=jsonDataString%>'
-	});
+	if(isEmpty(CD$CONTROLLERS)){
+		ContextDiagram.draw({
+			mode : <%if(isEditMode){%>CD$MODE_EDIT<%}else{%>CD$MODE_VIEW<%}%>,
+			target : $('.js_context_diagram_target[psId="' + '<%=psId%>' + '"]'),
+			jsonDataString : '<%=jsonDataString%>'
+		});
+	}else{
+		ContextDiagram.draw({
+			mode : <%if(isEditMode){%>CD$MODE_EDIT<%}else{%>CD$MODE_VIEW<%}%>,
+			target : $('.js_context_diagram_target[psId="' + '<%=psId%>' + '"]'),
+			reload : true 
+		});
+	}
 });
 </script>

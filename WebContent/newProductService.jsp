@@ -26,15 +26,43 @@ function submitForms(tempSave) {
 	var spaceTabs = forms.find('.js_space_tab');
 	for(var i=0; i<spaceTabs.length; i++){
 		var spaceTab = $(spaceTabs[i]);
+		var spaceType = spaceTab.attr('spaceType');
 		// 폼이름 키값으로 하여 해당 폼에 있는 모든 입력항목들을 JSON형식으로 Serialize 한다...
-		if(isEmpty(spaceTab.parent('form'))){
+		if(spaceType == '<%=ProductService.SPACE_TYPE_CONTEXT%>'){
+			var canvas = {};
+			var nodes = new Array();
+			var edgeLines = new Array();
+			for(var j=0; j<CD$CONTROLLERS.length; j++){
+				var ctrl = CD$CONTROLLERS[j];
+				var model = ctrl.model;
+				switch(ContextDiagram.getModelType(model)){
+				case CD$TYPE_CANVAS :
+					canvas =  model;
+					break;
+				case CD$TYPE_NODE :
+					nodes.push(model);
+					break;
+				case CD$TYPE_EDGELINE :
+					edgeLines.push(model);
+					break;
+				}
+			}
+			var contextSpaceValues = {
+					canvasId: canvas.id,
+					width: canvas.width,
+					height: canvas.height,
+					nodes: nodes,
+					edgeLines: edgeLines
+			};
+			paramsJsonHiddens[spaceType] = JSON.stringify(contextSpaceValues);
+		}else if(isEmpty(spaceTab.parent('form'))){
 			newSpaceTab = spaceTab.clone();
 			cloneSelectedValues(spaceTab, newSpaceTab);
 			newProductService.find('form[name="frmNewProductService"]').append($('<form name="frmSpaceTab"></form>').html(newSpaceTab).hide());
-			paramsJsonHiddens[spaceTab.attr('spaceType')] = mergeObjects(newSpaceTab.parent('form').serializeObject(), SmartWorks.GridLayout.serializeObject(newSpaceTab.parent('form')));
+			paramsJsonHiddens[spaceType] = mergeObjects(newSpaceTab.parent('form').serializeObject(), SmartWorks.GridLayout.serializeObject(newSpaceTab.parent('form')));
 			spaceTab.parent().remove();
 		}else{
-			paramsJsonHiddens[spaceTab.attr('spaceType')] = mergeObjects(spaceTab.parent('form').serializeObject(), SmartWorks.GridLayout.serializeObject(spaceTab.parent('form')));
+			paramsJsonHiddens[spaceType] = mergeObjects(spaceTab.parent('form').serializeObject(), SmartWorks.GridLayout.serializeObject(spaceTab.parent('form')));
 		}
 	}
 	spaceTabs.parent().remove();

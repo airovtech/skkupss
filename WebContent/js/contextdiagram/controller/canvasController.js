@@ -16,6 +16,8 @@ ContextDiagram.Controller.Canvas = function(mode, target, data){
 	this.draggingPosition = null;
 	this.nowLining = false;
 	this.liningController = null;
+	this.verticalResizing = false;
+	this.minHeight = CD$DEFAULT_CANVAS_HEIGHT;
 	this.draw = function(){
 		this.context = ContextDiagram.View.Canvas.draw({
 			mode : this.mode,
@@ -30,18 +32,39 @@ ContextDiagram.Controller.Canvas = function(mode, target, data){
 			context : this.context,
 			model : this.model
 		});	
-	
+		
 		if(!isEmpty(CD$CONTROLLERS)){
 			for(var i=1; i<CD$CONTROLLERS.length; i++){
 				CD$CONTROLLERS[i].draw();
+				var model = CD$CONTROLLERS[i].model;
+				if(ContextDiagram.getModelType(model) == CD$TYPE_NODE){
+					if(this.minHeight < model.position.top+CD$NODE_SIZE_NORMAL*3){
+						this.minHeight = model.position.top+CD$NODE_SIZE_NORMAL*3;
+					}
+				}
 			}
 		}
+	};
+	
+	this.resize = function(){
+		var canvas = this.target.find('canvas[canvasId="' + this.model.id + '"]');
+		canvas.attr('width', this.model.width).attr('height', this.model.height).attr('style', 'width:' + this.model.width + 'px;height:' + this.model.height + 'px;background-color:' + this.model.backgroundColor);
+		canvas.parent().attr('width', this.model.width);
+		this.redraw();
 	};
 	
 	this.change = function(model){
 		this.model = model;
 		CD$CONTROLLERS.updateModel(this.canvasId, this.model);
 		this.redraw();
+	};
+	
+	this.verticalResize = function(offsetY){
+		if((this.model.height + offsetY)<this.minHeight) return;
+		
+		this.model.height = this.model.height + offsetY;
+		CD$CONTROLLERS.updateModel(this.canvasId, this.model);
+		this.resize();
 	};
 	
 	this.newSelections = function(selections){
@@ -209,8 +232,17 @@ ContextDiagram.Controller.Canvas = function(mode, target, data){
 			var canvasCtrl = CD$CONTROLLERS.findControllerById(canvasId, canvasId);
 			var ctrl = CD$CONTROLLERS.findControllerByPosition(canvasId, position);
 			if(ctrl && ctrl.model.selected){
-				canvasCtrl.nowDragging = true;
-				canvasCtrl.draggingPosition = position;
+				if(ContextDiagram.getModelType(ctrl.model) == CD$TYPE_NODE){
+					canvasCtrl.nowDragging = true;
+					canvasCtrl.draggingPosition = position;
+				}else if(ContextDiagram.getModelType(ctrl.model) == CD$TYPE_EDGELINE){
+					canvasCtrl.nowLining = true;
+					ctrl.model.direction = CD$ARROW_DIR_SINGLE;
+					ctrl.isLining = true;
+					ctrl.selected = false;
+					canvasCtrl.liningController = ctrl;
+					canvasCtrl.newSelections([canvasCtrl.liningController]);
+				}
 				$(this).css('cursor', 'pointer');
 			}else{
 				canvasCtrl.nowDragging = false;
@@ -223,8 +255,28 @@ ContextDiagram.Controller.Canvas = function(mode, target, data){
 			var position = { top: e.offsetY, left: e.offsetX };
 			var canvasId = $(this).attr('canvasId');
 			var canvasCtrl = CD$CONTROLLERS.findControllerById(canvasId, canvasId);
-			canvasCtrl.nowDragging = false;
-			canvasCtrl.draggingPosition = null;
+			if(canvasCtrl.nowDragging){
+				canvasCtrl.nowDragging = false;
+				canvasCtrl.draggingPosition = null;
+			}else if(canvasCtrl.nowLining){
+				var ctrl = CD$CONTROLLERS.findControllerByPosition(canvasId, position);
+				if(ctrl && ContextDiagram.getModelType(ctrl.model) === CD$TYPE_NODE && canvasCtrl.liningController && ctrl.model != canvasCtrl.liningController.model.id){
+					canvasCtrl.liningController.model.toNodeId = ctrl.model.id;
+					canvasCtrl.liningController.model.direction = CD$ARROW_DIR_SINGLE;
+					canvasCtrl.liningController.model.isLining = false;
+					CD$CONTROLLERS.updateModel(canvasId, canvasCtrl.liningController.model);
+				}else{
+					canvasCtrl.clearSelections();
+					CD$CONTROLLERS.removeController(canvasId, canvasCtrl.liningController.model);
+				}
+				ContextDiagram.redraw(canvasId);
+				canvasCtrl.nowLining = false;
+				canvasCtrl.liningController = null;
+				canvasCtrl.clearSelectedTool();
+			}else if(canvasCtrl.verticalResizing){
+				canvasCtrl.verticalResizing = false;
+				canvasCtrl.draggingPosition = null;
+			}
 			$(this).css('cursor', 'default');
 		});
 		
@@ -261,6 +313,59 @@ ContextDiagram.Controller.Canvas = function(mode, target, data){
 				canvasCtrl.deleteSelections();
 			}
 		});
+
+		$('div.js_diagram_vertical_resizer').mousedown(function(e) {
+  			e.preventDefault();
+			var input = $(targetElement(e));
+			var position = {top:e.clientY, left:e.offsetX};
+			var canvasId = input.parents('.js_context_space:first').find('canvas:first').attr('canvasId');
+			var canvasCtrl = CD$CONTROLLERS.findControllerById(canvasId, canvasId);
+			canvasCtrl.verticalResizing = true;
+			canvasCtrl.draggingPosition = position;
+			$(this).css('cursor', 'row-resize');
+		});
+			
+		$('div.js_diagram_vertical_resizer').mouseup(function(e) {
+			var input = $(targetElement(e));
+			var canvasId = input.parents('.js_context_space:first').find('canvas:first').attr('canvasId');
+			var canvasCtrl = CD$CONTROLLERS.findControllerById(canvasId, canvasId);
+			canvasCtrl.verticalResizing = false;
+			canvasCtrl.draggingPosition = null;
+			$(this).css('cursor', 'default');
+		});
+	
+		$('div.js_diagram_vertical_resizer').mouseleave(function(e) {
+			var input = $(targetElement(e));
+			var canvasId = input.parents('.js_context_space:first').find('canvas:first').attr('canvasId');
+			var canvasCtrl = CD$CONTROLLERS.findControllerById(canvasId, canvasId);
+			canvasCtrl.verticalResizing = false;
+			$(this).css('cursor', 'default');
+		});
+	
+		$('div.js_diagram_vertical_resizer').mouseover(function(e) {
+			$(this).css('cursor', 'row-resize');
+		});
+	
+		canvas.mouseover(function(e) {
+			var input = $(targetElement(e));
+			var canvasId = input.parents('.js_context_space:first').find('canvas:first').attr('canvasId');
+			var canvasCtrl = CD$CONTROLLERS.findControllerById(canvasId, canvasId);
+			if(canvasCtrl.draggingPosition){
+				canvasCtrl.verticalResizing = true;
+			}
+		});
+		
+		$('div.js_diagram_vertical_resizer').parent().parent().mousemove(function(e) {
+			var input = $(targetElement(e));
+			var position = {top:e.clientY, left:e.clientX};
+			var canvasId = input.parents('.js_context_space:first').find('canvas:first').attr('canvasId');
+			var canvasCtrl = CD$CONTROLLERS.findControllerById(canvasId, canvasId);
+			if(canvasCtrl.verticalResizing && canvasCtrl.draggingPosition){
+				var offsetY = position.top-canvasCtrl.draggingPosition.top;
+				canvasCtrl.verticalResize(offsetY);
+				canvasCtrl.draggingPosition = position;
+			}
+		});	
 	}
 
 };

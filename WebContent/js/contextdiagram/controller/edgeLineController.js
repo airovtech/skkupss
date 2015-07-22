@@ -11,8 +11,9 @@ ContextDiagram.Controller.EdgeLine = function(canvasId, mode, context, data){
 	this.mode = mode || CD$MODE_VIEW;
 	this.context = context;
 	this.model = null;
+	this.labelRect = null;
 	this.draw = function(){
-		ContextDiagram.View.EdgeLine.draw({
+		this.labelRect = ContextDiagram.View.EdgeLine.draw({
 			mode : this.mode,
 			canvasId : this.canvasId,
 			context : this.context,
@@ -37,7 +38,7 @@ ContextDiagram.Controller.EdgeLine = function(canvasId, mode, context, data){
 	this.select = function(selected){
 		this.model.selected = selected;
 		CD$CONTROLLERS.updateModel(this.canvasId, this.model);
-		this.draw();
+		ContextDiagram.redraw(canvasId);
 	};
 	
 	

@@ -65,7 +65,7 @@ public class ProductService{
 	private DefaultSpace customerSpace;
 	private DefaultSpace actorSpace;
 	private DefaultSpace societySpace;
-	private DefaultSpace contextSpace;
+	private ContextSpace contextSpace;
 	private DefaultSpace timeSpace;
 	private DefaultSpace environmentSpace;
 	private String lastModifiedUser;
@@ -158,10 +158,10 @@ public class ProductService{
 	public void setSocietySpace(DefaultSpace societySpace) {
 		this.societySpace = societySpace;
 	}
-	public DefaultSpace getContextSpace() {
+	public ContextSpace getContextSpace() {
 		return contextSpace;
 	}
-	public void setContextSpace(DefaultSpace contextSpace) {
+	public void setContextSpace(ContextSpace contextSpace) {
 		this.contextSpace = contextSpace;
 	}
 	public DefaultSpace getTimeSpace() {

@@ -21,7 +21,7 @@ $(function() {
 			newProductService.find('form[name="frmNewProductService"]').append($('<form name="frmSpaceTab"></form>').html(newSpaceTab).hide());
 			
 			var savedSpaceTab = newProductService.find('form[name="frmNewProductService"]').find('.js_space_tab[spaceType="' + spaceType + '"]:hidden');
-			if(isEmpty(savedSpaceTab)){
+			if(isEmpty(savedSpaceTab) || (spaceType == '10' && isEditMode)){
 				$.ajax({
 					url : href + "?psId=" + psId + "&spaceType=" + spaceType + "&isEditMode=" + isEditMode,
 					success : function(data, status, jqXHR) {
@@ -435,21 +435,28 @@ $(function() {
 		var ctrl = CD$CONTROLLERS.findControllerById(canvasId, objectId);
 		var lineType = parseInt(input.find('option:selected').attr('value'));
 		var lineBreak = null;
+		var breakLevel = input.parents('.js_object_properties:first').find('.js_select_break_level:first');
+		breakLevel.find('option[value="50"]').attr('selected', 'selected');
 		switch(lineType){
 		case CD$ARROW_ALIGN_CENTER:
 			lineBreak = {align:CD$ARROW_ALIGN_CENTER, breaks:0};
+			breakLevel.hide();
 			break;
 		case CD$ARROW_ALIGN_LEFT*10+1:
-			lineBreak = {align:CD$ARROW_ALIGN_LEFT, breaks:1};
+			lineBreak = {align:CD$ARROW_ALIGN_LEFT, breaks:1, level:50};
+			breakLevel.show();
 			break;
 		case CD$ARROW_ALIGN_LEFT*10+2:
 			lineBreak = {align:CD$ARROW_ALIGN_LEFT, breaks:2};
+			breakLevel.show();
 			break;
 		case CD$ARROW_ALIGN_RIGHT*10+1:
 			lineBreak = {align:CD$ARROW_ALIGN_RIGHT, breaks:1};
+			breakLevel.show();
 			break;
 		case CD$ARROW_ALIGN_RIGHT*10+2:
 			lineBreak = {align:CD$ARROW_ALIGN_RIGHT, breaks:2};
+			breakLevel.show();
 			break;
 		}
 		ctrl.model.lineBreak = lineBreak;
@@ -457,6 +464,18 @@ $(function() {
 		ContextDiagram.redraw(canvasId);
 	});			
 
+	$('select.js_select_break_level').live('change', function(e) {
+		var input = $(targetElement(e));
+		var canvasId = input.parents('.js_object_properties:first').attr('canvasId');
+		var objectId = input.parents('.js_object_properties:first').attr('objectId');
+		var canvasCtrl = CD$CONTROLLERS.findControllerById(canvasId, canvasId);
+		var ctrl = CD$CONTROLLERS.findControllerById(canvasId, objectId);
+		var breakLevel = parseInt(input.find('option:selected').attr('value'));
+		var lineBreak = ctrl.model.lineBreak || {};
+		lineBreak.level = breakLevel; 
+		ctrl.model.lineBreak = lineBreak;
+		CD$CONTROLLERS.updateModel(canvasId, ctrl.model);
+		ContextDiagram.redraw(canvasId);
+	});			
 
-	
 });

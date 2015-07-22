@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.smartworks.factory.ManagerFactory;
 import net.smartworks.skkupss.model.BizModelSpace;
+import net.smartworks.skkupss.model.ContextSpace;
 import net.smartworks.skkupss.model.DefaultSpace;
 import net.smartworks.skkupss.model.ProductService;
 import net.smartworks.skkupss.model.RequestParams;
@@ -46,7 +47,7 @@ public class PssController {
 	
 	@RequestMapping("/home")
 	public ModelAndView home(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		return ServiceUtil.returnMnv(request, "layouts.jsp", "layouts.jsp");
+		return ServiceUtil.returnMnv(request, "login.jsp", "login.jsp");
 	}
 	
 	@RequestMapping(value = "/set_product_service", method = RequestMethod.POST)
@@ -88,7 +89,7 @@ public class PssController {
 				productService.setBizModelSpace(BizModelSpace.createBizModelSpace((Map<String, Object>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_BIZ_MODEL)));
 				productService.setActorSpace(DefaultSpace.createDefaultSpace((Map<String, Object>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_ACTOR)));
 				productService.setSocietySpace(DefaultSpace.createDefaultSpace((Map<String, Object>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_SOCIETY)));
-				productService.setContextSpace(DefaultSpace.createDefaultSpace((Map<String, Object>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_CONTEXT)));
+				productService.setContextSpace(ContextSpace.createContextSpace((String)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_CONTEXT)));
 				productService.setTimeSpace(DefaultSpace.createDefaultSpace((Map<String, Object>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_TIME)));
 				productService.setEnvironmentSpace(DefaultSpace.createDefaultSpace((Map<String, Object>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_ENVIRONMENT)));
 			}

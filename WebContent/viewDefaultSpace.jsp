@@ -40,9 +40,6 @@
 			case ProductService.SPACE_TYPE_SOCIETY:
 				defaultSpace = productService.getSocietySpace();
 				break;
-			case ProductService.SPACE_TYPE_CONTEXT:
-				defaultSpace = productService.getContextSpace();
-				break;
 			case ProductService.SPACE_TYPE_TIME:
 				defaultSpace = productService.getTimeSpace();
 				break;

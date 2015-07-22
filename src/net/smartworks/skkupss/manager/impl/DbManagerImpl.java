@@ -13,6 +13,7 @@ import net.smartworks.skkupss.dao.IDbDao;
 import net.smartworks.skkupss.manager.IDbManager;
 import net.smartworks.skkupss.model.BizModelSpace;
 import net.smartworks.skkupss.model.BizModelSpaceCond;
+import net.smartworks.skkupss.model.ContextSpace;
 import net.smartworks.skkupss.model.DefaultSpace;
 import net.smartworks.skkupss.model.ProductService;
 import net.smartworks.skkupss.model.ProductServiceCond;
@@ -150,7 +151,8 @@ public class DbManagerImpl implements IDbManager {
 			productService.setCustomerSpace(makeStringFromDefaultSpace(ps.getCustomerSpace()));
 			productService.setActorSpace(makeStringFromDefaultSpace(ps.getActorSpace()));
 			productService.setSocietySpace(makeStringFromDefaultSpace(ps.getSocietySpace()));
-			productService.setContextSpace(makeStringFromDefaultSpace(ps.getContextSpace()));
+			if(ps.getContextSpace()!=null)
+				productService.setContextSpace(ps.getContextSpace().getContextData());
 			productService.setTimeSpace(makeStringFromDefaultSpace(ps.getTimeSpace()));
 			productService.setEnvironmentSpace(makeStringFromDefaultSpace(ps.getEnvironmentSpace()));
 
@@ -248,7 +250,7 @@ public class DbManagerImpl implements IDbManager {
 			productService.setCustomerSpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getCustomerSpace(), delimiters)));
 			productService.setActorSpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getActorSpace(), delimiters)));
 			productService.setSocietySpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getSocietySpace(), delimiters)));
-			productService.setContextSpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getContextSpace(), delimiters)));
+			productService.setContextSpace(ContextSpace.createContextSpace(dbPs.getContextSpace()));
 			productService.setTimeSpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getTimeSpace(), delimiters)));
 			productService.setEnvironmentSpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getEnvironmentSpace(), delimiters)));
 
@@ -397,7 +399,7 @@ public class DbManagerImpl implements IDbManager {
 		productService.setCustomerSpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getCustomerSpace(), delimiters)));
 		productService.setActorSpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getActorSpace(), delimiters)));
 		productService.setSocietySpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getSocietySpace(), delimiters)));
-		productService.setContextSpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getContextSpace(), delimiters)));
+		productService.setContextSpace(ContextSpace.createContextSpace(dbPs.getContextSpace()));
 		productService.setTimeSpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getTimeSpace(), delimiters)));
 		productService.setEnvironmentSpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getEnvironmentSpace(), delimiters)));
 

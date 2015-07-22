@@ -19,6 +19,7 @@ import net.smartworks.common.Order;
 import net.smartworks.factory.ManagerFactory;
 import net.smartworks.skkupss.manager.IServiceManager;
 import net.smartworks.skkupss.model.BizModelSpace;
+import net.smartworks.skkupss.model.ContextSpace;
 import net.smartworks.skkupss.model.InstanceList;
 import net.smartworks.skkupss.model.ProductService;
 import net.smartworks.skkupss.model.ProductServiceCond;
@@ -28,6 +29,7 @@ import net.smartworks.skkupss.model.SimilarityMatrix;
 import net.smartworks.skkupss.model.SortingField;
 import net.smartworks.skkupss.model.ValueSpace;
 import net.smartworks.skkupss.smcal.SimBizModel;
+import net.smartworks.skkupss.smcal.SimContext;
 import net.smartworks.skkupss.smcal.SimService;
 import net.smartworks.skkupss.smcal.SimValue;
 import net.smartworks.util.SmartUtil;
@@ -236,6 +238,8 @@ public class ServiceManagerImpl implements IServiceManager {
 					ServiceSpace targetService = target.getServiceSpace();
 					BizModelSpace sourceBizModel = source.getBizModelSpace();
 					BizModelSpace targetBizModel = target.getBizModelSpace();
+					ContextSpace sourceContext = source.getContextSpace();
+					ContextSpace targetContext = target.getContextSpace();
 					
 					switch(ProductService.getSpaceType(spaceType)){
 					case ProductService.SPACE_TYPE_VALUE:
@@ -249,6 +253,10 @@ public class ServiceManagerImpl implements IServiceManager {
 					case ProductService.SPACE_TYPE_BIZ_MODEL:
 						if(!SmartUtil.isBlankObject(sourceBizModel) && !SmartUtil.isBlankObject(targetBizModel))
 							sm.setSimilarity((new SimBizModel(sourceBizModel.getNumOfStrategies(), sourceBizModel.getStrategies(), targetBizModel.getNumOfStrategies(), targetBizModel.getStrategies())).calculateSimularity());
+						break;
+					case ProductService.SPACE_TYPE_CONTEXT:
+						if(!SmartUtil.isBlankObject(sourceContext) && !SmartUtil.isBlankObject(targetContext))
+							sm.setSimilarity((new SimContext()).measureSimilarity(sourceContext.getSimGraph(), sourceContext.getSimGraph()));
 						break;
 					case ProductService.SPACE_TYPE_VALUE_SERVICE:
 						if(!SmartUtil.isBlankObject(sourceValue) && !SmartUtil.isBlankObject(targetValue)

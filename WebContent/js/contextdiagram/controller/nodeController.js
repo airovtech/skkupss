@@ -12,8 +12,9 @@ ContextDiagram.Controller.Node = function(canvasId, mode, context, data){
 	this.context = context;
 	this.data = data;
 	this.model = null;
+	this.nameRect = null;
 	this.draw = function(){
-		ContextDiagram.View.Node.draw({
+		this.nameRect = ContextDiagram.View.Node.draw({
 			mode : this.mode,
 			canvasId : this.canvasId,
 			context : this.context,
@@ -39,7 +40,7 @@ ContextDiagram.Controller.Node = function(canvasId, mode, context, data){
 	this.select = function(selected){
 		this.model.selected = selected;
 		CD$CONTROLLERS.updateModel(this.canvasId, this.model);
-		this.draw();
+		ContextDiagram.redraw(canvasId);
 	};
 		
 	if(isEmpty(canvasId) || isEmpty(context) || isEmpty(data)) return null;

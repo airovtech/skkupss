@@ -70,16 +70,16 @@ ContextDiagram.View.Node.draw = function(config){
 		context.stroke();
 		context.closePath();
 	}
-	
+
+	var nameRect = null;
 	if(!isEmpty(model.name)){
 		context.font = CD$TEXT_FONT;
-//		context.fillStyle = model.selected?CD$SELECTED_STYLE:CD$TEXT_FILLSTYLE;
-		context.fillStyle = CD$TEXT_FILLSTYLE;
+		context.fillStyle = model.selected?CD$SELECTED_STYLE:CD$TEXT_FILLSTYLE;
 		context.textAlign = 'center';
-		ContextDiagram.wrapText(context, model.name, positionX+nodeSize/2, positionY+((options.type==CD$NODE_TYPE_PROVIDER)?nodeSize*(Math.sqrt(3)/2):nodeSize)+14, CD$TEXT_MAXWIDTH, CD$TEXT_LINEHEIGHT);
+		nameRect = ContextDiagram.wrapText(context, model.name, positionX+nodeSize/2, positionY+((options.type==CD$NODE_TYPE_PROVIDER)?nodeSize*(Math.sqrt(3)/2):nodeSize)+14, CD$TEXT_MAXWIDTH, CD$TEXT_LINEHEIGHT);
 	}
 	context.restore();
-	return options.context;
+	return nameRect;
 };
 }catch(error){
 	smartPop.showInfo(smartPop.ERROR, smartMessage.get('technicalProblemOccured') + '[view.nodeView script]', null, error);
