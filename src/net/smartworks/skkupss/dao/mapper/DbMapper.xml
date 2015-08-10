@@ -90,12 +90,12 @@
             )
 		</if>
 	    <if test="searchKey != null">
-	    	and ((a.name like '%'|| #{searchKey} ||'%') or (a.description like '%'|| #{searchKey} ||'%') or (a.lastModifiedUser like '%'|| #{searchKey} ||'%') or (a.createdUser like '%'|| #{searchKey} ||'%')
-	    		or (b.sspp like '%'|| #{searchKey} ||'%') or (b.ssp like '%'|| #{searchKey} ||'%') or (b.sspc like '%'|| #{searchKey} ||'%') or (b.ssc like '%'|| #{searchKey} ||'%') or (b.sscc like '%'|| #{searchKey} ||'%')
-					or (c.customerSegments like '%'|| #{searchKey} ||'%') or (c.customerSegmentsUser like '%'|| #{searchKey} ||'%') or (c.CustomerRelationships like '%'|| #{searchKey} ||'%') or (c.CustomerRelationshipsUser like '%'|| #{searchKey} ||'%') or (c.channels like '%'|| #{searchKey} ||'%')
-		    		or (c.channelsUser like '%'|| #{searchKey} ||'%') or (c.keyActivities like '%'|| #{searchKey} ||'%') or (c.keyActivitiesUser like '%'|| #{searchKey} ||'%') or (c.keyResources like '%'|| #{searchKey} ||'%') or (c.keyResourcesUser like '%'|| #{searchKey} ||'%') or (c.keyPartners like '%'|| #{searchKey} ||'%') 
-		    		or (c.keyPartnersUser like '%'|| #{searchKey} ||'%') or (c.costStructure like '%'|| #{searchKey} ||'%') or (c.costStructureUser like '%'|| #{searchKey} ||'%') or (c.revenueStreams like '%'|| #{searchKey} ||'%') or (c.revenueStreamsUser like '%'|| #{searchKey} ||'%')
-		    			or (d.economical like '%'|| #{searchKey} ||'%') or (d.ecological like '%'|| #{searchKey} ||'%') or (d.function like '%'|| #{searchKey} ||'%') or (d.extrinsicSocial like '%'|| #{searchKey} ||'%') or (d.activeEmotional like '%'|| #{searchKey} ||'%') or (d.reactiveEmotional like '%'|| #{searchKey} ||'%') or (d.intrinsicSocial like '%'|| #{searchKey} ||'%') or (d.epistemic like '%'|| #{searchKey} ||'%')
+	    	and ((UPPER(a.name) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.description) like '%'|| UPPER(#{searchKey}) ||'%') or (a.lastModifiedUser like '%'|| #{searchKey} ||'%') or (a.createdUser like '%'|| #{searchKey} ||'%')
+	    		or (UPPER(b.sspp) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.ssp) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.sspc) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.ssc) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.sscc) like '%'|| UPPER(#{searchKey}) ||'%')
+					or (UPPER(c.customerSegments) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.customerSegmentsUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.CustomerRelationships) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.CustomerRelationshipsUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.channels) like '%'|| UPPER(#{searchKey}) ||'%')
+		    		or (UPPER(c.channelsUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.keyActivities) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.keyActivitiesUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.keyResources) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.keyResourcesUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.keyPartners) like '%'|| UPPER(#{searchKey}) ||'%') 
+		    		or (UPPER(c.keyPartnersUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.costStructure) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.costStructureUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.revenueStreams) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.revenueStreamsUser) like '%'|| UPPER(#{searchKey}) ||'%')
+		    			or (UPPER(d.economical) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(d.ecological) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(d.function) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(d.extrinsicSocial) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(d.activeEmotional) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(d.reactiveEmotional) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(d.intrinsicSocial) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(d.epistemic) like '%'|| UPPER(#{searchKey}) ||'%')
 	    	)
 	    </if>
 	</select>
@@ -122,12 +122,12 @@
             )
 		</if>
 	    <if test="searchKey != null">
-	    	and ((a.name like '%'|| #{searchKey} ||'%') or (a.description like '%'|| #{searchKey} ||'%') or (a.lastModifiedUser like '%'|| #{searchKey} ||'%') or (a.createdUser like '%'|| #{searchKey} ||'%')
-	    		or (b.sspp like '%'|| #{searchKey} ||'%') or (b.ssp like '%'|| #{searchKey} ||'%') or (b.sspc like '%'|| #{searchKey} ||'%') or (b.ssc like '%'|| #{searchKey} ||'%') or (b.sscc like '%'|| #{searchKey} ||'%')
-	    			or (c.customerSegments like '%'|| #{searchKey} ||'%') or (c.customerSegmentsUser like '%'|| #{searchKey} ||'%') or (c.CustomerRelationships like '%'|| #{searchKey} ||'%') or (c.CustomerRelationshipsUser like '%'|| #{searchKey} ||'%') or (c.channels like '%'|| #{searchKey} ||'%')
-		    		or (c.channelsUser like '%'|| #{searchKey} ||'%') or (c.keyActivities like '%'|| #{searchKey} ||'%') or (c.keyActivitiesUser like '%'|| #{searchKey} ||'%') or (c.keyResources like '%'|| #{searchKey} ||'%') or (c.keyResourcesUser like '%'|| #{searchKey} ||'%') or (c.keyPartners like '%'|| #{searchKey} ||'%') 
-		    		or (c.keyPartnersUser like '%'|| #{searchKey} ||'%') or (c.costStructure like '%'|| #{searchKey} ||'%') or (c.costStructureUser like '%'|| #{searchKey} ||'%') or (c.revenueStreams like '%'|| #{searchKey} ||'%') or (c.revenueStreamsUser like '%'|| #{searchKey} ||'%')
-		    			or (d.economical like '%'|| #{searchKey} ||'%') or (d.ecological like '%'|| #{searchKey} ||'%') or (d.function like '%'|| #{searchKey} ||'%') or (d.extrinsicSocial like '%'|| #{searchKey} ||'%') or (d.activeEmotional like '%'|| #{searchKey} ||'%') or (d.reactiveEmotional like '%'|| #{searchKey} ||'%') or (d.intrinsicSocial like '%'|| #{searchKey} ||'%') or (d.epistemic like '%'|| #{searchKey} ||'%')
+	    	and ((UPPER(a.name) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.description) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.lastModifiedUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.createdUser) like '%'|| UPPER(#{searchKey}) ||'%')
+	    		or (UPPER(b.sspp) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.ssp) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.sspc) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.ssc) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.sscc) like '%'|| UPPER(#{searchKey}) ||'%')
+	    			or (UPPER(c.customerSegments) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.customerSegmentsUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.CustomerRelationships) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.CustomerRelationshipsUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.channels) like '%'|| UPPER(#{searchKey}) ||'%')
+		    		or (UPPER(c.channelsUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.keyActivities) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.keyActivitiesUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.keyResources) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.keyResourcesUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.keyPartners) like '%'|| UPPER(#{searchKey}) ||'%') 
+		    		or (UPPER(c.keyPartnersUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.costStructure) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.costStructureUse) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.revenueStreams) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.revenueStreamsUser) like '%'|| UPPER(#{searchKey}) ||'%')
+		   			or (UPPER(d.economical) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(d.ecological) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(d.function) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(d.extrinsicSocial) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(d.activeEmotional) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(d.reactiveEmotional) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(d.intrinsicSocial) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(d.epistemic) like '%'|| UPPER(#{searchKey}) ||'%')
 	    	)
 	    </if>
 	    <if test="orders != null">
@@ -152,11 +152,11 @@
             )
 		</if>
 	    <if test="searchKey != null">
-	    	and ((a.name like '%'|| #{searchKey} ||'%') or (a.description like '%'|| #{searchKey} ||'%') or (a.lastModifiedUser like '%'|| #{searchKey} ||'%') or (a.createdUser like '%'|| #{searchKey} ||'%')
-	    		or (b.sspp like '%'|| #{searchKey} ||'%') or (b.ssp like '%'|| #{searchKey} ||'%') or (b.sspc like '%'|| #{searchKey} ||'%') or (b.ssc like '%'|| #{searchKey} ||'%') or (b.sscc like '%'|| #{searchKey} ||'%')
-					or (c.customerSegments like '%'|| #{searchKey} ||'%') or (c.customerSegmentsUser like '%'|| #{searchKey} ||'%') or (c.CustomerRelationships like '%'|| #{searchKey} ||'%') or (c.CustomerRelationshipsUser like '%'|| #{searchKey} ||'%') or (c.channels like '%'|| #{searchKey} ||'%')
-		    		or (c.channelsUser like '%'|| #{searchKey} ||'%') or (c.keyActivities like '%'|| #{searchKey} ||'%') or (c.keyActivitiesUser like '%'|| #{searchKey} ||'%') or (c.keyResources like '%'|| #{searchKey} ||'%') or (c.keyResourcesUser like '%'|| #{searchKey} ||'%') or (c.keyPartners like '%'|| #{searchKey} ||'%') 
-		    		or (c.keyPartnersUser like '%'|| #{searchKey} ||'%') or (c.costStructure like '%'|| #{searchKey} ||'%') or (c.costStructureUser like '%'|| #{searchKey} ||'%') or (c.revenueStreams like '%'|| #{searchKey} ||'%') or (c.revenueStreamsUser like '%'|| #{searchKey} ||'%') or (c.valuePropositionsUser like '%'|| #{searchKey} ||'%')
+	    	and ((UPPER(a.name) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.description) like '%'|| UPPER(#{searchKey}) ||'%') or (a.lastModifiedUser like '%'|| #{searchKey} ||'%') or (a.createdUser like '%'|| #{searchKey} ||'%')
+	    	or (UPPER(b.sspp) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.ssp) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.sspc) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.ssc) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.sscc) like '%'|| UPPER(#{searchKey}) ||'%')
+			or (UPPER(c.customerSegments) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.customerSegmentsUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.CustomerRelationships) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.CustomerRelationshipsUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.channels) like '%'|| UPPER(#{searchKey}) ||'%')
+			or (UPPER(c.channelsUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.keyActivities) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.keyActivitiesUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.keyResources) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.keyResourcesUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.keyPartners) like '%'|| UPPER(#{searchKey}) ||'%') 
+			or (UPPER(c.keyPartnersUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.costStructure) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.costStructureUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.revenueStreams) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.revenueStreamsUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.valuePropositionsUser) like '%'|| UPPER(#{searchKey}) ||'%')
 	    	)
 	    </if>
 	</select>
@@ -180,11 +180,11 @@
             )
 		</if>
 	    <if test="searchKey != null">
-	    	and ((a.name like '%'|| #{searchKey} ||'%') or (a.description like '%'|| #{searchKey} ||'%') or (a.lastModifiedUser like '%'|| #{searchKey} ||'%') or (a.createdUser like '%'|| #{searchKey} ||'%')
-	    		or (b.sspp like '%'|| #{searchKey} ||'%') or (b.ssp like '%'|| #{searchKey} ||'%') or (b.sspc like '%'|| #{searchKey} ||'%') or (b.ssc like '%'|| #{searchKey} ||'%') or (b.sscc like '%'|| #{searchKey} ||'%')
-	    			or (c.customerSegments like '%'|| #{searchKey} ||'%') or (c.customerSegmentsUser like '%'|| #{searchKey} ||'%') or (c.CustomerRelationships like '%'|| #{searchKey} ||'%') or (c.CustomerRelationshipsUser like '%'|| #{searchKey} ||'%') or (c.channels like '%'|| #{searchKey} ||'%')
-		    		or (c.channelsUser like '%'|| #{searchKey} ||'%') or (c.keyActivities like '%'|| #{searchKey} ||'%') or (c.keyActivitiesUser like '%'|| #{searchKey} ||'%') or (c.keyResources like '%'|| #{searchKey} ||'%') or (c.keyResourcesUser like '%'|| #{searchKey} ||'%') or (c.keyPartners like '%'|| #{searchKey} ||'%') 
-		    		or (c.keyPartnersUser like '%'|| #{searchKey} ||'%') or (c.costStructure like '%'|| #{searchKey} ||'%') or (c.costStructureUser like '%'|| #{searchKey} ||'%') or (c.revenueStreams like '%'|| #{searchKey} ||'%') or (c.revenueStreamsUser like '%'|| #{searchKey} ||'%') or (c.valuePropositionsUser like '%'|| #{searchKey} ||'%')
+	    	and ((UPPER(a.name) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.description) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.lastModifiedUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.createdUser) like '%'|| UPPER(#{searchKey}) ||'%')
+	    		or (UPPER(b.sspp) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.ssp) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.sspc) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.ssc) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.sscc) like '%'|| UPPER(#{searchKey}) ||'%')
+	    			or (UPPER(c.customerSegments) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.customerSegmentsUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.CustomerRelationships) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.CustomerRelationshipsUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.channels) like '%'|| UPPER(#{searchKey}) ||'%')
+		    		or (UPPER(c.channelsUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.keyActivities) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.keyActivitiesUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.keyResources) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.keyResourcesUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.keyPartners) like '%'|| UPPER(#{searchKey}) ||'%') 
+		    		or (UPPER(c.keyPartnersUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.costStructure) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.costStructureUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.revenueStreams) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.revenueStreamsUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.valuePropositionsUser) like '%'|| UPPER(#{searchKey}) ||'%')
 	    	)
 	    </if>
 	    <if test="orders != null">
@@ -209,11 +209,11 @@
             )
 		</if>
 	    <if test="searchKey != null">
-	    	and ((a.name like '%'|| #{searchKey} ||'%') or (a.description like '%'|| #{searchKey} ||'%') or (a.lastModifiedUser like '%'|| #{searchKey} ||'%') or (a.createdUser like '%'|| #{searchKey} ||'%')
-	    		or (b.economical like '%'|| #{searchKey} ||'%') or (b.ecological like '%'|| #{searchKey} ||'%') or (b.function like '%'|| #{searchKey} ||'%') or (b.extrinsicSocial like '%'|| #{searchKey} ||'%') or (b.activeEmotional like '%'|| #{searchKey} ||'%') or (b.reactiveEmotional like '%'|| #{searchKey} ||'%') or (b.intrinsicSocial like '%'|| #{searchKey} ||'%') or (b.epistemic like '%'|| #{searchKey} ||'%')
-					or (c.customerSegments like '%'|| #{searchKey} ||'%') or (c.customerSegmentsUser like '%'|| #{searchKey} ||'%') or (c.CustomerRelationships like '%'|| #{searchKey} ||'%') or (c.CustomerRelationshipsUser like '%'|| #{searchKey} ||'%') or (c.channels like '%'|| #{searchKey} ||'%')
-		    		or (c.channelsUser like '%'|| #{searchKey} ||'%') or (c.keyActivities like '%'|| #{searchKey} ||'%') or (c.keyActivitiesUser like '%'|| #{searchKey} ||'%') or (c.keyResources like '%'|| #{searchKey} ||'%') or (c.keyResourcesUser like '%'|| #{searchKey} ||'%') or (c.keyPartners like '%'|| #{searchKey} ||'%') 
-		    		or (c.keyPartnersUser like '%'|| #{searchKey} ||'%') or (c.costStructure like '%'|| #{searchKey} ||'%') or (c.costStructureUser like '%'|| #{searchKey} ||'%') or (c.revenueStreams like '%'|| #{searchKey} ||'%') or (c.revenueStreamsUser like '%'|| #{searchKey} ||'%') or (c.valuePropositionsUser like '%'|| #{searchKey} ||'%')
+	    	and ((UPPER(a.name) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.description) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.lastModifiedUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.createdUser like) '%'|| UPPER(#{searchKey}) ||'%')
+	    		or (UPPER(b.economical) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.ecological) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.function) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.extrinsicSocial) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.activeEmotional) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.reactiveEmotional) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.intrinsicSocial) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.epistemic) like '%'|| UPPER(#{searchKey}) ||'%')
+					or (UPPER(c.customerSegments) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.customerSegmentsUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.CustomerRelationships) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.CustomerRelationshipsUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.channels) like '%'|| UPPER(#{searchKey}) ||'%')
+		    		or (UPPER(c.channelsUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.keyActivities) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.keyActivitiesUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.keyResources) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.keyResourcesUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.keyPartners) like '%'|| UPPER(#{searchKey}) ||'%') 
+		    		or (UPPER(c.keyPartnersUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.costStructure) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.costStructureUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.revenueStreams) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.revenueStreamsUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.valuePropositionsUser) like '%'|| UPPER(#{searchKey}) ||'%')
 	    	)
 	    </if>
 	</select>
@@ -237,11 +237,11 @@
             )
 		</if>
 	    <if test="searchKey != null">
-	    	and ((a.name like '%'|| #{searchKey} ||'%') or (a.description like '%'|| #{searchKey} ||'%') or (a.lastModifiedUser like '%'|| #{searchKey} ||'%') or (a.createdUser like '%'|| #{searchKey} ||'%')
-	    		or (b.economical like '%'|| #{searchKey} ||'%') or (b.ecological like '%'|| #{searchKey} ||'%') or (b.function like '%'|| #{searchKey} ||'%') or (b.extrinsicSocial like '%'|| #{searchKey} ||'%') or (b.activeEmotional like '%'|| #{searchKey} ||'%') or (b.reactiveEmotional like '%'|| #{searchKey} ||'%') or (b.intrinsicSocial like '%'|| #{searchKey} ||'%') or (b.epistemic like '%'|| #{searchKey} ||'%')
-	    			or (c.customerSegments like '%'|| #{searchKey} ||'%') or (c.customerSegmentsUser like '%'|| #{searchKey} ||'%') or (c.CustomerRelationships like '%'|| #{searchKey} ||'%') or (c.CustomerRelationshipsUser like '%'|| #{searchKey} ||'%') or (c.channels like '%'|| #{searchKey} ||'%')
-		    		or (c.channelsUser like '%'|| #{searchKey} ||'%') or (c.keyActivities like '%'|| #{searchKey} ||'%') or (c.keyActivitiesUser like '%'|| #{searchKey} ||'%') or (c.keyResources like '%'|| #{searchKey} ||'%') or (c.keyResourcesUser like '%'|| #{searchKey} ||'%') or (c.keyPartners like '%'|| #{searchKey} ||'%') 
-		    		or (c.keyPartnersUser like '%'|| #{searchKey} ||'%') or (c.costStructure like '%'|| #{searchKey} ||'%') or (c.costStructureUser like '%'|| #{searchKey} ||'%') or (c.revenueStreams like '%'|| #{searchKey} ||'%') or (c.revenueStreamsUser like '%'|| #{searchKey} ||'%') or (c.valuePropositionsUser like '%'|| #{searchKey} ||'%')
+	    	and ((UPPER(a.name) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.description) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.lastModifiedUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.createdUser) like '%'|| UPPER(#{searchKey}) ||'%')
+	    		or (UPPER(b.economical) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.ecological) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.function) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.extrinsicSocial) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.activeEmotional) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.reactiveEmotional) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.intrinsicSocial) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.epistemic) like '%'|| UPPER(#{searchKey}) ||'%')
+	    			or (UPPER(c.customerSegments) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.customerSegmentsUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.CustomerRelationships) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.CustomerRelationshipsUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.channels) like '%'|| UPPER(#{searchKey}) ||'%')
+		    		or (UPPER(c.channelsUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.keyActivities) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.keyActivitiesUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.keyResources) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.keyResourcesUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.keyPartners) like '%'|| UPPER(#{searchKey}) ||'%') 
+		    		or (UPPER(c.keyPartnersUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.costStructure) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.costStructureUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.revenueStreams) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.revenueStreamsUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.valuePropositionsUser) like '%'|| UPPER(#{searchKey}) ||'%')
 	    	)
 	    </if>
 	    <if test="orders != null">
@@ -266,9 +266,9 @@
             )
 		</if>
 	    <if test="searchKey != null">
-	    	and ((a.name like '%'|| #{searchKey} ||'%') or (a.description like '%'|| #{searchKey} ||'%') or (a.lastModifiedUser like '%'|| #{searchKey} ||'%') or (a.createdUser like '%'|| #{searchKey} ||'%')
-	    		or (b.economical like '%'|| #{searchKey} ||'%') or (b.ecological like '%'|| #{searchKey} ||'%') or (b.function like '%'|| #{searchKey} ||'%') or (b.extrinsicSocial like '%'|| #{searchKey} ||'%') or (b.activeEmotional like '%'|| #{searchKey} ||'%') or (b.reactiveEmotional like '%'|| #{searchKey} ||'%') or (b.intrinsicSocial like '%'|| #{searchKey} ||'%') or (b.epistemic like '%'|| #{searchKey} ||'%')
-	    			or (c.sspp like '%'|| #{searchKey} ||'%') or (c.ssp like '%'|| #{searchKey} ||'%') or (c.sspc like '%'|| #{searchKey} ||'%') or (c.ssc like '%'|| #{searchKey} ||'%') or (c.sscc like '%'|| #{searchKey} ||'%')
+	    	and ((UPPER(a.name) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.description) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.lastModifiedUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.createdUser) like '%'|| UPPER(#{searchKey}) ||'%')
+	    		or (UPPER(b.economical) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.ecological) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.function) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.extrinsicSocial) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.activeEmotional) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.reactiveEmotional) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.intrinsicSocial) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.epistemic) like '%'|| UPPER(#{searchKey}) ||'%')
+	    			or (UPPER(c.sspp) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.ssp) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.sspc) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.ssc) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.sscc) like '%'|| UPPER(#{searchKey}) ||'%')
 	    	)
 	    </if>
 	</select>
@@ -291,9 +291,9 @@
             )
 		</if>
 	    <if test="searchKey != null">
-	    	and ((a.name like '%'|| #{searchKey} ||'%') or (a.description like '%'|| #{searchKey} ||'%') or (a.lastModifiedUser like '%'|| #{searchKey} ||'%') or (a.createdUser like '%'|| #{searchKey} ||'%')
-	    		or (b.economical like '%'|| #{searchKey} ||'%') or (b.ecological like '%'|| #{searchKey} ||'%') or (b.function like '%'|| #{searchKey} ||'%') or (b.extrinsicSocial like '%'|| #{searchKey} ||'%') or (b.activeEmotional like '%'|| #{searchKey} ||'%') or (b.reactiveEmotional like '%'|| #{searchKey} ||'%') or (b.intrinsicSocial like '%'|| #{searchKey} ||'%') or (b.epistemic like '%'|| #{searchKey} ||'%')
-	    			or (c.sspp like '%'|| #{searchKey} ||'%') or (c.ssp like '%'|| #{searchKey} ||'%') or (c.sspc like '%'|| #{searchKey} ||'%') or (c.ssc like '%'|| #{searchKey} ||'%') or (c.sscc like '%'|| #{searchKey} ||'%')
+	    	and ((UPPER(a.name like) '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.description) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.lastModifiedUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.createdUser) like '%'|| UPPER(#{searchKey}) ||'%')
+	    		or (UPPER(b.economical) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.ecological) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.function) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.extrinsicSocial) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.activeEmotional) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.reactiveEmotional) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.intrinsicSocial) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.epistemic) like '%'|| UPPER(#{searchKey}) ||'%')
+	    			or (UPPER(c.sspp) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.ssp) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.sspc) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.ssc) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(c.sscc) like '%'|| UPPER(#{searchKey}) ||'%')
 	    	)
 	    </if>
 	    <if test="orders != null">
@@ -316,8 +316,8 @@
             )
 		</if>
 	    <if test="searchKey != null">
-	    	and ((a.name like '%'|| #{searchKey} ||'%') or (a.description like '%'|| #{searchKey} ||'%') or (a.lastModifiedUser like '%'|| #{searchKey} ||'%') or (a.createdUser like '%'|| #{searchKey} ||'%')
-	    		or (b.economical like '%'|| #{searchKey} ||'%') or (b.ecological like '%'|| #{searchKey} ||'%') or (b.function like '%'|| #{searchKey} ||'%') or (b.extrinsicSocial like '%'|| #{searchKey} ||'%') or (b.activeEmotional like '%'|| #{searchKey} ||'%') or (b.reactiveEmotional like '%'|| #{searchKey} ||'%') or (b.intrinsicSocial like '%'|| #{searchKey} ||'%') or (b.epistemic like '%'|| #{searchKey} ||'%')
+	    	and ((UPPER(a.name) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.description) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.lastModifiedUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.createdUser) like '%'|| UPPER(#{searchKey}) ||'%')
+	    		or (UPPER(b.economical) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.ecological) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.function) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.extrinsicSocial) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.activeEmotional) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.reactiveEmotional) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.intrinsicSocial) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.epistemic) like '%'|| UPPER(#{searchKey}) ||'%')
 	    	)
 	    </if>
 	</select>
@@ -336,8 +336,8 @@
             )
 		</if>
 	    <if test="searchKey != null">
-	    	and ((a.name like '%'|| #{searchKey} ||'%') or (a.description like '%'|| #{searchKey} ||'%') or (a.lastModifiedUser like '%'|| #{searchKey} ||'%') or (a.createdUser like '%'|| #{searchKey} ||'%')
-	    		or (b.economical like '%'|| #{searchKey} ||'%') or (b.ecological like '%'|| #{searchKey} ||'%') or (b.function like '%'|| #{searchKey} ||'%') or (b.extrinsicSocial like '%'|| #{searchKey} ||'%') or (b.activeEmotional like '%'|| #{searchKey} ||'%') or (b.reactiveEmotional like '%'|| #{searchKey} ||'%') or (b.intrinsicSocial like '%'|| #{searchKey} ||'%') or (b.epistemic like '%'|| #{searchKey} ||'%')
+	    	and ((UPPER(a.name) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.description) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.lastModifiedUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.createdUser) like '%'|| UPPER(#{searchKey}) ||'%')
+	    		or (UPPER(b.economical) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.ecological) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.function) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.extrinsicSocial) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.activeEmotional) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.reactiveEmotional) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.intrinsicSocial) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.epistemic) like '%'|| UPPER(#{searchKey}) ||'%')
 	    	)
 	    </if>
 	    <if test="orders != null">
@@ -360,8 +360,8 @@
             )
 		</if>
 	    <if test="searchKey != null">
-	    	and ((a.name like '%'|| #{searchKey} ||'%') or (a.description like '%'|| #{searchKey} ||'%') or (a.lastModifiedUser like '%'|| #{searchKey} ||'%') or (a.createdUser like '%'|| #{searchKey} ||'%')
-	    		or (b.sspp like '%'|| #{searchKey} ||'%') or (b.ssp like '%'|| #{searchKey} ||'%') or (b.sspc like '%'|| #{searchKey} ||'%') or (b.ssc like '%'|| #{searchKey} ||'%') or (b.sscc like '%'|| #{searchKey} ||'%')
+	    	and ((UPPER(a.name) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.description) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.lastModifiedUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.createdUser) like '%'|| UPPER(#{searchKey}) ||'%')
+	    		or (UPPER(b.sspp) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.ssp) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.sspc) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.ssc) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.sscc) like '%'|| UPPER(#{searchKey}) ||'%')
 	    	)
 	    </if>
 	</select>
@@ -380,8 +380,8 @@
             )
 		</if>
 	    <if test="searchKey != null">
-	    	and ((a.name like '%'|| #{searchKey} ||'%') or (a.description like '%'|| #{searchKey} ||'%') or (a.lastModifiedUser like '%'|| #{searchKey} ||'%') or (a.createdUser like '%'|| #{searchKey} ||'%')
-	    		or (b.sspp like '%'|| #{searchKey} ||'%') or (b.ssp like '%'|| #{searchKey} ||'%') or (b.sspc like '%'|| #{searchKey} ||'%') or (b.ssc like '%'|| #{searchKey} ||'%') or (b.sscc like '%'|| #{searchKey} ||'%')
+	    	and ((UPPER(a.name) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.description) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.lastModifiedUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.createdUser) like '%'|| UPPER(#{searchKey}) ||'%')
+	    		or (UPPER(b.sspp) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.ssp) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.sspc) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.ssc) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.sscc) like '%'|| UPPER(#{searchKey}) ||'%')
 	    	)
 	    </if>
 	    <if test="orders != null">
@@ -404,10 +404,10 @@
             )
 		</if>
 	    <if test="searchKey != null">
-	    	and ((a.name like '%'|| #{searchKey} ||'%') or (a.description like '%'|| #{searchKey} ||'%') or (a.lastModifiedUser like '%'|| #{searchKey} ||'%') or (a.createdUser like '%'|| #{searchKey} ||'%')
-	    		or (b.customerSegments like '%'|| #{searchKey} ||'%') or (b.customerSegmentsUser like '%'|| #{searchKey} ||'%') or (b.CustomerRelationships like '%'|| #{searchKey} ||'%') or (b.CustomerRelationshipsUser like '%'|| #{searchKey} ||'%') or (b.channels like '%'|| #{searchKey} ||'%')
-	    			or (b.channelsUser like '%'|| #{searchKey} ||'%') or (b.keyActivities like '%'|| #{searchKey} ||'%') or (b.keyActivitiesUser like '%'|| #{searchKey} ||'%') or (b.keyResources like '%'|| #{searchKey} ||'%') or (b.keyResourcesUser like '%'|| #{searchKey} ||'%') or (b.keyPartners like '%'|| #{searchKey} ||'%') 
-	    				or (b.keyPartnersUser like '%'|| #{searchKey} ||'%') or (b.costStructure like '%'|| #{searchKey} ||'%') or (b.costStructureUser like '%'|| #{searchKey} ||'%') or (b.revenueStreams like '%'|| #{searchKey} ||'%') or (b.revenueStreamsUser like '%'|| #{searchKey} ||'%') or (b.valuePropositionsUser like '%'|| #{searchKey} ||'%')
+	    	and (UPPER((a.name) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.description) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.lastModifiedUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.createdUser) like '%'|| UPPER(#{searchKey}) ||'%')
+	    		or (UPPER(b.customerSegments) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.customerSegmentsUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.CustomerRelationships) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.CustomerRelationshipsUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.channels) like '%'|| UPPER(#{searchKey}) ||'%')
+	    			or (UPPER(b.channelsUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.keyActivities) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.keyActivitiesUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.keyResources) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.keyResourcesUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.keyPartners) like '%'|| UPPER(#{searchKey}) ||'%') 
+	    				or (UPPER(b.keyPartnersUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.costStructure) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.costStructureUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.revenueStreams) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.revenueStreamsUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.valuePropositionsUser) like '%'|| UPPER(#{searchKey}) ||'%')
 	    	)
 	    </if>
 	</select>
@@ -428,10 +428,10 @@
             )
 		</if>
 	    <if test="searchKey != null">
-	    	and ((a.name like '%'|| #{searchKey} ||'%') or (a.description like '%'|| #{searchKey} ||'%') or (a.lastModifiedUser like '%'|| #{searchKey} ||'%') or (a.createdUser like '%'|| #{searchKey} ||'%')
-	    		or (b.customerSegments like '%'|| #{searchKey} ||'%') or (b.customerSegmentsUser like '%'|| #{searchKey} ||'%') or (b.CustomerRelationships like '%'|| #{searchKey} ||'%') or (b.CustomerRelationshipsUser like '%'|| #{searchKey} ||'%') or (b.channels like '%'|| #{searchKey} ||'%')
-	    			or (b.channelsUser like '%'|| #{searchKey} ||'%') or (b.keyActivities like '%'|| #{searchKey} ||'%') or (b.keyActivitiesUser like '%'|| #{searchKey} ||'%') or (b.keyResources like '%'|| #{searchKey} ||'%') or (b.keyResourcesUser like '%'|| #{searchKey} ||'%') or (b.keyPartners like '%'|| #{searchKey} ||'%') 
-	    				or (b.keyPartnersUser like '%'|| #{searchKey} ||'%') or (b.costStructure like '%'|| #{searchKey} ||'%') or (b.costStructureUser like '%'|| #{searchKey} ||'%') or (b.revenueStreams like '%'|| #{searchKey} ||'%') or (b.revenueStreamsUser like '%'|| #{searchKey} ||'%') or (b.valuePropositionsUser like '%'|| #{searchKey} ||'%')
+	    	and ((UPPER(a.name) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.description) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.lastModifiedUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.createdUser) like '%'|| UPPER(#{searchKey}) ||'%')
+	    		or (UPPER(b.customerSegments) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.customerSegmentsUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.CustomerRelationships) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.CustomerRelationshipsUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.channels) like '%'|| UPPER(#{searchKey}) ||'%')
+	    			or (UPPER(b.channelsUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.keyActivities) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.keyActivitiesUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.keyResources) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.keyResourcesUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.keyPartners) like '%'|| UPPER(#{searchKey}) ||'%') 
+	    				or (UPPER(b.keyPartnersUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.costStructure) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.costStructureUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.revenueStreams) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.revenueStreamsUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(b.valuePropositionsUser) like '%'|| UPPER(#{searchKey}) ||'%')
 	    	)
 	    </if>
 	    <if test="orders != null">

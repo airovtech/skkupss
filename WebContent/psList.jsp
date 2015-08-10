@@ -1,3 +1,17 @@
+<%@page import="net.smartworks.util.PropertiesLoader"%>
+<%@page import="net.smartworks.skkupss.manager.impl.DocFileManagerImpl"%>
+<%@page import="net.smartworks.util.CommonUtil"%>
+<%@page import="net.smartworks.skkupss.model.BizModelSpace"%>
+<%@page import="net.smartworks.skkupss.model.ServiceSpace"%>
+<%@page import="net.smartworks.skkupss.model.ValueSpace"%>
+<%@page import="net.smartworks.util.LocalDate"%>
+<%@page import="java.util.Date"%>
+<%@page import="net.smartworks.skkupss.model.ProductService"%>
+<%@page import="net.smartworks.skkupss.model.SortingField"%>
+<%@page import="net.smartworks.factory.ManagerFactory"%>
+<%@page import="net.smartworks.skkupss.model.InstanceList"%>
+<%@page import="net.smartworks.util.SmartUtil"%>
+<%@page import="net.smartworks.skkupss.model.RequestParams"%>
 <%@ page contentType="text/html; charset=utf-8"%>
 <script type="text/javascript">
 try{
@@ -46,12 +60,12 @@ try{
 }catch(error){
 	smartPop.showInfo(smartPop.ERROR, smartMessage.get('technicalProblemOccured') + '[iwork script]', null, error);
 }
+
 </script>
 
 <%
 	String spaceType = request.getParameter("spaceType");
 %>
-
 
 <!-- 컨텐츠 레이아웃-->
 <div class="section_portlet js_iwork_list_page js_work_list_page">
@@ -76,7 +90,6 @@ try{
 								<a href="" class="js_similarity_calculation icon_btn_tail">유사도 비교</a>
 							</div>
 						</div>
-					
 						<div class="title_line_options">
 							<form name="frmSearchInstance" class="po_left ml10"> 
 								<div class="srch_wh srch_wsize">

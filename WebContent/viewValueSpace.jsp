@@ -40,7 +40,7 @@
 			<input class="fieldline js_edit_element_item" name="" style="display:inline-block; font-size:11px; background-color:white" type="text" value="">
 		</div>
 	</div>
-	<table class="tc" style="width:640px;min-height:200px">
+	<table class="tc" style="width:640px;min-height:200px;margin-left:auto;margin-right:auto;">
 		<tr>
 			<th style="width:12.5%;height:0;border-bottom:none"></th>
 			<th style="width:12.5%;height:0;border-bottom:none"></th>

@@ -94,7 +94,7 @@
 											<td class="tc"><img class="vt up" style="height:200px<%if(SmartUtil.isBlankObject(targetPsPicUrl)){ %>;width:200px<%} %>" src="<%=targetPsPicUrl%>"></td>
 										</tr>
 										<tr>								
-											<td class="tc r_line">
+											<td class="tc r_line" style="vertical-align:top">
 												<div id="source_view_target">
 													<%
 													switch(ProductService.getSpaceType(spaceType)){
@@ -130,7 +130,7 @@
 													%>
 												</div>
 											</td>
-											<td class="tc">
+											<td class="tc" style="vertical-align:top">
 												<div id="target_view_target">
 													<%
 													switch(ProductService.getSpaceType(spaceType)){

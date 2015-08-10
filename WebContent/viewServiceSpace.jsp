@@ -38,7 +38,7 @@
 			<input class="fieldline js_edit_element_item" style="height:20px; display:inline-block; font-size:11px; background-color:white" type="text" value="">
 		</div>
 	</div>
-	<table class="up tc" style="width:500px;min-height:200px">
+	<table class="up tc" style="width:550px;min-height:200px">
 		<tr style="border-bottom: darkgray solid 8px;height:24px">
 			<th class="tc" style="width:20%"><img src="images/pss/service-bullet.png" style="width: 24px;height: 24px;position: relative;top: 17px;"/></th>
 			<th class="tc" style="width:20%"><img src="images/pss/service-bullet.png" style="width: 24px;height: 24px;position: relative;top: 17px;"/></th>
