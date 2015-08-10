@@ -225,7 +225,7 @@ try{
 		<!-- Header//-->
 
 		<!-- Nav -->
-		<div id="navigation" style="height:100%">
+		<div id="navigation" style="">
 			<tiles:insertAttribute name="navigation" />
 		</div>
 		<!-- Nav//-->

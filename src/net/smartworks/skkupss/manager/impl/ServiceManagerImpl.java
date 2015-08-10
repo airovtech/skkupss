@@ -217,7 +217,7 @@ public class ServiceManagerImpl implements IServiceManager {
 		SimilarityMatrix[][] psSimilarities = null;
 		
 		try{
-			ProductService[] productServices = ManagerFactory.getInstance().getDbManager().getProductServiceWithSelectedSpace(SmartUtil.getUserId(), spaceType, psIds);
+			ProductService[] productServices = ManagerFactory.getInstance().getDbManager().getProductServiceWithSelectedSpace(SmartUtil.getCurrentUser().getId(), spaceType, psIds);
 			if(SmartUtil.isBlankObject(productServices)) return null;
 			
 			psSimilarities = new SimilarityMatrix[productServices.length][productServices.length];

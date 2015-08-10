@@ -22,6 +22,7 @@ import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.smartworks.factory.ManagerFactory;
 import net.smartworks.skkupss.model.Login;
 import net.smartworks.skkupss.model.User;
 
@@ -89,9 +90,6 @@ public class SmartUtil {
 		return values;
 	}
 
-	public static String getUserId(){
-		return "cdiuser@skku.edu";
-	}
 	public static String combineStrings(String first, String second){
 		if(SmartUtil.isBlankObject(first)) return second;
 		if(SmartUtil.isBlankObject(second)) return first;
@@ -387,6 +385,16 @@ public class SmartUtil {
 		User user = new User();
 		user.setId("anonymoususer@smartworks.net");
 		user.setName("Anonymous User");
+		return user;
+	}
+	
+	public static User getUserFromUserId(String userId){
+		User user = null;
+		try{
+			user = ManagerFactory.getInstance().getServiceManager().getUser(userId);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		return user;
 	}
 	

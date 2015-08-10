@@ -2,6 +2,8 @@ package net.smartworks.skkupss.model;
 
 import java.util.Date;
 
+import net.smartworks.util.LocalDate;
+
 public class ProductService{
 	
 	public static final String PSS_SPACE_VALUE = "valueSpace";
@@ -68,10 +70,10 @@ public class ProductService{
 	private ContextSpace contextSpace;
 	private DefaultSpace timeSpace;
 	private DefaultSpace environmentSpace;
-	private String lastModifiedUser;
-	private Date lastModifiedDate;
-	private String createdUser;
-	private Date createdDate;
+	private User lastModifiedUser;
+	private LocalDate lastModifiedDate;
+	private User createdUser;
+	private LocalDate createdDate;
 	
 	
 	public int getSpaceType() {
@@ -176,28 +178,28 @@ public class ProductService{
 	public void setEnvironmentSpace(DefaultSpace environmentSpace) {
 		this.environmentSpace = environmentSpace;
 	}
-	public String getLastModifiedUser() {
+	public User getLastModifiedUser() {
 		return lastModifiedUser;
 	}
-	public void setLastModifiedUser(String lastModifiedUser) {
+	public void setLastModifiedUser(User lastModifiedUser) {
 		this.lastModifiedUser = lastModifiedUser;
 	}
-	public Date getLastModifiedDate() {
+	public LocalDate getLastModifiedDate() {
 		return lastModifiedDate;
 	}
-	public void setLastModifiedDate(Date lastModifiedDate) {
+	public void setLastModifiedDate(LocalDate lastModifiedDate) {
 		this.lastModifiedDate = lastModifiedDate;
 	}
-	public String getCreatedUser() {
+	public User getCreatedUser() {
 		return createdUser;
 	}
-	public void setCreatedUser(String createdUser) {
+	public void setCreatedUser(User createdUser) {
 		this.createdUser = createdUser;
 	}
-	public Date getCreatedDate() {
+	public LocalDate getCreatedDate() {
 		return createdDate;
 	}
-	public void setCreatedDate(Date createdDate) {
+	public void setCreatedDate(LocalDate createdDate) {
 		this.createdDate = createdDate;
 	}
 

@@ -150,11 +150,11 @@ public class PssController {
 				productService.setEnvironmentSpace(DefaultSpace.createDefaultSpace((Map<String, Object>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_ENVIRONMENT)));
 			}
 			
-			productService.setCreatedDate(new Date());
-			productService.setCreatedUser(SmartUtil.getUserId());
-			productService.setLastModifiedDate(new Date());
-			productService.setLastModifiedUser(SmartUtil.getUserId());
-			ManagerFactory.getInstance().getServiceManager().setProductService(SmartUtil.getUserId(), productService, ProductService.SPACE_TYPE_ALL);
+			productService.setCreatedDate(new LocalDate());
+			productService.setCreatedUser(SmartUtil.getCurrentUser());
+			productService.setLastModifiedDate(new LocalDate());
+			productService.setLastModifiedUser(SmartUtil.getCurrentUser());
+			ManagerFactory.getInstance().getServiceManager().setProductService(SmartUtil.getCurrentUser().getId(), productService, ProductService.SPACE_TYPE_ALL);
 			
 		}catch (Exception e){
 			e.printStackTrace();

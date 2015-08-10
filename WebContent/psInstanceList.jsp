@@ -99,6 +99,8 @@
 			ProductService[] productServices = (ProductService[]) instanceList.getInstanceDatas();
 			for (ProductService productService : productServices) {
 				productService.setSpaceType(ProductService.getSpaceType(params.getSpaceType()));
+				User lastModifier = productService.getLastModifiedUser();
+				LocalDate lastModifiedDate = productService.getLastModifiedDate();
 			%>
 				<tr class="instance_list js_work_instance_list js_instance_detail" href="newProductService.sw?psId=<%=productService.getId() %>&spaceType=<%=params.getSpaceType()%>" psId="<%=productService.getId()%>" psName="<%=productService.getName()%>">
 					<td class="tc"><input class="js_check_instance" name="chkSelectInstance" type="checkbox"/></td>
@@ -150,17 +152,12 @@
 						%>
 					</td>
 					<td class="vt">
-						<div class="noti_pic">
-<%-- 							<img src="<%=lastModifier.getMinPicture()%>" title="<%=lastModifier.getLongName()%>" class="<%=modifierProfileClass %>" />
- --%>						</div>
 						<div class="noti_in_s">
- 							<span class="t_name"><img class="profile_size_s mb3 mr3" src="images/no_user_picture_min.jpg"/>CDI사용자</span>
+ 							<span class="t_name"><img class="profile_size_s mb3 mr3" src="<%=lastModifier.getMinPicture()%>"/><%=lastModifier.getLongName()%></span>
  							<%
  								if (productService.getLastModifiedDate() != null) {
  							%>
- 								<div class="t_date"><%=new LocalDate(productService
-									.getLastModifiedDate().getTime()
-									- LocalDate.ONE_HOUR * 9).toLocalString()%></div>
+ 								<div class="t_date"><%=lastModifiedDate.toLocalString()%></div>
  							<%
  								}
  							%>
@@ -292,7 +289,7 @@
 
 		<div class="num_box">
 			<div class="icon_btn_start">
-				<a href="newProductService.jsp"	class="js_instance_detail icon_btn_tail">새항목 등록하기</a>
+				<a href="newProductService.jsp"	class="js_instance_detail icon_btn_tail"><fmt:message key="common.button.add_new_iwork"/></a>
 			</div>
 			<span class="js_progress_span"></span> 
 			<select	class="js_select_page_size" name="selPageSize" title="<fmt:message key='common.title.count_in_page'/>">

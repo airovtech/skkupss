@@ -31,6 +31,7 @@ import net.smartworks.skkupss.model.db.Db_User;
 import net.smartworks.skkupss.model.db.Db_UserCond;
 import net.smartworks.skkupss.model.db.Db_ValueSpace;
 import net.smartworks.skkupss.model.db.Db_ValueSpaceCond;
+import net.smartworks.util.LocalDate;
 import net.smartworks.util.SmartUtil;
 
 import org.springframework.util.StringUtils;
@@ -158,9 +159,11 @@ public class DbManagerImpl implements IDbManager {
 			productService.setTimeSpace(makeStringFromDefaultSpace(ps.getTimeSpace()));
 			productService.setEnvironmentSpace(makeStringFromDefaultSpace(ps.getEnvironmentSpace()));
 
-			productService.setLastModifiedUser(ps.getLastModifiedUser());
+			if(ps.getLastModifiedUser()!=null)
+				productService.setLastModifiedUser(ps.getLastModifiedUser().getId());
 			productService.setLastModifiedDate(ps.getLastModifiedDate());
-			productService.setCreatedUser(ps.getCreatedUser());
+			if(ps.getCreatedUser()!=null)
+				productService.setCreatedUser(ps.getCreatedUser().getId());
 			productService.setCreatedDate(ps.getCreatedDate());
 			
 			result[i] = productService;
@@ -256,10 +259,12 @@ public class DbManagerImpl implements IDbManager {
 			productService.setTimeSpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getTimeSpace(), delimiters)));
 			productService.setEnvironmentSpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getEnvironmentSpace(), delimiters)));
 
-			productService.setLastModifiedUser(dbPs.getLastModifiedUser());
-			productService.setLastModifiedDate(dbPs.getLastModifiedDate());
-			productService.setCreatedUser(dbPs.getCreatedUser());
-			productService.setCreatedDate(dbPs.getCreatedDate());
+			productService.setLastModifiedUser(SmartUtil.getUserFromUserId(dbPs.getLastModifiedUser()));
+			if(dbPs.getLastModifiedDate()!=null)
+				productService.setLastModifiedDate(new LocalDate(dbPs.getLastModifiedDate().getTime()));
+			productService.setCreatedUser(SmartUtil.getUserFromUserId(dbPs.getCreatedUser()));
+			if(dbPs.getCreatedDate()!=null)
+				productService.setCreatedDate(new LocalDate(dbPs.getCreatedDate().getTime()));
 			
 			result[i] = productService;
 		}
@@ -405,10 +410,12 @@ public class DbManagerImpl implements IDbManager {
 		productService.setTimeSpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getTimeSpace(), delimiters)));
 		productService.setEnvironmentSpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getEnvironmentSpace(), delimiters)));
 
-		productService.setLastModifiedUser(dbPs.getLastModifiedUser());
-		productService.setLastModifiedDate(dbPs.getLastModifiedDate());
-		productService.setCreatedUser(dbPs.getCreatedUser());
-		productService.setCreatedDate(dbPs.getCreatedDate());
+		productService.setLastModifiedUser(SmartUtil.getUserFromUserId(dbPs.getLastModifiedUser()));
+		if(dbPs.getLastModifiedDate()!=null)
+			productService.setLastModifiedDate(new LocalDate(dbPs.getLastModifiedDate().getTime()));
+		productService.setCreatedUser(SmartUtil.getUserFromUserId(dbPs.getCreatedUser()));
+		if(dbPs.getCreatedDate()!=null)
+			productService.setCreatedDate(new LocalDate(dbPs.getCreatedDate().getTime()));
 		
 		return productService;
 	}
@@ -545,8 +552,8 @@ public class DbManagerImpl implements IDbManager {
 		if(!SmartUtil.isBlankObject(dbUser.getPicture())){
 			String[] tokens = dbUser.getPicture().split("\\.");
 			if(tokens.length==2){
-				user.setBigPictureName(tokens[0]+"_small."+tokens[1]);
-				user.setSmallPictureName(tokens[0]+"_small."+tokens[1]);
+				user.setBigPictureName(tokens[0]+"_thumb."+tokens[1]);
+				user.setSmallPictureName(tokens[0]+"_thumb."+tokens[1]);
 			}else{
 				user.setBigPictureName(dbUser.getPicture());				
 			}
