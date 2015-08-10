@@ -206,7 +206,7 @@ $(function() {
 		paramsJson["spaceType"] = spaceType;
 		paramsJson["psIds"] = psIds;
 		paramsJson["psNames"] = psNames;
-		paramsJson["href"] = "psSimilarityMatrix.jsp";
+		paramsJson["href"] = "psSimilarityMatrix.sw";
 		console.log(JSON.stringify(paramsJson));
 		smartPop.progressCenter();
 		$.ajax({
@@ -240,7 +240,7 @@ $(function() {
 		var spaceType = $('select.js_select_space_name option:selected').attr('value');
 		smartPop.progressCenter();
 		$.ajax({
-			url : "doubleProductServices.jsp?sourcePsId=" + psIds[0] + "&targetPsId=" + psIds[1] + "&spaceType=" + spaceType,
+			url : "doubleProductServices.sw?sourcePsId=" + psIds[0] + "&targetPsId=" + psIds[1] + "&spaceType=" + spaceType,
 			success : function(data, status, jqXHR) {
 				$('#content').html(data);
 				smartPop.closeProgress();

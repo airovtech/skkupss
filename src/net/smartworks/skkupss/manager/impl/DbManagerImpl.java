@@ -12,21 +12,23 @@ import net.smartworks.factory.DaoFactory;
 import net.smartworks.skkupss.dao.IDbDao;
 import net.smartworks.skkupss.manager.IDbManager;
 import net.smartworks.skkupss.model.BizModelSpace;
-import net.smartworks.skkupss.model.BizModelSpaceCond;
 import net.smartworks.skkupss.model.ContextSpace;
 import net.smartworks.skkupss.model.DefaultSpace;
+import net.smartworks.skkupss.model.Login;
 import net.smartworks.skkupss.model.ProductService;
 import net.smartworks.skkupss.model.ProductServiceCond;
 import net.smartworks.skkupss.model.ServiceSpace;
-import net.smartworks.skkupss.model.ServiceSpaceCond;
+import net.smartworks.skkupss.model.User;
+import net.smartworks.skkupss.model.UserCond;
 import net.smartworks.skkupss.model.ValueSpace;
-import net.smartworks.skkupss.model.ValueSpaceCond;
 import net.smartworks.skkupss.model.db.Db_BizModelSpace;
 import net.smartworks.skkupss.model.db.Db_BizModelSpaceCond;
 import net.smartworks.skkupss.model.db.Db_ProductService;
 import net.smartworks.skkupss.model.db.Db_ProductServiceCond;
 import net.smartworks.skkupss.model.db.Db_ServiceSpace;
 import net.smartworks.skkupss.model.db.Db_ServiceSpaceCond;
+import net.smartworks.skkupss.model.db.Db_User;
+import net.smartworks.skkupss.model.db.Db_UserCond;
 import net.smartworks.skkupss.model.db.Db_ValueSpace;
 import net.smartworks.skkupss.model.db.Db_ValueSpaceCond;
 import net.smartworks.util.SmartUtil;
@@ -479,162 +481,98 @@ public class DbManagerImpl implements IDbManager {
 		String picture = DaoFactory.getInstance().getDbDao().getProductServicePicture(user, psId);
 		return picture;
 	}
+	@Override
+	public String setUser(String userId, User user) throws Exception {
 
-
-	/*public ProductService[] getProductServices(String userId, ProductServiceCond cond) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public ValueSpace getValueSpace(String userId, String id) throws Exception {
-
-		IDbDao dao = DaoFactory.getInstance().getDbDao();
-		Db_ValueSpace dbVs = dao.getValueSpace(userId, id);
-		if (dbVs != null) {
-			ValueSpace valueSpace = new ValueSpace();
-			valueSpace.setId(dbVs.getId());
-			valueSpace.setPsId(dbVs.getPsId());
-			valueSpace.setEconomical(StringUtils.tokenizeToStringArray(dbVs.getEconomical(), delimiters));
-			valueSpace.setEcological(StringUtils.tokenizeToStringArray(dbVs.getEcological(), delimiters));
-			valueSpace.setFunction(StringUtils.tokenizeToStringArray(dbVs.getFunction(), delimiters));
-			valueSpace.setExtrinsicSocial(StringUtils.tokenizeToStringArray(dbVs.getExtrinsicSocial(), delimiters));
-			valueSpace.setActiveEmotional(StringUtils.tokenizeToStringArray(dbVs.getActiveEmotional(), delimiters));
-			valueSpace.setReactiveEmotional(StringUtils.tokenizeToStringArray(dbVs.getReactiveEmotional(), delimiters));
-			valueSpace.setIntrinsicSocial(StringUtils.tokenizeToStringArray(dbVs.getIntrinsicSocial(), delimiters));
-			valueSpace.setEpistemic(StringUtils.tokenizeToStringArray(dbVs.getEpistemic(), delimiters));
-			return valueSpace;
-		} else {
+		if (user == null)
 			return null;
+
+		IDbDao dao = DaoFactory.getInstance().getDbDao();
+		
+		Db_User dbUser = getDbUserFromUser(user);
+		if(SmartUtil.isBlankObject(dbUser))
+			return null;
+		
+		String id = dao.setUser(userId, dbUser);
+
+		return id;
+	}
+	@Override
+	public void removeUser(String userId, String id) throws Exception {
+		IDbDao dao = DaoFactory.getInstance().getDbDao();
+		dao.removeUser(userId, id);
+	}
+	@Override
+	public User getUser(String userId, String id) throws Exception {
+		Db_User dbUser = DaoFactory.getInstance().getDbDao().getUser(userId, id);
+		if(SmartUtil.isBlankObject(dbUser))
+			return null;
+		
+		return getUserFromDbUser(dbUser);
+	}
+	@Override
+	public int getUserSize(String userId, UserCond cond) throws Exception {
+		Db_UserCond dbCond = new Db_UserCond();
+
+		if (cond.getSearchKey() != null) {
+			dbCond.setSearchKey(cond.getSearchKey());
 		}
+		
+		int totalSize = DaoFactory.getInstance().getDbDao().getUserSize(userId, dbCond);
+		return totalSize;
 	}
-
-
-	public void setValueSpace(String userId, ValueSpace valueSpace) throws Exception {
-
-		if (valueSpace == null)
-			return;
-		Db_ValueSpace dbVs = new Db_ValueSpace();
+	@Override
+	public User[] getUsers(String userId, UserCond cond) throws Exception {
 		
-		dbVs.setId(valueSpace.getId());
-		dbVs.setPsId(valueSpace.getPsId());
+		Db_UserCond dbUserCond = new Db_UserCond();
 		
-		dbVs.setEconomical(makeStringWithDelimiters(valueSpace.getEconomical()));
-		dbVs.setEcological(makeStringWithDelimiters(valueSpace.getEcological()));
-		dbVs.setFunction(makeStringWithDelimiters(valueSpace.getFunction()));
-		dbVs.setExtrinsicSocial(makeStringWithDelimiters(valueSpace.getExtrinsicSocial()));
-		dbVs.setActiveEmotional(makeStringWithDelimiters(valueSpace.getActiveEmotional()));
-		dbVs.setReactiveEmotional(makeStringWithDelimiters(valueSpace.getReactiveEmotional()));
-		dbVs.setIntrinsicSocial(makeStringWithDelimiters(valueSpace.getIntrinsicSocial()));
-		dbVs.setEpistemic(makeStringWithDelimiters(valueSpace.getEpistemic()));
+		Db_User[] dbUsers = DaoFactory.getInstance().getDbDao().getUsers(userId, dbUserCond);
+		if(SmartUtil.isBlankObject(dbUsers))
+			return null;
 		
-		IDbDao dao = DaoFactory.getInstance().getDbDao();
-		dao.setValueSpace(userId, dbVs);
-		
+		User[] users = new User[dbUsers.length];
+		for(int i=0; i<dbUsers.length; i++)
+			users[i] = getUserFromDbUser(dbUsers[i]);
+		return users;
 	}
-
-
-	public void removeValueSpace(String userId, String id) throws Exception {
-
-		IDbDao dao = DaoFactory.getInstance().getDbDao();
-		dao.removeValueSpace(userId, id);		
 	
-	}
-
-
-	public ValueSpace[] getValueSpaces(String userId, ValueSpaceCond cond) throws Exception {
-
-		if (cond == null)
-			return null;
-		
-		Db_ValueSpaceCond dbCond = new Db_ValueSpaceCond();
-		String id = cond.getId();
-		String psId = cond.getPsId();
-
-		//추가 검색 조건 추가 위치
-		
-		int pageNo = cond.getPageNo();
-		int pageSize = cond.getPageSize();
-		dbCond.setPageNo(pageNo);
-		dbCond.setPageSize(pageSize);
-		
-		if (id != null)
-			dbCond.setId(id);
-		if (psId != null)
-			dbCond.setPsId(psId);
-		
-		IDbDao dao = DaoFactory.getInstance().getDbDao();
-		Db_ValueSpace[] dbVss = dao.getValueSpaces(userId, dbCond);
-
-		if (dbVss == null || dbVss.length == 0)
-			return null;
-		
-		ValueSpace[] result = new ValueSpace[dbVss.length];
-		for (int i = 0; i < dbVss.length; i++) {
-			Db_ValueSpace dbVs = dbVss[i];
-
-			ValueSpace valueSpace = new ValueSpace();
-			valueSpace.setId(dbVs.getId());
-			valueSpace.setPsId(dbVs.getPsId());
-			valueSpace.setEconomical(StringUtils.tokenizeToStringArray(dbVs.getEconomical(), delimiters));
-			valueSpace.setEcological(StringUtils.tokenizeToStringArray(dbVs.getEcological(), delimiters));
-			valueSpace.setFunction(StringUtils.tokenizeToStringArray(dbVs.getFunction(), delimiters));
-			valueSpace.setExtrinsicSocial(StringUtils.tokenizeToStringArray(dbVs.getExtrinsicSocial(), delimiters));
-			valueSpace.setActiveEmotional(StringUtils.tokenizeToStringArray(dbVs.getActiveEmotional(), delimiters));
-			valueSpace.setReactiveEmotional(StringUtils.tokenizeToStringArray(dbVs.getReactiveEmotional(), delimiters));
-			valueSpace.setIntrinsicSocial(StringUtils.tokenizeToStringArray(dbVs.getIntrinsicSocial(), delimiters));
-			valueSpace.setEpistemic(StringUtils.tokenizeToStringArray(dbVs.getEpistemic(), delimiters));
-			
-			result[i] = valueSpace;
+	private User getUserFromDbUser(Db_User dbUser){
+		User user = new User();
+		user.setId(dbUser.getId());
+		user.setName(dbUser.getName());
+		user.setPassword(dbUser.getPasswd());
+		user.setUserLevel(Login.getUserLevel(dbUser.getAuthId()));
+		if(!SmartUtil.isBlankObject(dbUser.getPicture())){
+			String[] tokens = dbUser.getPicture().split("\\.");
+			if(tokens.length==2){
+				user.setBigPictureName(tokens[0]+"_small."+tokens[1]);
+				user.setSmallPictureName(tokens[0]+"_small."+tokens[1]);
+			}else{
+				user.setBigPictureName(dbUser.getPicture());				
+			}
 		}
-		return result;
+		user.setCompany(dbUser.getCompany());
+		if(!SmartUtil.isBlankObject(dbUser.getLocale()))
+			user.setLocale(dbUser.getLocale());
+		if(!SmartUtil.isBlankObject(dbUser.getTimeZone()))
+			user.setTimeZone(dbUser.getTimeZone());
+		user.setHomePhoneNo(dbUser.getHomePhoneNo());
+		user.setHomeAddress(dbUser.getHomeAddress());
+		return user;
 	}
-
-
-	public ServiceSpace getServiceSpace(String userId, String id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	
+	private Db_User getDbUserFromUser(User user){
+		Db_User dbUser = new Db_User();
+		dbUser.setId(user.getId());
+		dbUser.setName(user.getName());
+		dbUser.setPasswd(user.getPassword());
+		dbUser.setAuthId(Login.getAuthId(user.getUserLevel()));
+		dbUser.setPicture(user.getBigPictureName());
+		dbUser.setCompany(user.getCompany());
+		dbUser.setLocale(user.getLocale());
+		dbUser.setTimeZone(user.getTimeZone());
+		dbUser.setHomePhoneNo(user.getHomePhoneNo());
+		dbUser.setHomeAddress(user.getHomeAddress());
+		return dbUser;
 	}
-
-
-	public void setServiceSpace(String userId, ServiceSpace serviceSpace) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	public void removeServiceSpace(String userId, String id) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	public ServiceSpace[] getServiceSpaces(String userId, ServiceSpaceCond cond) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	public BizModelSpace getBizModelSpace(String userId, String id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	public void setBizModelSpace(String userId, BizModelSpace bizModelSpace) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	public void removeBizModelSpace(String userId, String id) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	public BizModelSpace[] getBizModelSpace(String userId, BizModelSpaceCond cond) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-*/
 }

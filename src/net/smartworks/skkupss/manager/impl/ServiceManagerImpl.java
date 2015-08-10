@@ -27,6 +27,8 @@ import net.smartworks.skkupss.model.RequestParams;
 import net.smartworks.skkupss.model.ServiceSpace;
 import net.smartworks.skkupss.model.SimilarityMatrix;
 import net.smartworks.skkupss.model.SortingField;
+import net.smartworks.skkupss.model.User;
+import net.smartworks.skkupss.model.UserCond;
 import net.smartworks.skkupss.model.ValueSpace;
 import net.smartworks.skkupss.smcal.SimBizModel;
 import net.smartworks.skkupss.smcal.SimContext;
@@ -305,5 +307,95 @@ public class ServiceManagerImpl implements IServiceManager {
 		return picture;
 	}
 	
+	@Override
+	public InstanceList getUserInstanceList(RequestParams params) throws Exception {
+
+		if (params == null)
+			return null;
+		
+		UserCond userCond = new UserCond();
+
+		if(!SmartUtil.isBlankObject(params.getSearchKey())){
+			userCond.setSearchKey(params.getSearchKey());
+		}else{
+			userCond.setSearchKey(null);
+			
+		}
+
+		String spaceType = params.getSpaceType();
+		
+		int totalSize = 0;
+		try{
+			totalSize = ManagerFactory.getInstance().getDbManager().getUserSize("", userCond);
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		
+		int pageSize = params.getPageSize();
+		int currentPage = params.getCurrentPage();
+		int pagingAction = params.getPagingAction();
+		
+		if (pageSize != -1) {
+			userCond.setPageNo(currentPage);
+			userCond.setPageSize(pageSize);
+		}
+
+		SortingField sortingField = params.getSortingField();
+		if (sortingField == null) {
+			sortingField = new SortingField(ProductService.FIELD_LAST_MODIFIED_DATE, false);
+			params.setSortingField(sortingField);
+		}
+		String fieldId = sortingField.getFieldId();
+		boolean isAsc = sortingField.isAscending();
+		Order order = new Order(fieldId, isAsc);
+		userCond.setOrders(new Order[]{order});
+
+		User[] users = null;
+		try{
+			users = ManagerFactory.getInstance().getDbManager().getUsers("", userCond);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		if (users == null || users.length == 0)
+			return null;
+		
+		InstanceList result = new InstanceList();
+		
+		result.setInstanceDatas(users);
+		result.setSortedField(sortingField);
+		result.setPageSize(pageSize);
+		
+		int totalPages = (int)totalSize % pageSize;
+		if(totalPages == 0) {
+			totalPages = (int)totalSize / pageSize;
+		} else {
+			totalPages = (int)totalSize / pageSize + 1;
+		}
+		result.setTotalPages(totalPages);
+		result.setCurrentPage(currentPage);
+		result.setTotalSize(totalSize);
+		
+		return result;
+	}
+
+	@Override
+	public String setUser(String userId, User user) throws Exception {
+		ManagerFactory.getInstance().getDbManager().setUser("", user);
+		return user.getId();
+	}
+
+	@Override
+	public void removeUser(String userId) throws Exception {
+		ManagerFactory.getInstance().getDbManager().removeUser("", userId);
+	}
+
+	@Override
+	public User getUser(String userId) throws Exception {
+
+		User user = ManagerFactory.getInstance().getDbManager().getUser("", userId);
+		return user;
+		
+	}
 
 }

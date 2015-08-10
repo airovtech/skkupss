@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+	<definition name="smart" template="/layouts.jsp">
+		<put-attribute name="header" value="/header.jsp" />
+		<put-attribute name="navigation" value="/empty.jsp" />
+		<put-attribute name="content" value="/empty.jsp" />
+		<put-attribute name="footer" value="/footer.jsp" />
+	</definition>
+	<definition name="home" extends="smart">
+		<put-attribute name="navigation" value="/empty.jsp" />
+		<put-attribute name="content" value="/psList.jsp" />
+	</definition>
+	<definition name="psList" extends="smart">
+		<put-attribute name="navigation" value="/empty.jsp" />
+		<put-attribute name="content" value="/psList.jsp" />
+	</definition>
+	<definition name="newProductService" extends="smart">
+		<put-attribute name="navigation" value="/empty.jsp" />
+		<put-attribute name="content" value="/newProductService.jsp" />
+	</definition>
+	<definition name="psSimilarityMatrix" extends="smart">
+		<put-attribute name="navigation" value="/empty.jsp" />
+		<put-attribute name="content" value="/psSimilarityMatrix.jsp" />
+	</definition>
+	<definition name="doubleProductServices" extends="smart">
+		<put-attribute name="navigation" value="/empty.jsp" />
+		<put-attribute name="content" value="/doubleProductServices.jsp" />
+	</definition>
+	<definition name="my_profile" extends="smart">
+		<put-attribute name="navigation" value="/empty.jsp" />
+		<put-attribute name="content" value="/my_profile.jsp" />
+	</definition>
+	<definition name="settings_home" extends="smart">
+		<put-attribute name="navigation" value="/settings.jsp" />
+		<put-attribute name="content" value="/empty.jsp" />
+	</definition>
+	<definition name="user_management" extends="smart">
+		<put-attribute name="navigation" value="/settings.jsp" />
+		<put-attribute name="content" value="/user_management.jsp" />
+	</definition>
+	
+</tiles-definitions>

@@ -22,6 +22,9 @@ import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.smartworks.skkupss.model.Login;
+import net.smartworks.skkupss.model.User;
+
 import org.apache.axis.utils.StringUtils;
 import org.cometd.bayeux.client.ClientSession;
 import org.cometd.client.BayeuxClient;
@@ -42,6 +45,19 @@ public class SmartUtil {
 		super();
 	}
 
+	public static ModelAndView returnMnv(HttpServletRequest request, String ajaxPage, String defaultPage) {
+		String getHeader = request.getHeader("X-Requested-With");
+		if (getHeader != null){
+			SecurityContext context = (SecurityContext) request.getSession().getAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY);
+			if (SmartUtil.isBlankObject(context))
+				return new ModelAndView("home.tiles");
+			else
+				return new ModelAndView(ajaxPage);
+		}else{
+			return new ModelAndView(defaultPage);
+		}
+	}
+	
 	public static int getNumOfValidStrings(String[] strings){
 		int count = 0;
 		for(int i=0; !SmartUtil.isBlankObject(strings) && i<strings.length; i++){
@@ -315,4 +331,63 @@ public class SmartUtil {
 		}catch(Exception e){}
 		return null;
 	}
+
+	public static Login getCurrentUser(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		Login user = new Login();
+		SecurityContext context = (SecurityContext) request.getSession().getAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY);
+		if(context != null) {
+			Authentication auth = context.getAuthentication();
+			if(auth != null) {
+				if(((Login)auth.getPrincipal()).getId() != null){
+					user = (Login)auth.getPrincipal();
+				}else{
+					response.sendRedirect("logout");
+				}
+			} else {
+				response.sendRedirect("logout");
+			}
+		}
+
+		return user;
+	}
+	
+	public static User getCurrentUser() {
+		SecurityContext securityContext = SecurityContextHolder.getContext();
+		Authentication authentication = securityContext.getAuthentication();
+		if(authentication != null) {
+			Object principal = authentication.getPrincipal();
+			if(!principal.equals("anonymousUser")) {
+				Login login = (Login)(principal instanceof Login ? principal : null);
+				User user = new User();
+				if(login != null) {
+					user.setId(login.getId());
+					user.setName(login.getName());
+					user.setPassword(login.getPassword());
+					user.setUserLevel(login.getUserLevel());
+					user.setBigPictureName(login.getBigPictureName());
+					user.setSmallPictureName(login.getSmallPictureName());
+					user.setPicture(login.getPicture());
+					user.setCompany(login.getCompany());
+					if(!SmartUtil.isBlankObject(login.getLocale()))
+						user.setLocale(login.getLocale());
+					if(!SmartUtil.isBlankObject(login.getTimeZone()))
+						user.setTimeZone(login.getTimeZone());
+					user.setHomePhoneNo(login.getHomePhoneNo());
+					user.setHomeAddress(login.getHomeAddress());
+				}
+				return user;
+			}
+		}
+		return SmartUtil.getAnonymousUser("", "");
+	}
+
+	public static User getAnonymousUser(String companyId, String company){
+
+		User user = new User();
+		user.setId("anonymoususer@smartworks.net");
+		user.setName("Anonymous User");
+		return user;
+	}
+	
 }

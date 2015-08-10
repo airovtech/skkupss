@@ -1,4 +1,7 @@
+<%@page import="net.smartworks.util.SmartUtil"%>
+<%@page import="net.smartworks.skkupss.model.User"%>
 <%@ page contentType="text/html; charset=utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <script type="text/javascript">
 try{
 
@@ -49,8 +52,11 @@ try{
 </script>
 
 <%
+	User cUser = SmartUtil.getCurrentUser();
 	String spaceType = request.getParameter("spaceType");
 %>
+<fmt:setLocale value="<%=cUser.getLocale() %>" scope="request" />
+<fmt:setBundle basename="resource.smartworksMessage" scope="request" />
 
 
 <!-- 컨텐츠 레이아웃-->
@@ -67,7 +73,7 @@ try{
 					<div class="list_title_space js_work_list_title mt15">
 						<div class="title_line_btns">
 							<div class="icon_btn_start">
-								<a href="newProductService.jsp" class="js_instance_detail icon_btn_tail">새항목 등록하기</a>
+								<a href="newProductService.sw" class="js_instance_detail icon_btn_tail"><fmt:message key="common.button.add_new_iwork"/></a>
 							</div>
 							<div class="icon_btn_start">
 								<a href="" class="js_eyeball_comparison icon_btn_tail">육안 비교</a>
@@ -80,8 +86,8 @@ try{
 						<div class="title_line_options">
 							<form name="frmSearchInstance" class="po_left ml10"> 
 								<div class="srch_wh srch_wsize">
-									<input name="txtSearchInstance" class="nav_input" value="" type="text" placeholder="항목찾기">
-									<button title="함목찾기" onclick="selectListParam($('.js_work_list_title').find('.js_progress_span:first'), false);return false;"></button>
+									<input name="txtSearchInstance" class="nav_input" value="" type="text" placeholder="<fmt:message key='search.search_instance'/>">
+									<button title="<fmt:message key='search.search_instance'/>" onclick="selectListParam($('.js_work_list_title').find('.js_progress_span:first'), false);return false;"></button>
 								</div>
 							</form>
 							<span class="js_progress_span"></span>

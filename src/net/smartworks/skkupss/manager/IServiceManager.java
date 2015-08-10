@@ -16,6 +16,7 @@ import net.smartworks.skkupss.model.InstanceList;
 import net.smartworks.skkupss.model.ProductService;
 import net.smartworks.skkupss.model.RequestParams;
 import net.smartworks.skkupss.model.SimilarityMatrix;
+import net.smartworks.skkupss.model.User;
 
 public interface IServiceManager {
 
@@ -33,4 +34,11 @@ public interface IServiceManager {
 	
 	public String getProductServicePicture(String userId, String psId) throws Exception;
 	
+	public InstanceList getUserInstanceList(RequestParams params) throws Exception;
+	
+	public String setUser(String userId, User user) throws Exception;
+	
+	public void removeUser(String userId) throws Exception;
+	
+	public User getUser(String userId) throws Exception;
 }

@@ -20,4 +20,5 @@ public interface IDocFileManager {
 
 	public abstract void deleteFile(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
+	public abstract String insertProfilesFile(String fileName) throws Exception;
 }

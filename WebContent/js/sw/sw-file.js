@@ -22,7 +22,7 @@ function fileUploader(groupId, target) {
 	
 	var template = '<div class="qq-uploader js_form_file_field">' + 
     '<div class="qq-upload-drop-area"><span>' + smartMessage.get("uploadDropArea") + '</span></div>' +
-    '<div class="qq-upload-button">' + "제품사진" + '</div>' +
+    '<div class="qq-upload-button">' + smartMessage.get("pssSelectPicture") + '</div>' +
     '<ul class="qq-upload-list"></ul>' + 
     '</div>';
 

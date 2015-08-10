@@ -8,12 +8,13 @@
 
 package net.smartworks.controller;
 
-import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,13 +28,25 @@ import net.smartworks.skkupss.model.RequestParams;
 import net.smartworks.skkupss.model.ServiceSpace;
 import net.smartworks.skkupss.model.SimilarityMatrix;
 import net.smartworks.skkupss.model.SortingField;
+import net.smartworks.skkupss.model.User;
 import net.smartworks.skkupss.model.ValueSpace;
+import net.smartworks.skkupss.model.db.Db_User;
+import net.smartworks.util.CommonUtil;
+import net.smartworks.util.LocalDate;
 import net.smartworks.util.ServiceUtil;
 import net.smartworks.util.SmartUtil;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.context.SecurityContextImpl;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,9 +58,52 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class PssController {
 	
+	@Autowired
+	private AuthenticationManager authenticationManager;
+
+	@RequestMapping("/index")
+	public ModelAndView index(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		return ServiceUtil.returnMnv(request, "index.jsp", "index.jsp");
+	}
+	
+	@RequestMapping("/login")
+	public ModelAndView login(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		return ServiceUtil.returnMnv(request, "login.jsp", "login.jsp");
+	}
+
+	@RequestMapping("/logout")
+	public ModelAndView logouts(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		try {
+			String userId = request.getParameter("userId");
+			request.getSession().removeAttribute(userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		ModelAndView mnv = new ModelAndView();
+		mnv.addObject("href", "logout");
+		mnv.setViewName("movePage.jsp");
+		return mnv;
+	}
+	
 	@RequestMapping("/home")
 	public ModelAndView home(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		return ServiceUtil.returnMnv(request, "login.jsp", "login.jsp");
+		return SmartUtil.returnMnv(request, "psList.jsp", "psList.tiles");
+	}
+	
+	@RequestMapping("/newProductService")
+	public ModelAndView newProductService(HttpServletRequest request, HttpServletResponse response) {
+		return SmartUtil.returnMnv(request, "newProductService.jsp", "newProductService.tiles");
+	}
+
+	@RequestMapping("/psSimilarityMatrix")
+	public ModelAndView psSimilarityMatrix(HttpServletRequest request, HttpServletResponse response) {
+		return SmartUtil.returnMnv(request, "psSimilarityMatrix.jsp", "psSimilarityMatrix.tiles");
+	}
+
+	@RequestMapping("/doubleProductServices")
+	public ModelAndView doubleProductServices(HttpServletRequest request, HttpServletResponse response) {
+		return SmartUtil.returnMnv(request, "doubleProductServices.jsp", "doubleProductServices.tiles");
 	}
 	
 	@RequestMapping(value = "/set_product_service", method = RequestMethod.POST)
@@ -257,6 +313,106 @@ public class PssController {
 		return new ResponseEntity<String>(ServiceSpace.getValueHtml(request.getParameter("serviceValue")), responseHeaders, HttpStatus.CREATED);
 	}	
 
+	@RequestMapping("/my_profile")
+	public ModelAndView myProfile(HttpServletRequest request, HttpServletResponse response) {
+		return SmartUtil.returnMnv(request, "my_profile.jsp", "my_profile.tiles");
+	}
 
-
+	@RequestMapping(value = "/update_my_profile", method = RequestMethod.POST)
+	@ResponseStatus(HttpStatus.OK)
+	public void updateMyProfile(@RequestBody Map<String, Object> requestBody, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		try {
+			Map<String, Object> frmMyProfileSetting = (Map<String, Object>)requestBody.get("frmMyProfileSetting");
+	
+			Set<String> keySet = frmMyProfileSetting.keySet();
+			Iterator<String> itr = keySet.iterator();
+	
+			List<Map<String, String>> imgMyProfile = null;
+			List<Map<String, String>> imgMySignPic = null;
+			String groupId = null;
+			String txtUserProfileUserId = null;
+			String pwUserProfilePW = null;
+			String txtUserProfileCompany = null;
+			String selUserProfileLocale = null;
+			String selUserProfileTimeZone = null;
+			String txtUserProfileCellNo = null;
+			String profileFileId = null;
+			String profileFileName = null;
+			String txtUserProfilePicture = null;
+			String homePhoneNo = null, homeAddress = null;
+			
+			while (itr.hasNext()) {
+				String fieldId = (String)itr.next();
+				Object fieldValue = frmMyProfileSetting.get(fieldId);
+				if (fieldValue instanceof LinkedHashMap) {
+					Map<String, Object> valueMap = (Map<String, Object>)fieldValue;
+					groupId = (String)valueMap.get("groupId");
+					if(!CommonUtil.isEmpty(groupId)) {
+						if(fieldId.equals("imgMyProfile"))
+							imgMyProfile = (ArrayList<Map<String,String>>)valueMap.get("files");
+					}
+				} else if(fieldValue instanceof String) {
+					String valueString = (String)fieldValue;
+					if(fieldId.equals("txtUserProfileUserId"))
+						txtUserProfileUserId = valueString;
+					else if(fieldId.equals("pwUserProfilePW"))
+						pwUserProfilePW = valueString;
+					else if(fieldId.equals("txtUserProfileCompany"))
+						txtUserProfileCompany = valueString;
+					else if(fieldId.equals("selUserProfileLocale"))
+						selUserProfileLocale = valueString;
+					else if(fieldId.equals("selUserProfileTimeZone"))
+						selUserProfileTimeZone = valueString;
+					else if(fieldId.equals("txtUserProfileCellNo"))
+						txtUserProfileCellNo = valueString;
+					else if (fieldId.equals("txtUserHomePhoneNo"))
+						homePhoneNo = valueString;
+					else if (fieldId.equals("txtUserHomeAddress"))
+						homeAddress = valueString;
+				}
+			}
+	
+			User user = ManagerFactory.getInstance().getServiceManager().getUser(txtUserProfileUserId);
+	
+			if(!imgMyProfile.isEmpty()) {
+				for(int i=0; i < imgMyProfile.subList(0, imgMyProfile.size()).size(); i++) {
+					Map<String, String> file = imgMyProfile.get(i);
+					profileFileId = file.get("fileId");
+					profileFileName = file.get("fileName");
+					txtUserProfilePicture = ManagerFactory.getInstance().getDocFileManager().insertProfilesFile(profileFileId);
+					user.setBigPictureName(profileFileId);
+				}
+			}
+	
+			user.setPassword(pwUserProfilePW);
+			user.setLocale(selUserProfileLocale);
+			user.setTimeZone(selUserProfileTimeZone);
+			user.setMobilePhoneNo(txtUserProfileCellNo);
+			user.setCompany(txtUserProfileCompany);
+			user.setHomePhoneNo(homePhoneNo);
+			user.setHomeAddress(homeAddress);
+			try {
+				ManagerFactory.getInstance().getServiceManager().setUser(txtUserProfileUserId, user);
+	
+				UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(user.getId(), user.getPassword());
+		        Authentication authentication = authenticationManager.authenticate(authRequest);
+		        SecurityContext securityContext = new SecurityContextImpl();
+		        securityContext.setAuthentication(authentication);
+		        SecurityContextHolder.setContext(securityContext);
+		        request.getSession().setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, securityContext);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}catch (Exception e){
+			// Exception Handling Required
+			e.printStackTrace();
+			// Exception Handling Required			
+		}
+	}
+	
+	@RequestMapping("/settings_home")
+	public ModelAndView settingsHome(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		return SmartUtil.returnMnv(request, "settings.jsp", "settings_home.tiles");
+	}
+	
 }

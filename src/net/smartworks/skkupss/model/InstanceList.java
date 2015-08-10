@@ -2,17 +2,17 @@ package net.smartworks.skkupss.model;
 
 public class InstanceList {
 	
-	private ProductService[] instanceDatas;
+	private Object[] instanceDatas;
 	private SortingField sortedField;
 	private int pageSize;
 	private int	totalPages;
 	private int currentPage;
 	private int totalSize;
 	
-	public ProductService[] getInstanceDatas() {
+	public Object[] getInstanceDatas() {
 		return instanceDatas;
 	}
-	public void setInstanceDatas(ProductService[] instanceDatas) {
+	public void setInstanceDatas(Object[] instanceDatas) {
 		this.instanceDatas = instanceDatas;
 	}
 	public SortingField getSortedField() {

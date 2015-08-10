@@ -192,8 +192,8 @@ tr.list_action_item .list_action.visible {visibility:visible; cursor:pointer}
 .global_menu div { float:right; margin-left:8px; padding-top:16px}
 /* .global_menu .pop {border:1px solid #acacac; border-top:none; background-color:#414041; position:absolute; top:23px; right:0; padding:4px 8px; width:66px; line-height:18px; z-index:39}
  */
-.global_menu .pop {border:1px solid #acacac; border-top:none; background-color:#414041; position:absolute; top:23px; right:0; padding:4px 8px; line-height:18px; z-index:39}
-.global_menu .pop_admin {position:absolute; top:23px; right:0; z-index:38}
+.global_menu .pop {border:1px solid #acacac; border-top:none; background-color:#414041; position:absolute; top:39px; right:0; padding:4px 8px; line-height:18px; z-index:39}
+.global_menu .pop_admin {position:absolute; top:39px; right:0; z-index:38; padding-top:0}
 .global_menu .pop_admin a {float:left; margin-left:2px}
 
 /*Personal Info*/
@@ -460,7 +460,7 @@ li.sub_instance_list > .det_title:hover .delet_action, li.instance_list > .det_t
 #nav .tab_buttons a:hover, #nav .tab_buttons a:focus, #nav .tab_buttons a:active, #nav .tab_buttons a:visited {color:#FFF; text-decoration:underline}
 
 /* Contents*/
-#content {margin:15px 10px 10px 15px; color:#454545; font-family: '돋움',dotum,Helvetica,sans-serif; z-index:20}
+#content {margin:26px 10px 10px 15px; color:#454545; font-family: '돋움',dotum,Helvetica,sans-serif; z-index:20}
 #board {margin:5px 10px 10px 240px; color:#ea1a1a; font-family: '돋움',dotum,Helvetica,sans-serif; height:18px; z-index:20}
 
 /* UpLoad */

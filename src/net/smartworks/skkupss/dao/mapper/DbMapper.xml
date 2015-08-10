@@ -762,4 +762,67 @@
 	<delete id="removeBizModelSpaceByProductId" parameterType="String">
 		delete from bizModelSpace where psId = #{psId}
 	</delete>
+	
+	<resultMap id="userResult" type="net.smartworks.skkupss.model.db.Db_User">
+		<id property="id" column="id" />	
+		<result property="passwd" column="passwd"/>
+		<result property="name" column="name"/>
+		<result property="authId" column="authId"/>
+		<result property="picture" column="picture"/>
+		<result property="company" column="company"/>
+		<result property="mobileNo" column="mobileNo"/>
+		<result property="homePhoneNo" column="homePhoneNo"/>
+		<result property="homeAddress" column="homeAddress"/>
+		<result property="locale" column="locale"/>
+		<result property="timeZone" column="timeZone"/>
+		<result property="creator" column="creator"/>
+		<result property="createdTime" column="createdTime"/>
+		<result property="modifier" column="modifier"/>
+		<result property="modifiedTime" column="modifiedTime"/>
+	</resultMap>
+	
+	<select id="getUserSize" parameterType="net.smartworks.skkupss.model.db.Db_UserCond" resultType="java.lang.Integer">
+		select count(*)
+		from
+		orgUser 
+		where 
+	    <if test="id != null">
+	       	and id = #{id}
+	    </if>
+		<if test="idIns != null">
+			and id in (
+            <foreach collection="idIns" item="orgUser" separator=",">#{orgUser}</foreach>
+            )
+		</if>
+	    <if test="searchKey != null">
+	    	and ((a.name like '%'|| #{searchKey} ||'%') or (a.description like '%'|| #{searchKey} ||'%') or (a.lastModifiedUser like '%'|| #{searchKey} ||'%') or (a.createdUser like '%'|| #{searchKey} ||'%')
+	    		or (b.sspp like '%'|| #{searchKey} ||'%') or (b.ssp like '%'|| #{searchKey} ||'%') or (b.sspc like '%'|| #{searchKey} ||'%') or (b.ssc like '%'|| #{searchKey} ||'%') or (b.sscc like '%'|| #{searchKey} ||'%')
+					or (c.customerSegments like '%'|| #{searchKey} ||'%') or (c.customerSegmentsUser like '%'|| #{searchKey} ||'%') or (c.CustomerRelationships like '%'|| #{searchKey} ||'%') or (c.CustomerRelationshipsUser like '%'|| #{searchKey} ||'%') or (c.channels like '%'|| #{searchKey} ||'%')
+		    		or (c.channelsUser like '%'|| #{searchKey} ||'%') or (c.keyActivities like '%'|| #{searchKey} ||'%') or (c.keyActivitiesUser like '%'|| #{searchKey} ||'%') or (c.keyResources like '%'|| #{searchKey} ||'%') or (c.keyResourcesUser like '%'|| #{searchKey} ||'%') or (c.keyPartners like '%'|| #{searchKey} ||'%') 
+		    		or (c.keyPartnersUser like '%'|| #{searchKey} ||'%') or (c.costStructure like '%'|| #{searchKey} ||'%') or (c.costStructureUser like '%'|| #{searchKey} ||'%') or (c.revenueStreams like '%'|| #{searchKey} ||'%') or (c.revenueStreamsUser like '%'|| #{searchKey} ||'%')
+		    			or (d.economical like '%'|| #{searchKey} ||'%') or (d.ecological like '%'|| #{searchKey} ||'%') or (d.function like '%'|| #{searchKey} ||'%') or (d.extrinsicSocial like '%'|| #{searchKey} ||'%') or (d.activeEmotional like '%'|| #{searchKey} ||'%') or (d.reactiveEmotional like '%'|| #{searchKey} ||'%') or (d.intrinsicSocial like '%'|| #{searchKey} ||'%') or (d.epistemic like '%'|| #{searchKey} ||'%')
+	    	)
+	    </if>
+	</select>
+	<select id="getUsers" parameterType="net.smartworks.skkupss.model.db.Db_UserCond" resultType="net.smartworks.skkupss.model.db.Db_User">
+	    select * 
+	    from orgUser 
+  		<trim prefix="WHERE" prefixOverrides="AND|OR">
+		</trim>
+		<if test="orders != null">
+			order by ${orderQuery}
+		</if>
+	</select>
+	<select id="getUser" parameterType="String" resultType="net.smartworks.skkupss.model.db.Db_User">
+	    select * 
+	    from orgUser 
+		where id = #{id}
+	</select>
+	<insert id="setUser" parameterType="net.smartworks.skkupss.model.db.Db_User">
+		insert into orgUser(id, passwd, name, authId, picture, mobileNo, homePhoneNo, homeAddress, locale, timeZone, creator, createdTime, modifier, modifiedTime, company)	
+		values (#{id}, #{passwd}, #{name}, #{authId}, #{picture}, #{mobileNo}, #{homePhoneNo}, #{homeAddress}, #{locale}, #{timeZone}, #{creator}, #{createdTime}, #{modifier}, #{modifiedTime}, #{company} )
+	</insert>
+	<delete id="removeUser" parameterType="String">
+		delete from orgUser where id = #{id}
+  	</delete>
 </mapper>

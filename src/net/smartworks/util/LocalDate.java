@@ -995,4 +995,14 @@ public class LocalDate extends Date{
 		
 		return new LocalDate(cc.getTimeInMillis());
 	}	
+
+	public static KeyMap[] getAvailableTimeZoneNames(String locale) throws Exception{
+		String[] timeZoneIds = TimeZone.getAvailableIDs();
+		KeyMap[] timeZoneNames = new KeyMap[timeZoneIds.length];
+		for(int i=0; i<timeZoneIds.length; i++){
+			timeZoneNames[i] = new KeyMap(timeZoneIds[i], TimeZone.getTimeZone(timeZoneIds[i]).getDisplayName(new Locale(locale)));
+		}
+		return timeZoneNames;
+	}
+
 }

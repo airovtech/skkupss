@@ -9,6 +9,7 @@
 package net.smartworks.skkupss.manager.impl;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -22,7 +23,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.smartworks.skkupss.manager.IDocFileManager;
 import net.smartworks.util.IDCreator;
+import net.smartworks.util.OSValidator;
 import net.smartworks.util.PropertiesLoader;
+import net.smartworks.util.SmartUtil;
+import net.smartworks.util.Thumbnail;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Service;
@@ -118,5 +122,29 @@ public class DocFileManagerImpl implements IDocFileManager {
 		
 	}
 
+	@Override
+	public String insertProfilesFile(String fileName) throws Exception {
+
+		try {
+			
+			if(SmartUtil.isBlankObject(fileName)) return null;			
+			String[] tokens = fileName.split("\\.");
+			if(tokens.length!=2) return null;
+
+			String PSS_SERVER_DIR = PropertiesLoader.loadPropByClassPath("/net/smartworks/conf/config.properties").getProperty("pss.server.dir");
+
+			String fileId = tokens[0];
+			String extension = tokens[tokens.length-1];
+			String originFile = PSS_SERVER_DIR + "/webapps/product-images/" + fileName;
+			String thumbFile = PSS_SERVER_DIR + "/webapps/product-images/" + fileId + "_thumb." + extension;
+			Thumbnail.createImage(originFile, thumbFile, "thumb", extension);
+
+			return thumbFile;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
+	}
 
 }

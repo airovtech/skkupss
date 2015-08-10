@@ -92,6 +92,7 @@ smartMessage.bundle['ko'] = {
 	textNone : "없음",
 	noValuesForReport : "조건에 맞는 데이터가 존재하지 않습니다.",
 	downloadAllFiles : "모두내려받기",
+	subGridColumns : "합계",
 	
 	technicalProblemOccured : "기술적인 오류가 발생하였습니다. 시스템관리자에게 확인 바랍니다.",
 	
@@ -103,6 +104,8 @@ smartMessage.bundle['ko'] = {
 	createIWorkError : "새로운 항목생성 중에 오류가 발생하였습니다. 시스템관리자에게 확인 바랍니다.",
 	startPWorkSucceed : "새로운 프로세스가 정상적으로 시작되었습니다.",
 	startPWorkError : "새로운 프로세스를 시작하는 중에 오류가 발생하였습니다. 시스템관리자에게 확인 바랍니다.",
+	executeSWorkSucceed : "일정계획업무 태스크가 정상적으로 완료되었습니다.",
+	executeSWorkError : "일정계획업무 태스크를 완려하는 중에 오류가 발생하였습니다. 시스템관리자에게 확인 바랍니다.",
 	uploadPictureSucceed : "새로운 사진이 정상적으로 업로드 되었습니다.",
 	uploadPictureError : "새로운 사진을 업로드하는 중에 오류가 발생하였습니다. 시스템관리자에게 확인 바랍니다.",
 	uploadFileSucceed : "새로운 파일(들)이 정상적으로 업로드 되었습니다.",
@@ -181,6 +184,7 @@ smartMessage.bundle['ko'] = {
 	returnTaskInstanceError : "태스크 반려 중에 오류가 발생하였습니다. 시스템관리자에게 확인 바랍니다.",
 	reassignTaskInstanceSucceed : "태스크가 정상적으로 다른 사용자에게 위임되었습니다.",
 	reassignTaskInstanceError : "태스크 위임 중에 오류가 발생하였습니다. 시스템관리자에게 확인 바랍니다.",
+	startSworkTaskError : "일정계획업무를 시작하는 중에 오류가 발생하였습니다. 시스템관리자에게 확인 바랍니다.",
 	tempSaveTaskInstanceSucceed : "태스크가 정상적으로 임시저장되었습니다.",
 	tempSaveTaskInstanceError : "태스크 임시저장 중에 오류가 발생하였습니다. 시스템관리자에게 확인 바랍니다.",
 	workListError : "업무목록을 가져오는 중에 오류가 발생하였습니다. 관리자에게 확인 바랍니다.",
@@ -292,11 +296,14 @@ smartMessage.bundle['ko'] = {
 	executeWorkTransferError : "업무이관 중에 오류가 발생하였습니다. 시스템관리자에게 확인 바랍니다.",
 	executeAbolishDepartmentSucceed : "부서폐지가 정상적으로 완료 되었습니다.",
 	executeAbolishDepartmentError : "부서폐지하는 중에 오류가 발생하였습니다. 시스템관리자에게 확인 바랍니다.",
+	executeAbolishGroupSucceed : "그룹폐지가 정상적으로 완료 되었습니다.",
+	executeAbolishGroupError : "그룹폐지하는 중에 오류가 발생하였습니다. 시스템관리자에게 확인 바랍니다.",
 	clearCheckingMailSucceed : "메일가져오기 요청상태 해지하기가 정상적으로 실행되었습니다.",
 	clearCheckingMailError : "메일가져오기 요청상태 해지하는 중에 오류가 발행하였습니다. 시스템관리자에게 확인 바랍니다.",
 	downloadNewVersionRequestSucceed : "스마트웍스닷넷 사이트에서 최신 버전의 소프트웨어를 다운로드하는 요청이 성공적으로 이루어졌습니다.",
 	downloadNewVersionRequestError : "스마트웍스닷넷 사이트에서 최신 버전의 소프트웨어를 다운로드하는 요청 중에 오류가 발생하였습니다. 시스템을 다시 한번 확인하여 주시기 바랍니다.",
 	executeWorkTransferOnlySucceed : "선택한 업무들의 이관 정상적으로 완료 되었습니다. 나머지 모든 업무를 이관하면 부서폐지를 진행하게 됩니다.",
+	backupFolderRequestSucceed : "선택한 폴더의 백업 요청이 정상적으로 이루어졌습니다. 메일 갯수가 많을 경우 수분이 소요될 수 도 있습니다.",
 	replyMailError : "메일에 답장하는 중에 오류가 발생하였습니다. 시스템관리자에게 확인 바랍니다.",
 	forwardMailError : "메일을 전달하는 중에 오류가 발생하였습니다. 시스템관리자에게 확인 바랍니다.",
 	fetchMailsError : "메일을 가져오는 중에 오류가 발생하였습니다. 시스템관리자에게 확인 바랍니다.",
@@ -306,6 +313,12 @@ smartMessage.bundle['ko'] = {
 	noneDisplayFieldError : "보이는 항목이 존재하지 않습니다. 보이는 항목은 최소한 한개 이상이여야 합니다.",
 	eventOldEndDateError : "종료일자가 시작일자보다 이전일자 입니다. 수정 후 다시 하시기 바랍니다.", 
 	eventOldRepeatEndDateError : "이벤트의 반복종료일자가 시작일자보다 이전일자 입니다. 수정 후 다시 하시기 바랍니다.", 
+	startOldCurrentDateError : "실행시작일자가 현재시간 이후 입니다. 수정 후 다시 하시기 바랍니다.", 
+	startOldDueDateError : "실행시작일자가 프로젝트 시작일자 이전 시간 입니다. 수정 후 다시 하시기 바랍니다.", 
+	endOldCurrentDateError : "실행종료일자가 현재시간 이후 입니다. 수정 후 다시 하시기 바랍니다.", 
+	endOldDueDateError : "실행종료일자가 프로젝트 시작일자 이전 시간 입니다. 수정 후 다시 하시기 바랍니다.", 
+	startOldEndDateError : "실행시작일자가 실행종료일자 이후 입니다. 수정 후 다시 하시기 바랍니다.", 
+	startOldConstraintDateError : "실행시작일자가 제약태스크 실행종료일자 이전 시간 입니다. 수정 후 다시 하시기 바랍니다.", 
 	noRefFormDefinedError : "참고할 업무가 지정되지 않았습니다. 시스템관리자에게 확인 바랍니다.",
 	notRefFormWorkingError : "참고할 업무가 정상적으로 작동하지 않습니다. 시스템관리자에게 확인 바랍니다.",
 	helpUrlSyntaxError : "웹사용설명서가 http://으로 시작하는 웹주소가 아닙니다. 수정 후 다시 하시기 바랍니다.",
@@ -329,6 +342,8 @@ smartMessage.bundle['ko'] = {
 	sameXZAxisError : "가로항목과 세로항목이 같으면 안됩니다. 다른 항목을 선택하여 주시기 바랍니다.",
 	sameXXSecondAxisError : "세로항목과 세로그룹항목이 같으면 안됩니다. 다른 항목을 선택하여 주시기 바랍니다.",
 	sameZXSecondAxisError : "가로항목과 세로그룹항목이 같으면 안됩니다. 다른 항목을 선택하여 주시기 바랍니다.",
+	applyProjectScheduleError : "프로젝트에 일정을 적용하는데 오류가 발생하였습니다. 관리자에게 문의하시기 바랍니다.",
+	startProjectInstanceError : "프로젝트를 시작하는데 오류가 발생하였습니다. 관리자에게 문의하시기 바랍니다.",
 	
 	usableUserId : "사용가능한 사용자 아이디 입니다. 다른아이디로 변경하려면 아이디변경버튼을 클릭하십시요.",
 	duplicatedUserId : "이미사용중인 사용자 아이디 입니다. 다른아이디를 입력하시기 바랍니다.",
@@ -347,9 +362,11 @@ smartMessage.bundle['ko'] = {
 	removeMailAutoMoveError : "메일자동분류 항목을 삭제하는데 오류가 발생하였습니다. 시스템관리자에게 확인 하시기 바랍니다.",
 	autoMoveReservedChararterError : "사용할 수 없는 예약된 문자(세미콜른, 콤마, 싱글쿼테이션, 더블쿼테이션)를 사용하였습니다. 다시 입력하여 주시기 바랍니다.",
 	removeBackupSWRequestError : "백업소프트웨어를 삭제하는데 오류가 발생하였습니다. 시스템관리자에게 확인 하시기 바랍니다.",
-
+	accessableNetworksError : "네트워크 접근권한의 네트워크가 잘못 입력되었습니다. 다시 입력하여 주시기 바랍니다.",
+	
 	moveConfirmation : "선택한 항목들을 이동하려고 합니다. 정말로 이동하시겠습니까? ",
 	removeConfirmation : "항목을 삭제하려고 합니다. 정말로 삭제하시겠습니까? ",
+	backupFolderConfirmation : "선택한 폴더의 모든 내용을 백업하려고 합니다. 정말로 폴더를 벡업하시겠습니까? ",
 	emptyTrashConfirmation : "휴지통을 비우려 합니다. 정말로 휴지통을 비우시겠습니까? ",
 	emptyFolderConfirmation : "선택한 폴더의 모든 내용을 비우려 합니다. 정말로 폴더를 비우시겠습니까? ",
 	saveConfirmation : "항목을 수정하려고 합니다. 정말로 수정하시겠습니까? ",
@@ -372,7 +389,8 @@ smartMessage.bundle['ko'] = {
 	removeAllRepeatConfirmation : "삭제하는 일정이 반복일정입니다. 반복일정 모두를 삭제하시겠습니까?",
 	retireMemberConfirmation : "구성원을 퇴직처리하게 되면 더이상 사용할 수 없게 됩니다. 그래도 퇴직처리를 하시겠습니까?",
 	abolishDepartmentConfirmation : "부서 폐기하게 되면 더이상 사용할 수 없게 됩니다. 그래도 폐기 하시겠습니까?",
-	workTransferOnlyConfirmation : "선택한 업무만 먼저 이관을 하고, 부서페지는 나머지 모든 업무를 이관하면서 합니다. 그렇게 하겠습니까?",
+	abolishGroupConfirmation : "그룹 폐기하게 되면 더이상 사용할 수 없게 됩니다. 그래도 폐기 하시겠습니까?",
+	workTransferOnlyConfirmation : "선택한 업무만 먼저 이관을 하고, 부서/그룹 페지는 나머지 모든 업무를 이관하면서 합니다. 그렇게 하겠습니까?",
 	downloadNewVersionConfirmation : "스마트웍스닷넷 사이트에서 최신 버전의 소프트웨어를 정말로 다운로도 하시겠습니까?",
 	restartAfter60secsConfirmation : "시스템을 재시작하면 현재 진행되고 있는 모든 작업이 이상종료 될 수도 있습니다. 정말로 60초 후에 재시작 하시겠습니까?",
 	restartAfter10secsConfirmation : "시스템을 재시작하면 현재 진행되고 있는 모든 작업이 이상종료 될 수도 있습니다. 정말로 10초 후에 재시작 하시겠습니까?",
@@ -381,6 +399,7 @@ smartMessage.bundle['ko'] = {
 	abendInstanceConfirmation : "선택한 업무 인스턴스를 이상종료 하려고 합니다. 정말로 이상종료 하시겠습니까?",
 	adminApplyConfirmation : "선택한 업무 인스턴스 강제수정을 적용하려고 합니다. 정말로 적용하시겠습니까? ",
 	removeBackupConfirmation : "선택한 백업소프트웨어를 삭제하려고 합니다. 정말로 삭제하시겠습니까? ",
+	exportAllFieldsConfirmation : "항목의 모든필드들을 다운로드하시겠습까? 확인(모든필드들), 취소(보이는 필드들만)",
 	
 	spaceOverDateSeleted : "미래의 날짜를 선택하였습니다. 오늘이나 과거의 날짜를 선택하십시요!",
 
@@ -396,7 +415,12 @@ smartMessage.bundle['ko'] = {
 	accessViolationLocWorkInstanceSpace : "권한이 없거나 서비스중이지 않은 업무(Work Instance)에 접근하였습니다. 시스템관리자에게 확인 바랍니다.",
 	accessViolationLocWorkspace : "권한이 없거나 존재하지 않은 공간(Workspace)에 접근하였습니다. 시스템관리자에게 확인 바랍니다.",
 	accessViolationLocBuilder : "권한이 없거나 존재하지 않은 빌더 공간에 접근하였습니다. 시스템관리자에게 확인 바랍니다.",
-	reportIsNotAvailableInReportWork : "보고서에서는 대상업무로 보고서업무를 선택할 수 없습니다. 다른 업무를 선택하시기 바랍니다."
+	reportIsNotAvailableInReportWork : "보고서에서는 대상업무로 보고서업무를 선택할 수 없습니다. 다른 업무를 선택하시기 바랍니다.",
+	
+	globalSearchingMore : "다른업무들 검색중 입니다... ",
+	globalSearchFinished : "모든업무 검색이 완료 되었습니다!!!",
+	
+	pssSelectPicture : "사진"
 };
 }catch(error){
 	smartPop.showInfo(smartPop.ERROR, smartMessage.get('technicalProblemOccured') + '[sw-language-ko script]', null, error);

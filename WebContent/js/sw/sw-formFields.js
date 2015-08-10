@@ -19,53 +19,7 @@ function loadMyProfileField() {
 				required: false
 			});
 		}		
-	}
-		
-	var mySignPictureFields = $('div.js_my_signpic_field');
-	if(!isEmpty(mySignPictureFields)) {
-		for(var i=0; i<mySignPictureFields.length; i++) {
-			var mySignPictureField = $(mySignPictureFields[i]);
-			
-			var gridRow = SmartWorks.GridLayout.newGridRow();
-			var gridTable = SmartWorks.GridLayout.newGridTable();
-			mySignPictureField.html(gridTable.html(gridRow));
-
-			SmartWorks.FormRuntime.ImageBoxBuilder.buildEx({
-				container: gridRow,
-				fieldId: "imgMySignPic",
-				fieldName: "picture sign",
-				imgSource: currentUser.signPicture,
-				pictureWidth: 67,
-				pictureHeight: 67,
-				required: false
-			});
-		}		
-	}
-
-	var emailSignatureFields = $('div.js_email_signature_field:visible');
-	if(!isEmpty(emailSignatureFields)) {
-		for(var i=0; i<emailSignatureFields.length; i++) {
-			var emailSignatureField = $(emailSignatureFields[i]);
-			
-			var signature = emailSignatureField.attr('signature');
-			var gridRow = SmartWorks.GridLayout.newGridRow();
-			var gridTable = SmartWorks.GridLayout.newGridTable();
-			emailSignatureField.html(gridTable.html(gridRow));
-
-			SmartWorks.FormRuntime.RichEditorBuilder.buildEx({
-				container: gridRow,
-				fieldId: "emailSignature",
-				fieldName: "",
-				columns: 1,
-				value: signature,
-				required: false
-			});
-			gridRow.find('.form_label').hide();
-			gridRow.find('.form_value').css({width:"100%"});
-			gridRow.find('#emailSignature').css({height:"200px"});			
-		}
-		
-	}
+	}		
 };
 
 function loadCompanyLogoField() {
@@ -950,7 +904,7 @@ function loadTaskApprovalFields() {
 		}		
 	}
 };
-//같은이름의 함수가 2개존재한다 그중하나인 아래 함수가 사용하지 않는것 같아...뒤에다 언더바를 붙임..실제로 사용하지 않는지 테스트중
+//媛������대����� ��⑥��媛� 2媛�議댁�ы����� 洹몄����������� ������ ��⑥��媛� ��ъ�⑺��吏� ������寃� 媛����...��ㅼ����� ��몃��諛�瑜� 遺����..��ㅼ��濡� ��ъ�⑺��吏� ������吏� �����ㅽ�몄��
 function loadGroupProfileField_() {
 	var groupProfileFields = $('div.js_group_profile_field');
 	if(!isEmpty(groupProfileFields)) {

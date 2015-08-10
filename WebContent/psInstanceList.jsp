@@ -1,3 +1,4 @@
+<%@page import="net.smartworks.skkupss.model.User"%>
 <%@page import="net.smartworks.util.PropertiesLoader"%>
 <%@page import="net.smartworks.skkupss.manager.impl.DocFileManagerImpl"%>
 <%@page import="net.smartworks.util.CommonUtil"%>
@@ -13,8 +14,10 @@
 <%@page import="net.smartworks.util.SmartUtil"%>
 <%@page import="net.smartworks.skkupss.model.RequestParams"%>
 <%@ page contentType="text/html; charset=utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%
 
+	User cUser = SmartUtil.getCurrentUser();
 	String PSS_PICTURE_URL = PropertiesLoader.loadPropByClassPath("/net/smartworks/conf/config.properties").getProperty("pss.picture.url");
 
 	RequestParams params = (RequestParams)request.getAttribute("requestParams");
@@ -34,6 +37,8 @@
 		instanceList = ManagerFactory.getInstance().getServiceManager().getProductInstanceList(params);
 	}catch(Exception e){}
  %>
+<fmt:setLocale value="<%=cUser.getLocale() %>" scope="request" />
+<fmt:setBundle basename="resource.smartworksMessage" scope="request" />
 
 <!-- 목록 테이블 -->
 <table>
@@ -47,16 +52,16 @@
 		<tr class="tit_bg">
 			<th class="check r_line"><input type="checkbox" class="js_toggle_select_all" /></th>
 	 		<th class="r_line" style="width:40px;">
-				<span>번호</span>
+				<span><fmt:message key="common.title.number"/></span>
 			</th>
 	 		<th class="r_line">
-	 			<a href="" class="js_select_field_sorting" fieldId="<%=ProductService.FIELD_NAME%>">제품-서비스 이름
+	 			<a href="" class="js_select_field_sorting" fieldId="<%=ProductService.FIELD_NAME%>"><fmt:message key="pss.title.product_service_name"/>
  			 		<span class="<%if(sortedField.getFieldId().equals(ProductService.FIELD_NAME)){
 						if(sortedField.isAscending()){ %>icon_in_up<%}else{ %>icon_in_down<%}}%>"></span>
  				</a>
 				<span class="js_progress_span"></span>
 			</th>
-	 		<th class="r_line"  style="min-width:200px">설 명</th>
+	 		<th class="r_line"  style="min-width:200px"><fmt:message key="common.title.desc"/></th>
 	 		<th class="r_line">
 				<form class="form_space js_space_name" name="frmSpaceName">
 					<select name="selSpaceName" class="js_select_space_name">
@@ -69,11 +74,11 @@
 				</form>
 			</th>
 			<th class="r_line" style="width:145px">
-				<a href="" class="js_select_field_sorting" fieldId="<%=ProductService.FIELD_LAST_MODIFIED_USER%>">최종수정자
+				<a href="" class="js_select_field_sorting" fieldId="<%=ProductService.FIELD_LAST_MODIFIED_USER%>"><fmt:message key='common.title.last_modifier' />
 					<span class="<%if(sortedField.getFieldId().equals(ProductService.FIELD_LAST_MODIFIED_USER)){
 						if(sortedField.isAscending()){ %>icon_in_up<%}else{ %>icon_in_down<%}}%>"></span>
 				</a>/
-				<a href="" class="js_select_field_sorting" fieldId="<%=ProductService.FIELD_LAST_MODIFIED_DATE%>">최종수정일
+				<a href="" class="js_select_field_sorting" fieldId="<%=ProductService.FIELD_LAST_MODIFIED_DATE%>"><fmt:message key='common.title.last_modified_date' />
 					<span class="<%if(sortedField.getFieldId().equals(ProductService.FIELD_LAST_MODIFIED_DATE)){
 						if(sortedField.isAscending()){ %>icon_in_up<%}else{ %>icon_in_down<%}}%>"></span>
 				</a>
@@ -90,7 +95,7 @@
 			for (ProductService productService : productServices) {
 				productService.setSpaceType(ProductService.getSpaceType(params.getSpaceType()));
 			%>
-				<tr class="instance_list js_work_instance_list js_instance_detail" href="newProductService.jsp?psId=<%=productService.getId() %>&spaceType=<%=params.getSpaceType()%>" psId="<%=productService.getId()%>" psName="<%=productService.getName()%>">
+				<tr class="instance_list js_work_instance_list js_instance_detail" href="newProductService.sw?psId=<%=productService.getId() %>&spaceType=<%=params.getSpaceType()%>" psId="<%=productService.getId()%>" psName="<%=productService.getName()%>">
 					<td class="tc"><input class="js_check_instance" name="chkSelectInstance" type="checkbox"/></td>
 					<td class="tc"><%=currentCount--%></td>
 					<td class="tc">
@@ -158,7 +163,7 @@
 		<tr class="tit_bg">
 			<th class="check r_line"><input type="checkbox" class="js_toggle_select_all" /></th>
 	 		<th class="r_line" style="width:40px;">
-				<span>번호</span>
+				<span><fmt:message key="common.title.number"/></span>
 			</th>
 	 		<th class="r_line">
 	 			<a href="" class="js_select_field_sorting" fieldId="<%=ProductService.FIELD_NAME%>">제품-서비스 이름
@@ -180,11 +185,11 @@
 				</form>
 			</th>
 			<th class="r_line" style="width:162px;">
-				<a href="" class="js_select_field_sorting" fieldId="<%=ProductService.FIELD_LAST_MODIFIED_USER%>">최종수정자
+				<a href="" class="js_select_field_sorting" fieldId="<%=ProductService.FIELD_LAST_MODIFIED_USER%>"><fmt:message key='common.title.last_modifier' />
 					<span class="<%if(sortedField.getFieldId().equals(ProductService.FIELD_LAST_MODIFIED_USER)){
 						if(sortedField.isAscending()){ %>icon_in_up<%}else{ %>icon_in_down<%}}%>"></span>
 				</a>/
-				<a href="" class="js_select_field_sorting" fieldId="<%=ProductService.FIELD_LAST_MODIFIED_DATE%>">최종수정일
+				<a href="" class="js_select_field_sorting" fieldId="<%=ProductService.FIELD_LAST_MODIFIED_DATE%>"><fmt:message key='common.title.last_modified_date' />
 					<span class="<%if(sortedField.getFieldId().equals(ProductService.FIELD_LAST_MODIFIED_DATE)){
 						if(sortedField.isAscending()){ %>icon_in_up<%}else{ %>icon_in_down<%}}%>"></span>
 				</a>
@@ -199,7 +204,7 @@
 <%
 if(instanceList == null || SmartUtil.isBlankObject(instanceList.getInstanceDatas())){
 %>
-	<div class="tc mt5mb5">항목이 존재하지 않습니다.</div>
+	<div class="tc mt5mb5"><fmt:message key="common.message.no_instance"/></div>
 <%
 }
 if(!SmartUtil.isBlankObject(sortedField)){

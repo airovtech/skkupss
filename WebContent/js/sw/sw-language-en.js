@@ -1,6 +1,6 @@
 try{
 // File Name 	: sw-language-en.js
-// Description 	: SmartWork 의 다국어 지원을 위한 English 메시지 번들..
+// Description 	: SmartWork ��� ��ㅺ뎅��� 吏������� ������ English 硫����吏� 踰����..
 // Author 		: Y.S Jung
 // Created Date : 2011.11.
 
@@ -92,6 +92,7 @@ smartMessage.bundle['en'] = {
 	textNone : "None",
 	noValuesForReport : "Thers is no values for the requested conditions.",
 	downloadAllFiles : "Download All",
+	subGridColumns : "Sum",
 	
 	technicalProblemOccured : "Technical Problem has been occured. Please contact the Administrator!",
 	
@@ -103,6 +104,8 @@ smartMessage.bundle['en'] = {
 	createIWorkError : "Error has been occured while creating new instance. Please contact the Administrator!",
 	startPWorkSucceed : "New Process Instance has been started successfully.",
 	startPWorkError : "Error has been occured while starting new instance. Please contact the Administrator!",
+	executeSWorkSucceed : "Scheduel Task Instance has been executed successfully.",
+	executeSWorkError : "Error has been occured while executing Schedule Task Instance. Please contact the Administrator!",
 	uploadPictureSucceed : "New Picture has been uploaded successfully.",
 	uploadPictureError : "Error has been occured while uploading new Picture. Please contact the Administrator!",
 	uploadFileSucceed : "New File(s) has been uploaded successfully.",
@@ -179,6 +182,11 @@ smartMessage.bundle['en'] = {
 	performTaskInstanceError : "Error has been occured while performing Task Instance. Please contact the Administrator!",
 	returnTaskInstanceSucceed : "Task Instance has been returned successfully.",
 	returnTaskInstanceError : "Error has been occured while returning Task Instance. Please contact the Administrator!",
+	reassignTaskInstanceSucceed : "Task Instance has been reassigned successfully.",
+	reassignTaskInstanceError : "Error has been occured while reassigning Task Instance. Please contact the Administrator!",
+	startSworkTaskError : "Error has been occured while starting Scheduel Task Instance. Please contact the Administrator!",
+	tempSaveTaskInstanceSucceed : "Task Instance has been temp-saved successfully.",
+	tempSaveTaskInstanceError : "Error has been occured while temp-saving Task Instance. Please contact the Administrator!",
 	workListError : "Error has been occured while loading work list. Please contact the Administrator!",
 	workHourListError : "Error has been occured while loading Work Hour Policy list. Please contact the Administrator!",
 	companyEventListError : "Error has been occured while loading Company Event list. Please contact the Administrator!",
@@ -285,11 +293,14 @@ smartMessage.bundle['en'] = {
 	executeWorkTransferError : "Error has been occured while executing Work Transfer. Please contact the Administrator!",
 	executeAbolishDepartmentSucceed : "Abolish Department has been executed successfully.",
 	executeAbolishDepartmentError : "Error has been occured while executing Abolish Department. Please contact the Administrator!",
+	executeAbolishGroupSucceed : "Abolish Group has been executed successfully.",
+	executeAbolishGroupError : "Error has been occured while executing Abolish Group. Please contact the Administrator!",
 	clearCheckingMailSucceed : "Clear Checking Email Request has been executed successfully.",
 	clearCheckingMailError : "Error has been occured while clearing Checking Email Request. Please contact the Administrator!",
 	downloadNewVersionRequestSucceed : "Downloading the latest version of SmartWorks.net software has been requested successfully.",
 	downloadNewVersionRequestError : "Error has been occured while requesting to download the latest version of SmartWorks.net. Please check out the sytem again",
-	executeWorkTransferOnlySucceed : "Transfering the selected works has been executed successfully. Please remind that after transfering all the remaining works, Abolish Department would be executed.",
+	executeWorkTransferOnlySucceed : "Transfering the selected works has been executed successfully. Please remind that after transfering all the remaining works, Abolish Department/Group would be executed.",
+	backupFolderRequestSucceed : "Mail Backup Request for the Folder has been requested successfully. It will may take several minutes when many mails",
 	replyMailError : "Error has been occured while repling Mail Instance. Please contact the Administrator!",
 	forwardMailError : "Error has been occured while forwarding Mail Instance. Please contact the Administrator!",
 	fetchMailsError : "Error has been occured while fetching Mail Instances. Please contact the Administrator!",
@@ -299,6 +310,12 @@ smartMessage.bundle['en'] = {
 	noneDisplayFieldError : "Display field is none. Please select more than one Display field.",
 	eventOldEndDateError : "The End Date is before the Start Date. Please retry with valid End Date", 
 	eventOldRepeatEndDateError : "The Repeat End Date of Event is before the Start Date. Please retry with valid End Date", 
+	startOldCurrentDateError : "The Current Time is before the Executed Start Date. Please retry with valid Executed Start Date", 
+	startOldDueDateError : "The Executed Start Time is before the Project Due Date. Please retry with valid Executed Start Date", 
+	endOldCurrentDateError : "The Current Time is before the Executed End Date. Please retry with valid Executed End Date", 
+	endOldDueDateError : "The Executed End Time is before the Project Due Date. Please retry with valid Executed End Date", 
+	startOldEndDateError : "The Executed End Time is before the Executed Start Date. Please retry with valid Executed Date", 
+	startOldConstraintDateError : "The Executed Start Time is before the Constrainted End Date. Please retry with valid Executed Start Date", 
 	noRefFormDefinedError : "Refered Work has not been defined. Please contact the Administrator!",
 	notRefFormWorkingError : "Refered Work is not working. Please contact the Administrator!",
 	helpUrlSyntaxError : "Web User Manual is not valid url starting with http://. Please retry with valid url",
@@ -322,7 +339,9 @@ smartMessage.bundle['en'] = {
 	sameXZAxisError : "Row Item and Column Item must not be the Same item. Please select other Item.",
 	sameXXSecondAxisError : "Row Item and Row Group Item must not be the Same item. Please select other Item.",
 	sameZXSecondAxisError : "ColumnItem and Column Group Item must not be the Same item. Please select other Item.",
-	
+	applyProjectScheduleError : "Error has beeon occured while applying schedules to the Project. Please contact the Administrator!",
+	startProjectInstanceError : "Error has beeon occured while starting the Project instance. Please contact the Administrator!",
+		
 	usableUserId : "The ID is not used, so you can user the ID. Please click the ID Change button to change the ID.",
 	duplicatedUserId : "The ID is already used by other. Please input another ID.",
 	missingCommentTaskForward : "Forward comments is required field. Please input the comments.",
@@ -340,9 +359,11 @@ smartMessage.bundle['en'] = {
 	removeMailAutoMoveError : "Error has been occured while removing a Mail Auto Move. Please contact the Administrator!",
 	autoMoveReservedChararterError : "System Reserved Characters(Semicolon, Comma, Single-quotation, Double-quotation) has been used. Please remove the characters",
 	removeBackupSWRequestError : "Error has been occured while remove the Backuped Software. Please contact the Administrator!",
+	accessableNetworksError : "Network Id's for the Accessable Networks are not valid. Please retry with valid Network Id's",
 		
 	moveConfirmation : "Do you really want to move selected items?",
 	removeConfirmation : "Do you really want to remove?",
+	backupFolderConfirmation : "Do you really want to backup the selected folder?",
 	emtpyTrashConfirmation : "Do you really want to empty the trash folder?",
 	emptyFolderConfirmation : "Do you really want to empty the selected folder?",
 	saveConfirmation : "Do you really want to save changes? ",
@@ -363,7 +384,8 @@ smartMessage.bundle['en'] = {
 	removeAllRepeatConfirmation : "It is repeating event. Do you really want to remove all repeating events?",
 	retireMemberConfirmation : "If retired, the member wil be removed. Do you really want to retire this member though?",
 	abolishDepartmentConfirmation : "If abolish, the department will be removed. Do you really want to abolish this department though?",
-	workTransferOnlyConfirmation : "After transfering the selected works now, this department would be abolished later with transfering all remaining works. Do you really want to do it though?",
+	abolishGroupConfirmation : "If abolish, the group will be removed. Do you really want to abolish this group though?",
+	workTransferOnlyConfirmation : "After transfering the selected works now, this department/group would be abolished later with transfering all remaining works. Do you really want to do it though?",
 	downloadNewVersionConfirmation : "Do you really want to download the new version of SmartWorks.net software ?",
 	restartAfter60secsConfirmation : "All the working operations of users would be abended if restart system. Do you really want to restart system after 60 seconds though ?",
 	restartAfter10secsConfirmation : "All the working operations of users would be abended if restart system. Do you really want to restart system after 10 seconds though ?",
@@ -372,6 +394,7 @@ smartMessage.bundle['en'] = {
 	abendInstanceConfirmation : "Do you really want to abend the Work Instance?",
 	adminApplyConfirmation : "Do you really want to apply the Work Instance ADMIN?",
 	removeBackupConfirmation : "Do you really want to remove the selected Backup Software ? ",
+	exportAllFieldsConfirmation : "Do you want to download all fields of instances? Confirm(All Fields), Cancel(Display Fields Only)",
 	
 	spaceOverDateSeleted : "Future date has been selected. Please select today or before!",
 
@@ -387,7 +410,12 @@ smartMessage.bundle['en'] = {
 	accessViolationLocWorkInstanceSpace : "No Permission allowed for this Work Instance. Please contact the Administrator!",
 	accessViolationLocWorkspace : "No Permission allowed for this Workspace. Please contact the Administrator!",
 	accessViolationLocBuilder : "No Permission allowed for this Builder Space. Please contact the Administrator!",
-	reportIsNotAvailableInReportWork : "Report is not available in the Report Work. Please select other Work!"	
+	reportIsNotAvailableInReportWork : "Report is not available in the Report Work. Please select other Work!",	
+	globalSearchingMore : "Searching More Works... ",
+	globalSearchFinished : "Finished Searching All Works!!!",
+	
+	pssSelectPicture : "Picture"
+	
 };
 }catch(error){
 	smartPop.showInfo(smartPop.ERROR, smartMessage.get('technicalProblemOccured') + '[sw-language-en script]', null, error);

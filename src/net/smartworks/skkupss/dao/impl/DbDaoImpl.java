@@ -19,6 +19,8 @@ import net.smartworks.skkupss.model.db.Db_ProductService;
 import net.smartworks.skkupss.model.db.Db_ProductServiceCond;
 import net.smartworks.skkupss.model.db.Db_ServiceSpace;
 import net.smartworks.skkupss.model.db.Db_ServiceSpaceCond;
+import net.smartworks.skkupss.model.db.Db_User;
+import net.smartworks.skkupss.model.db.Db_UserCond;
 import net.smartworks.skkupss.model.db.Db_ValueSpace;
 import net.smartworks.skkupss.model.db.Db_ValueSpaceCond;
 import net.smartworks.util.IdUtil;
@@ -571,6 +573,121 @@ public class DbDaoImpl implements IDbDao {
 			if (bizModelSpaceList != null && bizModelSpaceList.size() != 0) {
 				Db_BizModelSpace[] result = new Db_BizModelSpace[bizModelSpaceList.size()];
 				bizModelSpaceList.toArray(result);
+				return result;
+			} else {
+				return null;
+			}
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			if (session != null)
+				session.close();
+		}		
+	}
+
+	@Override
+	public Db_User getUser(String userId, String id) throws Exception {
+		SqlSession session = null;
+		try {
+			SqlSessionFactory factory = SessionFactory.getInstance().getSqlSessionFactory();
+			session = factory.openSession();
+			Db_User user = session.selectOne("getUser", id);
+			return user;
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			if (session != null)
+				session.close();
+		}	
+	}
+
+	@Override
+	public String setUser(String userId, Db_User user) throws Exception {
+		SqlSession session = null;
+		try {
+			if (user == null)
+				return null;
+			
+			SqlSessionFactory factory = SessionFactory.getInstance().getSqlSessionFactory();
+			session = factory.openSession();
+			session.commit(false);
+			
+			if (user.getId() == null) {
+				user.setId(IdUtil.getInstance().generate());
+			} else {
+				session.delete("removeUser", user.getId());
+			}
+			
+			session.insert("setUser", user);
+			session.commit();
+			return user.getId();
+		} catch (Exception e) {
+			session.rollback();
+			throw e;
+		} finally {
+			if (session != null)
+				session.close();
+		}		
+	}
+
+	@Override
+	public void removeUser(String userId, String id) throws Exception {
+		SqlSession session = null;
+		try {
+			SqlSessionFactory factory = SessionFactory.getInstance().getSqlSessionFactory();
+			session = factory.openSession();
+			session.commit(false);
+			session.delete("removeUser", id);
+			session.commit();
+		} catch (Exception e) {
+			session.rollback();
+			throw e;
+		} finally {
+			if (session != null)
+				session.close();
+		}		
+	}
+
+	@Override
+	public int getUserSize(String userId, Db_UserCond cond) throws Exception {
+		SqlSession session = null;
+		try {
+			SqlSessionFactory factory = SessionFactory.getInstance().getSqlSessionFactory();
+			session = factory.openSession();
+			
+			String selectId = "getUserSize";
+			int totalSize = session.selectOne(selectId, cond);
+			
+			return totalSize;
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			if (session != null)
+				session.close();
+		}
+	}
+	
+	@Override
+	public Db_User[] getUsers(String userId, Db_UserCond cond) throws Exception {
+		SqlSession session = null;
+		try {
+			SqlSessionFactory factory = SessionFactory.getInstance().getSqlSessionFactory();
+			session = factory.openSession();
+			
+			RowBounds Rb = null;
+			if (cond.getPageSize() != -1) {
+				int pageNo = cond.getPageNo();
+				int pageSize = cond.getPageSize();
+				int startPage = (pageNo - 1) * pageSize;
+				Rb = new RowBounds(startPage, pageSize);
+			} else {
+				Rb = new RowBounds();
+			}
+			
+			List<Db_User> userList = session.selectList("getUser", cond, Rb);
+			if (userList != null && userList.size() != 0) {
+				Db_User[] result = new Db_User[userList.size()];
+				userList.toArray(result);
 				return result;
 			} else {
 				return null;

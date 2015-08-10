@@ -14,6 +14,8 @@ import net.smartworks.skkupss.model.db.Db_ProductService;
 import net.smartworks.skkupss.model.db.Db_ProductServiceCond;
 import net.smartworks.skkupss.model.db.Db_ServiceSpace;
 import net.smartworks.skkupss.model.db.Db_ServiceSpaceCond;
+import net.smartworks.skkupss.model.db.Db_User;
+import net.smartworks.skkupss.model.db.Db_UserCond;
 import net.smartworks.skkupss.model.db.Db_ValueSpace;
 import net.smartworks.skkupss.model.db.Db_ValueSpaceCond;
 
@@ -46,5 +48,11 @@ public interface IDbDao {
 	public void removeBizModelSpace(String userId, String id) throws Exception;
 	public void removeBizModelSpaceByProductId(String userId, String productId) throws Exception;
 	public Db_BizModelSpace[] getBizModelSpaces(String userId, Db_BizModelSpaceCond cond) throws Exception;
+	
+	public Db_User getUser(String userId, String id) throws Exception;
+	public String setUser(String userId, Db_User user) throws Exception;
+	public void removeUser(String userId, String id) throws Exception;
+	public int getUserSize(String userId, Db_UserCond cond) throws Exception;
+	public Db_User[] getUsers(String userId, Db_UserCond cond) throws Exception;
 	
 }
