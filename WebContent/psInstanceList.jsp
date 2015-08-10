@@ -16,7 +16,6 @@
 <%@ page contentType="text/html; charset=utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%
-
 	User cUser = SmartUtil.getCurrentUser();
 	String PSS_PICTURE_URL = PropertiesLoader.loadPropByClassPath("/net/smartworks/conf/config.properties").getProperty("pss.picture.url");
 
@@ -26,10 +25,11 @@
 		params.setPageSize(20);
 		params.setCurrentPage(1);
 		String spaceType = request.getParameter("spaceType");
-		if(SmartUtil.isBlankObject(spaceType) || ProductService.getSpaceType(spaceType)>100)
+		if (SmartUtil.isBlankObject(spaceType)
+				|| ProductService.getSpaceType(spaceType) > 100)
 			params.setSpaceType(ProductService.PSS_SPACE_VALUE);
 		else
-			params.setSpaceType(spaceType);			
+			params.setSpaceType(spaceType);
 	}
 
 	InstanceList instanceList = null;
@@ -42,12 +42,13 @@
 
 <!-- 목록 테이블 -->
 <table>
-	<%	
-  	SortingField sortedField = null;
-	int pageSize = 20, totalPages = 1, currentPage = 1;
- 	if (instanceList != null) {
-		sortedField = instanceList.getSortedField();
-		if(sortedField==null) sortedField = new SortingField();
+	<%
+		SortingField sortedField = null;
+		int pageSize = 20, totalPages = 1, currentPage = 1;
+		if (instanceList != null) {
+			sortedField = instanceList.getSortedField();
+			if (sortedField == null)
+				sortedField = new SortingField();
 	%>
 		<tr class="tit_bg">
 			<th class="check r_line"><input type="checkbox" class="js_toggle_select_all" /></th>
@@ -65,10 +66,14 @@
 	 		<th class="r_line">
 				<form class="form_space js_space_name" name="frmSpaceName">
 					<select name="selSpaceName" class="js_select_space_name">
-						<option value="<%=ProductService.PSS_SPACE_VALUE%>" <%if(params.getSpaceType().equals(ProductService.PSS_SPACE_VALUE)){%>selected<%} %>>가치공간(Value Space)</option>
-						<option value="<%=ProductService.PSS_SPACE_SERVICE%>" <%if(params.getSpaceType().equals(ProductService.PSS_SPACE_SERVICE)){%>selected<%} %>>서비스공간(Service Space)</option>
-						<option value="<%=ProductService.PSS_SPACE_BIZ_MODEL%>" <%if(params.getSpaceType().equals(ProductService.PSS_SPACE_BIZ_MODEL)){%>selected<%} %>>비즈모델공간(Biz Model Space)</option>
-						<option value="<%=ProductService.PSS_SPACE_CONTEXT%>" <%if(params.getSpaceType().equals(ProductService.PSS_SPACE_CONTEXT)){%>selected<%} %>>컨텍스트공간(Context Space)</option>
+						<option value="<%=ProductService.PSS_SPACE_VALUE%>" <%if (params.getSpaceType()
+						.equals(ProductService.PSS_SPACE_VALUE)) {%>selected<%}%>>가치공간(Value Space)</option>
+						<option value="<%=ProductService.PSS_SPACE_SERVICE%>" <%if (params.getSpaceType().equals(
+						ProductService.PSS_SPACE_SERVICE)) {%>selected<%}%>>서비스공간(Service Space)</option>
+						<option value="<%=ProductService.PSS_SPACE_BIZ_MODEL%>" <%if (params.getSpaceType().equals(
+						ProductService.PSS_SPACE_BIZ_MODEL)) {%>selected<%}%>>비즈모델공간(Biz Model Space)</option>
+						<option value="<%=ProductService.PSS_SPACE_CONTEXT%>" <%if (params.getSpaceType().equals(
+						ProductService.PSS_SPACE_CONTEXT)) {%>selected<%}%>>컨텍스트공간(Context Space)</option>
 					</select>
 					<span class="js_progress_span"></span>
 				</form>
@@ -99,42 +104,49 @@
 					<td class="tc"><input class="js_check_instance" name="chkSelectInstance" type="checkbox"/></td>
 					<td class="tc"><%=currentCount--%></td>
 					<td class="tc">
-						<img class="vt up" <%if(!SmartUtil.isBlankObject(productService.getPicture())){ %> src="<%=PSS_PICTURE_URL + productService.getPicture() %>"<%} %> style="width:158px<%if(SmartUtil.isBlankObject(productService.getPicture())){ %>;height:158px<%} %>" />
-						<div><%=CommonUtil.toNotNull(productService.getName()) %></div>
+						<img class="vt up" <%if (!SmartUtil.isBlankObject(productService
+								.getPicture())) {%> src="<%=PSS_PICTURE_URL
+									+ productService.getPicture()%>"<%}%> style="width:158px<%if (SmartUtil
+								.isBlankObject(productService.getPicture())) {%>;height:158px<%}%>" />
+						<div><%=CommonUtil.toNotNull(productService.getName())%></div>
 					</td>
 					<td class="tl vt">
-						<div><%=CommonUtil.toNotNull(productService.getDesc()) %></div>
+						<div><%=CommonUtil.toNotNull(productService.getDesc())%></div>
 					</td>
 					<td class="vt">
 						<%
-						switch(productService.getSpaceType()){
-						case ProductService.SPACE_TYPE_VALUE:
-							request.setAttribute("valueSpace", productService.getValueSpace());
+							switch (productService.getSpaceType()) {
+										case ProductService.SPACE_TYPE_VALUE:
+											request.setAttribute("valueSpace",
+													productService.getValueSpace());
 						%>
 							<jsp:include page="viewValueSpace.jsp"/>
 						<%
 							break;
-						case ProductService.SPACE_TYPE_SERVICE:
-							request.setAttribute("serviceSpace", productService.getServiceSpace());
+										case ProductService.SPACE_TYPE_SERVICE:
+											request.setAttribute("serviceSpace",
+													productService.getServiceSpace());
 						%>
 							<jsp:include page="viewServiceSpace.jsp"/>
 						<%
 							break;
-						case ProductService.SPACE_TYPE_BIZ_MODEL:
-							request.setAttribute("bizModelSpace", productService.getBizModelSpace());
+										case ProductService.SPACE_TYPE_BIZ_MODEL:
+											request.setAttribute("bizModelSpace",
+													productService.getBizModelSpace());
 						%>
 							<jsp:include page="viewBizModelSpace.jsp"/>
 						<%
 							break;
-						case ProductService.SPACE_TYPE_CONTEXT:
-							request.setAttribute("contextSpace", productService.getContextSpace());
+										case ProductService.SPACE_TYPE_CONTEXT:
+											request.setAttribute("contextSpace",
+													productService.getContextSpace());
 						%>
 							<jsp:include page="viewContextSpace.jsp">
 								<jsp:param value="<%=productService.getId()%>" name="psId"/>
 							</jsp:include>
 						<%
 							break;
-						}
+										}
 						%>
 					</td>
 					<td class="vt">
@@ -144,10 +156,13 @@
 						<div class="noti_in_s">
  							<span class="t_name"><img class="profile_size_s mb3 mr3" src="images/no_user_picture_min.jpg"/>CDI사용자</span>
  							<%
- 							if(productService.getLastModifiedDate()!=null){%>
- 								<div class="t_date"><%=new LocalDate(productService.getLastModifiedDate().getTime()-LocalDate.ONE_HOUR*9).toLocalString()%></div>
+ 								if (productService.getLastModifiedDate() != null) {
+ 							%>
+ 								<div class="t_date"><%=new LocalDate(productService
+									.getLastModifiedDate().getTime()
+									- LocalDate.ONE_HOUR * 9).toLocalString()%></div>
  							<%
- 							}
+ 								}
  							%>
  						</div>
 					</td>
@@ -155,10 +170,10 @@
 				<!-- 인스턴스 인라인 조회 및 편집 화면 -->
 				<tr style="display:none"><td class="inline_content js_content_target js_stop_propagation" colspan="6"></td></tr>
 	<%
+		}
 			}
- 		}
-	}else{
-		sortedField = new SortingField();
+		} else {
+			sortedField = new SortingField();
 	%>
 		<tr class="tit_bg">
 			<th class="check r_line"><input type="checkbox" class="js_toggle_select_all" /></th>
@@ -167,19 +182,26 @@
 			</th>
 	 		<th class="r_line">
 	 			<a href="" class="js_select_field_sorting" fieldId="<%=ProductService.FIELD_NAME%>">제품-서비스 이름
- 			 		<span class="<%if(sortedField.getFieldId().equals(ProductService.FIELD_NAME)){
-						if(sortedField.isAscending()){ %>icon_in_up<%}else{ %>icon_in_down<%}}%>"></span>
- 				</a>
+ 			 		<span class="<%if (sortedField.getFieldId().equals(ProductService.FIELD_NAME)) {
+					if (sortedField.isAscending()) {%>icon_in_up<%} else {%>icon_in_down<%}
+				}%>"></span>
+					<p><span class="icon_in_font"><%if (sortedField.getFieldId().equals(ProductService.FIELD_NAME)) {
+					if (sortedField.isAscending()) {%>(123abcㄱㄴㄷ)<%} else {%>(ㄷㄴㄱcba321)<%}
+				}%></span></p></a>
 				<span class="js_progress_span"></span>
 			</th>
 	 		<th class="r_line"  style="min-width:200px">설 명</th>
 	 		<th class="r_line">
 				<form class="form_space js_space_name" name="frmSpaceName">
 					<select name="selSpaceName" class="js_select_space_name">
-						<option value="<%=ProductService.PSS_SPACE_VALUE%>" <%if(params.getSpaceType().equals(ProductService.PSS_SPACE_VALUE)){%>selected<%} %>>가치공간(Value Space)</option>
-						<option value="<%=ProductService.PSS_SPACE_SERVICE%>" <%if(params.getSpaceType().equals(ProductService.PSS_SPACE_SERVICE)){%>selected<%} %>>서비스공간(Service Space)</option>
-						<option value="<%=ProductService.PSS_SPACE_BIZ_MODEL%>" <%if(params.getSpaceType().equals(ProductService.PSS_SPACE_BIZ_MODEL)){%>selected<%} %>>비즈모델공간(Biz Model Space)</option>
-						<option value="<%=ProductService.PSS_SPACE_CONTEXT%>" <%if(params.getSpaceType().equals(ProductService.PSS_SPACE_CONTEXT)){%>selected<%} %>>컨텍스트공간(Context Space)</option>
+						<option value="<%=ProductService.PSS_SPACE_VALUE%>" <%if (params.getSpaceType()
+						.equals(ProductService.PSS_SPACE_VALUE)) {%>selected<%}%>>가치공간(Value Space)</option>
+						<option value="<%=ProductService.PSS_SPACE_SERVICE%>" <%if (params.getSpaceType().equals(
+						ProductService.PSS_SPACE_SERVICE)) {%>selected<%}%>>서비스공간(Service Space)</option>
+						<option value="<%=ProductService.PSS_SPACE_BIZ_MODEL%>" <%if (params.getSpaceType().equals(
+						ProductService.PSS_SPACE_BIZ_MODEL)) {%>selected<%}%>>비즈모델공간(Biz Model Space)</option>
+						<option value="<%=ProductService.PSS_SPACE_CONTEXT%>" <%if (params.getSpaceType().equals(
+						ProductService.PSS_SPACE_CONTEXT)) {%>selected<%}%>>컨텍스트공간(Context Space)</option>
 					</select>
 					<span class="js_progress_span"></span>
 				</form>
@@ -197,35 +219,37 @@
 			</th>		
 		</tr>	
 	<%
-	}
-	%>
+			}
+		%>
 </table>
 <!-- 목록 테이블 //-->
 <%
-if(instanceList == null || SmartUtil.isBlankObject(instanceList.getInstanceDatas())){
+	if (instanceList == null
+			|| SmartUtil.isBlankObject(instanceList.getInstanceDatas())) {
 %>
 	<div class="tc mt5mb5"><fmt:message key="common.message.no_instance"/></div>
 <%
-}
-if(!SmartUtil.isBlankObject(sortedField)){
+	}
+	if (!SmartUtil.isBlankObject(sortedField)) {
 %>
 	<form name="frmSortingField">
 		<input name="hdnSortingFieldId" type="hidden" value="<%=sortedField.getFieldId()%>">
 		<input name="hdnSortingIsAscending" type="hidden" value="<%=sortedField.isAscending()%>">
 	</form>
 <%
-}
+	}
 %>
 <form name="frmInstanceListPaging">
 	<!-- 페이징 -->
 	<div class="paginate">
 		<%
-		if (currentPage > 0 && totalPages > 0 && currentPage <= totalPages) {
-			boolean isFirst10Pages = (currentPage <= 10) ? true : false;
-			boolean isLast10Pages = (((currentPage - 1)  / 10) == ((totalPages - 1) / 10)) ? true : false;
-			int startPage = ((currentPage - 1) / 10) * 10 + 1;
-			int endPage = isLast10Pages ? totalPages : startPage + 10 - 1;
-			if (!isFirst10Pages) {
+			if (currentPage > 0 && totalPages > 0 && currentPage <= totalPages) {
+				boolean isFirst10Pages = (currentPage <= 10) ? true : false;
+				boolean isLast10Pages = (((currentPage - 1) / 10) == ((totalPages - 1) / 10)) ? true
+						: false;
+				int startPage = ((currentPage - 1) / 10) * 10 + 1;
+				int endPage = isLast10Pages ? totalPages : startPage + 10 - 1;
+				if (!isFirst10Pages) {
 		%>
 				<a class="pre_end js_select_paging" href="" title="<fmt:message key='common.title.first_page'/>">
 					<span class="spr"></span>
@@ -236,21 +260,21 @@ if(!SmartUtil.isBlankObject(sortedField)){
 					<input name="hdnPrev10" type="hidden" value="false">
 				</a>
 			<%
-			}
-			for (int num = startPage; num <= endPage; num++) {
-				if (num == currentPage) {
+				}
+					for (int num = startPage; num <= endPage; num++) {
+						if (num == currentPage) {
 			%>
 					<strong><%=num%></strong>
 					<input name="hdnCurrentPage" type="hidden" value="<%=num%>"/>
 				<%
-				} else {
+					} else {
 				%>
 					<a class="num js_select_current_page" href=""><%=num%></a>
 				<%
-				}
-			}
-			if (!isLast10Pages) {
-			%>
+					}
+						}
+						if (!isLast10Pages) {
+				%>
 				<a class="next js_select_paging" title="<fmt:message key='common.title.next_10_pages'/> ">
 					<span class="spr"></span>
 					<input name="hdnNext10" type="hidden" value="false"/>
@@ -260,19 +284,26 @@ if(!SmartUtil.isBlankObject(sortedField)){
 				</a>
 		<%
 			}
-		}
+			}
 		%>
 		<span class="js_progress_span"></span>
 	</div>
-	
-	<div class="num_box">
-		<span class="js_progress_span"></span>
-		<select class="js_select_page_size" name="selPageSize" title="<fmt:message key='common.title.count_in_page'/>">
-			<option <%if (pageSize == 20) {%> selected <%}%>>20</option>
-			<option <%if (pageSize == 30) {%> selected <%}%>>30</option>
-			<option <%if (pageSize == 50) {%> selected <%}%>>50</option>
-			<option <%if (pageSize == 100) {%> selected <%}%>>100</option>
-		</select>
+	<div class="title_line_btns">
+
+		<div class="num_box">
+			<div class="icon_btn_start">
+				<a href="newProductService.jsp"	class="js_instance_detail icon_btn_tail">새항목 등록하기</a>
+			</div>
+			<span class="js_progress_span"></span> 
+			<select	class="js_select_page_size" name="selPageSize" title="<fmt:message key='common.title.count_in_page'/>">
+				<option <%if (pageSize == 20) {%> selected <%}%>>20</option>
+				<option <%if (pageSize == 30) {%> selected <%}%>>30</option>
+				<option <%if (pageSize == 50) {%> selected <%}%>>50</option>
+				<option <%if (pageSize == 100) {%> selected <%}%>>100</option>
+			</select>
+			&nbsp<a href="#" class="wrap_top">top▲</a>
+		</div>
 	</div>
+
 	<!-- 페이징 //-->
 </form>

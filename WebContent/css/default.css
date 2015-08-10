@@ -310,3 +310,9 @@ a.important{
 .op30 { filter:progid:DXImageTransform.Microsoft.Alpha(opacity=30); -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(opacity=30)"; opacity:0.3}
 .op40 { filter:progid:DXImageTransform.Microsoft.Alpha(opacity=40); -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(opacity=40)"; opacity:0.4}
 .op50 { filter:progid:DXImageTransform.Microsoft.Alpha(opacity=50); -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(opacity=50)"; opacity:0.5}
+
+input.js_check_instance { width: 20px; height: 20px; }
+input.js_toggle_select_all { width: 20px; height: 20px; }
+
+tr.highlight { background-color: #EAEAEA;;   
+}    

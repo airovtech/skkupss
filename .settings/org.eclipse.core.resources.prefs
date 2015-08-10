@@ -1,9 +1,13 @@
-#Thu Nov 27 10:05:41 KST 2014
+#Sun Aug 09 11:15:11 KST 2015
 eclipse.preferences.version=1
 encoding//WebContent/header.jsp=UTF-8
 encoding//WebContent/js/sw/sw-act-nav.js=UTF-8
 encoding//WebContent/js/sw/sw-act-pss.js=UTF-8
 encoding//WebContent/js/sw/sw-act-work.js=UTF-8
 encoding//WebContent/js/sw/sw-file.js=UTF-8
+encoding//WebContent/js/sw/sw-formFields.js=UTF-8
+encoding//WebContent/js/sw/sw-language-en.js=UTF-8
+encoding//WebContent/js/sw/sw-language-ko.js=UTF-8
+encoding//WebContent/js/sw/sw-language-zh.js=UTF-8
 encoding//WebContent/js/sw/sw-util.js=UTF-8
 encoding//src/net/smartworks/util/SmartUtil.java=UTF-8

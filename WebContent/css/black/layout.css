@@ -914,3 +914,6 @@ li.sub_instance_list:hover > div > div > div > .goto_detail, tr.instance_list:ho
 .inline_content .left_point_margin_m {min-height:55px}
 .inline_content .enhanced .contents_space .left_point_margin_m .proc_arr_down {margin-top: 36px;}
 .inline_content .proc_task_repeat {padding-top:0}
+
+
+.icon_in_font {font-size:7px}

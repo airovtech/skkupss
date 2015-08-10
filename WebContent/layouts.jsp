@@ -119,7 +119,7 @@ try{
 <script type="text/javascript" src="js/jquery/jquery.layout.js"></script>
 <script type="text/javascript" src="js/jquery/i18n/grid.locale-en.js"></script>
 <script type="text/javascript" src="js/jquery/jquery.jqGrid.min.js"></script>
-
+<script type="text/javascript" src="js/jquery/jquery-ui-new.js"></script>
 <script src="js/jqgrid/js/i18n/grid.locale-en.js" type="text/javascript"></script>
 <script src="js/jqgrid/js/jquery.jqGrid.min.js" type="text/javascript"></script>
 

@@ -49,6 +49,7 @@ try{
 }catch(error){
 	smartPop.showInfo(smartPop.ERROR, smartMessage.get('technicalProblemOccured') + '[iwork script]', null, error);
 }
+
 </script>
 
 <%
@@ -57,7 +58,6 @@ try{
 %>
 <fmt:setLocale value="<%=cUser.getLocale() %>" scope="request" />
 <fmt:setBundle basename="resource.smartworksMessage" scope="request" />
-
 
 <!-- 컨텐츠 레이아웃-->
 <div class="section_portlet js_iwork_list_page js_work_list_page">
@@ -82,7 +82,6 @@ try{
 								<a href="" class="js_similarity_calculation icon_btn_tail">유사도 비교</a>
 							</div>
 						</div>
-					
 						<div class="title_line_options">
 							<form name="frmSearchInstance" class="po_left ml10"> 
 								<div class="srch_wh srch_wsize">
