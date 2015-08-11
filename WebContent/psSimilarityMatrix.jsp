@@ -34,6 +34,9 @@
 	case ProductService.SPACE_TYPE_BIZ_MODEL:
 		spaceName = ProductService.PSS_SPACE_BIZ_MODEL;
 		break;	
+	case ProductService.SPACE_TYPE_CONTEXT:
+		spaceName = ProductService.PSS_SPACE_CONTEXT;
+		break;	
 	}
 	
 	session.setAttribute("psIds", psIds);
@@ -170,6 +173,7 @@
 								<option value="<%=ProductService.PSS_SPACE_VALUE%>" <%if(spaceType.equals(ProductService.PSS_SPACE_VALUE)){%>selected<%} %>><fmt:message key="pss.title.space.value"/></option>
 								<option value="<%=ProductService.PSS_SPACE_SERVICE%>" <%if(spaceType.equals(ProductService.PSS_SPACE_SERVICE)){%>selected<%} %>><fmt:message key="pss.title.space.service"/></option>
 								<option value="<%=ProductService.PSS_SPACE_BIZ_MODEL%>" <%if(spaceType.equals(ProductService.PSS_SPACE_BIZ_MODEL)){%>selected<%} %>><fmt:message key="pss.title.space.biz_model"/></option>
+								<option value="<%=ProductService.PSS_SPACE_CONTEXT%>" <%if(spaceType.equals(ProductService.PSS_SPACE_CONTEXT)){%>selected<%} %>><fmt:message key="pss.title.space.context"/></option>
 								<option value="<%=ProductService.PSS_SPACE_VALUE_SERVICE%>" <%if(spaceType.equals(ProductService.PSS_SPACE_VALUE_SERVICE)){%>selected<%} %>><fmt:message key="pss.title.space.valueNservice"/></option>
 								<option value="<%=ProductService.PSS_SPACE_VALUE_BIZ_MODEL%>" <%if(spaceType.equals(ProductService.PSS_SPACE_VALUE_BIZ_MODEL)){%>selected<%} %>><fmt:message key="pss.title.space.valueNbiz_model"/></option>
 								<option value="<%=ProductService.PSS_SPACE_SERVICE_BIZ_MODEL%>" <%if(spaceType.equals(ProductService.PSS_SPACE_SERVICE_BIZ_MODEL)){%>selected<%} %>><fmt:message key="pss.title.space.serviceNbiz_model"/></option>

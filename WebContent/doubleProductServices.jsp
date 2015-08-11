@@ -70,7 +70,7 @@
 								<option href="viewBizModelSpace.jsp" spaceType="7" value="<%=ProductService.PSS_SPACE_BIZ_MODEL%>" <%if(spaceType.equals(ProductService.PSS_SPACE_BIZ_MODEL)){%>selected<%} %>><fmt:message key="pss.title.space.biz_model"/></option>
 								<option href="viewDefaultSpace.jsp" spaceType="8" value="<%=ProductService.PSS_SPACE_ACTOR%>" <%if(spaceType.equals(ProductService.PSS_SPACE_ACTOR)){%>selected<%} %>><fmt:message key="pss.title.space.actor"/></option>
 								<option href="viewDefaultSpace.jsp" spaceType="9" value="<%=ProductService.PSS_SPACE_SOCIETY%>" <%if(spaceType.equals(ProductService.PSS_SPACE_SOCIETY)){%>selected<%} %>><fmt:message key="pss.title.space.society"/></option>
-								<option href="viewDefaultSpace.jsp" spaceType="10" value="<%=ProductService.PSS_SPACE_CONTEXT%>" <%if(spaceType.equals(ProductService.PSS_SPACE_CONTEXT)){%>selected<%} %>><fmt:message key="pss.title.space.context"/></option>
+								<option href="viewContextSpace.jsp" spaceType="10" value="<%=ProductService.PSS_SPACE_CONTEXT%>" <%if(spaceType.equals(ProductService.PSS_SPACE_CONTEXT)){%>selected<%} %>><fmt:message key="pss.title.space.context"/></option>
 								<option href="viewDefaultSpace.jsp" spaceType="11" value="<%=ProductService.PSS_SPACE_TIME%>" <%if(spaceType.equals(ProductService.PSS_SPACE_TIME)){%>selected<%} %>><fmt:message key="pss.title.space.time"/>시간공간(Time Space)</option>
 								<option href="viewDefaultSpace.jsp" spaceType="12" value="<%=ProductService.PSS_SPACE_ENVIRONMENT%>" <%if(spaceType.equals(ProductService.PSS_SPACE_ENVIRONMENT)){%>selected<%} %>><fmt:message key="pss.title.space.environment"/></option>
 							</select>
@@ -124,6 +124,13 @@
 														</jsp:include>
 													<%
 													break;
+													case ProductService.SPACE_TYPE_CONTEXT:
+													%>
+														<jsp:include page="viewContextSpace.jsp">
+															<jsp:param value="<%=sourcePsId %>" name="psId"/>
+														</jsp:include>
+													<%
+													break;
 													default:
 													%>
 														<jsp:include page="viewValueSpace.jsp">
@@ -156,6 +163,13 @@
 													case ProductService.SPACE_TYPE_BIZ_MODEL:
 													%>
 														<jsp:include page="viewBizModelSpace.jsp">
+															<jsp:param value="<%=targetPsId %>" name="psId"/>
+														</jsp:include>
+													<%
+													break;
+													case ProductService.SPACE_TYPE_CONTEXT:
+													%>
+														<jsp:include page="viewContextSpace.jsp">
 															<jsp:param value="<%=targetPsId %>" name="psId"/>
 														</jsp:include>
 													<%
