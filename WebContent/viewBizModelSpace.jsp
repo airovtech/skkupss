@@ -136,7 +136,7 @@
 			<option>Pay per use</option>
 		</select>
 	</div>
-	<table class="tc" style="width:600px;height:300px;border: 1px solid #c7c7c7;padding: 0;">
+	<table class="tc" style="margin-left:auto;margin-right:auto;width:600px;height:300px;border: 1px solid #c7c7c7;padding: 0;">
 		<tr>
 			<th class="r_line" style="width:20%; border-bottom:none">
 				<div class="fl" style="font-size:11px; font-style:italic;line-height: 11px;color: gray;text-align: left;">Key<br>Partners</div>
@@ -776,7 +776,7 @@
 			</td>
 		</tr>
 	</table>
-	<table class="tc" style="width:600px;height:100px;border-left: 1px solid #c7c7c7;border-right: 1px solid #c7c7c7;border-bottom: 1px solid #c7c7c7;padding: 0;">
+	<table class="tc" style="margin-left:auto;margin-right:auto;width:600px;height:100px;border-left: 1px solid #c7c7c7;border-right: 1px solid #c7c7c7;border-bottom: 1px solid #c7c7c7;padding: 0;">
 		<tr>
 			<th class="r_line" style="width:50%; border-bottom:none">
 				<div class="fl" style="font-size:11px; font-style:italic;line-height: 11px;color: gray;text-align: left;">Cost<br>Structure</div>

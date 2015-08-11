@@ -314,5 +314,5 @@ a.important{
 input.js_check_instance { width: 20px; height: 20px; }
 input.js_toggle_select_all { width: 20px; height: 20px; }
 
-tr.highlight { background-color: #EAEAEA;;   
+tr.instance_list:hover { background-color: #fff7eb;   
 }    
