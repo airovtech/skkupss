@@ -381,8 +381,9 @@ public class PssController {
 					Map<String, String> file = imgMyProfile.get(i);
 					profileFileId = file.get("fileId");
 					profileFileName = file.get("fileName");
-					txtUserProfilePicture = ManagerFactory.getInstance().getDocFileManager().insertProfilesFile(profileFileId);
-					user.setBigPictureName(profileFileId);
+					if(user.getPicture()==null || !user.getPicture().equals(profileFileId))
+						txtUserProfilePicture = ManagerFactory.getInstance().getDocFileManager().insertProfilesFile(profileFileId);
+					user.setPicture(profileFileId);
 				}
 			}
 	
