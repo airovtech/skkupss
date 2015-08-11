@@ -11,7 +11,7 @@
    <beans:bean id="misDs"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<beans:property name="driverClassName" value="org.postgresql.Driver" />
-		<beans:property name="url" value="jdbc:postgresql://smartworks.net:5432/skkupss" />
+		<beans:property name="url" value="jdbc:postgresql://www.smartworks.net:5432/skkupss" />
 		<beans:property name="username" value="postgres" />
 		<beans:property name="password" value="postgres" />
 	</beans:bean>

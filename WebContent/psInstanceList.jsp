@@ -183,9 +183,6 @@
  			 		<span class="<%if (sortedField.getFieldId().equals(ProductService.FIELD_NAME)) {
 					if (sortedField.isAscending()) {%>icon_in_up<%} else {%>icon_in_down<%}
 				}%>"></span>
-					<p><span class="icon_in_font"><%if (sortedField.getFieldId().equals(ProductService.FIELD_NAME)) {
-					if (sortedField.isAscending()) {%>(123abcㄱㄴㄷ)<%} else {%>(ㄷㄴㄱcba321)<%}
-				}%></span></p></a>
 				<span class="js_progress_span"></span>
 			</th>
 	 		<th class="r_line"  style="min-width:200px">설 명</th>
@@ -208,7 +205,7 @@
 				<a href="" class="js_select_field_sorting" fieldId="<%=ProductService.FIELD_LAST_MODIFIED_USER%>"><fmt:message key='common.title.last_modifier' />
 					<span class="<%if(sortedField.getFieldId().equals(ProductService.FIELD_LAST_MODIFIED_USER)){
 						if(sortedField.isAscending()){ %>icon_in_up<%}else{ %>icon_in_down<%}}%>"></span>
-				</a>/
+				</a>
 				<a href="" class="js_select_field_sorting" fieldId="<%=ProductService.FIELD_LAST_MODIFIED_DATE%>"><fmt:message key='common.title.last_modified_date' />
 					<span class="<%if(sortedField.getFieldId().equals(ProductService.FIELD_LAST_MODIFIED_DATE)){
 						if(sortedField.isAscending()){ %>icon_in_up<%}else{ %>icon_in_down<%}}%>"></span>
@@ -293,13 +290,13 @@
 				<a href="newProductService.jsp"	class="js_instance_detail icon_btn_tail"><fmt:message key="common.button.add_new_iwork"/></a>
 			</div>
 			<span class="js_progress_span"></span> 
-			<select	class="js_select_page_size" name="selPageSize" title="<fmt:message key='common.title.count_in_page'/>">
+			<select	class="js_select_page_size" name="selPageSize" style="font-size:15px;margin-bottom:2px" title="<fmt:message key='common.title.count_in_page'/>">
 				<option <%if (pageSize == 20) {%> selected <%}%>>20</option>
 				<option <%if (pageSize == 30) {%> selected <%}%>>30</option>
 				<option <%if (pageSize == 50) {%> selected <%}%>>50</option>
 				<option <%if (pageSize == 100) {%> selected <%}%>>100</option>
 			</select>
-			&nbsp<a href="#" class="wrap_top">top▲</a>
+			&nbsp<a href="#" class="wrap_top">맨 위로▲</a>
 		</div>
 	</div>
 
