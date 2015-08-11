@@ -26,7 +26,7 @@
 			<div id="m_setting">
 				<!-- 내부 메뉴 -->
 				<ul>
-					<li><a href="user_management.sw" class="js_content"><span class="icon_b1dep"><fmt:message key="pss.title.user_management"/></span></a></li>
+					<li><a href="userManagement.jsp" class="js_content"><span class="icon_b1dep"><fmt:message key="pss.title.user_management"/></span></a></li>
 				</ul>
 				<!--내부메뉴//-->
 			</div>
@@ -35,3 +35,8 @@
 	<!-- Nav List//-->
 </div>
 
+<script type="text/javascript">
+$(function() {
+	$('#navigation').css('height', '100%');
+});
+</script>

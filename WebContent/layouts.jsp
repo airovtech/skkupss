@@ -224,12 +224,6 @@ try{
 		</div>
 		<!-- Header//-->
 
-		<!-- Nav -->
-		<div id="navigation" style="">
-			<tiles:insertAttribute name="navigation" />
-		</div>
-		<!-- Nav//-->
-
 		<!-- Contents-->
 		<div id="content" style="min-width:1200px">
 			<tiles:insertAttribute name="content" />

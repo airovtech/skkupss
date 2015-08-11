@@ -76,10 +76,10 @@ try{
 								<a href="newProductService.sw" class="js_instance_detail icon_btn_tail"><fmt:message key="common.button.add_new_iwork"/></a>
 							</div>
 							<div class="icon_btn_start">
-								<a href="" class="js_eyeball_comparison icon_btn_tail">육안 비교</a>
+								<a href="" class="js_eyeball_comparison icon_btn_tail"><fmt:message key="pss.button.eyeball_comparison"/></a>
 							</div>
 							<div class="icon_btn_start">
-								<a href="" class="js_similarity_calculation icon_btn_tail">유사도 비교</a>
+								<a href="" class="js_similarity_calculation icon_btn_tail"><fmt:message key="pss.button.similarity_calculation"/></a>
 							</div>
 						</div>
 						<div class="title_line_options">

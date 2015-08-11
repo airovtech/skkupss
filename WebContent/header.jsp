@@ -24,7 +24,7 @@ function logout() {
 <!-- 회사 로고 및 연결 링크 //-->
 
 <!-- 헤더에 있는 메뉴들 및 연결 기능 -->
-<div class="top_menu" style="color:white; font-size:20px;width:310px;height:35px;padding-top: 15px !important;"><fmt:message key="pss.title.repository"/></div>
+<div class="top_menu" style="color:white;text-align:center; font-size:20px;width:510px;height:35px;padding-top: 15px !important;"><fmt:message key="pss.title.repository"/></div>
 <!-- 헤더에 있는 메뉴들 및 연결 기능 // -->
 
 <!--  전체 메뉴  -->

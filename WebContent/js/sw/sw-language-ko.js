@@ -420,7 +420,9 @@ smartMessage.bundle['ko'] = {
 	globalSearchingMore : "다른업무들 검색중 입니다... ",
 	globalSearchFinished : "모든업무 검색이 완료 되었습니다!!!",
 	
-	pssSelectPicture : "사진"
+	pssSelectPicture : "사진 업로드",
+	pssContinueAddNew : "성공적으로 새항목이 등록되었습니다. 계속 새항목 등록하기를 하시겠습니까?"
+		
 };
 }catch(error){
 	smartPop.showInfo(smartPop.ERROR, smartMessage.get('technicalProblemOccured') + '[sw-language-ko script]', null, error);

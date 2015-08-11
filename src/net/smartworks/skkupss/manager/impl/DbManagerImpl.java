@@ -8,6 +8,8 @@
 
 package net.smartworks.skkupss.manager.impl;
 
+import java.util.Date;
+
 import net.smartworks.factory.DaoFactory;
 import net.smartworks.skkupss.dao.IDbDao;
 import net.smartworks.skkupss.manager.IDbManager;
@@ -457,16 +459,22 @@ public class DbManagerImpl implements IDbManager {
 		
 		if (dbPs[0].getValueSpace() != null){
 			Db_ValueSpace valueSpace = dbPs[0].getValueSpace();
+			if(productService.getId()==null)
+				valueSpace.setId(null);
 			valueSpace.setPsId(id);
 			dao.setValueSpace(userId, valueSpace);
 		}
 		if (dbPs[0].getServiceSpace() != null){
 			Db_ServiceSpace serviceSpace = dbPs[0].getServiceSpace();
+			if(productService.getId()==null)
+				serviceSpace.setId(null);
 			serviceSpace.setPsId(id);
 			dao.setServiceSpace(userId, serviceSpace);
 		}
 		if (dbPs[0].getBizModelSpace() != null){
 			Db_BizModelSpace bizModelSpace = dbPs[0].getBizModelSpace();
+			if(productService.getId()==null)
+				bizModelSpace.setId(null);
 			bizModelSpace.setPsId(id);
 			dao.setBizModelSpace(userId, bizModelSpace);
 		}
@@ -499,7 +507,8 @@ public class DbManagerImpl implements IDbManager {
 		Db_User dbUser = getDbUserFromUser(user);
 		if(SmartUtil.isBlankObject(dbUser))
 			return null;
-		
+		dbUser.setModifier(userId);
+		dbUser.setModifiedTime(new Date());
 		String id = dao.setUser(userId, dbUser);
 
 		return id;
@@ -520,9 +529,10 @@ public class DbManagerImpl implements IDbManager {
 	@Override
 	public int getUserSize(String userId, UserCond cond) throws Exception {
 		Db_UserCond dbCond = new Db_UserCond();
-
-		if (cond.getSearchKey() != null) {
-			dbCond.setSearchKey(cond.getSearchKey());
+		if (cond != null) {
+			if (!SmartUtil.isBlankObject(cond.getSearchKey())) {
+				dbCond.setSearchKey(cond.getSearchKey());
+			}
 		}
 		
 		int totalSize = DaoFactory.getInstance().getDbDao().getUserSize(userId, dbCond);
@@ -531,9 +541,21 @@ public class DbManagerImpl implements IDbManager {
 	@Override
 	public User[] getUsers(String userId, UserCond cond) throws Exception {
 		
-		Db_UserCond dbUserCond = new Db_UserCond();
+		Db_UserCond dbCond = new Db_UserCond();
+		if (cond != null) {
+			if (cond.getPageSize() != -1) {
+				dbCond.setPageNo(cond.getPageNo());
+				dbCond.setPageSize(cond.getPageSize());
+			}
+			if (!SmartUtil.isBlankObject(cond.getSearchKey())) {
+				dbCond.setSearchKey(cond.getSearchKey());
+			}
+			if (cond.getOrders() != null) {
+				dbCond.setOrders(cond.getOrders());
+			}
+		}
 		
-		Db_User[] dbUsers = DaoFactory.getInstance().getDbDao().getUsers(userId, dbUserCond);
+		Db_User[] dbUsers = DaoFactory.getInstance().getDbDao().getUsers(userId, dbCond);
 		if(SmartUtil.isBlankObject(dbUsers))
 			return null;
 		
@@ -558,11 +580,13 @@ public class DbManagerImpl implements IDbManager {
 				user.setBigPictureName(dbUser.getPicture());				
 			}
 		}
+		user.setPicture(dbUser.getPicture());
 		user.setCompany(dbUser.getCompany());
 		if(!SmartUtil.isBlankObject(dbUser.getLocale()))
 			user.setLocale(dbUser.getLocale());
 		if(!SmartUtil.isBlankObject(dbUser.getTimeZone()))
 			user.setTimeZone(dbUser.getTimeZone());
+		user.setMobilePhoneNo(dbUser.getMobileNo());
 		user.setHomePhoneNo(dbUser.getHomePhoneNo());
 		user.setHomeAddress(dbUser.getHomeAddress());
 		return user;
@@ -574,10 +598,11 @@ public class DbManagerImpl implements IDbManager {
 		dbUser.setName(user.getName());
 		dbUser.setPasswd(user.getPassword());
 		dbUser.setAuthId(Login.getAuthId(user.getUserLevel()));
-		dbUser.setPicture(user.getBigPictureName());
+		dbUser.setPicture(user.getPicture());
 		dbUser.setCompany(user.getCompany());
 		dbUser.setLocale(user.getLocale());
 		dbUser.setTimeZone(user.getTimeZone());
+		dbUser.setMobileNo(user.getMobilePhoneNo());
 		dbUser.setHomePhoneNo(user.getHomePhoneNo());
 		dbUser.setHomeAddress(user.getHomeAddress());
 		return dbUser;

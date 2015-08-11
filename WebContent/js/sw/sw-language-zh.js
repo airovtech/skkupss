@@ -420,7 +420,8 @@ smartMessage.bundle['zh'] = {
 	globalSearchingMore : "搜索其他业务中... ",
 	globalSearchFinished : "所有业务搜索已结束!!!",
 	
-	pssSelectPicture : "Picture"	
+	pssSelectPicture : "Upload Picture",	
+	pssContinueAddNe : "New Item has been created SUCCESSFULLY! Do you want to create more ?"
 		
 };
 }catch(error){

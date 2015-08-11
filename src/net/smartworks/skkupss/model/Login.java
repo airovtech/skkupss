@@ -17,8 +17,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public class Login implements UserDetails {
 
-	private static final String AUTH_ID_ADMINISTRATOR = "ADMINISTRATOR";
-	private static final String AUTH_ID_USER = "USER";
+	public static final String AUTH_ID_ADMINISTRATOR = "ADMINISTRATOR";
+	public static final String AUTH_ID_USER = "USER";
 	
 	private static final long serialVersionUID = 109756771178872916L;
 	private String id;

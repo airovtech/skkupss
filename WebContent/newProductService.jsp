@@ -1,3 +1,4 @@
+<%@page import="net.smartworks.skkupss.model.User"%>
 <%@page import="net.smartworks.util.PropertiesLoader"%>
 <%@page import="net.smartworks.skkupss.manager.impl.DocFileManagerImpl"%>
 <%@page import="java.util.Date"%>
@@ -11,6 +12,7 @@
 <%@page import="net.smartworks.util.LocalDate"%>
 <%@page import="net.smartworks.util.SmartUtil"%>
 <%@ page contentType="text/html; charset=utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <script type="text/javascript">
 try{
@@ -24,6 +26,7 @@ function submitForms(tempSave) {
 	var forms = newProductService.find('form');
 	var paramsJsonHiddens = {};
 	var spaceTabs = forms.find('.js_space_tab');
+	var currentSpaceType = forms.find('.js_select_space_type th.current>a').attr('spaceTypeStr');
 	for(var i=0; i<spaceTabs.length; i++){
 		var spaceTab = $(spaceTabs[i]);
 		var spaceType = spaceTab.attr('spaceType');
@@ -91,8 +94,8 @@ function submitForms(tempSave) {
 		success : function(data, status, jqXHR) {
 			// 성공시에 프로그래스바를 제거하고 성공메시지를 보여준다...
 			if(isEmpty(psId)){
-				smartPop.confirm( "성공적으로 새항목이 등록되었습니다. 계속 새항목 등록하기를 하시겠습니까?", function(){
-					var url = 'newProductService.jsp';
+				smartPop.confirm( smartMessage.get('pssContinueAddNew'), function(){
+					var url = 'newProductService.jsp' + '?spaceType=' + currentSpaceType;
 					var target = $('#content');
 					$.ajax({
 						url : url,
@@ -107,7 +110,7 @@ function submitForms(tempSave) {
 					smartPop.closeProgress();
 				});
 			}else{
-				var url = 'newProductService.jsp?psId=' + psId + '&isEditMode=false';
+				var url = 'newProductService.jsp?psId=' + psId + '&isEditMode=false' + '&spaceType=' + currentSpaceType;
 				var target = $('#content');
 				$.ajax({
 					url : url,
@@ -127,6 +130,8 @@ function submitForms(tempSave) {
 </script>
 
 <%
+	User cUser = SmartUtil.getCurrentUser();
+
 	String PSS_PICTURE_URL = PropertiesLoader.loadPropByClassPath("/net/smartworks/conf/config.properties").getProperty("pss.picture.url");
 	
 	String psId = request.getParameter("psId");
@@ -145,6 +150,8 @@ function submitForms(tempSave) {
 	String psPictureUrl = SmartUtil.isBlankObject(productService.getPicture()) ? "" : PSS_PICTURE_URL +  productService.getPicture();
 
 %>
+<fmt:setLocale value="<%=cUser.getLocale() %>" scope="request" />
+<fmt:setBundle basename="resource.smartworksMessage" scope="request" />
 
 <!-- 컨텐츠 레이아웃-->
 <div class="section_portlet js_iwork_list_page js_work_list_page">
@@ -160,7 +167,7 @@ function submitForms(tempSave) {
 					<div class="list_title_space js_work_list_title mt15">
 						<div class="title_line_btns">
 							<div class="icon_btn_start">
-								<a href="home.sw?spaceType=<%=spaceType %>" class="icon_btn_tail">목록으로 이동하기</a>
+								<a href="home.sw?spaceType=<%=spaceType %>" class="icon_btn_tail"><fmt:message key="pss.button.goto_list"/></a>
 							</div>
 						</div>					
 					</div>
@@ -168,13 +175,13 @@ function submitForms(tempSave) {
 
 					<!-- 상세필터 및 새업무등록하기 화면 -->
 					<div id="search_filter" class="filter_section js_new_work_form">
-						<div class="form_wrap up js_form_wrap js_new_iwork_page js_new_product_service_page" psId="<%=psId%>" isEditMode="<%=isEditMode%>">
+						<div class="form_wrap up js_form_wrap js_new_iwork_page js_new_product_service_page" psId="<%=psId%>" isEditMode="<%=isEditMode%>" spaceType="<%=spaceType%>">
 							<div class="form_title js_form_header">
 								<!-- 해당 업무이름을 표시하는 곳 -->
 								<%
 								if(SmartUtil.isBlankObject(psId)){
 								%>
-									<div class="title">새항목 등록하기</div>
+									<div class="title"><fmt:message key="common.button.add_new_iwork"/></div>
 								<%
 								}else{
 								%>
@@ -205,7 +212,7 @@ function submitForms(tempSave) {
 												<!--  완료버튼을 클릭시 해당 업로드 화면페이지에 있는 submitForms()함수를 실행한다.. -->
 												<a href="" class="js_complete_action" onclick='submitForms();return false;'> 
 													<span class="txt_btn_start"></span>
-													<span class="txt_btn_center">등록하기</span> 
+													<span class="txt_btn_center"><fmt:message key="pss.button.complete"/></span> 
 													<span class="txt_btn_end"></span> 
 												</a>
 											</span>
@@ -214,7 +221,7 @@ function submitForms(tempSave) {
 												<!--  완료버튼을 클릭시 해당 업로드 화면페이지에 있는 submitForms()함수를 실행한다.. -->
 												<a href="" class="js_complete_action" onclick='submitForms();return false;'> 
 													<span class="txt_btn_start"></span>
-													<span class="txt_btn_center">수정완료</span> 
+													<span class="txt_btn_center"><fmt:message key="pss.button.complete_modify"/></span> 
 													<span class="txt_btn_end"></span> 
 												</a>
 											</span>
@@ -222,16 +229,24 @@ function submitForms(tempSave) {
 												<!--  완료버튼을 클릭시 해당 업로드 화면페이지에 있는 submitForms()함수를 실행한다.. -->
 												<a href="" class="js_cancel_modify_ps" psId="<%=productService.getId() %>"> 
 													<span class="txt_btn_start"></span>
-													<span class="txt_btn_center">수정취소</span> 
+													<span class="txt_btn_center"><fmt:message key="pss.button.cancel_modify"/></span> 
 													<span class="txt_btn_end"></span> 
 												</a>
 											</span>
 										<%}else{ %>
 											<span class="btn_gray"> 
 												<!--  완료버튼을 클릭시 해당 업로드 화면페이지에 있는 submitForms()함수를 실행한다.. -->
+												<a href="" class="js_saveas_product_service" psId="<%=productService.getId() %>"> 
+													<span class="txt_btn_start"></span>
+													<span class="txt_btn_center"><fmt:message key="pss.button.save_as"/></span> 
+													<span class="txt_btn_end"></span> 
+												</a>
+											</span>
+											<span class="btn_gray"> 
+												<!--  완료버튼을 클릭시 해당 업로드 화면페이지에 있는 submitForms()함수를 실행한다.. -->
 												<a href="" class="js_modify_product_service" psId="<%=productService.getId() %>"> 
 													<span class="txt_btn_start"></span>
-													<span class="txt_btn_center">수정하기</span> 
+													<span class="txt_btn_center"><fmt:message key="pss.button.modify"/></span> 
 													<span class="txt_btn_end"></span> 
 												</a>
 											</span>
@@ -239,7 +254,7 @@ function submitForms(tempSave) {
 												<!--  완료버튼을 클릭시 해당 업로드 화면페이지에 있는 submitForms()함수를 실행한다.. -->
 												<a href="" class="js_remove_product_service" psId="<%=productService.getId() %>"> 
 													<span class="txt_btn_start"></span>
-													<span class="txt_btn_center">삭제하기</span> 
+													<span class="txt_btn_center"><fmt:message key="pss.button.delete"/></span> 
 													<span class="txt_btn_end"></span> 
 												</a>
 											</span>
@@ -249,7 +264,7 @@ function submitForms(tempSave) {
 											<!--  취소버튼을 클릭시 sw_act_work 에서 click event 로 정의 되어있는 함수를 실행한다... -->
 											<a href="home.sw?spaceType=<%=spaceType%>"> 
 												<span class="txt_btn_start"></span> 
-												<span class="txt_btn_center">취소</span> 
+												<span class="txt_btn_center"><fmt:message key="common.button.cancel"/></span> 
 												<span class="txt_btn_end"></span> 
 											</a> 
 										</span>
@@ -349,18 +364,18 @@ try{
 		var spaceContents = 
 			 '<table class="kpi_tab_area">' + 
 				'<tr class="js_select_space_type">' + 
-					'<th class="current"><a spaceType="1" href="viewValueSpace.jsp">Value Space</a></th>' +  
-					'<th><a spaceType="2" href="viewDefaultSpace.jsp">Product-Service Space</a></th>' +  
-					'<th><a spaceType="3" href="viewDefaultSpace.jsp">Product Space</a></th>' +  
-					'<th><a spaceType="4" href="viewServiceSpace.jsp">Service Space</a></th>' +  
-					'<th><a spaceType="5" href="viewDefaultSpace.jsp">Touch Point Space</a></th>' +  
-					'<th><a spaceType="6" href="viewDefaultSpace.jsp">Customer Space</a></th>' +  
-					'<th><a spaceType="7" href="viewBizModelSpace.jsp">Biz Model Space</a></th>' +  
-					'<th><a spaceType="8" href="viewDefaultSpace.jsp">Actor Space</a></th>' +  
-					'<th><a spaceType="9" href="viewDefaultSpace.jsp">Society Space</a></th>' +  
-					'<th><a spaceType="10" href="viewContextSpace.jsp">Context Space</a></th>' +  
-					'<th><a spaceType="11" href="viewDefaultSpace.jsp">Time Space</a></th>' +  
-					'<th><a spaceType="12" href="viewDefaultSpace.jsp">Environment Space</a></th>' +  
+					'<th class="current"><a spaceType="1" spaceTypeStr="<%=ProductService.PSS_SPACE_VALUE%>" href="viewValueSpace.jsp">Value Space</a></th>' +  
+					'<th><a spaceType="2" spaceTypeStr="<%=ProductService.PSS_SPACE_PRODUCT_SERVICE%>" href="viewDefaultSpace.jsp">Product-Service Space</a></th>' +  
+					'<th><a spaceType="3" spaceTypeStr="<%=ProductService.PSS_SPACE_PRODUCT%>" href="viewDefaultSpace.jsp">Product Space</a></th>' +  
+					'<th><a spaceType="4" spaceTypeStr="<%=ProductService.PSS_SPACE_SERVICE%>" href="viewServiceSpace.jsp">Service Space</a></th>' +  
+					'<th><a spaceType="5" spaceTypeStr="<%=ProductService.PSS_SPACE_TOUCH_POINT%>" href="viewDefaultSpace.jsp">Touch Point Space</a></th>' +  
+					'<th><a spaceType="6" spaceTypeStr="<%=ProductService.PSS_SPACE_CUSTOMER%>" href="viewDefaultSpace.jsp">Customer Space</a></th>' +  
+					'<th><a spaceType="7" spaceTypeStr="<%=ProductService.PSS_SPACE_BIZ_MODEL%>" href="viewBizModelSpace.jsp">Biz Model Space</a></th>' +  
+					'<th><a spaceType="8" spaceTypeStr="<%=ProductService.PSS_SPACE_ACTOR%>" href="viewDefaultSpace.jsp">Actor Space</a></th>' +  
+					'<th><a spaceType="9" spaceTypeStr="<%=ProductService.PSS_SPACE_SOCIETY%>" href="viewDefaultSpace.jsp">Society Space</a></th>' +  
+					'<th><a spaceType="10" spaceTypeStr="<%=ProductService.PSS_SPACE_CONTEXT%>" href="viewContextSpace.jsp">Context Space</a></th>' +  
+					'<th><a spaceType="11" spaceTypeStr="<%=ProductService.PSS_SPACE_TIME%>" href="viewDefaultSpace.jsp">Time Space</a></th>' +  
+					'<th><a spaceType="12" spaceTypeStr="<%=ProductService.PSS_SPACE_ENVIRONMENT%>" href="viewDefaultSpace.jsp">Environment Space</a></th>' +  
 				'</tr>' + 
 			'</table>' +
 			'<div class="up" style="border-top: #dfeffc 1px solid">' +
@@ -370,13 +385,10 @@ try{
 
  		gridRow.find("td[fieldId='tabSpaces'] .form_value").html(spaceContents);
  
- 		$.ajax({
-				url : "viewValueSpace.jsp?psId=" +"<%=psId%>" + "&isEditMode=" + "<%=isEditMode%>",
-				success : function(data, status, jqXHR) {
-						gridRow.find("td[fieldId='tabSpaces'] .form_value .js_space_view_target").html(data);
-				}
-			});		
-	}
+ 		var spaceType = "<%=ProductService.getSpaceType(spaceType)==ProductService.SPACE_TYPE_NONE?ProductService.SPACE_TYPE_VALUE:ProductService.getSpaceType(spaceType)%>"
+		gridRow.find('tr.js_select_space_type a[spaceType="' + spaceType + '"]:first').click();
+ 		
+ 	}
 	
 }catch(error){
 	smartPop.showInfo(smartPop.ERROR, smartMessage.get('technicalProblemOccured') + '[newProductService script]', null, error);

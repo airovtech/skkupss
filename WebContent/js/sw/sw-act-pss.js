@@ -10,6 +10,7 @@ $(function() {
 			var isEditMode = newProductService.attr('isEditMode');
 			var href = input.attr('href');
 			var spaceType = input.attr('spaceType');
+			var spaceTypeStr = input.attr('spaceTypeStr');
 			input.parent().addClass('current').siblings().removeClass('current');
 
 			var newSpaceTab = newProductService.find('.js_space_tab:visible').clone();
@@ -26,6 +27,7 @@ $(function() {
 					url : href + "?psId=" + psId + "&spaceType=" + spaceType + "&isEditMode=" + isEditMode,
 					success : function(data, status, jqXHR) {
 						newProductService.find('.js_space_view_target').html(data);
+						newProductService.attr('spaceType', spaceTypeStr);
 					}
 				});
 			}else{
@@ -33,6 +35,7 @@ $(function() {
 				cloneSelectedValues(savedSpaceTab, newSavedSpaceTab);
 				newProductService.find('.js_space_view_target').html(newSavedSpaceTab);
 				savedSpaceTab.parent().remove();
+				newProductService.attr('spaceType', spaceTypeStr);
 			}
 		}catch(error){
 			smartPop.showInfo(smartPop.ERROR, smartMessage.get('technicalProblemOccured') + '[sw-act-pss js_select_space_type]', null, error);
@@ -295,12 +298,44 @@ $(function() {
 		return false;
 	});	
 	
+	$('.js_saveas_product_service').live('click', function(e) {
+		try{
+			var input = $(targetElement(e));
+			input = input.parents('.js_saveas_product_service');
+			var newProductService = input.parents('.js_new_product_service_page');
+			var psId = input.attr('psId');
+			var spaceType = newProductService.attr('spaceType');
+			var paramsJson = {};
+			$.ajax({
+				url : 'clone_product_service.sw?psId=' + psId,
+				contentType : 'application/json',
+				type : 'POST',
+				data : JSON.stringify(paramsJson),
+				success : function(clonedPsId, status, jqXHR) {
+					var url = 'newProductService.jsp?psId=' + clonedPsId + '&isEditMode=true' + '&spaceType=' + spaceType;
+					var target = $('#content');
+					$.ajax({
+						url : url,
+						success : function(data, status, jqXHR) {
+							target.html(data);
+						}				
+					});
+				}				
+			});
+		}catch(error){
+			smartPop.showInfo(smartPop.ERROR, smartMessage.get('technicalProblemOccured') + '[sw-act-work js_create_new_work]', null, error);
+		}			
+		return false;
+	});	
+	
 	$('.js_modify_product_service').live('click', function(e) {
 		try{
 			var input = $(targetElement(e));
 			input = input.parents('.js_modify_product_service');
+			var newProductService = input.parents('.js_new_product_service_page');
 			var psId = input.attr('psId');
-			var url = 'newProductService.jsp?psId=' + psId + '&isEditMode=true';
+			var spaceType = newProductService.attr('spaceType');
+			var url = 'newProductService.jsp?psId=' + psId + '&isEditMode=true' + '&spaceType=' + spaceType;
 			var target = $('#content');
 			$.ajax({
 				url : url,
@@ -318,8 +353,10 @@ $(function() {
 		try{
 			var input = $(targetElement(e));
 			input = input.parents('.js_cancel_modify_ps');
+			var newProductService = input.parents('.js_new_product_service_page');
 			var psId = input.attr('psId');
-			var url = 'newProductService.jsp?psId=' + psId + '&isEditMode=false';
+			var spaceType = newProductService.attr('spaceType');
+			var url = 'newProductService.jsp?psId=' + psId + '&isEditMode=false' + '&spaceType=' + spaceType;
 			var target = $('#content');
 			$.ajax({
 				url : url,

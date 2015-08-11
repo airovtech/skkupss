@@ -67,13 +67,13 @@
 				<form class="form_space js_space_name" name="frmSpaceName">
 					<select name="selSpaceName" class="js_select_space_name">
 						<option value="<%=ProductService.PSS_SPACE_VALUE%>" <%if (params.getSpaceType()
-						.equals(ProductService.PSS_SPACE_VALUE)) {%>selected<%}%>>가치공간(Value Space)</option>
+						.equals(ProductService.PSS_SPACE_VALUE)) {%>selected<%}%>><fmt:message key="pss.title.space.value"/></option>
 						<option value="<%=ProductService.PSS_SPACE_SERVICE%>" <%if (params.getSpaceType().equals(
-						ProductService.PSS_SPACE_SERVICE)) {%>selected<%}%>>서비스공간(Service Space)</option>
+						ProductService.PSS_SPACE_SERVICE)) {%>selected<%}%>><fmt:message key="pss.title.space.service"/></option>
 						<option value="<%=ProductService.PSS_SPACE_BIZ_MODEL%>" <%if (params.getSpaceType().equals(
-						ProductService.PSS_SPACE_BIZ_MODEL)) {%>selected<%}%>>비즈모델공간(Biz Model Space)</option>
+						ProductService.PSS_SPACE_BIZ_MODEL)) {%>selected<%}%>><fmt:message key="pss.title.space.biz_model"/></option>
 						<option value="<%=ProductService.PSS_SPACE_CONTEXT%>" <%if (params.getSpaceType().equals(
-						ProductService.PSS_SPACE_CONTEXT)) {%>selected<%}%>>컨텍스트공간(Context Space)</option>
+						ProductService.PSS_SPACE_CONTEXT)) {%>selected<%}%>><fmt:message key="pss.title.space.context"/></option>
 					</select>
 					<span class="js_progress_span"></span>
 				</form>
@@ -102,7 +102,7 @@
 				User lastModifier = productService.getLastModifiedUser();
 				LocalDate lastModifiedDate = productService.getLastModifiedDate();
 			%>
-				<tr class="instance_list js_work_instance_list js_instance_detail" href="newProductService.sw?psId=<%=productService.getId() %>&spaceType=<%=params.getSpaceType()%>" psId="<%=productService.getId()%>" psName="<%=productService.getName()%>">
+				<tr class="instance_list js_content js_work_instance_list js_instance_detail" href="newProductService.sw?psId=<%=productService.getId() %>&spaceType=<%=params.getSpaceType()%>" psId="<%=productService.getId()%>" psName="<%=productService.getName()%>">
 					<td class="tc"><input class="js_check_instance" name="chkSelectInstance" type="checkbox"/></td>
 					<td class="tc"><%=currentCount--%></td>
 					<td class="tc">
@@ -152,8 +152,9 @@
 						%>
 					</td>
 					<td class="vt">
+						<div class="noti_pic"><img class="profile_size_m mb3 mr3" src="<%=lastModifier.getMinPicture()%>" title="<%=lastModifier.getLongName()%>"/></div>
 						<div class="noti_in_s">
- 							<span class="t_name"><img class="profile_size_s mb3 mr3" src="<%=lastModifier.getMinPicture()%>"/><%=lastModifier.getLongName()%></span>
+ 							<span class="t_name"><%=lastModifier.getLongName()%></span>
  							<%
  								if (productService.getLastModifiedDate() != null) {
  							%>

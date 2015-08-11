@@ -57,7 +57,7 @@ public class ServiceManagerImpl implements IServiceManager {
 			
 		}
 
-		//PSS_SPACE_VALUE, PSS_SPACE_SERVICE, PSS_SPACE_BIZ_MODEL 3가지중 하나가 항상 전달되며,
+		//PSS_SPACE_VALUE, PSS_SPACE_SERVICE, PSS_SPACE_BIZ_MODEL, PSS_SPACE_CONTEXT 4가지중 하나가 항상 전달되며,
 		//지정한 SPACE값만 가져다 준다.
 		String spaceType = params.getSpaceType();
 		
@@ -119,8 +119,7 @@ public class ServiceManagerImpl implements IServiceManager {
 
 	@Override
 	public String setProductService(String userId, ProductService productService, int spaceType) throws Exception {
-		ManagerFactory.getInstance().getDbManager().setProductService("", productService);
-		return productService.getId();
+		return ManagerFactory.getInstance().getDbManager().setProductService(userId, productService);		
 	}
 
 	@Override
@@ -342,7 +341,7 @@ public class ServiceManagerImpl implements IServiceManager {
 
 		SortingField sortingField = params.getSortingField();
 		if (sortingField == null) {
-			sortingField = new SortingField(ProductService.FIELD_LAST_MODIFIED_DATE, false);
+			sortingField = new SortingField("modifiedTime", false);
 			params.setSortingField(sortingField);
 		}
 		String fieldId = sortingField.getFieldId();
@@ -356,15 +355,15 @@ public class ServiceManagerImpl implements IServiceManager {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		
-		if (users == null || users.length == 0)
-			return null;
-		
+				
 		InstanceList result = new InstanceList();
+		if (users == null || users.length == 0)
+			return result;
 		
 		result.setInstanceDatas(users);
 		result.setSortedField(sortingField);
 		result.setPageSize(pageSize);
+		
 		
 		int totalPages = (int)totalSize % pageSize;
 		if(totalPages == 0) {

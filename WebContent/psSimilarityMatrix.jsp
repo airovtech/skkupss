@@ -1,3 +1,4 @@
+<%@page import="net.smartworks.skkupss.model.User"%>
 <%@page import="net.smartworks.factory.ManagerFactory"%>
 <%@page import="net.smartworks.skkupss.model.ProductService"%>
 <%@page import="net.smartworks.util.SmartUtil"%>
@@ -5,8 +6,10 @@
 <%@page import="java.util.Calendar"%>
 <%@page import="java.util.Date"%>
 <%@ page contentType="text/html; charset=utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <%
+	User cUser = SmartUtil.getCurrentUser();
 
 	String spaceType = (String)request.getAttribute("spaceType");
 	SimilarityMatrix[][] data = (SimilarityMatrix[][])request.getAttribute("psSimilarities");
@@ -40,6 +43,8 @@
  	if(SmartUtil.isBlankObject(data)) return;
 	
 %>
+<fmt:setLocale value="<%=cUser.getLocale() %>" scope="request" />
+<fmt:setBundle basename="resource.smartworksMessage" scope="request" />
 
 <script type="text/javascript">
 
@@ -156,22 +161,22 @@
 					<div class="list_title_space js_work_list_title mt15">
 						<div class="title_line_btns">
 							<div class="icon_btn_start">
-								<a href="home.sw?spaceType=<%=spaceType %>" class="icon_btn_tail">목록으로 이동하기</a>
+								<a href="home.sw?spaceType=<%=spaceType %>" class="icon_btn_tail"><fmt:message key="pss.button.goto_list"/></a>
 							</div>
 						</div>
 					
 						<div class="title_line_options">
 							<select name="selSpaceName" class="js_select_space_name">
-								<option value="<%=ProductService.PSS_SPACE_VALUE%>" <%if(spaceType.equals(ProductService.PSS_SPACE_VALUE)){%>selected<%} %>>가치공간(Value Space)</option>
-								<option value="<%=ProductService.PSS_SPACE_SERVICE%>" <%if(spaceType.equals(ProductService.PSS_SPACE_SERVICE)){%>selected<%} %>>서비스공간(Service Space)</option>
-								<option value="<%=ProductService.PSS_SPACE_BIZ_MODEL%>" <%if(spaceType.equals(ProductService.PSS_SPACE_BIZ_MODEL)){%>selected<%} %>>비즈모델공간(Biz Model Space)</option>
-								<option value="<%=ProductService.PSS_SPACE_VALUE_SERVICE%>" <%if(spaceType.equals(ProductService.PSS_SPACE_VALUE_SERVICE)){%>selected<%} %>>가치 및 서비스 공간 (Value & Service Space)</option>
-								<option value="<%=ProductService.PSS_SPACE_VALUE_BIZ_MODEL%>" <%if(spaceType.equals(ProductService.PSS_SPACE_VALUE_BIZ_MODEL)){%>selected<%} %>>가치 및 비즈모델 공간(Value & Biz Model Space)</option>
-								<option value="<%=ProductService.PSS_SPACE_SERVICE_BIZ_MODEL%>" <%if(spaceType.equals(ProductService.PSS_SPACE_SERVICE_BIZ_MODEL)){%>selected<%} %>>서비스 및 비즈모델 공간(Service & Biz Model Space)</option>
-								<option value="<%=ProductService.PSS_SPACE_VALUE_SERVICE_BIZ_MODEL%>" <%if(spaceType.equals(ProductService.PSS_SPACE_VALUE_SERVICE_BIZ_MODEL)){%>selected<%} %>>가치, 서비스 및 비즈모델 공간(Value, Service & Biz Model Space)</option>
+								<option value="<%=ProductService.PSS_SPACE_VALUE%>" <%if(spaceType.equals(ProductService.PSS_SPACE_VALUE)){%>selected<%} %>><fmt:message key="pss.title.space.value"/></option>
+								<option value="<%=ProductService.PSS_SPACE_SERVICE%>" <%if(spaceType.equals(ProductService.PSS_SPACE_SERVICE)){%>selected<%} %>><fmt:message key="pss.title.space.service"/></option>
+								<option value="<%=ProductService.PSS_SPACE_BIZ_MODEL%>" <%if(spaceType.equals(ProductService.PSS_SPACE_BIZ_MODEL)){%>selected<%} %>><fmt:message key="pss.title.space.biz_model"/></option>
+								<option value="<%=ProductService.PSS_SPACE_VALUE_SERVICE%>" <%if(spaceType.equals(ProductService.PSS_SPACE_VALUE_SERVICE)){%>selected<%} %>><fmt:message key="pss.title.space.valueNservice"/></option>
+								<option value="<%=ProductService.PSS_SPACE_VALUE_BIZ_MODEL%>" <%if(spaceType.equals(ProductService.PSS_SPACE_VALUE_BIZ_MODEL)){%>selected<%} %>><fmt:message key="pss.title.space.valueNbiz_model"/></option>
+								<option value="<%=ProductService.PSS_SPACE_SERVICE_BIZ_MODEL%>" <%if(spaceType.equals(ProductService.PSS_SPACE_SERVICE_BIZ_MODEL)){%>selected<%} %>><fmt:message key="pss.title.space.serviceNbiz_model"/></option>
+								<option value="<%=ProductService.PSS_SPACE_VALUE_SERVICE_BIZ_MODEL%>" <%if(spaceType.equals(ProductService.PSS_SPACE_VALUE_SERVICE_BIZ_MODEL)){%>selected<%} %>><fmt:message key="pss.title.space.valueNserviceNbiz_model"/></option>
 							</select>
 							<span class="js_progress_span"></span>
-							<input style="margin-left:20px" class="js_toggle_use_sim_color" type="checkbox"/><span style="margin-left:6px">컬러로 유사도 구분하기(0.9이상:파랑, 0.8이상:녹색, 0.6이하:빨강)</span>
+							<input style="margin-left:20px" class="js_toggle_use_sim_color" type="checkbox"/><span style="margin-left:6px"><fmt:message key="pss.desc.similarity_legend"/></span>
 						</div>
 					</div>
 					<!-- 목록보기 타이틀-->

@@ -439,6 +439,46 @@
 	    </if>
 	</select>
 
+	<select id="getProductServiceWithContextSpaceSize" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultType="java.lang.Integer">
+		select count(*)
+		from
+		productService a 
+		where a.contextSpace is not null
+	    <if test="id != null">
+	       	and a.id = #{id}
+	    </if>
+		<if test="idIns != null">
+			and a.id in (
+            <foreach collection="idIns" item="a" separator=",">#{a}</foreach>
+            )
+		</if>
+	    <if test="searchKey != null">
+	    	and ((UPPER(a.name) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.description) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.lastModifiedUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.createdUser) like '%'|| UPPER(#{searchKey}) ||'%')
+	    	)
+	    </if>
+	</select>
+	<select id="getProductServiceWithContextSpace" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultMap="productServiceAllSpaceResult">
+		select a.*
+		from
+		productService a 
+		where a.contextSpace is not null
+	    <if test="id != null">
+	       	and a.id = #{id}
+	    </if>
+		<if test="idIns != null">
+			and a.id in (
+            <foreach collection="idIns" item="a" separator=",">#{a}</foreach>
+            )
+		</if>
+	    <if test="searchKey != null">
+	    	and ((UPPER(a.name) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.description) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.lastModifiedUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.createdUser) like '%'|| UPPER(#{searchKey}) ||'%')
+	    	)
+	    </if>
+	    <if test="orders != null">
+			order by ${orderQuery}
+	    </if>
+	</select>
+	
 
 
 	<select id="getProductServiceSize" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultType="java.lang.Integer">
@@ -785,29 +825,37 @@
 		select count(*)
 		from
 		orgUser 
-		where 
-	    <if test="id != null">
-	       	and id = #{id}
-	    </if>
-		<if test="idIns != null">
-			and id in (
-            <foreach collection="idIns" item="orgUser" separator=",">#{orgUser}</foreach>
-            )
-		</if>
-	    <if test="searchKey != null">
-	    	and ((a.name like '%'|| #{searchKey} ||'%') or (a.description like '%'|| #{searchKey} ||'%') or (a.lastModifiedUser like '%'|| #{searchKey} ||'%') or (a.createdUser like '%'|| #{searchKey} ||'%')
-	    		or (b.sspp like '%'|| #{searchKey} ||'%') or (b.ssp like '%'|| #{searchKey} ||'%') or (b.sspc like '%'|| #{searchKey} ||'%') or (b.ssc like '%'|| #{searchKey} ||'%') or (b.sscc like '%'|| #{searchKey} ||'%')
-					or (c.customerSegments like '%'|| #{searchKey} ||'%') or (c.customerSegmentsUser like '%'|| #{searchKey} ||'%') or (c.CustomerRelationships like '%'|| #{searchKey} ||'%') or (c.CustomerRelationshipsUser like '%'|| #{searchKey} ||'%') or (c.channels like '%'|| #{searchKey} ||'%')
-		    		or (c.channelsUser like '%'|| #{searchKey} ||'%') or (c.keyActivities like '%'|| #{searchKey} ||'%') or (c.keyActivitiesUser like '%'|| #{searchKey} ||'%') or (c.keyResources like '%'|| #{searchKey} ||'%') or (c.keyResourcesUser like '%'|| #{searchKey} ||'%') or (c.keyPartners like '%'|| #{searchKey} ||'%') 
-		    		or (c.keyPartnersUser like '%'|| #{searchKey} ||'%') or (c.costStructure like '%'|| #{searchKey} ||'%') or (c.costStructureUser like '%'|| #{searchKey} ||'%') or (c.revenueStreams like '%'|| #{searchKey} ||'%') or (c.revenueStreamsUser like '%'|| #{searchKey} ||'%')
-		    			or (d.economical like '%'|| #{searchKey} ||'%') or (d.ecological like '%'|| #{searchKey} ||'%') or (d.function like '%'|| #{searchKey} ||'%') or (d.extrinsicSocial like '%'|| #{searchKey} ||'%') or (d.activeEmotional like '%'|| #{searchKey} ||'%') or (d.reactiveEmotional like '%'|| #{searchKey} ||'%') or (d.intrinsicSocial like '%'|| #{searchKey} ||'%') or (d.epistemic like '%'|| #{searchKey} ||'%')
-	    	)
-	    </if>
+ 		<trim prefix="WHERE" prefixOverrides="AND|OR">
+		    <if test="id != null">
+		       	and id = #{id}
+		    </if>
+		    <if test="searchKey != null">
+		    	and ((a.name like '%'|| #{searchKey} ||'%') or (a.description like '%'|| #{searchKey} ||'%') or (a.lastModifiedUser like '%'|| #{searchKey} ||'%') or (a.createdUser like '%'|| #{searchKey} ||'%')
+		    		or (b.sspp like '%'|| #{searchKey} ||'%') or (b.ssp like '%'|| #{searchKey} ||'%') or (b.sspc like '%'|| #{searchKey} ||'%') or (b.ssc like '%'|| #{searchKey} ||'%') or (b.sscc like '%'|| #{searchKey} ||'%')
+						or (c.customerSegments like '%'|| #{searchKey} ||'%') or (c.customerSegmentsUser like '%'|| #{searchKey} ||'%') or (c.CustomerRelationships like '%'|| #{searchKey} ||'%') or (c.CustomerRelationshipsUser like '%'|| #{searchKey} ||'%') or (c.channels like '%'|| #{searchKey} ||'%')
+			    		or (c.channelsUser like '%'|| #{searchKey} ||'%') or (c.keyActivities like '%'|| #{searchKey} ||'%') or (c.keyActivitiesUser like '%'|| #{searchKey} ||'%') or (c.keyResources like '%'|| #{searchKey} ||'%') or (c.keyResourcesUser like '%'|| #{searchKey} ||'%') or (c.keyPartners like '%'|| #{searchKey} ||'%') 
+			    		or (c.keyPartnersUser like '%'|| #{searchKey} ||'%') or (c.costStructure like '%'|| #{searchKey} ||'%') or (c.costStructureUser like '%'|| #{searchKey} ||'%') or (c.revenueStreams like '%'|| #{searchKey} ||'%') or (c.revenueStreamsUser like '%'|| #{searchKey} ||'%')
+			    			or (d.economical like '%'|| #{searchKey} ||'%') or (d.ecological like '%'|| #{searchKey} ||'%') or (d.function like '%'|| #{searchKey} ||'%') or (d.extrinsicSocial like '%'|| #{searchKey} ||'%') or (d.activeEmotional like '%'|| #{searchKey} ||'%') or (d.reactiveEmotional like '%'|| #{searchKey} ||'%') or (d.intrinsicSocial like '%'|| #{searchKey} ||'%') or (d.epistemic like '%'|| #{searchKey} ||'%')
+		    	)
+		    </if>
+		   </trim>
 	</select>
-	<select id="getUsers" parameterType="net.smartworks.skkupss.model.db.Db_UserCond" resultType="net.smartworks.skkupss.model.db.Db_User">
+	<select id="getUsers" parameterType="net.smartworks.skkupss.model.db.Db_UserCond" resultMap="userResult">
 	    select * 
 	    from orgUser 
-  		<trim prefix="WHERE" prefixOverrides="AND|OR">
+ 		<trim prefix="WHERE" prefixOverrides="AND|OR">
+		    <if test="id != null">
+		       	and id = #{id}
+		    </if>
+		    <if test="searchKey != null">
+		    	and ((a.name like '%'|| #{searchKey} ||'%') or (a.description like '%'|| #{searchKey} ||'%') or (a.lastModifiedUser like '%'|| #{searchKey} ||'%') or (a.createdUser like '%'|| #{searchKey} ||'%')
+		    		or (b.sspp like '%'|| #{searchKey} ||'%') or (b.ssp like '%'|| #{searchKey} ||'%') or (b.sspc like '%'|| #{searchKey} ||'%') or (b.ssc like '%'|| #{searchKey} ||'%') or (b.sscc like '%'|| #{searchKey} ||'%')
+						or (c.customerSegments like '%'|| #{searchKey} ||'%') or (c.customerSegmentsUser like '%'|| #{searchKey} ||'%') or (c.CustomerRelationships like '%'|| #{searchKey} ||'%') or (c.CustomerRelationshipsUser like '%'|| #{searchKey} ||'%') or (c.channels like '%'|| #{searchKey} ||'%')
+			    		or (c.channelsUser like '%'|| #{searchKey} ||'%') or (c.keyActivities like '%'|| #{searchKey} ||'%') or (c.keyActivitiesUser like '%'|| #{searchKey} ||'%') or (c.keyResources like '%'|| #{searchKey} ||'%') or (c.keyResourcesUser like '%'|| #{searchKey} ||'%') or (c.keyPartners like '%'|| #{searchKey} ||'%') 
+			    		or (c.keyPartnersUser like '%'|| #{searchKey} ||'%') or (c.costStructure like '%'|| #{searchKey} ||'%') or (c.costStructureUser like '%'|| #{searchKey} ||'%') or (c.revenueStreams like '%'|| #{searchKey} ||'%') or (c.revenueStreamsUser like '%'|| #{searchKey} ||'%')
+			    			or (d.economical like '%'|| #{searchKey} ||'%') or (d.ecological like '%'|| #{searchKey} ||'%') or (d.function like '%'|| #{searchKey} ||'%') or (d.extrinsicSocial like '%'|| #{searchKey} ||'%') or (d.activeEmotional like '%'|| #{searchKey} ||'%') or (d.reactiveEmotional like '%'|| #{searchKey} ||'%') or (d.intrinsicSocial like '%'|| #{searchKey} ||'%') or (d.epistemic like '%'|| #{searchKey} ||'%')
+		    	)
+		    </if>
 		</trim>
 		<if test="orders != null">
 			order by ${orderQuery}

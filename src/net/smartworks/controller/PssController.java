@@ -34,9 +34,11 @@ import net.smartworks.skkupss.model.db.Db_User;
 import net.smartworks.util.CommonUtil;
 import net.smartworks.util.LocalDate;
 import net.smartworks.util.ServiceUtil;
+import net.smartworks.util.SmartMessage;
 import net.smartworks.util.SmartUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -414,5 +416,132 @@ public class PssController {
 	public ModelAndView settingsHome(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		return SmartUtil.returnMnv(request, "settings.jsp", "settings_home.tiles");
 	}
+	
+	@RequestMapping("/userManagement")
+	public ModelAndView userManagement(HttpServletRequest request, HttpServletResponse response) {
+		return SmartUtil.returnMnv(request, "userManagement.jsp", "userManagement.tiles");
+	}
+
+	@RequestMapping("/editUser")
+	public ModelAndView editUser(HttpServletRequest request, HttpServletResponse response) {
+		return SmartUtil.returnMnv(request, "editUser.jsp", "");
+	}
+
+	@RequestMapping(value = "/check_id_duplication", method = RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
+	public @ResponseBody void checkIdDuplication(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		try {
+			User user = ManagerFactory.getInstance().getServiceManager().getUser(request.getParameter("userId"));
+			if(user!=null) throw new DuplicateKeyException("duplicateKeyException");
+		} catch(Exception e) {
+			throw new DuplicateKeyException("duplicateKeyException");
+		}
+	}
+	
+	@RequestMapping(value = "/remove_user", method = RequestMethod.POST)
+	@ResponseStatus(HttpStatus.OK)
+	public void removeUser(@RequestBody Map<String, Object> requestBody, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String userId = (String)requestBody.get("userId");
+		try{
+			ManagerFactory.getInstance().getServiceManager().removeUser(userId);
+		}catch (Exception e){e.printStackTrace();}
+	}
+
+	@RequestMapping(value = "/set_user", method = RequestMethod.POST)
+	@ResponseStatus(HttpStatus.OK)
+	public void setUser(@RequestBody Map<String, Object> requestBody, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		try {
+			Map<String, Object> frmMyProfileSetting = (Map<String, Object>)requestBody.get("frmEditUser");
+	
+			Set<String> keySet = frmMyProfileSetting.keySet();
+			Iterator<String> itr = keySet.iterator();
+	
+			String txtUserProfileUserId = null;
+			String txtUserProfileUserName = null;
+			String pwUserProfilePW = null;
+			String selUserLevel = null;
+			String txtUserProfileCompany = null;
+			String selUserProfileLocale = null;
+			String selUserProfileTimeZone = null;
+			String txtUserProfileCellNo = null;
+			String homePhoneNo = null, homeAddress = null;
+			
+			while (itr.hasNext()) {
+				String fieldId = (String)itr.next();
+				Object fieldValue = frmMyProfileSetting.get(fieldId);
+				if(fieldValue instanceof String) {
+					String valueString = (String)fieldValue;
+					if(fieldId.equals("txtUserProfileUserId"))
+						txtUserProfileUserId = valueString;
+					else if(fieldId.equals("txtUserProfileUserName"))
+						txtUserProfileUserName = valueString;
+					else if(fieldId.equals("pwUserProfilePW"))
+						pwUserProfilePW = valueString;
+					else if (fieldId.equals("selUserProfileUserLevel"))
+						selUserLevel = valueString;
+					else if(fieldId.equals("txtUserProfileCompany"))
+						txtUserProfileCompany = valueString;
+					else if(fieldId.equals("selUserProfileLocale"))
+						selUserProfileLocale = valueString;
+					else if(fieldId.equals("selUserProfileTimeZone"))
+						selUserProfileTimeZone = valueString;
+					else if(fieldId.equals("txtUserProfileCellNo"))
+						txtUserProfileCellNo = valueString;
+					else if (fieldId.equals("txtUserHomePhoneNo"))
+						homePhoneNo = valueString;
+					else if (fieldId.equals("txtUserHomeAddress"))
+						homeAddress = valueString;
+				}
+			}
+	
+			User user = ManagerFactory.getInstance().getServiceManager().getUser(txtUserProfileUserId);
+			if(user==null){
+				user = new User();
+				user.setId(txtUserProfileUserId);
+			}
+			user.setName(txtUserProfileUserName);
+			user.setPassword(pwUserProfilePW);
+			user.setUserLevel(Integer.parseInt(selUserLevel));
+			user.setCompany(txtUserProfileCompany);
+			user.setLocale(selUserProfileLocale);
+			user.setTimeZone(selUserProfileTimeZone);
+			user.setMobilePhoneNo(txtUserProfileCellNo);
+			user.setCompany(txtUserProfileCompany);
+			user.setHomePhoneNo(homePhoneNo);
+			user.setHomeAddress(homeAddress);
+			try {
+				ManagerFactory.getInstance().getServiceManager().setUser(txtUserProfileUserId, user);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}catch (Exception e){
+			// Exception Handling Required
+			e.printStackTrace();
+			// Exception Handling Required			
+		}
+	}
+	
+	@RequestMapping(value = "/clone_product_service", method = RequestMethod.POST)
+	@ResponseStatus(HttpStatus.OK)
+	public @ResponseBody String cloneProductService(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String psId = request.getParameter("psId");
+		String clonedPsId = null;
+		User user = SmartUtil.getCurrentUser();
+		try {
+			ProductService ps = ManagerFactory.getInstance().getServiceManager().getProductService(psId, -1);
+			if(ps==null) return null;
+			ps.setId(null);
+			ps.setCreatedUser(user);
+			ps.setCreatedDate(new LocalDate());
+			ps.setLastModifiedUser(user);
+			ps.setLastModifiedDate(ps.getCreatedDate());			
+			ps.setName(SmartMessage.getString("pss.title.copyOf", new String[]{ps.getName()}));
+			clonedPsId = ManagerFactory.getInstance().getServiceManager().setProductService(SmartUtil.getCurrentUser().getId(), ps, -1);			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return clonedPsId;
+	}
+	
 	
 }

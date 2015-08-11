@@ -26,4 +26,13 @@ public class KeyMap {
 		this.id = id;
 		this.key = key;
 	}
+	
+	public static String getKeyById(KeyMap[] keyMaps, String id){
+		if(keyMaps==null || id==null) return null;
+		for(int i=0; i<keyMaps.length; i++)
+			if(id.equals(keyMaps[i].getId()))
+				return keyMaps[i].getKey();
+		
+		return null;
+	}
 }

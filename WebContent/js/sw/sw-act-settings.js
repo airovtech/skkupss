@@ -70,7 +70,7 @@ $(function() {
 						}			
 					},
 					error : function(xhr, ajaxOptions, e) {
-						// 서비스 에러시에는 메시지를 보여주고 현재페이지에 그래도 있는다...
+						// ���鍮���� �����ъ�������� 硫����吏�瑜� 蹂댁�ъ＜怨� �����ы����댁����� 洹몃����� ���������...
 						smartPop.showInfo(smartPop.ERROR, smartMessage.get("removeWorkHourError"), function(){
 						}, e);
 						
@@ -84,12 +84,12 @@ $(function() {
 		return false;
 	});
 
-	$('a.js_new_company_event').live('click', function(e) {
+	$('a.js_new_user').live('click', function(e) {
 		try{
 			var input = $(targetElement(e));
-			var target = input.parents('.js_company_event_page').find('div.js_new_company_event');
+			var target = input.parents('.js_userManagement_page').find('div.js_new_user');
 			$.ajax({
-				url : "edit_company_event.sw",
+				url : "editUser.sw",
 				success : function(data, status, jqXHR) {
 					try{
 						target.html(data).slideDown(500);
@@ -107,13 +107,13 @@ $(function() {
 		return false;
 	});
 
-	$('.js_edit_company_event').live('click', function(e) {
+	$('.js_edit_user').live('click', function(e) {
 		try{
 			var input = $(targetElement(e));
-			var target = input.parents('.js_company_event_page').find('div.js_new_company_event');
-			var eventId = input.parents('.js_edit_company_event').attr('eventId');
+			var target = input.parents('.js_userManagement_page').find('div.js_new_user');
+			var userId = input.parents('.js_edit_user').attr('userId');
 			$.ajax({
-				url : "edit_company_event.sw?eventId=" + eventId,
+				url : "editUser.sw?userId=" + userId,
 				success : function(data, status, jqXHR) {
 					try{
 						target.html(data).slideDown(500);
@@ -131,29 +131,29 @@ $(function() {
 		return false;
 	});
 
-	$('.js_delete_company_event').live('click', function(e) {
+	$('.js_delete_user').live('click', function(e) {
 		try{
 			var input = $(targetElement(e));
 			
 			smartPop.confirm(smartMessage.get("removeConfirmation"), function(){
-				var eventId = input.parents('.js_edit_company_event').attr('eventId');
+				var userId = input.parents('.js_edit_user').attr('userId');
 				var paramsJson = {};
-				paramsJson['eventId'] = eventId;
+				paramsJson['userId'] = userId;
 				console.log(JSON.stringify(paramsJson));
 				$.ajax({
-					url : "remove_company_event.sw",
+					url : "remove_user.sw",
 					contentType : 'application/json',
 					type : 'POST',
 					data : JSON.stringify(paramsJson),
 					success : function(data, status, jqXHR) {
 						try{
-							document.location.href = "company_event.sw";					
+							document.location.href = "userManagement.sw";					
 						}catch(error){
 							smartPop.showInfo(smartPop.ERROR, smartMessage.get('technicalProblemOccured') + '[sw-act-settings js_delete_company_event remove_company_event]', null, error);
 						}			
 					},
 					error : function(xhr, ajaxOptions, e) {
-						// 서비스 에러시에는 메시지를 보여주고 현재페이지에 그래도 있는다...
+						// ���鍮���� �����ъ�������� 硫����吏�瑜� 蹂댁�ъ＜怨� �����ы����댁����� 洹몃����� ���������...
 						smartPop.showInfo(smartPop.ERROR, smartMessage.get("removeCompanyEventError"), function(){
 						}, e);
 						
@@ -236,7 +236,7 @@ $(function() {
 						}			
 					},
 					error : function(xhr, ajaxOptions, e) {
-						// 서비스 에러시에는 메시지를 보여주고 현재페이지에 그래도 있는다...
+						// ���鍮���� �����ъ�������� 硫����吏�瑜� 蹂댁�ъ＜怨� �����ы����댁����� 洹몃����� ���������...
 						smartPop.showInfo(smartPop.ERROR, smartMessage.get("removeCompanyMenuError"), function(){
 						}, e);
 						
@@ -319,7 +319,7 @@ $(function() {
 						}			
 					},
 					error : function(xhr, ajaxOptions, e) {
-						// 서비스 에러시에는 메시지를 보여주고 현재페이지에 그래도 있는다...
+						// ���鍮���� �����ъ�������� 硫����吏�瑜� 蹂댁�ъ＜怨� �����ы����댁����� 洹몃����� ���������...
 						smartPop.showInfo(smartPop.ERROR, smartMessage.get("removeApprovalLineError"), function(){
 						}, e);
 						
@@ -441,7 +441,7 @@ $(function() {
 						}			
 					},
 					error : function(xhr, ajaxOptions, e) {
-						// 서비스 에러시에는 메시지를 보여주고 현재페이지에 그래도 있는다...
+						// ���鍮���� �����ъ�������� 硫����吏�瑜� 蹂댁�ъ＜怨� �����ы����댁����� 洹몃����� ���������...
 						smartPop.showInfo(smartPop.ERROR, smartMessage.get("removeWebServiceError"), function(){
 						}, e);
 						
@@ -524,7 +524,7 @@ $(function() {
 						}			
 					},
 					error : function(xhr, ajaxOptions, e) {
-						// 서비스 에러시에는 메시지를 보여주고 현재페이지에 그래도 있는다...
+						// ���鍮���� �����ъ�������� 硫����吏�瑜� 蹂댁�ъ＜怨� �����ы����댁����� 洹몃����� ���������...
 						smartPop.showInfo(smartPop.ERROR, smartMessage.get("removeExternalFormError"), function(){
 						}, e);
 						
@@ -586,7 +586,7 @@ $(function() {
 						}			
 					},
 					error : function(xhr, ajaxOptions, e) {
-						// 서비스 에러시에는 메시지를 보여주고 현재페이지에 그래도 있는다...
+						// ���鍮���� �����ъ�������� 硫����吏�瑜� 蹂댁�ъ＜怨� �����ы����댁����� 洹몃����� ���������...
 						smartPop.showInfo(smartPop.ERROR, smartMessage.get("removeDepartmentError"), function(){
 						}, e);
 						
@@ -676,7 +676,7 @@ $(function() {
 						}			
 					},
 					error : function(xhr, ajaxOptions, e) {
-						// 서비스 에러시에는 메시지를 보여주고 현재페이지에 그래도 있는다...
+						// ���鍮���� �����ъ�������� 硫����吏�瑜� 蹂댁�ъ＜怨� �����ы����댁����� 洹몃����� ���������...
 						smartPop.showInfo(smartPop.ERROR, smartMessage.get("removeMemberError"), function(){
 						}, e);
 						
@@ -731,7 +731,7 @@ $(function() {
 	$('a.js_check_id_duplication').live('click', function(e) {
 		try{
 			var input = $(targetElement(e));
-			var target = input.parents('.js_edit_member_page').find('input[name="txtMemberId"]');
+			var target = input.parents('.js_editUser_page').find('input[name="txtMemberId"]');
 			var userId = target.attr('value');
 			$.ajax({
 				url : "check_id_duplication.sw",
@@ -760,7 +760,7 @@ $(function() {
 	$('a.js_change_id').live('click', function(e) {
 		try{
 			var input = $(targetElement(e));
-			var target = input.parents('.js_edit_member_page').find('input[name="txtMemberId"]');
+			var target = input.parents('.js_editUser_page').find('input[name="txtMemberId"]');
 			target.removeClass('sw_dup_checked').attr('readonly', false);
 			input.hide().siblings().show();;
 		}catch(error){
@@ -1053,7 +1053,7 @@ $(function() {
 						}			
 					},
 					error : function(xhr, ajaxOptions, e) {
-						// 서비스 에러시에는 메시지를 보여주고 현재페이지에 그래도 있는다...
+						// ���鍮���� �����ъ�������� 硫����吏�瑜� 蹂댁�ъ＜怨� �����ы����댁����� 洹몃����� ���������...
 						smartPop.showInfo(smartPop.ERROR, smartMessage.get("removeEmailServerError"), function(){
 						}, e);
 						
@@ -1136,7 +1136,7 @@ $(function() {
 						}			
 					},
 					error : function(xhr, ajaxOptions, e) {
-						// 서비스 에러시에는 메시지를 보여주고 현재페이지에 그래도 있는다...
+						// ���鍮���� �����ъ�������� 硫����吏�瑜� 蹂댁�ъ＜怨� �����ы����댁����� 洹몃����� ���������...
 						smartPop.showInfo(smartPop.ERROR, smartMessage.get('technicalProblemOccured') + '[sw-act-settings js_delete_auto_forward remove_email_auto_forward.sw]', null, e);						
 					}
 					

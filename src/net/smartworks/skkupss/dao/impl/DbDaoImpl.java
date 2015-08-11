@@ -45,6 +45,8 @@ public class DbDaoImpl implements IDbDao {
 				selectId = "getProductServiceWithServiceSpaceSize";
 			} else if (spaceType != null && spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_BIZ_MODEL)) {
 				selectId = "getProductServiceWithBizModelSpaceSize";
+			} else if (spaceType != null && spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_CONTEXT)) {
+				selectId = "getProductServiceWithContextSpaceSize";
 			} else if (spaceType != null && spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_VALUE_SERVICE)) {
 				selectId = "getProductServiceWithValueServiceSpaceSize";
 			} else if (spaceType != null && spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_VALUE_BIZ_MODEL)) {
@@ -90,6 +92,8 @@ public class DbDaoImpl implements IDbDao {
 				selectId = "getProductServiceWithServiceSpace";
 			} else if (spaceType != null && spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_BIZ_MODEL)) {
 				selectId = "getProductServiceWithBizModelSpace";
+			} else if (spaceType != null && spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_CONTEXT)) {
+				selectId = "getProductServiceWithContextSpace";
 			} else if (spaceType != null && spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_VALUE_SERVICE)) {
 				selectId = "getProductServiceWithValueServiceSpace";
 			} else if (spaceType != null && spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_VALUE_BIZ_MODEL)) {
@@ -684,7 +688,7 @@ public class DbDaoImpl implements IDbDao {
 				Rb = new RowBounds();
 			}
 			
-			List<Db_User> userList = session.selectList("getUser", cond, Rb);
+			List<Db_User> userList = session.selectList("getUsers", cond, Rb);
 			if (userList != null && userList.size() != 0) {
 				Db_User[] result = new Db_User[userList.size()];
 				userList.toArray(result);

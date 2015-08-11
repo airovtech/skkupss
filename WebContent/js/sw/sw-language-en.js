@@ -414,7 +414,9 @@ smartMessage.bundle['en'] = {
 	globalSearchingMore : "Searching More Works... ",
 	globalSearchFinished : "Finished Searching All Works!!!",
 	
-	pssSelectPicture : "Picture"
+	pssSelectPicture : "Upload Picture",
+	pssContinueAddNew : "New Item has been created SUCCESSFULLY! Do you want to create more ?"
+
 	
 };
 }catch(error){

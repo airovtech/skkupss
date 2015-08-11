@@ -1,3 +1,4 @@
+<%@page import="net.smartworks.skkupss.model.User"%>
 <%@page import="net.smartworks.util.PropertiesLoader"%>
 <%@page import="net.smartworks.skkupss.manager.impl.DocFileManagerImpl"%>
 <%@page import="java.util.Date"%>
@@ -11,8 +12,10 @@
 <%@page import="net.smartworks.util.LocalDate"%>
 <%@page import="net.smartworks.util.SmartUtil"%>
 <%@ page contentType="text/html; charset=utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%
-
+	User cUser = SmartUtil.getCurrentUser();
+	
 	String PSS_PICTURE_URL = PropertiesLoader.loadPropByClassPath("/net/smartworks/conf/config.properties").getProperty("pss.picture.url");
 
 	String sourcePsId = request.getParameter("sourcePsId");
@@ -31,6 +34,8 @@
 	String targetPsPicUrl = SmartUtil.isBlankObject(targetPs.getPicture()) ? "" : PSS_PICTURE_URL +  targetPs.getPicture();
 
 %>
+<fmt:setLocale value="<%=cUser.getLocale() %>" scope="request" />
+<fmt:setBundle basename="resource.smartworksMessage" scope="request" />
 
 <%if(isNotSim){ %>
 <!-- 컨텐츠 레이아웃-->
@@ -49,28 +54,28 @@
 						<%if(isNotSim){ %>
 							<div class="title_line_btns">
 								<div class="icon_btn_start">
-									<a href="home.sw?spaceType=<%=spaceType %>" class="icon_btn_tail">목록으로 이동하기</a>
+									<a href="home.sw?spaceType=<%=spaceType %>" class="icon_btn_tail"><fmt:message key="pss.button.goto_list"/></a>
 								</div>
 							</div>
 						<%} %>
 					
 						<div class="title_line_options">
 							<select class="js_select_double_space_name" sourcePsId="<%=sourcePsId %>" targetPsId="<%=targetPsId%>">
-								<option href="viewValueSpace.jsp" spaceType="1" value="<%=ProductService.PSS_SPACE_VALUE%>" <%if(spaceType.equals(ProductService.PSS_SPACE_VALUE)){%>selected<%} %>>가치공간(Value Space)</option>
-								<option href="viewDefaultSpace.jsp" spaceType="2" value="<%=ProductService.PSS_SPACE_PRODUCT_SERVICE%>" <%if(spaceType.equals(ProductService.PSS_SPACE_PRODUCT_SERVICE)){%>selected<%} %>>제품-서비스공간(Product-Service Space)</option>
-								<option href="viewDefaultSpace.jsp" spaceType="3" value="<%=ProductService.PSS_SPACE_PRODUCT%>" <%if(spaceType.equals(ProductService.PSS_SPACE_PRODUCT)){%>selected<%} %>>제품공간(Product Space)</option>
-								<option href="viewServiceSpace.jsp" spaceType="4" value="<%=ProductService.PSS_SPACE_SERVICE%>" <%if(spaceType.equals(ProductService.PSS_SPACE_SERVICE)){%>selected<%} %>>서비스공간(Service Space)</option>
-								<option href="viewDefaultSpace.jsp" spaceType="5" value="<%=ProductService.PSS_SPACE_TOUCH_POINT%>" <%if(spaceType.equals(ProductService.PSS_SPACE_TOUCH_POINT)){%>selected<%} %>>터치포인트공간(Touch Point Space)</option>
-								<option href="viewDefaultSpace.jsp" spaceType="6" value="<%=ProductService.PSS_SPACE_CUSTOMER%>" <%if(spaceType.equals(ProductService.PSS_SPACE_CUSTOMER)){%>selected<%} %>>고객공간(Customer Space)</option>
-								<option href="viewBizModelSpace.jsp" spaceType="7" value="<%=ProductService.PSS_SPACE_BIZ_MODEL%>" <%if(spaceType.equals(ProductService.PSS_SPACE_BIZ_MODEL)){%>selected<%} %>>비즈모델공간(Biz Model Space)</option>
-								<option href="viewDefaultSpace.jsp" spaceType="8" value="<%=ProductService.PSS_SPACE_ACTOR%>" <%if(spaceType.equals(ProductService.PSS_SPACE_ACTOR)){%>selected<%} %>>역할자공간(Actor Space)</option>
-								<option href="viewDefaultSpace.jsp" spaceType="9" value="<%=ProductService.PSS_SPACE_SOCIETY%>" <%if(spaceType.equals(ProductService.PSS_SPACE_SOCIETY)){%>selected<%} %>>소사이어티 공간(Society Space)</option>
-								<option href="viewDefaultSpace.jsp" spaceType="10" value="<%=ProductService.PSS_SPACE_CONTEXT%>" <%if(spaceType.equals(ProductService.PSS_SPACE_CONTEXT)){%>selected<%} %>>컨텍스트공간(Context Space)</option>
-								<option href="viewDefaultSpace.jsp" spaceType="11" value="<%=ProductService.PSS_SPACE_TIME%>" <%if(spaceType.equals(ProductService.PSS_SPACE_TIME)){%>selected<%} %>>시간공간(Time Space)</option>
-								<option href="viewDefaultSpace.jsp" spaceType="12" value="<%=ProductService.PSS_SPACE_ENVIRONMENT%>" <%if(spaceType.equals(ProductService.PSS_SPACE_ENVIRONMENT)){%>selected<%} %>>환경공간(Environment Space)</option>
+								<option href="viewValueSpace.jsp" spaceType="1" value="<%=ProductService.PSS_SPACE_VALUE%>" <%if(spaceType.equals(ProductService.PSS_SPACE_VALUE)){%>selected<%} %>><fmt:message key="pss.title.space.value"/></option>
+								<option href="viewDefaultSpace.jsp" spaceType="2" value="<%=ProductService.PSS_SPACE_PRODUCT_SERVICE%>" <%if(spaceType.equals(ProductService.PSS_SPACE_PRODUCT_SERVICE)){%>selected<%} %>><fmt:message key="pss.title.space.product_service"/></option>
+								<option href="viewDefaultSpace.jsp" spaceType="3" value="<%=ProductService.PSS_SPACE_PRODUCT%>" <%if(spaceType.equals(ProductService.PSS_SPACE_PRODUCT)){%>selected<%} %>><fmt:message key="pss.title.space.product"/></option>
+								<option href="viewServiceSpace.jsp" spaceType="4" value="<%=ProductService.PSS_SPACE_SERVICE%>" <%if(spaceType.equals(ProductService.PSS_SPACE_SERVICE)){%>selected<%} %>><fmt:message key="pss.title.space.service"/></option>
+								<option href="viewDefaultSpace.jsp" spaceType="5" value="<%=ProductService.PSS_SPACE_TOUCH_POINT%>" <%if(spaceType.equals(ProductService.PSS_SPACE_TOUCH_POINT)){%>selected<%} %>><fmt:message key="pss.title.space.touch_point"/></option>
+								<option href="viewDefaultSpace.jsp" spaceType="6" value="<%=ProductService.PSS_SPACE_CUSTOMER%>" <%if(spaceType.equals(ProductService.PSS_SPACE_CUSTOMER)){%>selected<%} %>><fmt:message key="pss.title.space.customer"/></option>
+								<option href="viewBizModelSpace.jsp" spaceType="7" value="<%=ProductService.PSS_SPACE_BIZ_MODEL%>" <%if(spaceType.equals(ProductService.PSS_SPACE_BIZ_MODEL)){%>selected<%} %>><fmt:message key="pss.title.space.biz_model"/></option>
+								<option href="viewDefaultSpace.jsp" spaceType="8" value="<%=ProductService.PSS_SPACE_ACTOR%>" <%if(spaceType.equals(ProductService.PSS_SPACE_ACTOR)){%>selected<%} %>><fmt:message key="pss.title.space.actor"/></option>
+								<option href="viewDefaultSpace.jsp" spaceType="9" value="<%=ProductService.PSS_SPACE_SOCIETY%>" <%if(spaceType.equals(ProductService.PSS_SPACE_SOCIETY)){%>selected<%} %>><fmt:message key="pss.title.space.society"/></option>
+								<option href="viewDefaultSpace.jsp" spaceType="10" value="<%=ProductService.PSS_SPACE_CONTEXT%>" <%if(spaceType.equals(ProductService.PSS_SPACE_CONTEXT)){%>selected<%} %>><fmt:message key="pss.title.space.context"/></option>
+								<option href="viewDefaultSpace.jsp" spaceType="11" value="<%=ProductService.PSS_SPACE_TIME%>" <%if(spaceType.equals(ProductService.PSS_SPACE_TIME)){%>selected<%} %>><fmt:message key="pss.title.space.time"/>시간공간(Time Space)</option>
+								<option href="viewDefaultSpace.jsp" spaceType="12" value="<%=ProductService.PSS_SPACE_ENVIRONMENT%>" <%if(spaceType.equals(ProductService.PSS_SPACE_ENVIRONMENT)){%>selected<%} %>><fmt:message key="pss.title.space.environment"/></option>
 							</select>
 							<%if(!SmartUtil.isBlankObject(value)) {%>
-								<span style="font-size: 12px;font-weight: bold;margin-left: 10px;">[유사도 : <%=value %>]</span>
+								<span style="font-size: 12px;font-weight: bold;margin-left: 10px;">[<fmt:message key="pss.title.similarity"/> : <%=value %>]</span>
 							<%} %>
 						</div>
 					</div>
