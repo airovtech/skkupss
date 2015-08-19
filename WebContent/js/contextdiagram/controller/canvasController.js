@@ -16,6 +16,7 @@ ContextDiagram.Controller.Canvas = function(mode, target, data){
 	this.draggingPosition = null;
 	this.nowLining = false;
 	this.liningController = null;
+	this.lineSaved = null;
 	this.verticalResizing = false;
 	this.minHeight = CD$DEFAULT_CANVAS_HEIGHT;
 	this.draw = function(){
@@ -85,12 +86,22 @@ ContextDiagram.Controller.Canvas = function(mode, target, data){
 				objectProperties.find('select.js_select_node_type option[value="' + model.type + '"]').attr('selected', 'selected');
 				break;
 			case CD$TYPE_EDGELINE:
+				var self = model.fromNodeId == model.toNodeId;
 				objectProperties.find('tr.js_line_property').show();
-				objectProperties.find('input.js_input_line_label').attr('value', model.label);
-				objectProperties.find('select.js_select_line_arrow option[value="' + model.direction + '"]').attr('selected', 'selected');
+				if(self)
+					objectProperties.find('input.js_input_line_label').parents('tr:first').hide();
+				else
+					objectProperties.find('input.js_input_line_label').attr('value', model.label);
+				if(self)
+					objectProperties.find('select.js_select_line_arrow').attr('disabled', 'disabled').find('option[value="' + CD$ARROW_DIR_SINGLE + '"]').attr('selected', 'selected');
+				else
+					objectProperties.find('select.js_select_line_arrow').removeAttr('disabled').find('option[value="' + model.direction + '"]').attr('selected', 'selected');
 				var lineBreak = model.lineBreak;
 				if(!lineBreak) lineBreak = {align:CD$ARROW_ALIGN_CENTER, breaks:0};
-				objectProperties.find('select.js_select_line_type option[value="' + lineBreak + (lineBreak.align==CD$ARROW_ALIGN_CENTER?'':lineBreak.breaks) + '"]').attr('selected', 'selected');
+				if(self)
+					objectProperties.find('select.js_select_line_type').parents('tr:first').hide();
+				else
+					objectProperties.find('select.js_select_line_type option[value="' + lineBreak + (lineBreak.align==CD$ARROW_ALIGN_CENTER?'':lineBreak.breaks) + '"]').attr('selected', 'selected');
 				break;
 			}
 		}
@@ -109,6 +120,7 @@ ContextDiagram.Controller.Canvas = function(mode, target, data){
 				this.selectedObjects[i].select(false);
 			this.selectedObjects = new Array();
 		}
+		this.lineSaved = null;
 		this.target.parents('.js_context_space').find('.js_object_properties tr.js_node_property, tr.js_line_property').hide();		
 	};
 	
@@ -236,12 +248,14 @@ ContextDiagram.Controller.Canvas = function(mode, target, data){
 					canvasCtrl.nowDragging = true;
 					canvasCtrl.draggingPosition = position;
 				}else if(ContextDiagram.getModelType(ctrl.model) == CD$TYPE_EDGELINE){
+					var savedModel = ContextDiagram.Model.EdgeLine(ctrl.model);
 					canvasCtrl.nowLining = true;
 					ctrl.model.direction = CD$ARROW_DIR_SINGLE;
 					ctrl.isLining = true;
 					ctrl.selected = false;
 					canvasCtrl.liningController = ctrl;
 					canvasCtrl.newSelections([canvasCtrl.liningController]);
+					canvasCtrl.lineSaved = savedModel;
 				}
 				$(this).css('cursor', 'pointer');
 			}else{
@@ -266,8 +280,13 @@ ContextDiagram.Controller.Canvas = function(mode, target, data){
 					canvasCtrl.liningController.model.isLining = false;
 					CD$CONTROLLERS.updateModel(canvasId, canvasCtrl.liningController.model);
 				}else{
-					canvasCtrl.clearSelections();
 					CD$CONTROLLERS.removeController(canvasId, canvasCtrl.liningController.model);
+					if(canvasCtrl.lineSaved){
+						var savedCtrl = canvasCtrl.liningController;
+						savedCtrl.model = canvasCtrl.lineSaved;
+						CD$CONTROLLERS.push(savedCtrl);
+					}
+					canvasCtrl.clearSelections();
 				}
 				ContextDiagram.redraw(canvasId);
 				canvasCtrl.nowLining = false;
@@ -301,6 +320,16 @@ ContextDiagram.Controller.Canvas = function(mode, target, data){
 				}
 				CD$CONTROLLERS.updateModel(canvasId, canvasCtrl.liningController.model);
 				ContextDiagram.redraw(canvasId);				
+			}
+		});
+		canvas.mouseleave(function(e){
+			var canvasId = $(this).attr('canvasId');
+			var canvasCtrl = CD$CONTROLLERS.findControllerById(canvasId, canvasId);
+			if(canvasCtrl.nowDragging){
+				canvasCtrl.nowDragging = false;
+				canvasCtrl.draggingPosition = null;
+				canvasCtrl.clearSelections();
+				$(this).css('cursor', 'default');
 			}
 		});
 		

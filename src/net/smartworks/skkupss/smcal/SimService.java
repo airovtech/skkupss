@@ -65,6 +65,7 @@ public class SimService{
 
 		/////////////////////////////////////////////////////////////
 		
+		
 		int tot_numofacts_A = 0;
 	    for (int i = 0; i < 6; i++) {
 	        tot_numofacts_A = tot_numofacts_A + numofacts_A[i];
@@ -204,14 +205,14 @@ public class SimService{
 			//Extracting not-common elements from LIST A
 			Set<String> set_listNotC_AB = new HashSet<String>(listNotC_AB);
 			List<String> new_listNotC_AB = new ArrayList<String>(set_listNotC_AB);
+			List<String> dummy_listNotC_AB = new ArrayList<String>(set_listNotC_AB);
 			
-			for(int a = 0; a < new_listNotC_AB.size(); a++){
+			for(int a = 0; a < dummy_listNotC_AB.size(); a++){
 				for(String string_b : listC_AB){
 					//System.out.println(new_listNotC_AB.get(a));
 					
-					if(new_listNotC_AB.get(a).matches(string_b)){
-						new_listNotC_AB.remove(new_listNotC_AB.get(a));
-						break;
+					if(dummy_listNotC_AB.get(a).equals(string_b)){
+						new_listNotC_AB.remove(dummy_listNotC_AB.get(a));
 					}
 				}
 			}
@@ -237,13 +238,14 @@ public class SimService{
 			//Extracting not-common elements from LIST B
 			Set<String> set_listNotC_BA = new HashSet<String>(listNotC_BA);
 			List<String> new_listNotC_BA = new ArrayList<String>(set_listNotC_BA);
+			List<String> dummy_listNotC_BA = new ArrayList<String>(set_listNotC_BA);
 			
-			for(int a = 0; a < new_listNotC_BA.size(); a++){
+			for(int a = 0; a < dummy_listNotC_BA.size(); a++){
 				for(String string_b : listC_BA){
 					//System.out.println(new_listNotC_BA.get(a));
 					
-					if(new_listNotC_BA.get(a).matches(string_b)){
-						new_listNotC_BA.remove(new_listNotC_BA.get(a));
+					if(dummy_listNotC_BA.get(a).matches(string_b)){
+						new_listNotC_BA.remove(dummy_listNotC_BA.get(a));
 						break;
 					}
 				}
@@ -350,19 +352,31 @@ public class SimService{
 			//System.out.println(numofcommons_BA[1]);
 		}
 		
-		double SUM_ST03 = 0;
+		double value_ST03 = 0;
+		double[] sumofacts = new double[6];
+		double[] sub_ = new double[6];
 		
 		for(int i = 0; i < 6; i++){
 			//System.out.println(sum_ST03[i]);
-			if((sum_ST03[i] == numofacts_A[i] + numofacts_B[i]) || (sum_ST03[i] >= numofacts_A[i] + numofacts_B[i])){
+			sumofacts[i] = numofacts_A[i] + numofacts_B[i];
+			System.out.println(sumofacts[i]);
+			System.out.println(sum_ST03[i]);
+			sub_[i] = sum_ST03[i]/sumofacts[i];
+			System.out.println(sub_[i]);
+			if((sum_ST03[i] == sumofacts[i]) || (sub_[i] > 1.0)){
 				nor_sum_ST03[i] = 1;
+				//System.out.println(numofvalues_A[i] + numofvalues_B[i]);
+				System.out.println(nor_sum_ST03[i]);
 			} else {
-				nor_sum_ST03[i] = (sum_ST03[i])/(numofacts_A[i] + numofacts_B[i]);
+				nor_sum_ST03[i] = (sum_ST03[i])/(sumofacts[i]);
+				//System.out.println(sum_ST03[i]);
+				//System.out.println(nor_sum_ST03[i]);
 			}
-			SUM_ST03 = SUM_ST03 + nor_sum_ST03[i];
+			value_ST03 = value_ST03 + nor_sum_ST03[i];
 		}
 		
-		SIM_ST03 = SUM_ST03/6;
+		SIM_ST03 = value_ST03/6;
+		
 		
 		//System.out.println("result = " + SIM_ST03);
 		//System.out.println(tot_numofacts_A);
@@ -374,10 +388,10 @@ public class SimService{
 	    
 	    double SIM = (SIM_ST01 + SIM_ST02 + SIM_ST03)/3;
 	    
-//	    System.out.println(SIM_ST01);
-//	    System.out.println(SIM_ST02);
-//	    System.out.println(SIM_ST03);
-//	    System.out.println(SIM);
+	    System.out.println(SIM_ST01);
+	    System.out.println(SIM_ST02);
+	    System.out.println(SIM_ST03);
+	    System.out.println(SIM);
 	    
 		return SIM;
 	}

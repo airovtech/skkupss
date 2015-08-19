@@ -200,7 +200,7 @@ $(function() {
 		}
 			
 		if(isEmpty(psIds) || psIds.length<=1){
-			smartPop.showInfo(smartPop.WARN, "유사도 비교는 2개이상의 항목을 선택하여야 합니다. 다시 선택하고 실행하여 주시기 바랍니다!", null);
+			smartPop.showInfo(smartPop.WARN, smartMessage.get('pssSimilaritySelectError'), null);
 			return false;
 		}
 		var spaceType = $('select.js_select_space_name option:selected').attr('value');
@@ -236,7 +236,7 @@ $(function() {
 		}
 			
 		if(isEmpty(psIds) || psIds.length!=2){
-			smartPop.showInfo(smartPop.WARN, "육안비교는 2개의 항목을 선택하여야 합니다. 다시 선택하고 실행하여 주시기 바랍니다!", null);
+			smartPop.showInfo(smartPop.WARN, smartMessage.get('pssEyeballComparisonSelectError'), null);
 			return false;
 		}
 		
@@ -276,7 +276,7 @@ $(function() {
 			var input = $(targetElement(e));
 			input = input.parents('.js_remove_product_service:first');
 			var psId = input.attr('psId');
-			smartPop.confirm( "현재의 제품-서비스 내용을 완전히 삭제하려고 합니다. 정말로 삭제하시겠습니까?", function(){			
+			smartPop.confirm( smartMessage.get('pssRemoveProductServiceConfirm'), function(){			
 				var paramsJson = {};
 				paramsJson["psId"] = psId;
 				console.log(JSON.stringify(paramsJson));

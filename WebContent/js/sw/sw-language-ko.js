@@ -423,7 +423,12 @@ smartMessage.bundle['ko'] = {
 	pssSelectPicture : "사진 업로드",
 	pssContinueAddNew : "성공적으로 새항목이 등록되었습니다. 계속 새항목 등록하기를 하시겠습니까?",
 	pssEyeballComparisonSelectError : "육안비교는 2개의 항목을 선택하여야 합니다. 다시 선택하고 실행하여 주시기 바랍니다!",		
-	pssSimilaritySelectError : "유사도 비교는 2개이상의 항목을 선택하여야 합니다. 다시 선택하고 실행하여 주시기 바랍니다!"
+	pssSimilaritySelectError : "유사도 비교는 2개이상의 항목을 선택하여야 합니다. 다시 선택하고 실행하여 주시기 바랍니다!",
+	pssRemoveProductServiceConfirm : "제품-서비스 내용을 완전히 삭제하려고 합니다. 정말로 삭제하시겠습니까?",
+	pssNodeProduct : '제품',
+	pssNodeProvider : '제공자',
+	pssNodeTouchPoint : '터치포인트',
+	pssNodeUser : '수혜자'
 
 };
 }catch(error){

@@ -417,7 +417,12 @@ smartMessage.bundle['en'] = {
 	pssSelectPicture : "Upload Picture",
 	pssContinueAddNew : "New Item has been created SUCCESSFULLY! Do you want to create more ?",
 	pssEyeballComparisonSelectError : "Twe Items must be selected for the Eyeball Comparison. Please select and try again!",		
-	pssSimilaritySelectError : "More the twe items must be selected for the Similarity Calculation. Please select and try again!"	
+	pssSimilaritySelectError : "More the twe items must be selected for the Similarity Calculation. Please select and try again!",	
+	pssRemoveProductServiceConfirm : "Do you really want to remove this Product-Service?",
+	pssNodeProduct : 'Product',
+	pssNodeProvider : 'Provider',
+	pssNodeTouchPoint : 'Touch Point',
+	pssNodeUser : 'User'	
 	
 };
 }catch(error){

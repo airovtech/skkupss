@@ -50,8 +50,7 @@ ContextDiagram.Controller.Node = function(canvasId, mode, context, data){
 		id: data.id,
 		type: data.type,  // product, provider, touchPoint, user
 		position: data.position,
-		name: data.name,
-		selected: data.selected
+		name: data.name
 	});
 	
 	this.draw();

@@ -51,8 +51,7 @@ ContextDiagram.Controller.EdgeLine = function(canvasId, mode, context, data){
 		toNodeId: data.toNodeId,
 		direction: data.direction,
 		lineBreak: data.lineBreak,
-		label: data.label,
-		selected: data.selected
+		label: data.label
 	});
 	
 	this.draw();

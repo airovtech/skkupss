@@ -1,5 +1,10 @@
 package net.smartworks.skkupss.smcal;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import edu.cmu.lti.lexical_db.ILexicalDatabase;
 import edu.cmu.lti.lexical_db.NictWordNet;
 import edu.cmu.lti.ws4j.impl.Lin;
@@ -192,75 +197,222 @@ public class SimValue{
 		/////////////////////////////////////////////////////////////
 		
 		double SIM_STRe03 = 0;
-		
-		double sumAB = 0;
-		double sumBA = 0;
-		int kAB = 0;
+		double[] sum_ST03 = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
+		double[] nor_sum_ST03 = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
+
 		int numAB_A = 0;
 		int numAB_B = 0;
-		
-		for(int i = 0; i < 8; i++){
-			for(int j = numAB_A; j < (numAB_A + numofvalues_A[i]); j++){
-				for(int k = numAB_B; k < (numAB_B + numofvalues_B[i]); k++){
-					//System.out.println(keyacts_A[j] +" -  " +  keyacts_B[k] + " = ");
-					double distance = 0;
-					if(values_A[j] == values_B[k]) {
-						distance = 1;
-						kAB = kAB + 1;
-					} else {
-						distance = compute(values_A[j], values_B[k]);
-						if(distance > 1) {
-							distance = 1;
-							kAB = kAB + 1;
-						}
-					}
-					sumAB = sumAB + distance;
-					//System.out.println(values_A[j] +" -  " +  values_B[k] + " = " + distance);
-				}
-			}
-		numAB_A = numAB_A + numofvalues_A[i];
-		numAB_B = numAB_B + numofvalues_B[i];
-		}
-		
-		int kBA = 0;
 		int numBA_B = 0;
 		int numBA_A = 0;
 		
+		
+		//System.out.println(tot_numofacts_A);
+		
+		
 		for(int i = 0; i < 8; i++){
-			for(int j = numBA_B; j < (numBA_B + numofvalues_B[i]); j++){
-				for(int k = numBA_A; k < (numBA_A + numofvalues_A[i]); k++){
-					//System.out.println(keyacts_A[j] +" -  " +  keyacts_B[k] + " = ");
-					double distance = 0;
-					if(values_B[j] == values_A[k]) {
-						distance = 1;
-						kBA = kBA + 1;
+			List<String> listC_AB = new ArrayList<String>();
+			List<String> listNotC_AB = new ArrayList<String>();
+			
+			//Extracting common elements from LIST A
+			for(int j = numAB_A; j < (numAB_A + numofvalues_A[i]); j++){
+				for(int k = numAB_B; k < (numAB_B + numofvalues_B[i]); k++){
+					if (values_A[j].equals(values_B[k])) {
+						listC_AB.add(values_A[j]);
+						break;
 					} else {
-						distance = compute(values_B[j], values_A[k]);
-						if(distance > 1) {
-							distance = 1;
-							kBA = kBA + 1;
-						}
+						listNotC_AB.add(values_A[j]);
 					}
-					sumBA = sumBA + distance;
-					//System.out.println(values_B[j] +" -  " +  values_A[k] + " = " + distance);
 				}
 			}
-		numBA_B = numBA_B + numofvalues_B[i];
-		numBA_A = numBA_A + numofvalues_A[i];
+			
+			//Extracting not-common elements from LIST A
+			Set<String> set_listNotC_AB = new HashSet<String>(listNotC_AB);
+			List<String> new_listNotC_AB = new ArrayList<String>(set_listNotC_AB);
+			List<String> dummy_listNotC_AB = new ArrayList<String>(set_listNotC_AB);
+			
+			System.out.println(listC_AB);
+			System.out.println(new_listNotC_AB);
+			//int control_value01_ = new_listNotC_AB.size();
+			
+			for(int a = 0; a < dummy_listNotC_AB.size(); a++){
+			//for(String string_a : new_listNotC_AB){
+				for(String string_b : listC_AB){
+					System.out.println(dummy_listNotC_AB.get(a));
+					System.out.println(string_b);
+					if(dummy_listNotC_AB.get(a).equals(string_b)){
+					//if(string_a.equals(string_b)){
+						new_listNotC_AB.remove(dummy_listNotC_AB.get(a));
+					}
+				}
+			}
+			
+			
+			System.out.println(new_listNotC_AB);
+			
+			
+			List<String> listC_BA = new ArrayList<String>();
+			List<String> listNotC_BA = new ArrayList<String>();
+			
+			//Extracting common elements from LIST B
+			for(int j = numBA_B; j < (numBA_B + numofvalues_B[i]); j++){
+				for(int k = numBA_A; k < (numBA_A + numofvalues_A[i]); k++){
+					if (values_B[j].equals(values_A[k])) {
+						listC_BA.add(values_B[j]);
+						break;
+					} else {
+						listNotC_BA.add(values_B[j]);
+					}
+				}
+			}
+			
+			//Extracting not-common elements from LIST B
+			Set<String> set_listNotC_BA = new HashSet<String>(listNotC_BA);
+			List<String> new_listNotC_BA = new ArrayList<String>(set_listNotC_BA);
+			List<String> dummy_listNotC_BA = new ArrayList<String>(set_listNotC_BA);
+			
+			for(int a = 0; a < dummy_listNotC_BA.size(); a++){
+				for(String string_b : listC_BA){
+					//System.out.println(new_listNotC_BA.get(a));
+					
+					if(dummy_listNotC_BA.get(a).matches(string_b)){
+						new_listNotC_BA.remove(dummy_listNotC_BA.get(a));
+						break;
+					}
+				}
+			}
+			
+			System.out.println(listC_BA);
+			
+			//System.out.println(listC_AB);
+			//System.out.println(listC_BA);
+			//System.out.println(new_listNotC_BA);
+			//System.out.println(new_listNotC_AB);
+			
+			//Calculate sim value
+			
+			double sum_com_part = listC_AB.size() + listC_BA.size();
+			double s03_dif_part_AB = 0;
+			double s03_dif_part_BA = 0;
+			double sum_dif_part = 0;
+			double sum_part_ = 0;
+			
+			if(sum_com_part == 0){
+				for(int z = numAB_A; z < (numAB_A + numofvalues_A[i]); z++){
+					for(int w = numAB_B; w < (numAB_B + numofvalues_B[i]); w++){
+						double distance = compute(values_A[z], values_B[w]);
+						s03_dif_part_AB = s03_dif_part_AB + distance;
+					}
+				}
+				for(int z = numBA_B; z < (numBA_B + numofvalues_B[i]); z++){
+					for(int w = numBA_A; w < (numBA_A + numofvalues_A[i]); w++){
+						double distance = compute(values_B[z], values_A[w]);
+						s03_dif_part_BA = s03_dif_part_BA + distance;
+					}
+				}
+				sum_dif_part = s03_dif_part_AB + s03_dif_part_BA;
+				sum_part_ = sum_dif_part + sum_com_part;
+				System.out.println("condition1 = " + sum_part_);
+				
+			} else {
+				if(new_listNotC_AB.size() * new_listNotC_BA.size() != 0){
+					
+					for(int x = 0; x < new_listNotC_AB.size(); x++){
+						for(String target_string : listC_AB){
+							double distance = compute(new_listNotC_AB.get(x), target_string);
+							System.out.println(distance + new_listNotC_AB.get(x) + target_string);
+							s03_dif_part_AB = s03_dif_part_AB + distance;
+						}
+					}
+					sum_dif_part = sum_dif_part + ((s03_dif_part_AB)/(new_listNotC_AB.size()*listC_AB.size()));
+					
+					for(int y = 0; y < new_listNotC_BA.size(); y++){
+						for(String target_string : listC_AB){
+							double distance = compute(new_listNotC_BA.get(y), target_string);
+							//System.out.println(distance);
+							s03_dif_part_BA = s03_dif_part_BA + distance;
+						}
+					}
+					//System.out.println(new_listNotC_BA.size()*listC_AB.size());
+					sum_dif_part = sum_dif_part + ((s03_dif_part_BA)/(new_listNotC_BA.size()*listC_AB.size()));
+					sum_part_ = sum_dif_part + sum_com_part;
+					System.out.println("condition2 = " + sum_part_);
+					
+				} else {
+					if((new_listNotC_AB.size() == 0) && (new_listNotC_BA.size() == 0)){
+						sum_dif_part = 0;
+						//System.out.println("aegawegawfawefawegawegawegaweg");
+						sum_part_ = sum_dif_part + sum_com_part;
+						System.out.println("condition3 = " + sum_part_);
+					} else {
+						if(new_listNotC_AB.size() == 0){
+							for(int y = 0; y < new_listNotC_BA.size(); y++){
+								for(String target_string : listC_AB){
+									double distance = compute(new_listNotC_BA.get(y), target_string);
+									s03_dif_part_BA = s03_dif_part_BA + distance;
+								}
+							}
+							//System.out.println(new_listNotC_BA.size()*listC_AB.size());
+							sum_dif_part = sum_dif_part + ((s03_dif_part_BA)/(new_listNotC_BA.size()*listC_AB.size()));
+							sum_part_ = sum_dif_part + sum_com_part;
+							System.out.println("condition4 = " + sum_part_);
+						} else {
+							for(int x = 0; x < new_listNotC_AB.size(); x++){
+								for(String target_string : listC_AB){
+									double distance = compute(new_listNotC_AB.get(x), target_string);
+									s03_dif_part_AB = s03_dif_part_AB + distance;
+								}
+							}
+							sum_dif_part = sum_dif_part + ((s03_dif_part_AB)/(new_listNotC_AB.size()*listC_AB.size()));
+							sum_part_ = sum_dif_part + sum_com_part;
+							System.out.println("condition5 = " + sum_part_);
+						}
+					}
+				}
+			}
+			
+			sum_ST03[i] = sum_part_;
+			
+			//System.out.println(sum_com_part);
+			//System.out.println(sum_dif_part);
+			//System.out.println(sum_part_);
+			
+					
+			numAB_A = numAB_A + numofvalues_A[i];
+			numAB_B = numAB_B + numofvalues_B[i];
+			numBA_B = numBA_B + numofvalues_B[i];
+			numBA_A = numBA_A + numofvalues_A[i];
+			//System.out.println(listC_AB);
+			//System.out.println(new_listNotC_AB);
+			//System.out.println(listC_BA);
+			//System.out.println(new_listNotC_BA);
+			//System.out.println(numofcommons_AB[1]);
+			//System.out.println(numofcommons_BA[1]);
 		}
 		
-		if((kAB == kBA) && (kAB + kBA == tot_numofvalues_A + tot_numofvalues_B)){
-			SIM_STRe03 = 1;
-		} else {
-			double length = 2 * tot_numofvalues_A * tot_numofvalues_B;
-			SIM_STRe03 = (sumAB + sumBA) / length;
+		double SUM_ST03 = 0;
+		double[] sumofvalues = new double[8];
+		double[] sub_ = new double[8];
+		
+		for(int i = 0; i < 8; i++){
+			//System.out.println(sum_ST03[i]);
+			sumofvalues[i] = numofvalues_A[i] + numofvalues_B[i];
+			System.out.println(sumofvalues[i]);
+			System.out.println(sum_ST03[i]);
+			sub_[i] = sum_ST03[i]/sumofvalues[i];
+			System.out.println(sub_[i]);
+			if((sum_ST03[i] == sumofvalues[i]) || (sub_[i] > 1.0)){
+				nor_sum_ST03[i] = 1;
+				//System.out.println(numofvalues_A[i] + numofvalues_B[i]);
+				System.out.println(nor_sum_ST03[i]);
+			} else {
+				nor_sum_ST03[i] = (sum_ST03[i])/(sumofvalues[i]);
+				//System.out.println(sum_ST03[i]);
+				//System.out.println(nor_sum_ST03[i]);
+			}
+			SUM_ST03 = SUM_ST03 + nor_sum_ST03[i];
 		}
 		
-		//System.out.println("result = " + SIM_ST03);
-		//System.out.println(kAB);
-		//System.out.println(kBA);
-		//System.out.println(tot_numofvalues_A);
-		//System.out.println(tot_numofvalues_B);
+		SIM_STRe03 = SUM_ST03/8;
 		
 		
 		/////////////////////////////////////////////////////////////
@@ -268,8 +420,11 @@ public class SimValue{
 		/////////////////////////////////////////////////////////////
 
 		double SIM = (SIM_ST01 + SIM_ST02 + SIM_STRe03)/3;
-
-//		System.out.print(SIM);
+		
+		System.out.println(SIM_ST01);
+		System.out.println(SIM_ST02);
+		System.out.println(SIM_STRe03);
+		System.out.println(SIM);
 		
 		return SIM;
 	}

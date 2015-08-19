@@ -103,6 +103,24 @@ CD$EDGE_TYPE_NONE=3;
 ContextDiagram.arrowLine = function(ctx,p1,p2,size, dir, lineBreak, edgeType){
 	ctx.save();
 	
+	if(p1.x == p2.x && p1.y == p2.y){
+  		ctx.beginPath();
+		ctx.arc(p1.x, p1.y-(35), 10, 0.7*Math.PI, 0.25*Math.PI);
+		ctx.stroke();
+		
+		var x = p1.x, y = p1.y-35, dx = dy = Math.sqrt(10*10/2);
+		ctx.translate(x+dx,y+dy);
+	  	ctx.rotate(Math.atan2(-dx,dx));
+     	ctx.beginPath();
+     	ctx.moveTo(-size,0);
+      	ctx.lineTo(0,-size/2);
+      	ctx.lineTo(0, size/2);
+      	ctx.closePath();
+      	ctx.fill();
+		
+		ctx.restore();
+		return;
+	}
 	if(edgeType==null) edgeType = CD$EDGE_TYPE_ALL;
 	if(!isEmpty(lineBreak) && lineBreak.align!=CD$ARROW_ALIGN_CENTER){
 		var breakHeight = lineBreak.level || 50;
@@ -209,6 +227,18 @@ ContextDiagram.arrowLine = function(ctx,p1,p2,size, dir, lineBreak, edgeType){
     
 ContextDiagram.isPointOnLine = function(ctx,p1,p2,size, dir, lineBreak, edgeType, point){
 	ctx.save();
+	
+	if(p1.x == p2.x && p1.y == p2.y){
+		ctx.save();
+  		ctx.beginPath();
+		ctx.arc(p1.x, p1.y-(35), 10, 0.7*Math.PI, 0.4*Math.PI);
+		if(ctx.isPointInPath(point.left, point.top)){
+			ctx.restore();
+			return true;
+		}						
+		ctx.restore();
+		return false;
+	}
 	
 	if(edgeType==null) edgeType = CD$EDGE_TYPE_ALL;
 	if(!isEmpty(lineBreak) && lineBreak.align!=CD$ARROW_ALIGN_CENTER){
@@ -542,7 +572,7 @@ ContextDiagram.draw = function(config) {
 					top : 200,
 					left : 100
 				},
-				name: '제품 제품 제품 제품 제품'
+				name: '������ ������ ������ ������ ������'
 			},
 			{
 				id : 'NODE2',
@@ -551,7 +581,7 @@ ContextDiagram.draw = function(config) {
 					top : 100,
 					left : 200
 				},
-				name: '제공자 제공자 제공자 제공자'
+				name: '���怨듭�� ���怨듭�� ���怨듭�� ���怨듭��'
 			},
 			{
 				id : 'NODE3',
@@ -560,7 +590,7 @@ ContextDiagram.draw = function(config) {
 					top : 100,
 					left : 300
 				},
-				name: '터치포인트 터치포인트 터치포인트'
+				name: '��곗����ъ�명�� ��곗����ъ�명�� ��곗����ъ�명��'
 			},
 			{
 				id : 'NODE4',
@@ -569,7 +599,7 @@ ContextDiagram.draw = function(config) {
 					top : 100,
 					left : 400
 				},
-				name: '수혜자'
+				name: '���������'
 			}
 		],
 		edgeLines : [
@@ -579,7 +609,7 @@ ContextDiagram.draw = function(config) {
 				toNodeId: 'NODE2',
 				direction: CD$ARROW_DIR_BOTH,
 				lineBreak : null,
-				label: '제품에서 제공자'
+				label: '������������ ���怨듭��'
 			},
 			{
 				id : 'LINE6',
@@ -587,7 +617,7 @@ ContextDiagram.draw = function(config) {
 				toNodeId: 'NODE3',
 				direction: CD$ARROW_DIR_SINGLE,
 				lineBreak : null,
-				label: '제공자에서 터치포인트'
+				label: '���怨듭�������� ��곗����ъ�명��'
 			},
 			{
 				id : 'LINE7',
@@ -598,7 +628,7 @@ ContextDiagram.draw = function(config) {
 					align : CD$ARROW_ALIGN_LEFT,
 					breaks : 2
 				},
-				label: '제공자에서 터치포인트'
+				label: '���怨듭�������� ��곗����ъ�명��'
 			},
 			{
 				id : 'LINE8',
@@ -606,7 +636,7 @@ ContextDiagram.draw = function(config) {
 				toNodeId: 'NODE4',
 				direction: CD$ARROW_DIR_NONE,
 				lineBreak : null,
-				label: '터치포인트에서 수혜자'
+				label: '��곗����ъ�명�몄����� ���������'
 			}
 		]
 	};
@@ -732,7 +762,7 @@ ContextDiagram.draw = function(config) {
 				}
 			}
 		}
-		
+		canvasController.clearSelections();
 	}		
 };
 
