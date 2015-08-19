@@ -421,7 +421,9 @@ smartMessage.bundle['zh'] = {
 	globalSearchFinished : "所有业务搜索已结束!!!",
 	
 	pssSelectPicture : "Upload Picture",	
-	pssContinueAddNe : "New Item has been created SUCCESSFULLY! Do you want to create more ?"
+	pssContinueAddNe : "New Item has been created SUCCESSFULLY! Do you want to create more ?",
+	pssEyeballComparisonSelectError : "Twe Item must be selected for the Eyeball Comparison. Please select and retry again!",	
+	pssSimilaritySelectError : "More the twe items must be selected for the Similarity Calculation. Please select and try again!"	
 		
 };
 }catch(error){

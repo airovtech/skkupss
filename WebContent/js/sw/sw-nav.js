@@ -36,6 +36,7 @@ try{
 			try{
 				var ops = $.extend({
 					history: false,
+					abort: false,
 					target: 'content',
 					before: null,
 					after: null
@@ -61,12 +62,18 @@ try{
 				try {
 					if(before) {
 						before.apply(this, [event]);
+						if(this.getAttribute('abort') == 'true'){
+							return false;
+						}
 					}
 					if(target == target_ && history && this_ !== this && ('#' + this.getAttribute('href')) !== unescape(window.location.hash)) {
 						after_ = after;
 						this_ = this;
 						event_ = [event];
-						$.history.load(this.getAttribute('href'));
+						if(this.getAttribute('href') == 'psSimilarityMatrix.sw')
+							$.history.load();
+						else
+							$.history.load(this.getAttribute('href'));
 					} else {
 						$('#' + target).load(this.getAttribute('href'), function(){
 							if(after) after.apply(_this, [event]);						

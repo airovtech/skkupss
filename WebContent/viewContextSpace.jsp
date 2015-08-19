@@ -156,6 +156,7 @@ $(function() {
 		ContextDiagram.draw({
 			mode : <%if(isEditMode){%>CD$MODE_EDIT<%}else{%>CD$MODE_VIEW<%}%>,
 			target : $('.js_context_diagram_target[psId="' + '<%=psId%>' + '"]'),
+			jsonDataString : '<%=jsonDataString%>',
 			reload : true 
 		});
 	}

@@ -415,8 +415,9 @@ smartMessage.bundle['en'] = {
 	globalSearchFinished : "Finished Searching All Works!!!",
 	
 	pssSelectPicture : "Upload Picture",
-	pssContinueAddNew : "New Item has been created SUCCESSFULLY! Do you want to create more ?"
-
+	pssContinueAddNew : "New Item has been created SUCCESSFULLY! Do you want to create more ?",
+	pssEyeballComparisonSelectError : "Twe Items must be selected for the Eyeball Comparison. Please select and try again!",		
+	pssSimilaritySelectError : "More the twe items must be selected for the Similarity Calculation. Please select and try again!"	
 	
 };
 }catch(error){

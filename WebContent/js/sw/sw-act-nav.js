@@ -77,6 +77,57 @@ $(function() {
 					smartPop.progressNav(input.parents('li:first').find('span:last'));
 				}else if(!isEmpty(input.parents('.js_mail_folder'))){
 					smartPop.progressNav(input.parents('a:first').find('span:last'));
+				}else if(!isEmpty(input.parents('.js_eyeball_comparison'))){
+					var checkInstances  = $("#iwork_instance_list_page tr .js_check_instance:checked");
+					var psIds = new Array();
+					for(var i=0; i<checkInstances.length; i++){
+						psIds[i] = $(checkInstances[i]).parents('.js_work_instance_list:first').attr('psId');
+					}
+						
+					if(isEmpty(psIds) || psIds.length!=2){
+						smartPop.showInfo(smartPop.WARN, smartMessage.get('pssEyeballComparisonSelectError'), null);
+						input.attr('abort', 'true');
+					}else{				
+						input.removeAttr('abort');
+						var spaceType = $('select.js_select_space_name option:selected').attr('value');
+						input.attr('href', input.attr('href') + "?sourcePsId=" + psIds[0] + "&targetPsId=" + psIds[1] + "&spaceType=" + spaceType);
+						smartPop.progressCenter();
+					}
+				}else if(!isEmpty(input.parents('.js_similarity_calculation'))){
+					var checkInstances  = $("#iwork_instance_list_page tr .js_check_instance:checked");
+					
+					var psIds = new Array();
+					var psNames = new Array();
+					for(var i=0; i<checkInstances.length; i++){
+						psIds[i] = $(checkInstances[i]).parents('.js_work_instance_list:first').attr('psId');
+						psNames[i] = $(checkInstances[i]).parents('.js_work_instance_list:first').attr('psName');
+					}
+						
+					if(isEmpty(psIds) || psIds.length<=1){
+						smartPop.showInfo(smartPop.WARN, smartMessage.get('pssSimilaritySelectError'), null);
+						input.attr('abort', 'true');					
+					}else{
+						input.removeAttr('abort');					
+						var spaceType = $('select.js_select_space_name option:selected').attr('value');
+				
+						var paramsJson = {};
+						paramsJson["spaceType"] = spaceType;
+						paramsJson["psIds"] = psIds;
+						paramsJson["psNames"] = psNames;
+						paramsJson["href"] = "psSimilarityMatrix.sw";
+						console.log(JSON.stringify(paramsJson));
+						smartPop.progressCenter();
+						$.ajax({
+							url : "calculate_ps_similarities.sw",
+							contentType : 'application/json',
+							type : 'POST',
+							data : JSON.stringify(paramsJson),
+							success : function(data, status, jqXHR) {
+								$('#content').html(data);
+								smartPop.closeProgress();
+							}
+						});
+					}
 				}else{
 					smartPop.progressCenter();				
 				}
