@@ -113,9 +113,20 @@
 						<div><%=CommonUtil.toNotNull(productService.getName())%></div>
 					</td>
 					<td class="tl vt">
-						<div><%=CommonUtil.toNotNull(productService.getDesc())%></div>
+						<textarea readonly><%=CommonUtil.toNotNull(productService.getDesc())%></textarea>
 					</td>
 					<td class="vt">
+						<select name="selSpaceName" class="fr select_item_space_name js_select_item_space_name" style="visibility:hidden;margin-bottom:5px">
+							<option value="<%=ProductService.PSS_SPACE_VALUE%>" <%if (params.getSpaceType()
+							.equals(ProductService.PSS_SPACE_VALUE)) {%>selected<%}%>><fmt:message key="pss.title.space.value"/></option>
+							<option value="<%=ProductService.PSS_SPACE_SERVICE%>" <%if (params.getSpaceType().equals(
+							ProductService.PSS_SPACE_SERVICE)) {%>selected<%}%>><fmt:message key="pss.title.space.service"/></option>
+							<option value="<%=ProductService.PSS_SPACE_BIZ_MODEL%>" <%if (params.getSpaceType().equals(
+							ProductService.PSS_SPACE_BIZ_MODEL)) {%>selected<%}%>><fmt:message key="pss.title.space.biz_model"/></option>
+							<option value="<%=ProductService.PSS_SPACE_CONTEXT%>" <%if (params.getSpaceType().equals(
+							ProductService.PSS_SPACE_CONTEXT)) {%>selected<%}%>><fmt:message key="pss.title.space.context"/></option>
+						</select>
+						<div class="js_view_space_target">
 						<%
 							switch (productService.getSpaceType()) {
 										case ProductService.SPACE_TYPE_VALUE:
@@ -150,6 +161,7 @@
 							break;
 										}
 						%>
+						</div>
 					</td>
 					<td class="vt">
 						<div class="noti_pic"><img class="profile_size_m mb3 mr3" src="<%=lastModifier.getMinPicture()%>" title="<%=lastModifier.getLongName()%>"/></div>

@@ -8,7 +8,7 @@
 <%
 	ServiceSpace serviceSpace = (ServiceSpace)request.getAttribute("serviceSpace");
 	String psId = request.getParameter("psId");
-	if(SmartUtil.isBlankObject(serviceSpace) && !SmartUtil.isBlankObject(psId)){
+	if(!SmartUtil.isBlankObject(psId)){
 	
 		ProductService productService = null;
 		try{

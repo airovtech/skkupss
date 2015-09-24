@@ -403,6 +403,7 @@ tr.instance_list {}
 tr.instance_list:hover {cursor:pointer;text-decoration: none!important}
 tr.instance_list .user_actions{display:none}
 tr.instance_list:hover .user_actions{display:block}
+tr.instance_list:hover select{visibility:visible!important}
 
 tr.app_work_list {}
 tr.app_work_list:hover {background-color:#fff7eb}

@@ -78,10 +78,15 @@ $(function() {
 				}else if(!isEmpty(input.parents('.js_mail_folder'))){
 					smartPop.progressNav(input.parents('a:first').find('span:last'));
 				}else if(!isEmpty(input.parents('.js_eyeball_comparison'))){
-					var checkInstances  = $("#iwork_instance_list_page tr .js_check_instance:checked");
+					var checkInstances  = $("#iwork_instance_list_page .js_check_instance:checked");
 					var psIds = new Array();
 					for(var i=0; i<checkInstances.length; i++){
 						psIds[i] = $(checkInstances[i]).parents('.js_work_instance_list:first').attr('psId');
+						if(isEmpty(psIds[i]))
+							psIds[i] = $(checkInstances[i]).parents('td').attr('psId');
+						if(isEmpty(psIds[i]))
+							psIds[i] = $(checkInstances[i]).parents('li').attr('psId');
+							
 					}
 						
 					if(isEmpty(psIds) || psIds.length!=2){
@@ -94,13 +99,21 @@ $(function() {
 						smartPop.progressCenter();
 					}
 				}else if(!isEmpty(input.parents('.js_similarity_calculation'))){
-					var checkInstances  = $("#iwork_instance_list_page tr .js_check_instance:checked");
+					var checkInstances  = $("#iwork_instance_list_page .js_check_instance:checked");
 					
 					var psIds = new Array();
 					var psNames = new Array();
 					for(var i=0; i<checkInstances.length; i++){
 						psIds[i] = $(checkInstances[i]).parents('.js_work_instance_list:first').attr('psId');
 						psNames[i] = $(checkInstances[i]).parents('.js_work_instance_list:first').attr('psName');
+						if(isEmpty(psIds[i])){
+							psIds[i] = $(checkInstances[i]).parents('td').attr('psId');
+							psNames[i] = $(checkInstances[i]).parents('td').attr('psName');
+						}
+						if(isEmpty(psIds[i])){
+							psIds[i] = $(checkInstances[i]).parents('li').attr('psId');
+							psNames[i] = $(checkInstances[i]).parents('li').attr('psName');
+						}
 					}
 						
 					if(isEmpty(psIds) || psIds.length<=1){
@@ -109,6 +122,8 @@ $(function() {
 					}else{
 						input.removeAttr('abort');					
 						var spaceType = $('select.js_select_space_name option:selected').attr('value');
+						if(isEmpty(spaceType))
+							spaceType = 'valueSpace';
 				
 						var paramsJson = {};
 						paramsJson["spaceType"] = spaceType;

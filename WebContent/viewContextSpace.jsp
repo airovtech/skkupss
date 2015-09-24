@@ -16,7 +16,7 @@
 
 	ContextSpace contextSpace = (ContextSpace)request.getAttribute("contextSpace");
 	String psId = request.getParameter("psId");
-	if(SmartUtil.isBlankObject(contextSpace) && !SmartUtil.isBlankObject(psId)){
+	if(!SmartUtil.isBlankObject(psId)){
 
 		ProductService productService = null;
 		try{
@@ -43,28 +43,33 @@
 					<table class="js_toggle_creation_tool" >
 						<tr style="background-color:grey;font-weight:bold"><td class="tc"><fmt:message key="pss.title.creation_tool"/></td></tr>
 						<tr>
-							<td class="tc" >
-								<a href="" toolId="11"><fmt:message key="pss.title.node.product"/></a>
+							<td style="padding-right:15px">
+								<img src="images/pss/node-product.png" style="width:30px;height:30px; padding:0 3px" />
+								<a class="tc"  href="" toolId="11"><fmt:message key="pss.title.node.product"/></a>
 							</td>
 						</tr>
 						<tr>
-							<td class="tc" >
-								<a href="" toolId="12"><fmt:message key="pss.title.node.provider"/></a>
+							<td>
+								<img src="images/pss/node-provider.png" style="width:36px;height:30px"/>
+								<a class="tc" href="" toolId="12"><fmt:message key="pss.title.node.provider"/></a>
 							</td>
 						</tr>
 						<tr>
-							<td class="tc" >
-								<a href="" toolId="13"><fmt:message key="pss.title.node.touch_point"/></a>
+							<td>
+								<img src="images/pss/node-touchpoint.png" style="width:30px;height:30px; padding:0 3px"/>
+								<a class="tc" href="" toolId="13"><fmt:message key="pss.title.node.touch_point"/></a>
 							</td>
 						</tr>
 						<tr>
-							<td class="tc" >
-								<a href="" toolId="14"><fmt:message key="pss.title.node.user"/></a>
+							<td>
+								<img src="images/pss/node-customer.png" style="width:30px;height:30px; padding:0 3px"/>
+								<a class="tc" href="" toolId="14"><fmt:message key="pss.title.node.user"/></a>
 							</td>
 						</tr>
 						<tr>
-							<td class="tc" >
-								<a href="" toolId="21"><fmt:message key="pss.title.edge_line"/></a>
+							<td>
+								<img src="images/pss/edge-line.png" style="width:30px; padding:0 3px"/>
+								<a class="tc" href="" toolId="21"><fmt:message key="pss.title.edge_line"/></a>
 							</td>
 						</tr>
 					</table>

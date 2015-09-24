@@ -37,7 +37,7 @@ try{
 		var isUserMode = iworkList.attr('isUserMode');
 		paramsJson["isUserMode"] = isUserMode;
 		var workId = iworkList.attr('workId');
-		paramsJson["href"] = "psInstanceList.jsp";
+		paramsJson["href"] = "psInstanceListPic.jsp";
 		console.log('forms=', forms);
 		for(var i=0; i<forms.length; i++){
 			var form = $(forms[i]);
@@ -83,31 +83,6 @@ try{
 							</div>
 						</div>
 						<div class="title_line_options">
-							<form class="form_space po_left js_form_filter_name" name="frmIworkFilterName">
-								<select name="selFilterName" class="js_select_search_filter">
-<%-- 									<option value="<%=SearchFilter.FILTER_ALL_INSTANCES%>" 
-										<%if(SmartUtil.isBlankObject(selectedFilterId) || SearchFilter.FILTER_ALL_INSTANCES.equals(selectedFilterId)){%> selected <%} %>>
-										<fmt:message key='filter.name.all_instances' />
-									</option>
- --%>								<option>
-										<fmt:message key='filter.name.all_instances' />
-									</option>
-<%-- 									<%
-									SearchFilterInfo[] filters = work.getSearchFilters();
-									if (filters != null) {
-										for (SearchFilterInfo filter : filters) {
-											if(SmartUtil.isBlankObject(filter.getId())) continue;
-									%>
-											<option class="js_custom_filter" value="<%=filter.getId()%>" <%if(filter.getId().equals(selectedFilterId)){%> selected <%} %>><%=CommonUtil.toNotNull(filter.getName())%></option>
-									<%
-										}
-									}
-									%>
- --%>								</select>
-							</form>
-							<a href="search_filter.sw" class="po_left js_edit_search_filter" title="<fmt:message key='filter.button.edit_search_filter' />">
-								<div class="icon_btn_edit"></div>
-							</a>
 							<form name="frmSearchInstance" class="po_left ml10"> 
 								<div class="srch_wh srch_wsize" style="display:inline-block;vertical-align:middle">
 									<input name="txtSearchInstance" class="nav_input" value="" type="text" placeholder="<fmt:message key='search.search_instance'/>">
@@ -129,7 +104,7 @@ try{
 					<!-- 목록 테이블 -->
 					<div class="list_contents">
 						<div id='iwork_instance_list_page' >
- 							<jsp:include page="psInstanceList.jsp">
+ 							<jsp:include page="psInstanceListPic.jsp">
  								<jsp:param value="<%=spaceType %>" name="spaceType"/>
  							</jsp:include>
 						</div>

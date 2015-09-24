@@ -14,6 +14,12 @@
 	<definition name="psList" extends="smart">
 		<put-attribute name="content" value="/psList.jsp" />
 	</definition>
+	<definition name="psListPic" extends="smart">
+		<put-attribute name="content" value="/psListPic.jsp" />
+	</definition>
+	<definition name="psListPicNDesc" extends="smart">
+		<put-attribute name="content" value="/psListPicNDesc.jsp" />
+	</definition>
 	<definition name="newProductService" extends="smart">
 		<put-attribute name="content" value="/newProductService.jsp" />
 	</definition>

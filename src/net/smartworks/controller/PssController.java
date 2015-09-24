@@ -93,6 +93,21 @@ public class PssController {
 		return SmartUtil.returnMnv(request, "psList.jsp", "psList.tiles");
 	}
 	
+	@RequestMapping("/psList")
+	public ModelAndView psList(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		return SmartUtil.returnMnv(request, "psList.jsp", "psList.tiles");
+	}
+	
+	@RequestMapping("/psListPic")
+	public ModelAndView psListPic(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		return SmartUtil.returnMnv(request, "psListPic.jsp", "psListPic.tiles");
+	}
+	
+	@RequestMapping("/psListPicNDesc")
+	public ModelAndView psListPicNDesc(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		return SmartUtil.returnMnv(request, "psListPicNDesc.jsp", "psListPicNDesc.tiles");
+	}
+	
 	@RequestMapping("/newProductService")
 	public ModelAndView newProductService(HttpServletRequest request, HttpServletResponse response) {
 		return SmartUtil.returnMnv(request, "newProductService.jsp", "newProductService.tiles");

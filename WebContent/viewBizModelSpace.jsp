@@ -10,7 +10,7 @@
 
 	BizModelSpace bizModelSpace = (BizModelSpace)request.getAttribute("bizModelSpace");
 	String psId = request.getParameter("psId");
-	if(SmartUtil.isBlankObject(bizModelSpace) && !SmartUtil.isBlankObject(psId)){
+	if(!SmartUtil.isBlankObject(psId)){
 	
 		ProductService productService = null;
 		try{
@@ -225,7 +225,7 @@
 						</div>
 				<%
 					}
-					visHidden = (SmartUtil.isBlankObject(values) && SmartUtil.isBlankObject(userValues) && isEditMode) ? "" : ";visibility:hidden";
+					visHidden = (SmartUtil.isBlankObject(values) && SmartUtil.isBlankObject(userValues) && isEditMode) ? "" : ";visibility:hidden!important";
 				%>
 					<div class="js_element_item" itemName="KeyPartners" style="color:blue;font-size:11px<%=visHidden%>">
 						<div class="edit_item js_view_element_item" style="display:none">
@@ -236,7 +236,7 @@
 							</span>
 						</div>
 						<input class="fieldline js_edit_element_item" name="" style="width:85px; display:inline-block; font-size:11px; background-color:white" type="text" value="">
-						<select class="js_select_element_item" name="" style="display:inline-block; font-size:11px;width:18px">
+						<select class="js_select_element_item" name="" style="display:inline-block; font-size:11px;width:18px<%=visHidden%>">
 							<option></option>
 							<option>R&D Contract</option>
 							<option>Design Collaboration</option>
@@ -320,7 +320,7 @@
 						</div>
 				<%
 					}
-					visHidden = (SmartUtil.isBlankObject(values) && SmartUtil.isBlankObject(userValues) && isEditMode) ? "" : ";visibility:hidden";
+					visHidden = (SmartUtil.isBlankObject(values) && SmartUtil.isBlankObject(userValues) && isEditMode) ? "" : ";visibility:hidden!important";
 				%>
 					<div class="js_element_item" itemName="KeyActivities" style="color:blue;font-size:11px<%=visHidden%>">
 						<div class="edit_item js_view_element_item" style="display:none">
@@ -331,7 +331,7 @@
 							</span>
 						</div>
 						<input class="fieldline js_edit_element_item" name="" style="width:85px; display:inline-block; font-size:11px; background-color:white" type="text" value="">
-						<select class="js_select_element_item" name="" style="display:inline-block; font-size:11px;width:18px">
+						<select class="js_select_element_item" name="" style="display:inline-block; font-size:11px;width:18px<%=visHidden%>">
 							<option></option>
 							<option>Added Service</option>
 							<option>Service Productization</option>
@@ -417,7 +417,7 @@
 						</div>
 					<%
 						}
-						visHidden = (SmartUtil.isBlankObject(values) && SmartUtil.isBlankObject(userValues) && isEditMode) ? "" : ";visibility:hidden";
+						visHidden = (SmartUtil.isBlankObject(values) && SmartUtil.isBlankObject(userValues) && isEditMode) ? "" : ";visibility:hidden!important";
 					%>
 						<div class="js_element_item" itemName="KeyResources" style="color:blue;font-size:11px<%=visHidden%>">
 							<div class="edit_item js_view_element_item" style="display:none">
@@ -428,7 +428,7 @@
 								</span>
 							</div>
 							<input class="fieldline js_edit_element_item" name="" style="width:85px; display:inline-block; font-size:11px; background-color:white" type="text" value="">
-							<select class="js_select_element_item" name="" style="display:inline-block; font-size:11px;width:18px">
+							<select class="js_select_element_item" name="" style="display:inline-block; font-size:11px;width:18px<%=visHidden%>">
 								<option></option>
 								<option>Recycle</option>
 								<option>Crowdsourcing</option>
@@ -471,7 +471,7 @@
 						</div>
 				<%
 					}
-					visHidden = (SmartUtil.isBlankObject(userValues) && isEditMode) ? "" : ";visibility:hidden";
+					visHidden = (SmartUtil.isBlankObject(userValues) && isEditMode) ? "" : ";visibility:hidden!important";
 				%>
 					<div class="js_element_item" itemName="ValuePropositions" style="color:blue;font-size:11px<%=visHidden%>">
 						<div class="edit_item js_view_element_item" style="display:none">
@@ -554,7 +554,7 @@
 						</div>
 					<%
 						}
-						visHidden = (SmartUtil.isBlankObject(values) && SmartUtil.isBlankObject(userValues) && isEditMode) ? "" : ";visibility:hidden";
+						visHidden = (SmartUtil.isBlankObject(values) && SmartUtil.isBlankObject(userValues) && isEditMode) ? "" : ";visibility:hidden!important";
 					%>
 						<div class="js_element_item" itemName="CustomerRelationships" style="color:blue;font-size:11px<%=visHidden%>">
 							<div class="edit_item js_view_element_item" style="display:none">
@@ -565,7 +565,7 @@
 								</span>
 							</div>
 							<input class="fieldline js_edit_element_item" name="" style="width:85px; display:inline-block; font-size:11px; background-color:white" type="text" value="">
-							<select class="js_select_element_item" name="" style="display:inline-block; font-size:11px;width:18px">
+							<select class="js_select_element_item" name="" style="display:inline-block; font-size:11px;width:18px<%=visHidden%>">
 								<option></option>
 								<option>Customer Participation</option>
 								<option>Reward</option>
@@ -654,7 +654,7 @@
 						</div>
 					<%
 						}
-						visHidden = (SmartUtil.isBlankObject(values) && SmartUtil.isBlankObject(userValues) && isEditMode) ? "" : ";visibility:hidden";
+						visHidden = (SmartUtil.isBlankObject(values) && SmartUtil.isBlankObject(userValues) && isEditMode) ? "" : ";visibility:hidden!important";
 					%>
 						<div class="js_element_item" itemName="Channels" style="color:blue;font-size:11px<%=visHidden%>">
 							<div class="edit_item js_view_element_item" style="display:none">
@@ -665,7 +665,7 @@
 								</span>
 							</div>
 							<input class="fieldline js_edit_element_item" name="" style="width:85px; display:inline-block; font-size:11px; background-color:white" type="text" value="">
-							<select class="js_select_element_item" name="" style="display:inline-block; font-size:11px;width:18px">
+							<select class="js_select_element_item" name="" style="display:inline-block; font-size:11px;width:18px<%=visHidden%>">
 								<option></option>
 								<option>Experience Shop</option>
 								<option>Shop in Shop</option>
@@ -749,7 +749,7 @@
 						</div>
 				<%
 					}
-					visHidden = (SmartUtil.isBlankObject(values) && SmartUtil.isBlankObject(userValues) && isEditMode) ? "" : ";visibility:hidden";
+					visHidden = (SmartUtil.isBlankObject(values) && SmartUtil.isBlankObject(userValues) && isEditMode) ? "" : ";visibility:hidden!important";
 				%>
 					<div class="js_element_item" itemName="CustomerSegments" style="color:blue;font-size:11px<%=visHidden%>">
 						<div class="edit_item js_view_element_item" style="display:none">
@@ -760,7 +760,7 @@
 							</span>
 						</div>
 						<input class="fieldline js_edit_element_item" name="" style="width:85px; display:inline-block; font-size:11px; background-color:white" type="text" value="">
-						<select class="js_select_element_item" name="" style="display:inline-block; font-size:11px;width:18px">
+						<select class="js_select_element_item" name="" style="display:inline-block; font-size:11px;width:18px<%=visHidden%>">
 							<option></option>
 							<option>Segment Expansion</option>
 							<option>Geographical Expansion</option>
@@ -846,7 +846,7 @@
 						</div>
 				<%
 					}
-					visHidden = (SmartUtil.isBlankObject(values) && SmartUtil.isBlankObject(userValues) && isEditMode) ? "" : ";visibility:hidden";
+					visHidden = (SmartUtil.isBlankObject(values) && SmartUtil.isBlankObject(userValues) && isEditMode) ? "" : ";visibility:hidden!important";
 				%>
 					<div class="js_element_item" itemName="CostStructure" style="color:blue;font-size:11px<%=visHidden%>">
 						<div class="edit_item js_view_element_item" style="display:none">
@@ -857,7 +857,7 @@
 							</span>
 						</div>
 						<input class="fieldline js_edit_element_item" name="" style="width:85px; display:inline-block; font-size:11px; background-color:white" type="text" value="">
-						<select class="js_select_element_item" name="" style="display:inline-block; font-size:11px;width:18px">
+						<select class="js_select_element_item" name="" style="display:inline-block; font-size:11px;width:18px<%=visHidden%>">
 							<option></option>
 						</select>
 					</div>
@@ -931,7 +931,7 @@
 						</div>
 				<%
 					}
-					visHidden = (SmartUtil.isBlankObject(values) && SmartUtil.isBlankObject(userValues) && isEditMode) ? "" : ";visibility:hidden";
+					visHidden = (SmartUtil.isBlankObject(values) && SmartUtil.isBlankObject(userValues) && isEditMode) ? "" : ";visibility:hidden!important";
 				%>
 					<div class="js_element_item" itemName="RevenueStreams" style="color:blue;font-size:11px<%=visHidden%>">
 						<div class="edit_item js_view_element_item" style="display:none">
@@ -942,7 +942,7 @@
 							</span>
 						</div>
 						<input class="fieldline js_edit_element_item" name="" style="width:85px; display:inline-block; font-size:11px; background-color:white" type="text" value="">
-						<select class="js_select_element_item" name="" style="display:inline-block; font-size:11px;width:18px">
+						<select class="js_select_element_item" name="" style="display:inline-block; font-size:11px;width:18px<%=visHidden%>">
 							<option></option>
 							<option>Pay per Unit (use)</option>
 							<option>Subscription</option>

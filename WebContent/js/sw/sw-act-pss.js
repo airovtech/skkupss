@@ -187,16 +187,50 @@ $(function() {
 		return false;
 	});
 	
+	$('select.js_select_item_space_name').live('click', function(e){
+		e.stopPropagation();
+	});
+	
+	$('select.js_select_item_space_name').live('change', function(e){
+		var input = $(targetElement(e));
+		var spaceType = input.find('option:selected').attr('value');
+		var psId = input.parents('tr:first').attr('psId');
+		var url;
+		if(spaceType == 'valueSpace')
+			url = "viewValueSpace.jsp?psId="+psId;
+		else if(spaceType == 'serviceSpace')
+			url = "viewServiceSpace.jsp?psId="+psId;
+		else if(spaceType == 'bizModelSpace')
+			url = "viewBizModelSpace.jsp?psId="+psId;
+		else if(spaceType == 'contextSpace')
+			url = "viewContextSpace.jsp?psId="+psId;
+		$.ajax({
+			url : url,
+			success : function(data, status, jqXHR) {
+				input.next().html(data);
+			}
+		});
+		return false;
+	});
+	
 	$('a.js_similarity_calculation').live('click',function(e) {
 		var input = $(targetElement(e));
 		
-		var checkInstances  = $("#iwork_instance_list_page tr .js_check_instance:checked");
+		var checkInstances  = $("#iwork_instance_list_page .js_work_instance_list .js_check_instance:checked");
 		
 		var psIds = new Array();
 		var psNames = new Array();
 		for(var i=0; i<checkInstances.length; i++){
 			psIds[i] = $(checkInstances[i]).parents('.js_work_instance_list:first').attr('psId');
 			psNames[i] = $(checkInstances[i]).parents('.js_work_instance_list:first').attr('psName');
+			if(isEmpty(psIds[i])){
+				psIds[i] = $(checkInstances[i]).parents('td').attr('psId');
+				psNames[i] = $(checkInstances[i]).parents('td').attr('psName');
+			}
+			if(isEmpty(psIds[i])){
+				psIds[i] = $(checkInstances[i]).parents('li').attr('psId');
+				psNames[i] = $(checkInstances[i]).parents('li').attr('psName');
+			}
 		}
 			
 		if(isEmpty(psIds) || psIds.length<=1){
@@ -229,10 +263,14 @@ $(function() {
 	$('a.js_eyeball_comparison').live('click',function(e) {
 		var input = $(targetElement(e));
 		
-		var checkInstances  = $("#iwork_instance_list_page tr .js_check_instance:checked");
+		var checkInstances  = $("#iwork_instance_list_page .js_work_instance_list .js_check_instance:checked");
 		var psIds = new Array();
 		for(var i=0; i<checkInstances.length; i++){
 			psIds[i] = $(checkInstances[i]).parents('.js_work_instance_list:first').attr('psId');
+			if(isEmpty(psIds[i]))
+				psIds[i] = $(checkInstances[i]).parents('td').attr('psId');
+			if(isEmpty(psIds[i]))
+				psIds[i] = $(checkInstances[i]).parents('li').attr('psId');
 		}
 			
 		if(isEmpty(psIds) || psIds.length!=2){
