@@ -60,6 +60,24 @@
 						<%} %>
 					
 						<div class="title_line_options">
+							<div class="form_space po_left">
+								<select name="selFilterName" class="js_select_recent_similarity">
+									<option>
+										<fmt:message key='pss.title.recent_history.none' />
+									</option>
+<%-- 									<%
+									SearchFilterInfo[] filters = work.getSearchFilters();
+									if (filters != null) {
+										for (SearchFilterInfo filter : filters) {
+											if(SmartUtil.isBlankObject(filter.getId())) continue;
+									%>
+											<option class="js_custom_filter" value="<%=filter.getId()%>" <%if(filter.getId().equals(selectedFilterId)){%> selected <%} %>><%=CommonUtil.toNotNull(filter.getName())%></option>
+									<%
+										}
+									}
+									%>
+ --%>								</select>
+							</div>
 							<select class="js_select_double_space_name" sourcePsId="<%=sourcePsId %>" targetPsId="<%=targetPsId%>">
 								<option href="viewValueSpace.jsp" spaceType="1" value="<%=ProductService.PSS_SPACE_VALUE%>" <%if(spaceType.equals(ProductService.PSS_SPACE_VALUE)){%>selected<%} %>><fmt:message key="pss.title.space.value"/></option>
 								<option href="viewDefaultSpace.jsp" spaceType="2" value="<%=ProductService.PSS_SPACE_PRODUCT_SERVICE%>" <%if(spaceType.equals(ProductService.PSS_SPACE_PRODUCT_SERVICE)){%>selected<%} %>><fmt:message key="pss.title.space.product_service"/></option>

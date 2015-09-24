@@ -2821,6 +2821,29 @@ $(function() {
 
 	$('.js_check_instance').live('click', function(e){
 		e.stopPropagation();
+		var input = $(targetElement(e));
+		var selectedCommunityItems = input.parents('.js_work_list_page').find('.js_selected_community_items');
+		if(isEmpty(selectedCommunityItems)) return;
+		
+		var psId = input.parents('tr:first').attr('psId');
+		var psName = input.parents('tr:first').attr('psName');
+		if(isEmpty(psId)){
+			psId = input.parents('td:first').attr('psId');
+			psName = input.parents('td:first').attr('psName');
+		}
+		if(isEmpty(psId)){
+			psId = input.parents('li:first').attr('psId');
+			psName = input.parents('li:first').attr('psName');
+		}
+		if(isEmpty(psId)) return;
+		var instanceChecked = input.is(':checked');
+		if(instanceChecked){
+			if(!isEmpty(selectedCommunityItems.find('.js_community_item[psId="' + psId  + '"]'))) return;
+			selectedCommunityItems.append('<span class="js_community_item user_select" psId="' + psId + '" psName="' + psName  +'">' + psName + '<a class="js_remove_community" href=""  tabindex="-1">&nbsp;x</a></span>');
+		}else{
+			selectedCommunityItems.find('.js_community_item[psId="' + psId  + '"] .js_remove_community').click();
+		}
+		
 	});
 	
 	$('.js_abend_work_instance').live('click', function(e){

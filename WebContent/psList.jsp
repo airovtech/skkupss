@@ -85,11 +85,7 @@ try{
 						<div class="title_line_options">
 							<form class="form_space po_left js_form_filter_name" name="frmIworkFilterName">
 								<select name="selFilterName" class="js_select_search_filter">
-<%-- 									<option value="<%=SearchFilter.FILTER_ALL_INSTANCES%>" 
-										<%if(SmartUtil.isBlankObject(selectedFilterId) || SearchFilter.FILTER_ALL_INSTANCES.equals(selectedFilterId)){%> selected <%} %>>
-										<fmt:message key='filter.name.all_instances' />
-									</option>
- --%>								<option>
+								<option>
 										<fmt:message key='filter.name.all_instances' />
 									</option>
 <%-- 									<%

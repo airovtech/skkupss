@@ -169,6 +169,24 @@
 						</div>
 					
 						<div class="title_line_options">
+							<div class="form_space po_left">
+								<select name="selFilterName" class="js_select_recent_similarity">
+									<option>
+										<fmt:message key='pss.title.recent_history.none' />
+									</option>
+<%-- 									<%
+									SearchFilterInfo[] filters = work.getSearchFilters();
+									if (filters != null) {
+										for (SearchFilterInfo filter : filters) {
+											if(SmartUtil.isBlankObject(filter.getId())) continue;
+									%>
+											<option class="js_custom_filter" value="<%=filter.getId()%>" <%if(filter.getId().equals(selectedFilterId)){%> selected <%} %>><%=CommonUtil.toNotNull(filter.getName())%></option>
+									<%
+										}
+									}
+									%>
+ --%>								</select>
+							</div>
 							<select name="selSpaceName" class="js_select_space_name">
 								<option value="<%=ProductService.PSS_SPACE_VALUE%>" <%if(spaceType.equals(ProductService.PSS_SPACE_VALUE)){%>selected<%} %>><fmt:message key="pss.title.space.value"/></option>
 								<option value="<%=ProductService.PSS_SPACE_SERVICE%>" <%if(spaceType.equals(ProductService.PSS_SPACE_SERVICE)){%>selected<%} %>><fmt:message key="pss.title.space.service"/></option>

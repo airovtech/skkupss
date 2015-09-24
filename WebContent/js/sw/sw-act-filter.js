@@ -44,7 +44,7 @@ $(function() {
 			smartPop.progressCont(input.next('span:first'));
 			var reportSearchFilter = input.parents('.js_report_search_filter');
 			var target = isEmpty(reportSearchFilter) ? $('#search_filter') : reportSearchFilter.find('#report_searhch_filter');
-			var url = input.attr('href') + "&filterId=" + $('.js_work_list_title form.js_form_filter_name').find('select.js_select_search_filter').attr('value') + "&externalServiceId=" + input.attr('externalServiceId');
+			var url = input.attr('href') + "?filterId=" + $('.js_work_list_title form.js_form_filter_name').find('select.js_select_search_filter').attr('value') + "&externalServiceId=" + input.attr('externalServiceId');
 			$('a.js_work_report_close').click();
 			$('a.js_cancel_action').click();
 			$('a.js_excel_import_close').click();
@@ -240,7 +240,7 @@ $(function() {
 						}			
 					},
 					error : function(xhr, ajaxOptions, e) {
-						// 서비스 에러시에는 메시지를 보여주고 현재페이지에 그래도 있는다...
+						// ���鍮���� �����ъ�������� 硫����吏�瑜� 蹂댁�ъ＜怨� �����ы����댁����� 洹몃����� ���������...
 						smartPop.showInfo(smartPop.ERROR, smartMessage.get("removeFilterError"), function(){
 						}, e);
 					}

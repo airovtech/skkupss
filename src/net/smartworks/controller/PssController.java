@@ -123,6 +123,11 @@ public class PssController {
 		return SmartUtil.returnMnv(request, "doubleProductServices.jsp", "doubleProductServices.tiles");
 	}
 	
+	@RequestMapping("/search_filter")
+	public ModelAndView searchFilter(HttpServletRequest request, HttpServletResponse response) {
+		return SmartUtil.returnMnv(request, "search_filter.jsp", "");
+	}
+	
 	@RequestMapping(value = "/set_product_service", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	public void setProductService(@RequestBody Map<String, Object> requestBody, HttpServletRequest request, HttpServletResponse response) throws Exception {
