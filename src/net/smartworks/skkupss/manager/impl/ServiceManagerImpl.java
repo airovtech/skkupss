@@ -256,8 +256,14 @@ public class ServiceManagerImpl implements IServiceManager {
 							sm.setSimilarity((new SimBizModel(sourceBizModel.getNumOfStrategies(), sourceBizModel.getStrategies(), targetBizModel.getNumOfStrategies(), targetBizModel.getStrategies())).calculateSimularity());
 						break;
 					case ProductService.SPACE_TYPE_CONTEXT:
-						if(!SmartUtil.isBlankObject(sourceContext) && !SmartUtil.isBlankObject(targetContext))
-							sm.setSimilarity((new SimContext()).measureSimilarityAB(sourceContext.getSimGraph(), sourceContext.getSimGraph()));
+						if(!SmartUtil.isBlankObject(sourceContext) && !SmartUtil.isBlankObject(targetContext)){
+		        	        float resultAB = (new SimContext()).measureSimilarityAB(sourceContext.getSimGraph(), targetContext.getSimGraph());
+		        	        float resultBC = (new SimContext()).measureSimilarityBC(sourceContext.getSimGraph(), targetContext.getSimGraph());
+		        	        float resultAC = (new SimContext()).measureSimilarityAC(sourceContext.getSimGraph(), targetContext.getSimGraph());		        	        
+		        	        //float result = (resultAB+resultBC+resultAC)/3;
+		        	        float result = (float) ((0.6*resultAB) + (0.2*resultBC) + (0.2*resultAC));
+							sm.setSimilarity(result);
+						}
 						break;
 					case ProductService.SPACE_TYPE_VALUE_SERVICE:
 						if(!SmartUtil.isBlankObject(sourceValue) && !SmartUtil.isBlankObject(targetValue)
