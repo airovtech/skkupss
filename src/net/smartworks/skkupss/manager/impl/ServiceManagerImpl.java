@@ -257,7 +257,7 @@ public class ServiceManagerImpl implements IServiceManager {
 						break;
 					case ProductService.SPACE_TYPE_CONTEXT:
 						if(!SmartUtil.isBlankObject(sourceContext) && !SmartUtil.isBlankObject(targetContext))
-							sm.setSimilarity((new SimContext()).measureSimilarity(sourceContext.getSimGraph(), sourceContext.getSimGraph()));
+							sm.setSimilarity((new SimContext()).measureSimilarityAB(sourceContext.getSimGraph(), sourceContext.getSimGraph()));
 						break;
 					case ProductService.SPACE_TYPE_VALUE_SERVICE:
 						if(!SmartUtil.isBlankObject(sourceValue) && !SmartUtil.isBlankObject(targetValue)

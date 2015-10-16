@@ -1,7 +1,6 @@
 package net.smartworks.skkupss.smcal;
+
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
 
 
 public class SimContext {
@@ -17,13 +16,13 @@ public class SimContext {
 	ArrayList<Integer> indexB = new ArrayList<Integer>();
 	
 	
-	 public float measureSimilarity(Graph graph1, Graph graph2) {
+	 public float measureSimilarityAB(Graph graph1, Graph graph2) {
 		 
 		 // MEASURE SIMILARITY BY COMPARING ALL THE PATHS FROM A TO B OF GRAPH1 AND GRAPH2
 		 // AND COMPARING ALL THE PATHS FROM B TO A OF GRAPH1 AND GRAPH2
 		 // FINAL SIMILARITY RESULTS FROM MEAN VALUE OF A TO B SIMILARITY AND B TO A SIMILARITY
 
-		 //FROM A TO B
+		 //Between User and Provider
 		 float result1 = Similarity(graph1, graph2, "A", "B");
 		 
 		 // CLEAR ARRAYLIST FOR LATER CALCUATION
@@ -33,15 +32,93 @@ public class SimContext {
 		 indexB.clear();
 		 
 		 //FROM B TO A
-		 float result2 = Similarity(graph1, graph2, "B", "A");		 
+		 float result2 = Similarity(graph1, graph2, "B", "A");
 		 
-		 //MEAN VALUE OF SIM1 AND SIM2
-		 return (result1 + result2)/2 ;
+		 // CLEAR ARRAYLIST FOR LATER CALCUATION
+		 pathA.clear();
+		 pathB.clear();
+		 indexA.clear();
+		 indexB.clear();
 		 
+		
 		 
+		// if(result1 == 0 && result2 != 0) {
+		//	 return result2;
+		// } else if (result2 == 0 && result1 != 0) {
+		//	 return result1;
+		//	 } 
+		 //else {
+			//MEAN VALUE OF SIM1 AND SIM2
+			 return (result1 + result2)/2 ;
+		// }
+		
+
 	       
 	    }
-	 
+	 public float measureSimilarityBC(Graph graph1, Graph graph2) {
+		 
+		 // MEASURE SIMILARITY BY COMPARING ALL THE PATHS FROM A TO B OF GRAPH1 AND GRAPH2
+		 // AND COMPARING ALL THE PATHS FROM B TO A OF GRAPH1 AND GRAPH2
+		 // FINAL SIMILARITY RESULTS FROM MEAN VALUE OF A TO B SIMILARITY AND B TO A SIMILARITY
+
+		 //Between User and Provider
+		 float result1 = Similarity(graph1, graph2, "B", "C");
+		 
+		 // CLEAR ARRAYLIST FOR LATER CALCUATION
+		 pathA.clear();
+		 pathB.clear();
+		 indexA.clear();
+		 indexB.clear();
+		 
+		 //FROM B TO A
+		 float result2 = Similarity(graph1, graph2, "C", "B");
+		 
+		 // CLEAR ARRAYLIST FOR LATER CALCUATION
+		 pathA.clear();
+		 pathB.clear();
+		 indexA.clear();
+		 indexB.clear();
+		 
+		 
+	
+			 return (result1 + result2)/2 ;
+		
+		
+
+	       
+	    }
+	 public float measureSimilarityAC(Graph graph1, Graph graph2) {
+		 
+		 // MEASURE SIMILARITY BY COMPARING ALL THE PATHS FROM A TO B OF GRAPH1 AND GRAPH2
+		 // AND COMPARING ALL THE PATHS FROM B TO A OF GRAPH1 AND GRAPH2
+		 // FINAL SIMILARITY RESULTS FROM MEAN VALUE OF A TO B SIMILARITY AND B TO A SIMILARITY
+
+		 //Between User and Provider
+		 float result1 = Similarity(graph1, graph2, "A", "C");
+		 
+		 // CLEAR ARRAYLIST FOR LATER CALCUATION
+		 pathA.clear();
+		 pathB.clear();
+		 indexA.clear();
+		 indexB.clear();
+		 
+		 //FROM B TO A
+		 float result2 = Similarity(graph1, graph2, "C", "A");
+		 
+		 // CLEAR ARRAYLIST FOR LATER CALCUATION
+		 pathA.clear();
+		 pathB.clear();
+		 indexA.clear();
+		 indexB.clear();
+		 
+		 
+		
+			 return (result1 + result2)/2 ;
+	
+		
+
+	       
+	    }
 	 public float Similarity(Graph graph1, Graph graph2, String sp, String ep) {
 		 // A to B
 		 SearchPath path1 = new SearchPath(graph1, sp, ep);
@@ -79,7 +156,18 @@ public class SimContext {
 		 float minCost = 0;
 		 float curCost = 0;
 		 float curMax = 0;
-	        
+		 
+	
+	     if(pathA.size() == 0 && pathB.size() == 0) {
+	    	 System.out.println("Both empty");
+	    	 cost = 0; max =0;
+	    	 sim = 1;
+	     } else if (pathA.size() == 0 || pathB.size() == 0 ) {
+	    	 System.out.println("One empty");
+	    	 cost = 0; max =0;
+
+	    	 sim = 0;
+	     } else {
 	        	     
 	        for (int i = 0; i < pathA.size(); i++) {
 	        	
@@ -148,10 +236,12 @@ public class SimContext {
 	        
 	        if(max!=0){
 	            sim = 1 - (cost/max);
-	        } else{
+	        } else{	
 	        	//when there is no match
 	        	sim = 0;
+	        	
 	        }
+	     }
 	        
 	        System.out.println("cost: " + cost + " max: " + max);
 	        System.out.println("sim: " + sim);
@@ -199,5 +289,4 @@ public class SimContext {
 	        // the distance is the cost for transforming all letters in both strings        
 	        return cost[len0 - 1];                                                          
 	    }
-
 }

@@ -99,7 +99,7 @@
 			ProductService[] productServices = (ProductService[]) instanceList.getInstanceDatas();
 			for (ProductService productService : productServices) {
 				productService.setSpaceType(ProductService.getSpaceType(params.getSpaceType()));
-				User lastModifier = productService.getLastModifiedUser();
+				User lastModifier = (productService.getLastModifiedUser()==null)?productService.getCreatedUser():productService.getLastModifiedUser();
 				LocalDate lastModifiedDate = productService.getLastModifiedDate();
 			%>
 				<tr class="instance_list js_content js_work_instance_list js_instance_detail" href="newProductService.sw?psId=<%=productService.getId() %>&spaceType=<%=params.getSpaceType()%>" psId="<%=productService.getId()%>" psName="<%=productService.getName()%>">
@@ -164,15 +164,20 @@
 						</div>
 					</td>
 					<td class="vt">
-						<div class="noti_pic"><img class="profile_size_m mb3 mr3" src="<%=lastModifier.getMinPicture()%>" title="<%=lastModifier.getLongName()%>"/></div>
+						<div class="noti_pic">
+							<%if(lastModifier!=null){ %>
+								<img class="profile_size_m mb3 mr3" src="<%=lastModifier.getMinPicture()%>" title="<%=lastModifier.getLongName()%>"/></div>
+							<%} %>
 						<div class="noti_in_s">
- 							<span class="t_name"><%=lastModifier.getLongName()%></span>
+							<%if(lastModifier!=null){ %>
+ 								<span class="t_name"><%=lastModifier.getLongName()%></span>
  							<%
- 								if (productService.getLastModifiedDate() != null) {
+							}
+ 							if (productService.getLastModifiedDate() != null) {
  							%>
  								<div class="t_date"><%=lastModifiedDate.toLocalString()%></div>
  							<%
- 								}
+ 							}
  							%>
  						</div>
 					</td>

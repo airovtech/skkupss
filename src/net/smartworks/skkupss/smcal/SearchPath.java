@@ -15,31 +15,36 @@ public class SearchPath {
     SearchPath(Graph graph, String sp, String ep) {
     	
     	ArrayList<Node> NODELIST = graph.nodeList();
-
+    	System.out.println("NODES: "+ NODELIST);
+    	
     	for (int i= 0 ; i < NODELIST.size() ; i++) {
     		
-    		String node = NODELIST.get(i).getType();
-    		if(node.contains(sp)) {
-    			START.add(NODELIST.get(i));
-    			System.out.println("ADDING "+node+" to START");
-    		} else if(node.contains(ep)) {
-    			END.add(NODELIST.get(i));
-    			System.out.println("ADDING "+node+" to END");
-    		}	
+    		Node node = NODELIST.get(i);
+    		String nodeId = node.getId();
+    		if(nodeId==null) continue;
+    		
+    		if(nodeId.replaceAll("[^A-Za-z]","").contains(sp)) {
+    			START.add(node);
+    			System.out.println("ADDING "+nodeId+" to START");
+    		} else if(nodeId.replaceAll("[^A-Za-z]","").contains(ep)) {
+    			END.add(node);
+    			System.out.println("ADDING "+nodeId+" to END");
+    		}
+    			
     	}
     	
     	System.out.println("SEARCHING FOR PATHS");
-    
-   
+    	
     	for(int i = 0; i < START.size() ; i++) {
         	for(int j = 0 ; j < END.size() ; j++) {
         		num = j ;
-        		System.out.println(START.get(i).getType()+ START.get(i).getId()+" to "+END.get(j).getType()+END.get(j).getId());
+        		System.out.println(START.get(i)+" to "+END.get(j));
         		LinkedList<Node> visited = new LinkedList();
         		visited.add(START.get(i));
         		depthFirst(graph, visited);
         	}
         }
+		
 	}
    
     public ArrayList<String> returnPath () {
@@ -62,11 +67,12 @@ public class SearchPath {
         LinkedList<Node> nodes = graph.adjacentNodes(visited.getLast());
         // examine adjacent nodes
         for (Node node : nodes) {
-            if (visited.contains(node)) {
+        	String nodeId = node.getId();
+            if (visited.contains(nodeId)) {
                 continue;
             }
-            String s1 = node.getType()+node.getId();
-            if (s1.equals(END.get(num).getType()+END.get(num).getId())) {
+            
+            if (node.equals(END.get(num))) {
                 visited.add(node);
                 printPath(visited); 
                 visited.removeLast();
@@ -76,8 +82,9 @@ public class SearchPath {
         
         // in breadth-first, recursion needs to come after visiting adjacent nodes
         for (Node node : nodes) {
-        	String s1 = node.getType()+node.getId();
-            if (visited.contains(node) || s1.equals(END.get(num).getType()+END.get(num).getId())) {
+        	String nodeId = node.getId();
+        	if(nodeId==null) continue;
+            if (visited.contains(nodeId) || node.equals(END.get(num))) {
                 continue;
             }
             visited.addLast(node);
@@ -91,7 +98,9 @@ public class SearchPath {
     	int curNum = 1;
     	
         for (Node node : visited) {
-        	line = line+node.getType();
+        	String nodeId = node.getId();
+        	if(nodeId==null) continue;
+        	line = line+nodeId.replaceAll("[^A-Za-z]","");
         }
         
         // first time
@@ -103,6 +112,7 @@ public class SearchPath {
         	curNum = INDEX.get(index) + 1;
     		INDEX.set(index, curNum);
     	}
+       
     }
-
+  
 }

@@ -87,7 +87,6 @@
 			ProductService[] productServices = (ProductService[]) instanceList.getInstanceDatas();
 			for (ProductService productService : productServices) {
 				productService.setSpaceType(ProductService.getSpaceType(params.getSpaceType()));
-				User lastModifier = productService.getLastModifiedUser();
 				LocalDate lastModifiedDate = productService.getLastModifiedDate();
 				if(left){
 			%>

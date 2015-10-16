@@ -59,7 +59,6 @@
 			ProductService[] productServices = (ProductService[]) instanceList.getInstanceDatas();
 			for (ProductService productService : productServices) {
 				productService.setSpaceType(ProductService.getSpaceType(params.getSpaceType()));
-				User lastModifier = productService.getLastModifiedUser();
 				LocalDate lastModifiedDate = productService.getLastModifiedDate();
 			%>
 				<li style="width:160px; display:inline-block;vertical-align:top;margin:10px 50px;" class="instance_list js_content js_work_instance_list js_instance_detail" href="newProductService.sw?psId=<%=productService.getId() %>&spaceType=<%=params.getSpaceType()%>" psId="<%=productService.getId()%>" psName="<%=productService.getName()%>">
