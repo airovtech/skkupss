@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.smartworks.factory.ManagerFactory;
+import net.smartworks.skkupss.model.ActorSpace;
 import net.smartworks.skkupss.model.BizModelSpace;
 import net.smartworks.skkupss.model.ContextSpace;
 import net.smartworks.skkupss.model.DefaultSpace;
@@ -28,6 +29,7 @@ import net.smartworks.skkupss.model.RequestParams;
 import net.smartworks.skkupss.model.ServiceSpace;
 import net.smartworks.skkupss.model.SimilarityMatrix;
 import net.smartworks.skkupss.model.SortingField;
+import net.smartworks.skkupss.model.TimeSpace;
 import net.smartworks.skkupss.model.User;
 import net.smartworks.skkupss.model.ValueSpace;
 import net.smartworks.skkupss.model.db.Db_User;
@@ -165,10 +167,10 @@ public class PssController {
 				productService.setTouchPointSpace(DefaultSpace.createDefaultSpace((Map<String, Object>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_TOUCH_POINT)));
 				productService.setCustomerSpace(DefaultSpace.createDefaultSpace((Map<String, Object>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_CUSTOMER)));
 				productService.setBizModelSpace(BizModelSpace.createBizModelSpace((Map<String, Object>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_BIZ_MODEL)));
-				productService.setActorSpace(DefaultSpace.createDefaultSpace((Map<String, Object>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_ACTOR)));
+				productService.setActorSpace(ActorSpace.createActorSpace((Map<String, Object>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_ACTOR)));
 				productService.setSocietySpace(DefaultSpace.createDefaultSpace((Map<String, Object>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_SOCIETY)));
 				productService.setContextSpace(ContextSpace.createContextSpace((String)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_CONTEXT)));
-				productService.setTimeSpace(DefaultSpace.createDefaultSpace((Map<String, Object>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_TIME)));
+				productService.setTimeSpace(TimeSpace.createTimeSpace((Map<String, Object>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_TIME)));
 				productService.setEnvironmentSpace(DefaultSpace.createDefaultSpace((Map<String, Object>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_ENVIRONMENT)));
 			}
 			

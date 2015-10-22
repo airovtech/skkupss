@@ -428,7 +428,8 @@ smartMessage.bundle['zh'] = {
 	pssNodeProduct : 'Product',
 	pssNodeProvider : 'Provider',
 	pssNodeTouchPoint : 'Touch Point',
-	pssNodeUser : 'User'		
+	pssNodeUser : 'User',
+	pssNode : 'Node'
 		
 };
 }catch(error){

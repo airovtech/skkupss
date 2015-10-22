@@ -260,8 +260,7 @@ public class ServiceManagerImpl implements IServiceManager {
 		        	        float resultAB = (new SimContext()).measureSimilarityAB(sourceContext.getSimGraph(), targetContext.getSimGraph());
 		        	        float resultBC = (new SimContext()).measureSimilarityBC(sourceContext.getSimGraph(), targetContext.getSimGraph());
 		        	        float resultAC = (new SimContext()).measureSimilarityAC(sourceContext.getSimGraph(), targetContext.getSimGraph());		        	        
-		        	        //float result = (resultAB+resultBC+resultAC)/3;
-		        	        float result = (float) ((0.6*resultAB) + (0.2*resultBC) + (0.2*resultAC));
+		        	        float result = (resultAB+resultBC+resultAC)/3;
 							sm.setSimilarity(result);
 						}
 						break;

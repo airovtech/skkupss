@@ -428,7 +428,8 @@ smartMessage.bundle['ko'] = {
 	pssNodeProduct : '제품',
 	pssNodeProvider : '제공자',
 	pssNodeTouchPoint : '터치포인트',
-	pssNodeUser : '수혜자'
+	pssNodeUser : '수혜자',
+	pssNode : '노드'
 
 };
 }catch(error){

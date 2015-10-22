@@ -72,8 +72,12 @@
 						ProductService.PSS_SPACE_SERVICE)) {%>selected<%}%>><fmt:message key="pss.title.space.service"/></option>
 						<option value="<%=ProductService.PSS_SPACE_BIZ_MODEL%>" <%if (params.getSpaceType().equals(
 						ProductService.PSS_SPACE_BIZ_MODEL)) {%>selected<%}%>><fmt:message key="pss.title.space.biz_model"/></option>
+						<option value="<%=ProductService.PSS_SPACE_ACTOR%>" <%if (params.getSpaceType().equals(
+						ProductService.PSS_SPACE_ACTOR)) {%>selected<%}%>><fmt:message key="pss.title.space.actor"/></option>
 						<option value="<%=ProductService.PSS_SPACE_CONTEXT%>" <%if (params.getSpaceType().equals(
 						ProductService.PSS_SPACE_CONTEXT)) {%>selected<%}%>><fmt:message key="pss.title.space.context"/></option>
+						<option value="<%=ProductService.PSS_SPACE_TIME%>" <%if (params.getSpaceType().equals(
+						ProductService.PSS_SPACE_TIME)) {%>selected<%}%>><fmt:message key="pss.title.space.time"/></option>
 					</select>
 					<span class="js_progress_span"></span>
 				</form>
@@ -123,8 +127,12 @@
 							ProductService.PSS_SPACE_SERVICE)) {%>selected<%}%>><fmt:message key="pss.title.space.service"/></option>
 							<option value="<%=ProductService.PSS_SPACE_BIZ_MODEL%>" <%if (params.getSpaceType().equals(
 							ProductService.PSS_SPACE_BIZ_MODEL)) {%>selected<%}%>><fmt:message key="pss.title.space.biz_model"/></option>
+							<option value="<%=ProductService.PSS_SPACE_ACTOR%>" <%if (params.getSpaceType().equals(
+							ProductService.PSS_SPACE_ACTOR)) {%>selected<%}%>><fmt:message key="pss.title.space.actor"/></option>
 							<option value="<%=ProductService.PSS_SPACE_CONTEXT%>" <%if (params.getSpaceType().equals(
 							ProductService.PSS_SPACE_CONTEXT)) {%>selected<%}%>><fmt:message key="pss.title.space.context"/></option>
+							<option value="<%=ProductService.PSS_SPACE_TIME%>" <%if (params.getSpaceType().equals(
+							ProductService.PSS_SPACE_TIME)) {%>selected<%}%>><fmt:message key="pss.title.space.time"/></option>
 						</select>
 						<div class="js_view_space_target">
 						<%
@@ -149,12 +157,29 @@
 						%>
 							<jsp:include page="viewBizModelSpace.jsp"/>
 						<%
-							break;
+						break;
+										case ProductService.SPACE_TYPE_ACTOR:
+											request.setAttribute("actorSpace",
+													productService.getActorSpace());
+						%>
+							<jsp:include page="viewActorSpace.jsp">
+								<jsp:param value="<%=productService.getId()%>" name="psId"/>
+							</jsp:include>
+						<%
 										case ProductService.SPACE_TYPE_CONTEXT:
 											request.setAttribute("contextSpace",
 													productService.getContextSpace());
 						%>
 							<jsp:include page="viewContextSpace.jsp">
+								<jsp:param value="<%=productService.getId()%>" name="psId"/>
+							</jsp:include>
+						<%
+						break;
+										case ProductService.SPACE_TYPE_TIME:
+											request.setAttribute("timeSpace",
+													productService.getTimeSpace());
+						%>
+							<jsp:include page="viewTimeSpace.jsp">
 								<jsp:param value="<%=productService.getId()%>" name="psId"/>
 							</jsp:include>
 						<%
@@ -207,13 +232,17 @@
 				<form class="form_space js_space_name" name="frmSpaceName">
 					<select name="selSpaceName" class="js_select_space_name">
 						<option value="<%=ProductService.PSS_SPACE_VALUE%>" <%if (params.getSpaceType()
-						.equals(ProductService.PSS_SPACE_VALUE)) {%>selected<%}%>>가치공간(Value Space)</option>
+						.equals(ProductService.PSS_SPACE_VALUE)) {%>selected<%}%>><fmt:message key="pss.title.space.value"/></option>
 						<option value="<%=ProductService.PSS_SPACE_SERVICE%>" <%if (params.getSpaceType().equals(
-						ProductService.PSS_SPACE_SERVICE)) {%>selected<%}%>>서비스공간(Service Space)</option>
+						ProductService.PSS_SPACE_SERVICE)) {%>selected<%}%>><fmt:message key="pss.title.space.service"/></option>
 						<option value="<%=ProductService.PSS_SPACE_BIZ_MODEL%>" <%if (params.getSpaceType().equals(
-						ProductService.PSS_SPACE_BIZ_MODEL)) {%>selected<%}%>>비즈모델공간(Biz Model Space)</option>
+						ProductService.PSS_SPACE_BIZ_MODEL)) {%>selected<%}%>><fmt:message key="pss.title.space.biz_model"/></option>
+						<option value="<%=ProductService.PSS_SPACE_ACTOR%>" <%if (params.getSpaceType().equals(
+						ProductService.PSS_SPACE_ACTOR)) {%>selected<%}%>><fmt:message key="pss.title.space.actor"/></option>
 						<option value="<%=ProductService.PSS_SPACE_CONTEXT%>" <%if (params.getSpaceType().equals(
-						ProductService.PSS_SPACE_CONTEXT)) {%>selected<%}%>>컨텍스트공간(Context Space)</option>
+						ProductService.PSS_SPACE_CONTEXT)) {%>selected<%}%>><fmt:message key="pss.title.space.context"/></option>
+						<option value="<%=ProductService.PSS_SPACE_TIME%>" <%if (params.getSpaceType().equals(
+						ProductService.PSS_SPACE_TIME)) {%>selected<%}%>><fmt:message key="pss.title.space.time"/></option>
 					</select>
 					<span class="js_progress_span"></span>
 				</form>

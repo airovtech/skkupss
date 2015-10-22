@@ -62,7 +62,7 @@ public class SimContext {
 		 // FINAL SIMILARITY RESULTS FROM MEAN VALUE OF A TO B SIMILARITY AND B TO A SIMILARITY
 
 		 //Between User and Provider
-		 float result1 = Similarity(graph1, graph2, Node.NODE_TYPE_PROVIDER, Node.NODE_TYPE_TOUCHPOINT);
+		 float result1 = Similarity(graph1, graph2, Node.NODE_TYPE_PROVIDER, Node.NODE_TYPE_USER);
 		 
 		 // CLEAR ARRAYLIST FOR LATER CALCUATION
 		 pathA.clear();
@@ -71,7 +71,7 @@ public class SimContext {
 		 indexB.clear();
 		 
 		 //FROM B TO A
-		 float result2 = Similarity(graph1, graph2, Node.NODE_TYPE_TOUCHPOINT, Node.NODE_TYPE_PROVIDER);
+		 float result2 = Similarity(graph1, graph2, Node.NODE_TYPE_USER, Node.NODE_TYPE_PROVIDER);
 		 
 		 // CLEAR ARRAYLIST FOR LATER CALCUATION
 		 pathA.clear();
@@ -95,7 +95,7 @@ public class SimContext {
 		 // FINAL SIMILARITY RESULTS FROM MEAN VALUE OF A TO B SIMILARITY AND B TO A SIMILARITY
 
 		 //Between User and Provider
-		 float result1 = Similarity(graph1, graph2, Node.NODE_TYPE_PRODUCT, Node.NODE_TYPE_TOUCHPOINT);
+		 float result1 = Similarity(graph1, graph2, Node.NODE_TYPE_PRODUCT, Node.NODE_TYPE_USER);
 		 
 		 // CLEAR ARRAYLIST FOR LATER CALCUATION
 		 pathA.clear();
@@ -104,7 +104,7 @@ public class SimContext {
 		 indexB.clear();
 		 
 		 //FROM B TO A
-		 float result2 = Similarity(graph1, graph2, Node.NODE_TYPE_TOUCHPOINT, Node.NODE_TYPE_PRODUCT);
+		 float result2 = Similarity(graph1, graph2, Node.NODE_TYPE_USER, Node.NODE_TYPE_PRODUCT);
 		 
 		 // CLEAR ARRAYLIST FOR LATER CALCUATION
 		 pathA.clear();

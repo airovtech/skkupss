@@ -18,3 +18,6 @@ td.edit_action .edit_item > .edit_actions{display:none}
 td.edit_action .edit_item:hover > .edit_actions{display:inline-block; cursor:pointer;} 
 td.edit_action .service_item {height:24px} 
 td.edit_action .service_item:hover{height:auto!important} 
+
+.js_time_value_desc {color:lightgray}
+.js_time_value_desc.checked {color:black}

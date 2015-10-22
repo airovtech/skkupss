@@ -1,7 +1,5 @@
 package net.smartworks.skkupss.model;
 
-import java.util.Date;
-
 import net.smartworks.util.LocalDate;
 
 public class ProductService{
@@ -65,10 +63,10 @@ public class ProductService{
 	private DefaultSpace productSpace;
 	private DefaultSpace touchPointSpace;
 	private DefaultSpace customerSpace;
-	private DefaultSpace actorSpace;
+	private ActorSpace actorSpace;
 	private DefaultSpace societySpace;
 	private ContextSpace contextSpace;
-	private DefaultSpace timeSpace;
+	private TimeSpace timeSpace;
 	private DefaultSpace environmentSpace;
 	private User lastModifiedUser;
 	private LocalDate lastModifiedDate;
@@ -148,10 +146,10 @@ public class ProductService{
 	public void setCustomerSpace(DefaultSpace customerSpace) {
 		this.customerSpace = customerSpace;
 	}
-	public DefaultSpace getActorSpace() {
+	public ActorSpace getActorSpace() {
 		return actorSpace;
 	}
-	public void setActorSpace(DefaultSpace actorSpace) {
+	public void setActorSpace(ActorSpace actorSpace) {
 		this.actorSpace = actorSpace;
 	}
 	public DefaultSpace getSocietySpace() {
@@ -166,10 +164,10 @@ public class ProductService{
 	public void setContextSpace(ContextSpace contextSpace) {
 		this.contextSpace = contextSpace;
 	}
-	public DefaultSpace getTimeSpace() {
+	public TimeSpace getTimeSpace() {
 		return timeSpace;
 	}
-	public void setTimeSpace(DefaultSpace timeSpace) {
+	public void setTimeSpace(TimeSpace timeSpace) {
 		this.timeSpace = timeSpace;
 	}
 	public DefaultSpace getEnvironmentSpace() {

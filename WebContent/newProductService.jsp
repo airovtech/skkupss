@@ -58,6 +58,33 @@ function submitForms(tempSave) {
 					edgeLines: edgeLines
 			};
 			paramsJsonHiddens[spaceType] = JSON.stringify(contextSpaceValues);
+		}else if(spaceType == '<%=ProductService.SPACE_TYPE_ACTOR%>'){
+			var canvas = {};
+			var nodes = new Array();
+			var edgeLines = new Array();
+			for(var j=0; j<AD$CONTROLLERS.length; j++){
+				var ctrl = AD$CONTROLLERS[j];
+				var model = ctrl.model;
+				switch(ActorDiagram.getModelType(model)){
+				case AD$TYPE_CANVAS :
+					canvas =  model;
+					break;
+				case AD$TYPE_NODE :
+					nodes.push(model);
+					break;
+				case AD$TYPE_EDGELINE :
+					edgeLines.push(model);
+					break;
+				}
+			}
+			var actorSpaceValues = {
+					canvasId: canvas.id,
+					width: canvas.width,
+					height: canvas.height,
+					nodes: nodes,
+					edgeLines: edgeLines
+			};
+			paramsJsonHiddens[spaceType] = JSON.stringify(actorSpaceValues);
 		}else if(isEmpty(spaceTab.parent('form'))){
 			newSpaceTab = spaceTab.clone();
 			cloneSelectedValues(spaceTab, newSpaceTab);
@@ -371,10 +398,10 @@ try{
 					'<th><a spaceType="5" spaceTypeStr="<%=ProductService.PSS_SPACE_TOUCH_POINT%>" href="viewDefaultSpace.jsp">Touch Point Space</a></th>' +  
 					'<th><a spaceType="6" spaceTypeStr="<%=ProductService.PSS_SPACE_CUSTOMER%>" href="viewDefaultSpace.jsp">Customer Space</a></th>' +  
 					'<th><a spaceType="7" spaceTypeStr="<%=ProductService.PSS_SPACE_BIZ_MODEL%>" href="viewBizModelSpace.jsp">Biz Model Space</a></th>' +  
-					'<th><a spaceType="8" spaceTypeStr="<%=ProductService.PSS_SPACE_ACTOR%>" href="viewDefaultSpace.jsp">Actor Space</a></th>' +  
+					'<th><a spaceType="8" spaceTypeStr="<%=ProductService.PSS_SPACE_ACTOR%>" href="viewActorSpace.jsp">Actor Space</a></th>' +  
 					'<th><a spaceType="9" spaceTypeStr="<%=ProductService.PSS_SPACE_SOCIETY%>" href="viewDefaultSpace.jsp">Society Space</a></th>' +  
 					'<th><a spaceType="10" spaceTypeStr="<%=ProductService.PSS_SPACE_CONTEXT%>" href="viewContextSpace.jsp">Context Space</a></th>' +  
-					'<th><a spaceType="11" spaceTypeStr="<%=ProductService.PSS_SPACE_TIME%>" href="viewDefaultSpace.jsp">Time Space</a></th>' +  
+					'<th><a spaceType="11" spaceTypeStr="<%=ProductService.PSS_SPACE_TIME%>" href="viewTimeSpace.jsp">Time Space</a></th>' +  
 					'<th><a spaceType="12" spaceTypeStr="<%=ProductService.PSS_SPACE_ENVIRONMENT%>" href="viewDefaultSpace.jsp">Environment Space</a></th>' +  
 				'</tr>' + 
 			'</table>' +
