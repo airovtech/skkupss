@@ -31,6 +31,8 @@
 	if(SmartUtil.isBlankObject(actorSpace)) actorSpace = new ActorSpace();;
 
 	String jsonDataString = actorSpace.getDiagramData();
+	String servitizationProcess = actorSpace.getServitizationProcess();
+	
 %>
 <fmt:setLocale value="<%=cUser.getLocale() %>" scope="request" />
 <fmt:setBundle basename="resource.smartworksMessage" scope="request" />
@@ -131,6 +133,11 @@
 	<%}else{ %>
 		<div class="js_context_diagram_target" psId="<%=psId%>"></div>
 	<%} %>
+	<!-- 스마트폼에서 해당 업무화면을 그려주는 곳 -->
+	<form name="frmActorServitizationProcess" class="js_validation_required form_layout">
+		<div class="js_new_actor_fields"></div>
+	</form>
+	
 </div>
 <!-- 컨텐츠 레이아웃//-->
 <script type="text/javascript">
@@ -149,5 +156,25 @@ $(function() {
 			reload : true 
 		});
 	}
+
+	var newActorFields = $('div.js_new_actor_fields');
+	if(!isEmpty(newActorFields)) {
+		var newActorField = $(newActorFields[0]);
+		var gridRow = SmartWorks.GridLayout.newGridRow();
+		var gridTable = SmartWorks.GridLayout.newGridTable();
+		newActorField.html(gridTable.html(gridRow));
+		
+		SmartWorks.FormRuntime.RichEditorBuilder.buildEx({
+			container: gridRow,
+			fieldId: "txtServitizationProcess",
+			fieldName: 'Servitization Process',
+			columns: 1,
+			required: true,
+			value: "<%=servitizationProcess%>",
+			readOnly: <%=!isEditMode%>			
+		});
+ 		
+ 	}
+
 });
 </script>

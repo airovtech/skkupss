@@ -43,11 +43,11 @@ public class ActorSpace{
 	public void setServitizationProcess(String servitizationProcess) {
 		this.servitizationProcess = servitizationProcess;
 	}
-	public static ActorSpace createActorSpace(Map<String, Object> frmSpaceActor){
-		if(frmSpaceActor==null) return null;
+	public static ActorSpace createActorSpace(String diagramData, String servitizationProcess){
 		
 		ActorSpace actorSpace = new ActorSpace();		
-		actorSpace.setDiagramData((String)frmSpaceActor.get("diagramData"));		
+		actorSpace.setDiagramData(diagramData);
+		actorSpace.setServitizationProcess(servitizationProcess);
 		return actorSpace;
 	}
 	

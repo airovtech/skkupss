@@ -43,7 +43,7 @@ import org.springframework.util.StringUtils;
 public class DbManagerImpl implements IDbManager {
 
 	public static final String delimiters = ";";
-	public static final String DELIMITER_ACTOR = "$SEVILIZATION_PROCESS=";
+	public static final String DELIMITER_ACTOR = ";$$;";
 	
 	private DefaultSpace getDefaultSpace(String[] elements) throws Exception {
 		if (elements == null)
@@ -431,7 +431,7 @@ public class DbManagerImpl implements IDbManager {
 		
 		productService.setTouchPointSpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getTouchPointSpace(), delimiters)));
 		productService.setCustomerSpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getCustomerSpace(), delimiters)));
-		productService.setActorSpace(getActorSpace(StringUtils.tokenizeToStringArray(dbPs.getActorSpace(), delimiters)));
+		productService.setActorSpace(getActorSpace(StringUtils.tokenizeToStringArray(dbPs.getActorSpace(), DELIMITER_ACTOR)));
 		productService.setSocietySpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getSocietySpace(), delimiters)));
 		productService.setContextSpace(ContextSpace.createContextSpace(dbPs.getContextSpace()));
 		productService.setTimeSpace(getTimeSpace(dbPs.getTimeSpace()));

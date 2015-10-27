@@ -158,6 +158,11 @@ public class PssController {
 				}
 			}
 			
+			Map<String, Object> frmActorServitizationProcess = (Map<String, Object>)requestBody.get("frmActorServitizationProcess");
+			String txtServitizationProcess = null;
+			if(frmActorServitizationProcess!=null)
+				txtServitizationProcess = (String)frmActorServitizationProcess.get("txtServitizationProcess");
+			
 			Map<String, Object> frmSpaceTabs = (Map<String, Object>)requestBody.get("frmSpaceTabs");
 			if(frmSpaceTabs!=null){
 				productService.setValueSpace(ValueSpace.createValueSpace((Map<String, Object>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_VALUE)));				
@@ -167,7 +172,7 @@ public class PssController {
 				productService.setTouchPointSpace(DefaultSpace.createDefaultSpace((Map<String, Object>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_TOUCH_POINT)));
 				productService.setCustomerSpace(DefaultSpace.createDefaultSpace((Map<String, Object>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_CUSTOMER)));
 				productService.setBizModelSpace(BizModelSpace.createBizModelSpace((Map<String, Object>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_BIZ_MODEL)));
-				productService.setActorSpace(ActorSpace.createActorSpace((Map<String, Object>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_ACTOR)));
+				productService.setActorSpace(ActorSpace.createActorSpace((String)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_ACTOR), txtServitizationProcess));
 				productService.setSocietySpace(DefaultSpace.createDefaultSpace((Map<String, Object>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_SOCIETY)));
 				productService.setContextSpace(ContextSpace.createContextSpace((String)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_CONTEXT)));
 				productService.setTimeSpace(TimeSpace.createTimeSpace((Map<String, Object>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_TIME)));
