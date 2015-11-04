@@ -23,6 +23,7 @@ import net.smartworks.skkupss.model.ContextSpace;
 import net.smartworks.skkupss.model.InstanceList;
 import net.smartworks.skkupss.model.ProductService;
 import net.smartworks.skkupss.model.ProductServiceCond;
+import net.smartworks.skkupss.model.ProductSpace;
 import net.smartworks.skkupss.model.RequestParams;
 import net.smartworks.skkupss.model.ServiceSpace;
 import net.smartworks.skkupss.model.SimilarityMatrix;
@@ -32,6 +33,7 @@ import net.smartworks.skkupss.model.UserCond;
 import net.smartworks.skkupss.model.ValueSpace;
 import net.smartworks.skkupss.smcal.SimBizModel;
 import net.smartworks.skkupss.smcal.SimContext;
+import net.smartworks.skkupss.smcal.SimProduct;
 import net.smartworks.skkupss.smcal.SimService;
 import net.smartworks.skkupss.smcal.SimValue;
 import net.smartworks.util.SmartUtil;
@@ -49,7 +51,7 @@ public class ServiceManagerImpl implements IServiceManager {
 		
 		ProductServiceCond productServiceCond = new ProductServiceCond();
 
-		//ProductServiceÀÇ name, desc, lastModifiedUser ÇÊµåµé¸¸ like °Ë»ö
+		//ProductServiceï¿½ï¿½ name, desc, lastModifiedUser ï¿½Êµï¿½é¸¸ like ï¿½Ë»ï¿½
 		if(!SmartUtil.isBlankObject(params.getSearchKey())){
 				productServiceCond.setSearchKey(params.getSearchKey());
 		}else{
@@ -57,8 +59,8 @@ public class ServiceManagerImpl implements IServiceManager {
 			
 		}
 
-		//PSS_SPACE_VALUE, PSS_SPACE_SERVICE, PSS_SPACE_BIZ_MODEL, PSS_SPACE_CONTEXT 4°¡ÁöÁß ÇÏ³ª°¡ Ç×»ó Àü´ÞµÇ¸ç,
-		//ÁöÁ¤ÇÑ SPACE°ª¸¸ °¡Á®´Ù ÁØ´Ù.
+		//PSS_SPACE_VALUE, PSS_SPACE_SERVICE, PSS_SPACE_BIZ_MODEL, PSS_SPACE_CONTEXT 4ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½×»ï¿½ ï¿½ï¿½ï¿½ÞµÇ¸ï¿½,
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ SPACEï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½.
 		String spaceType = params.getSpaceType();
 		
 		int totalSize = 0;
@@ -77,7 +79,7 @@ public class ServiceManagerImpl implements IServiceManager {
 			productServiceCond.setPageSize(pageSize);
 		}
 
-		//ProductServiceÀÇ ProductService.FILED_NAME, ProductService.FILED_LAST_MODIFIED_USER, ProductService.FILED_LAST_MODIFIED_DATE¸¸ Á¤·ÄÇÔ 
+		//ProductServiceï¿½ï¿½ ProductService.FILED_NAME, ProductService.FILED_LAST_MODIFIED_USER, ProductService.FILED_LAST_MODIFIED_DATEï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 		SortingField sortingField = params.getSortingField();
 		if (sortingField == null) {
 			sortingField = new SortingField(ProductService.FIELD_LAST_MODIFIED_DATE, false);
@@ -235,6 +237,8 @@ public class ServiceManagerImpl implements IServiceManager {
 
 					ValueSpace sourceValue = source.getValueSpace();
 					ValueSpace targetValue = target.getValueSpace();
+					ProductSpace sourceProduct = source.getProductSpace();
+					ProductSpace targetProduct = target.getProductSpace();
 					ServiceSpace sourceService = source.getServiceSpace();
 					ServiceSpace targetService = target.getServiceSpace();
 					BizModelSpace sourceBizModel = source.getBizModelSpace();
@@ -246,6 +250,10 @@ public class ServiceManagerImpl implements IServiceManager {
 					case ProductService.SPACE_TYPE_VALUE:
 						if(!SmartUtil.isBlankObject(sourceValue) && !SmartUtil.isBlankObject(targetValue))
 							sm.setSimilarity((new SimValue(sourceValue.getNumOfValues(), sourceValue.getValues(), targetValue.getNumOfValues(), targetValue.getValues())).calculateSimularity());
+						break;
+					case ProductService.SPACE_TYPE_PRODUCT:
+						if(!SmartUtil.isBlankObject(sourceProduct) && !SmartUtil.isBlankObject(targetProduct))
+							sm.setSimilarity((new SimProduct(sourceProduct.getUnspsc(), targetProduct.getUnspsc())).calculateSimularity());
 						break;
 					case ProductService.SPACE_TYPE_SERVICE:
 						if(!SmartUtil.isBlankObject(sourceService) && !SmartUtil.isBlankObject(targetService))

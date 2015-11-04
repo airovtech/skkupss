@@ -874,4 +874,77 @@
 	<delete id="removeUser" parameterType="String">
 		delete from orgUser where id = #{id}
   	</delete>
+  	
+	<select id="getUnspscCodeLevel1" parameterType="java.lang.String" resultType="java.lang.String">
+		select distinct level1
+		from
+		"unspscCode"
+		order by level1 
+	</select>
+	<select id="getUnspscCodeLevel2" parameterType="map" resultType="java.lang.String">
+		select distinct level2
+		from
+		"unspscCode"
+		where level1 = #{level1}
+		order by level2 
+	</select>
+	<select id="getUnspscCodeLevel3" parameterType="map" resultType="java.lang.String">
+		select distinct level3
+		from
+		"unspscCode"
+		where level1 = #{level1} and level2 = #{level2}
+		order by level3 
+	</select>
+	<select id="getUnspscCodeLevel4" parameterType="map" resultType="java.lang.String">
+		select distinct level4
+		from
+		"unspscCode"
+		where level1 = #{level1} and level2 = #{level2} and level3 = #{level3}
+		order by level4 
+	</select>
+
+	<resultMap id="customerTypesResult" type="net.smartworks.skkupss.model.db.Db_CustomerType">
+		<id property="id" column="id" />	
+		<result property="name" column="name"/>
+	</resultMap>
+	
+	
+	<select id="getCustomerTypesLevel1" parameterType="java.lang.String" resultType="net.smartworks.skkupss.model.db.Db_CustomerType">
+		select id, name
+		from
+		"customerTypes"
+			where level2 = '00'
+			and locale = #{locale}
+		order by id 
+	</select>
+	<select id="getCustomerTypesLevel2" parameterType="map" resultType="net.smartworks.skkupss.model.db.Db_CustomerType">
+		select id, name
+		from
+		"customerTypes"
+		where level1 = #{level1}
+			and not(level2 = '00')
+			and level3 = '00'
+			and locale = #{locale}
+		order by id 
+	</select>
+	<select id="getCustomerTypesLevel3" parameterType="map" resultType="net.smartworks.skkupss.model.db.Db_CustomerType">
+		select id, name
+		from
+		"customerTypes"
+		where level1 = #{level1} and level2 = #{level2}
+			and not(level3 = '00')
+			and level4 = '00'
+			and locale = #{locale}
+		order by id 
+	</select>
+	<select id="getCustomerTypesLevel4" parameterType="map" resultType="net.smartworks.skkupss.model.db.Db_CustomerType">
+		select id, name
+		from
+		"customerTypes"
+		where level1 = #{level1} and level2 = #{level2} and level3 = #{level3}
+			and not(level4 = '00')
+			and locale = #{locale}
+		order by id 
+	</select>
+  	
 </mapper>

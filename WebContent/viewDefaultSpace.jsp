@@ -25,23 +25,11 @@
 			case ProductService.SPACE_TYPE_PRODUCT_SERVICE:
 				defaultSpace = productService.getProductServiceSpace();
 				break;
-			case ProductService.SPACE_TYPE_PRODUCT:
-				defaultSpace = productService.getProductSpace();
-				break;
 			case ProductService.SPACE_TYPE_TOUCH_POINT:
 				defaultSpace = productService.getTouchPointSpace();
 				break;
-			case ProductService.SPACE_TYPE_CUSTOMER:
-				defaultSpace = productService.getCustomerSpace();
-				break;
-			case ProductService.SPACE_TYPE_ACTOR:
-				defaultSpace = productService.getActorSpace();
-				break;
 			case ProductService.SPACE_TYPE_SOCIETY:
 				defaultSpace = productService.getSocietySpace();
-				break;
-			case ProductService.SPACE_TYPE_TIME:
-				defaultSpace = productService.getTimeSpace();
 				break;
 			case ProductService.SPACE_TYPE_ENVIRONMENT:
 				defaultSpace = productService.getEnvironmentSpace();

@@ -8,13 +8,17 @@
 
 package net.smartworks.skkupss.dao.impl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import net.smartworks.factory.SessionFactory;
 import net.smartworks.skkupss.dao.IDbDao;
 import net.smartworks.skkupss.model.ProductService;
 import net.smartworks.skkupss.model.db.Db_BizModelSpace;
 import net.smartworks.skkupss.model.db.Db_BizModelSpaceCond;
+import net.smartworks.skkupss.model.db.Db_CustomerType;
 import net.smartworks.skkupss.model.db.Db_ProductService;
 import net.smartworks.skkupss.model.db.Db_ProductServiceCond;
 import net.smartworks.skkupss.model.db.Db_ServiceSpace;
@@ -24,6 +28,7 @@ import net.smartworks.skkupss.model.db.Db_UserCond;
 import net.smartworks.skkupss.model.db.Db_ValueSpace;
 import net.smartworks.skkupss.model.db.Db_ValueSpaceCond;
 import net.smartworks.util.IdUtil;
+import net.smartworks.util.SmartUtil;
 
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
@@ -704,4 +709,57 @@ public class DbDaoImpl implements IDbDao {
 		}		
 	}
 
+	@Override
+	public String[] getUnspscCodes(int level, Map<String, String> params) throws Exception {
+		SqlSession session = null;
+		try {
+			SqlSessionFactory factory = SessionFactory.getInstance().getSqlSessionFactory();
+			session = factory.openSession();
+			
+			RowBounds Rb = new RowBounds();
+			
+			List<String> codeList = session.selectList("getUnspscCodeLevel" + level, params, Rb);
+			if (codeList != null && codeList.size() != 0) {
+				String[] codes = new String[codeList.size()];
+				codeList.toArray(codes);
+				return codes;
+			} else {
+				return new String[]{"00"};
+			}
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			if (session != null)
+				session.close();
+		}		
+	}
+
+	@Override
+	public Db_CustomerType[] getCustomerTypes(int level, Map<String, String> params) throws Exception {
+		SqlSession session = null;
+		try {
+			SqlSessionFactory factory = SessionFactory.getInstance().getSqlSessionFactory();
+			session = factory.openSession();
+			
+			RowBounds Rb = new RowBounds();
+			if(params ==null){
+				params = new HashMap<String, String>();
+			}
+			params.put("locale", SmartUtil.getCurrentUser().getLocale());
+			
+			List<Db_CustomerType> typeList = session.selectList("getCustomerTypesLevel" + level, params, Rb);
+			if (typeList != null && typeList.size() != 0) {
+				Db_CustomerType[] types = new Db_CustomerType[typeList.size()];
+				typeList.toArray(types);
+				return types;
+			} else {
+				return null;
+			}
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			if (session != null)
+				session.close();
+		}		
+	}
 }

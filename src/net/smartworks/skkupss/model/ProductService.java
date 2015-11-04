@@ -60,9 +60,9 @@ public class ProductService{
 	private ServiceSpace serviceSpace;
 	private BizModelSpace bizModelSpace;
 	private DefaultSpace productServiceSpace;
-	private DefaultSpace productSpace;
+	private ProductSpace productSpace;
 	private DefaultSpace touchPointSpace;
-	private DefaultSpace customerSpace;
+	private CustomerSpace customerSpace;
 	private ActorSpace actorSpace;
 	private DefaultSpace societySpace;
 	private ContextSpace contextSpace;
@@ -128,10 +128,10 @@ public class ProductService{
 	public void setProductServiceSpace(DefaultSpace productServiceSpace) {
 		this.productServiceSpace = productServiceSpace;
 	}
-	public DefaultSpace getProductSpace() {
+	public ProductSpace getProductSpace() {
 		return productSpace;
 	}
-	public void setProductSpace(DefaultSpace productSpace) {
+	public void setProductSpace(ProductSpace productSpace) {
 		this.productSpace = productSpace;
 	}
 	public DefaultSpace getTouchPointSpace() {
@@ -140,10 +140,10 @@ public class ProductService{
 	public void setTouchPointSpace(DefaultSpace touchPointSpace) {
 		this.touchPointSpace = touchPointSpace;
 	}
-	public DefaultSpace getCustomerSpace() {
+	public CustomerSpace getCustomerSpace() {
 		return customerSpace;
 	}
-	public void setCustomerSpace(DefaultSpace customerSpace) {
+	public void setCustomerSpace(CustomerSpace customerSpace) {
 		this.customerSpace = customerSpace;
 	}
 	public ActorSpace getActorSpace() {

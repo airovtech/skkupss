@@ -8,8 +8,11 @@
 
 package net.smartworks.skkupss.dao;
 
+import java.util.Map;
+
 import net.smartworks.skkupss.model.db.Db_BizModelSpace;
 import net.smartworks.skkupss.model.db.Db_BizModelSpaceCond;
+import net.smartworks.skkupss.model.db.Db_CustomerType;
 import net.smartworks.skkupss.model.db.Db_ProductService;
 import net.smartworks.skkupss.model.db.Db_ProductServiceCond;
 import net.smartworks.skkupss.model.db.Db_ServiceSpace;
@@ -54,5 +57,9 @@ public interface IDbDao {
 	public void removeUser(String userId, String id) throws Exception;
 	public int getUserSize(String userId, Db_UserCond cond) throws Exception;
 	public Db_User[] getUsers(String userId, Db_UserCond cond) throws Exception;
+	
+	public String[] getUnspscCodes(int level, Map<String, String> params) throws Exception;
+	
+	public Db_CustomerType[] getCustomerTypes(int level, Map<String, String> params) throws Exception;
 	
 }

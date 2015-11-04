@@ -16,10 +16,12 @@ import net.smartworks.skkupss.manager.IDbManager;
 import net.smartworks.skkupss.model.ActorSpace;
 import net.smartworks.skkupss.model.BizModelSpace;
 import net.smartworks.skkupss.model.ContextSpace;
+import net.smartworks.skkupss.model.CustomerSpace;
 import net.smartworks.skkupss.model.DefaultSpace;
 import net.smartworks.skkupss.model.Login;
 import net.smartworks.skkupss.model.ProductService;
 import net.smartworks.skkupss.model.ProductServiceCond;
+import net.smartworks.skkupss.model.ProductSpace;
 import net.smartworks.skkupss.model.ServiceSpace;
 import net.smartworks.skkupss.model.TimeSpace;
 import net.smartworks.skkupss.model.User;
@@ -94,6 +96,23 @@ public class DbManagerImpl implements IDbManager {
 		actorSpace.setDiagramData(elements[0]);
 		actorSpace.setServitizationProcess(elements[1]);
 		return actorSpace;
+	}
+	
+	private ProductSpace getProductSpace(String[] elements) throws Exception {
+		if (elements == null || elements.length!=2)
+			return null;
+		ProductSpace productSpace = new ProductSpace();
+		productSpace.setUnspsc(elements[0]);
+		productSpace.setLifecycleSteps(elements[1]);
+		return productSpace;
+	}
+	private CustomerSpace getCustomerSpace(String[] elements) throws Exception {
+		if (elements == null || elements.length!=2)
+			return null;
+		CustomerSpace customerSpace = new CustomerSpace();
+		customerSpace.setTypesWithCommaString(elements[0]);
+		customerSpace.setActivityTypesWithCommaString(elements[1]);
+		return customerSpace;
 	}
 	private Db_ProductService[] convertProductServiceToDb_ProductService(ProductService[] productServices) throws Exception {
 
@@ -174,10 +193,12 @@ public class DbManagerImpl implements IDbManager {
 			}
 			
 			productService.setProductServiceSpace(makeStringFromDefaultSpace(ps.getProductServiceSpace()));
-			productService.setProductSpace(makeStringFromDefaultSpace(ps.getProductSpace()));
+			if(ps.getProductSpace()!=null)
+				productService.setProductSpace(ps.getProductSpace().getUnspsc() + delimiters + ps.getProductSpace().getLifecycleSteps());
 			
 			productService.setTouchPointSpace(makeStringFromDefaultSpace(ps.getTouchPointSpace()));
-			productService.setCustomerSpace(makeStringFromDefaultSpace(ps.getCustomerSpace()));
+			if(ps.getCustomerSpace()!=null)
+				productService.setCustomerSpace(ps.getCustomerSpace().getTypesWithComma() + delimiters + ps.getCustomerSpace().getActivityTypesWithComma());
 			if(ps.getActorSpace()!=null)
 				productService.setActorSpace(ps.getActorSpace().getDiagramData() + DELIMITER_ACTOR + ps.getActorSpace().getServitizationProcess());
 			productService.setSocietySpace(makeStringFromDefaultSpace(ps.getSocietySpace()));
@@ -276,10 +297,10 @@ public class DbManagerImpl implements IDbManager {
 			}
 			
 			productService.setProductServiceSpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getProductServiceSpace(), delimiters)));
-			productService.setProductSpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getProductSpace(), delimiters)));
+			productService.setProductSpace(getProductSpace(StringUtils.tokenizeToStringArray(dbPs.getProductSpace(), delimiters)));
 			
 			productService.setTouchPointSpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getTouchPointSpace(), delimiters)));
-			productService.setCustomerSpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getCustomerSpace(), delimiters)));
+			productService.setCustomerSpace(getCustomerSpace(StringUtils.tokenizeToStringArray(dbPs.getCustomerSpace(), delimiters)));
 			productService.setActorSpace(getActorSpace(StringUtils.tokenizeToStringArray(dbPs.getActorSpace(), DELIMITER_ACTOR)));
 			productService.setSocietySpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getSocietySpace(), delimiters)));
 			productService.setContextSpace(ContextSpace.createContextSpace(dbPs.getContextSpace()));
@@ -427,10 +448,10 @@ public class DbManagerImpl implements IDbManager {
 		}
 		
 		productService.setProductServiceSpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getProductServiceSpace(), delimiters)));
-		productService.setProductSpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getProductSpace(), delimiters)));
+		productService.setProductSpace(getProductSpace(StringUtils.tokenizeToStringArray(dbPs.getProductSpace(), delimiters)));
 		
 		productService.setTouchPointSpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getTouchPointSpace(), delimiters)));
-		productService.setCustomerSpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getCustomerSpace(), delimiters)));
+		productService.setCustomerSpace(getCustomerSpace(StringUtils.tokenizeToStringArray(dbPs.getCustomerSpace(), delimiters)));
 		productService.setActorSpace(getActorSpace(StringUtils.tokenizeToStringArray(dbPs.getActorSpace(), DELIMITER_ACTOR)));
 		productService.setSocietySpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getSocietySpace(), delimiters)));
 		productService.setContextSpace(ContextSpace.createContextSpace(dbPs.getContextSpace()));
@@ -632,4 +653,5 @@ public class DbManagerImpl implements IDbManager {
 		dbUser.setHomeAddress(user.getHomeAddress());
 		return dbUser;
 	}
+	
 }

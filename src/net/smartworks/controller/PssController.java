@@ -10,6 +10,7 @@ package net.smartworks.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -19,12 +20,16 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.smartworks.factory.DaoFactory;
 import net.smartworks.factory.ManagerFactory;
 import net.smartworks.skkupss.model.ActorSpace;
 import net.smartworks.skkupss.model.BizModelSpace;
 import net.smartworks.skkupss.model.ContextSpace;
+import net.smartworks.skkupss.model.CustomerSpace;
+import net.smartworks.skkupss.model.CustomerType;
 import net.smartworks.skkupss.model.DefaultSpace;
 import net.smartworks.skkupss.model.ProductService;
+import net.smartworks.skkupss.model.ProductSpace;
 import net.smartworks.skkupss.model.RequestParams;
 import net.smartworks.skkupss.model.ServiceSpace;
 import net.smartworks.skkupss.model.SimilarityMatrix;
@@ -32,6 +37,7 @@ import net.smartworks.skkupss.model.SortingField;
 import net.smartworks.skkupss.model.TimeSpace;
 import net.smartworks.skkupss.model.User;
 import net.smartworks.skkupss.model.ValueSpace;
+import net.smartworks.skkupss.model.db.Db_CustomerType;
 import net.smartworks.skkupss.model.db.Db_User;
 import net.smartworks.util.CommonUtil;
 import net.smartworks.util.LocalDate;
@@ -167,10 +173,10 @@ public class PssController {
 			if(frmSpaceTabs!=null){
 				productService.setValueSpace(ValueSpace.createValueSpace((Map<String, Object>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_VALUE)));				
 				productService.setProductServiceSpace(DefaultSpace.createDefaultSpace((Map<String, Object>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_PRODUCT_SERVICE)));
-				productService.setProductSpace(DefaultSpace.createDefaultSpace((Map<String, Object>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_PRODUCT)));
+				productService.setProductSpace(ProductSpace.createProductSpace((Map<String, String>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_PRODUCT)));
 				productService.setServiceSpace(ServiceSpace.createServiceSpace((Map<String, Object>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_SERVICE)));
 				productService.setTouchPointSpace(DefaultSpace.createDefaultSpace((Map<String, Object>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_TOUCH_POINT)));
-				productService.setCustomerSpace(DefaultSpace.createDefaultSpace((Map<String, Object>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_CUSTOMER)));
+				productService.setCustomerSpace(CustomerSpace.createCustomerSpace((Map<String, Object>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_CUSTOMER)));
 				productService.setBizModelSpace(BizModelSpace.createBizModelSpace((Map<String, Object>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_BIZ_MODEL)));
 				productService.setActorSpace(ActorSpace.createActorSpace((String)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_ACTOR), txtServitizationProcess));
 				productService.setSocietySpace(DefaultSpace.createDefaultSpace((Map<String, Object>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_SOCIETY)));
@@ -569,6 +575,65 @@ public class PssController {
 			e.printStackTrace();
 		}
 		return clonedPsId;
+	}
+	
+	@RequestMapping(value = "/get_unspsc_codes", method = RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
+	public @ResponseBody String getUnspscCodes(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		String returnString = "";
+		
+		try {			
+			String levelStr = request.getParameter("level");
+			String level1 = request.getParameter("level1");
+			String level2 = request.getParameter("level2");
+			String level3 = request.getParameter("level3");
+			int level = Integer.parseInt(levelStr);
+			Map<String, String> params = new HashMap<String, String>();
+			params.put("level1", level1);
+			params.put("level2", level2);
+			params.put("level3", level3);
+			String[] unspscCodes = DaoFactory.getInstance().getDbDao().getUnspscCodes(level, params);
+			if(SmartUtil.isBlankObject(unspscCodes)) return returnString;
+			
+			for(int i=0; i<unspscCodes.length; i++){
+				String code = unspscCodes[i];
+				returnString = returnString + "<option value='" + code + "'>" + code + "</option>"; 
+			}
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+		return returnString;
+	}
+	
+	@RequestMapping(value = "/get_customer_types", method = RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
+	public @ResponseBody Map<String, String> getCustomerTypes(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		Map<String, String> map = new HashMap<String, String>();
+		String returnString = "<option value='00'>" + SmartMessage.getString("common.title.none") + "</option>";
+		
+		try {			
+			String levelStr = request.getParameter("level");
+			String level1 = request.getParameter("level1");
+			String level2 = request.getParameter("level2");
+			String level3 = request.getParameter("level3");
+			int level = Integer.parseInt(levelStr);
+			Map<String, String> params = new HashMap<String, String>();
+			params.put("level1", level1);
+			params.put("level2", level2);
+			params.put("level3", level3);
+			Db_CustomerType[] customerTypes = DaoFactory.getInstance().getDbDao().getCustomerTypes(level, params);
+			if(SmartUtil.isBlankObject(customerTypes)) return map;			
+			for(int i=0; i<customerTypes.length; i++){
+				Db_CustomerType code = customerTypes[i];
+				returnString = returnString + "<option value='" + CustomerSpace.getCustomerTypeCode(code.getId(), level-1) + "'>" + code.getName() + "</option>"; 
+			}
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+		map.put("data", returnString);
+		return map;
 	}
 	
 	

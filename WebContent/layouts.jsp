@@ -214,6 +214,17 @@ try{
 <script type="text/javascript" src="js/actordiagram/view/edgeLineView.js?v=3.5.6" ></script>
 <script type="text/javascript" src="js/actordiagram/view/nodeView.js?v=3.5.6" ></script>
 
+<script type="text/javascript" src="js/lifecyclediagram/lifecycleDiagram.js?v=3.5.6" ></script>
+<script type="text/javascript" src="js/lifecyclediagram/controller/canvasController.js?v=3.5.6" ></script>
+<script type="text/javascript" src="js/lifecyclediagram/controller/categoryController.js?v=3.5.6" ></script>
+<script type="text/javascript" src="js/lifecyclediagram/controller/stepController.js?v=3.5.6" ></script>
+<script type="text/javascript" src="js/lifecyclediagram/model/canvas.js?v=3.5.6" ></script>
+<script type="text/javascript" src="js/lifecyclediagram/model/category.js?v=3.5.6" ></script>
+<script type="text/javascript" src="js/lifecyclediagram/model/step.js?v=3.5.6" ></script>
+<script type="text/javascript" src="js/lifecyclediagram/view/canvasView.js?v=3.5.6" ></script>
+<script type="text/javascript" src="js/lifecyclediagram/view/categoryView.js?v=3.5.6" ></script>
+<script type="text/javascript" src="js/lifecyclediagram/view/stepView.js?v=3.5.6" ></script>
+
 <title>Product-Service Support System</title>
 <link rel="shortcut icon" href="images/pss/cdi-logo-s.png"/>
 

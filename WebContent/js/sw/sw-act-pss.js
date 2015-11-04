@@ -22,7 +22,7 @@ $(function() {
 			newProductService.find('form[name="frmNewProductService"]').append($('<form name="frmSpaceTab"></form>').html(newSpaceTab).hide());
 			
 			var savedSpaceTab = newProductService.find('form[name="frmNewProductService"]').find('.js_space_tab[spaceType="' + spaceType + '"]:hidden');
-			if(isEmpty(savedSpaceTab) || (spaceType == '10' && isEditMode)){
+			if(isEmpty(savedSpaceTab) || (spaceType == '3' && isEditMode) || (spaceType == '8' && isEditMode) || (spaceType == '10' && isEditMode)){
 				$.ajax({
 					url : href + "?psId=" + psId + "&spaceType=" + spaceType + "&isEditMode=" + isEditMode,
 					success : function(data, status, jqXHR) {
@@ -198,10 +198,16 @@ $(function() {
 		var url;
 		if(spaceType == 'valueSpace')
 			url = "viewValueSpace.jsp?psId="+psId;
+		else if(spaceType == 'productSpace')
+			url = "viewProductSpace.jsp?psId="+psId;
 		else if(spaceType == 'serviceSpace')
 			url = "viewServiceSpace.jsp?psId="+psId;
+		else if(spaceType == 'customerSpace')
+			url = "viewCustomerSpace.jsp?psId="+psId;
 		else if(spaceType == 'bizModelSpace')
 			url = "viewBizModelSpace.jsp?psId="+psId;
+		else if(spaceType == 'actorSpace')
+			url = "viewActorSpace.jsp?psId="+psId;
 		else if(spaceType == 'contextSpace')
 			url = "viewContextSpace.jsp?psId="+psId;
 		else if(spaceType == 'timeSpace')
@@ -646,6 +652,84 @@ $(function() {
 		}else{
 			$(timeValueDesc[position]).addClass('checked');
 			input.attr('checked', 'checked');
+		}
+	});			
+
+	$('select.js_select_unspsc_code').live('change', function(e) {
+		var input = $(targetElement(e));
+		var prevAlls = input.prevAll('.js_select_unspsc_code');
+		var level = prevAlls.length;
+		if(level<3){
+			var value = input.find('option:selected').attr('value');
+			var params = "&level" + (level+1) + "=" + value;
+			for(var i=level-1, k=1; i>=0; i--, k++){
+				var code = $(prevAlls[i]).find('option:selected').attr('value');
+				params = params + "&level" + k + "=" + code;
+			}
+			$.ajax({
+				url : "get_unspsc_codes.sw" + "?level=" + (level+2) + params,
+				success : function(data, status, jqXHR) {
+					input.next().html(data);
+					input.next().nextAll('.js_select_unspsc_code').each(function() {
+						$(this).html('<option value="00">00</option');
+					});
+					smartPop.closeProgress();
+				}
+			});
+		}
+		var unspscCode="";
+		var productSpace = input.parents('.js_product_space:first');
+		productSpace.find('.js_select_unspsc_code').each(function() {
+			unspscCode = unspscCode + $(this).find('option:selected').attr('value');
+		});		
+		productSpace.find('.js_unspsc_name').html(smartMessage.get(unspscCode));
+	});			
+
+	$('select.js_select_customer_type').live('change', function(e) {
+		var input = $(targetElement(e));
+		var prevAlls = input.prevAll('.js_select_customer_type');
+		var level = prevAlls.length;
+		if(level<3){
+			var value = input.find('option:selected').attr('value');
+			var params = "&level" + (level+1) + "=" + value;
+			for(var i=level-1, k=1; i>=0; i--, k++){
+				var code = $(prevAlls[i]).find('option:selected').attr('value');
+				params = params + "&level" + k + "=" + code;
+			}
+			$.ajax({
+				url : "get_customer_types.sw" + "?level=" + (level+2) + params,
+				success : function(result, status, jqXHR) {
+					input.next().html(result.data);
+					input.next().nextAll('.js_select_customer_type').each(function() {
+						$(this).html('<option value="00">' + smartMessage.get('textNone') + '</option');
+					});
+					smartPop.closeProgress();
+				}
+			});
+		}
+	});			
+
+	$('select.js_select_customer_activity_type').live('change', function(e) {
+		var input = $(targetElement(e));
+		var prevAlls = input.prevAll('.js_select_customer_activity_type');
+		var level = prevAlls.length;
+		if(level<3){
+			var value = input.find('option:selected').attr('value');
+			var params = "&level" + (level+1) + "=" + value;
+			for(var i=level-1, k=1; i>=0; i--, k++){
+				var code = $(prevAlls[i]).find('option:selected').attr('value');
+				params = params + "&level" + k + "=" + code;
+			}
+			$.ajax({
+				url : "get_customer_types.sw" + "?level=" + (level+2) + params,
+				success : function(result, status, jqXHR) {
+					input.next().html(result.data);
+					input.next().nextAll('.js_select_customer_activity_type').each(function() {
+						$(this).html('<option value="00">' + smartMessage.get('textNone') + '</option');
+					});
+					smartPop.closeProgress();
+				}
+			});
 		}
 	});			
 

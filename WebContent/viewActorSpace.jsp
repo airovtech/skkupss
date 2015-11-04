@@ -157,7 +157,8 @@ $(function() {
 		});
 	}
 
-	var newActorFields = $('div.js_new_actor_fields');
+	var contextDiagram = $('.js_context_diagram_target[psId="' + '<%=psId%>' + '"]');
+	var newActorFields = contextDiagram.parents('.js_actor_space:first').find('div.js_new_actor_fields');
 	if(!isEmpty(newActorFields)) {
 		var newActorField = $(newActorFields[0]);
 		var gridRow = SmartWorks.GridLayout.newGridRow();
