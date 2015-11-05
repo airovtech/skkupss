@@ -1,14 +1,5 @@
 package net.smartworks.skkupss.smcal;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import edu.cmu.lti.lexical_db.ILexicalDatabase;
-import edu.cmu.lti.lexical_db.NictWordNet;
-import edu.cmu.lti.ws4j.impl.Lin;
-import edu.cmu.lti.ws4j.util.WS4JConfiguration;
 
 public class SimProduct{
 	
@@ -23,6 +14,7 @@ public class SimProduct{
 	public SimProduct(String valuesS, String valuesT){
 		this.valuesS = valuesS;
 		this.valuesT = valuesT;
+		SimProduct.initialize();
 	}
 	
 	public String getValuesS() {
