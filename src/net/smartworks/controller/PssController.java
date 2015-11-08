@@ -33,11 +33,13 @@ import net.smartworks.skkupss.model.ProductSpace;
 import net.smartworks.skkupss.model.RequestParams;
 import net.smartworks.skkupss.model.ServiceSpace;
 import net.smartworks.skkupss.model.SimilarityMatrix;
+import net.smartworks.skkupss.model.SimilaritySpaceType;
 import net.smartworks.skkupss.model.SortingField;
 import net.smartworks.skkupss.model.TimeSpace;
 import net.smartworks.skkupss.model.User;
 import net.smartworks.skkupss.model.ValueSpace;
 import net.smartworks.skkupss.model.db.Db_CustomerType;
+import net.smartworks.skkupss.model.db.Db_UnspscName;
 import net.smartworks.skkupss.model.db.Db_User;
 import net.smartworks.util.CommonUtil;
 import net.smartworks.util.LocalDate;
@@ -136,6 +138,11 @@ public class PssController {
 		return SmartUtil.returnMnv(request, "search_filter.jsp", "");
 	}
 	
+	@RequestMapping("/pop_space_combination")
+	public ModelAndView popSpaceCombination(HttpServletRequest request, HttpServletResponse response) {
+		return SmartUtil.returnMnv(request, "pop_space_combination.jsp", "");
+	}
+	
 	@RequestMapping(value = "/set_product_service", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	public void setProductService(@RequestBody Map<String, Object> requestBody, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -179,10 +186,10 @@ public class PssController {
 				productService.setCustomerSpace(CustomerSpace.createCustomerSpace((Map<String, Object>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_CUSTOMER)));
 				productService.setBizModelSpace(BizModelSpace.createBizModelSpace((Map<String, Object>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_BIZ_MODEL)));
 				productService.setActorSpace(ActorSpace.createActorSpace((String)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_ACTOR), txtServitizationProcess));
-				productService.setSocietySpace(DefaultSpace.createDefaultSpace((Map<String, Object>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_SOCIETY)));
+				productService.setSocietySpace(DefaultSpace.createSocietySpace((Map<String, Object>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_SOCIETY)));
 				productService.setContextSpace(ContextSpace.createContextSpace((String)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_CONTEXT)));
 				productService.setTimeSpace(TimeSpace.createTimeSpace((Map<String, Object>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_TIME)));
-				productService.setEnvironmentSpace(DefaultSpace.createDefaultSpace((Map<String, Object>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_ENVIRONMENT)));
+				productService.setEnvironmentSpace(DefaultSpace.createEnvironmentSpace((Map<String, Object>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_ENVIRONMENT)));
 			}
 			
 			productService.setCreatedDate(new LocalDate());
@@ -291,7 +298,14 @@ public class PssController {
 		String spaceType = null;
 		try{
 			
+			SimilaritySpaceType[] simSpaceTypes = null;
+			
 			spaceType = (String)requestBody.get("spaceType");
+			if(!ProductService.PSS_SPACE_COMPLEX.equals(spaceType)){
+				simSpaceTypes = new SimilaritySpaceType[]{new SimilaritySpaceType(spaceType)};
+			}else{
+				
+			}
 			List<String> psIdList = (ArrayList<String>)requestBody.get("psIds");
 			List<String> psNameList = (ArrayList<String>)requestBody.get("psNames");
 			if(psIdList!=null && psNameList!=null){
@@ -299,7 +313,7 @@ public class PssController {
 				psIdList.toArray(psIds);
 				psNames = new String[psNameList.size()];
 				psNameList.toArray(psNames);
-				psSimilarities = ManagerFactory.getInstance().getServiceManager().caculatePsSimilarities(psIds, psNames, spaceType);
+				psSimilarities = ManagerFactory.getInstance().getServiceManager().caculatePsSimilarities(psIds, psNames, simSpaceTypes);
 
 			}
 		}catch (Exception e){
@@ -604,6 +618,36 @@ public class PssController {
 			e.printStackTrace();
 		}
 		return returnString;
+	}
+	
+	@RequestMapping(value = "/get_unspsc_names", method = RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
+	public @ResponseBody Map<String, String> getUnspscNames(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		Map<String, String> map = new HashMap<String, String>();
+		String returnString = "<option value='00'>" + SmartMessage.getString("common.title.none") + "</option>";
+		
+		try {			
+			String levelStr = request.getParameter("level");
+			String level1 = request.getParameter("level1");
+			String level2 = request.getParameter("level2");
+			String level3 = request.getParameter("level3");
+			int level = Integer.parseInt(levelStr);
+			Map<String, String> params = new HashMap<String, String>();
+			params.put("level1", level1);
+			params.put("level2", level2);
+			params.put("level3", level3);
+			Db_UnspscName[] unspscNames = DaoFactory.getInstance().getDbDao().getUnspscNames(level, params);
+			if(SmartUtil.isBlankObject(unspscNames)) return map;			
+			for(int i=0; i<unspscNames.length; i++){
+				Db_UnspscName code = unspscNames[i];
+				returnString = returnString + "<option value='" + ProductSpace.getUnspscNameCode(code.getId(), level-1) + "'>" + code.getName() + "</option>"; 
+			}
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+		map.put("data", returnString);
+		return map;
 	}
 	
 	@RequestMapping(value = "/get_customer_types", method = RequestMethod.GET)

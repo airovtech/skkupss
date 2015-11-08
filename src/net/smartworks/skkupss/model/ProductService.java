@@ -16,12 +16,12 @@ public class ProductService{
 	public static final String PSS_SPACE_CONTEXT = "contextSpace";
 	public static final String PSS_SPACE_TIME = "timeSpace";
 	public static final String PSS_SPACE_ENVIRONMENT = "environmentSpace";
-	
 	public static final String PSS_SPACE_VALUE_SERVICE = "valueServiceSpace";
 	public static final String PSS_SPACE_VALUE_BIZ_MODEL = "valueBizModelSpace";
 	public static final String PSS_SPACE_SERVICE_BIZ_MODEL = "serviceBizModelSpace";
 	public static final String PSS_SPACE_VALUE_SERVICE_BIZ_MODEL = "valueServiceBizModelSpace";
-		
+	public static final String PSS_SPACE_COMPLEX = "complexSpace";
+	
 	public static final String FIELD_ID 				= "id";	
 	public static final String FIELD_NAME 				= "name";
 	public static final String FIELD_PICTURE 			= "picture";
@@ -44,8 +44,9 @@ public class ProductService{
 	public static final int SPACE_TYPE_SOCIETY = 9;
 	public static final int SPACE_TYPE_CONTEXT = 10;
 	public static final int SPACE_TYPE_TIME = 11;
-	public static final int SPACE_TYPE_ENVIRONMENT = 12;
-	
+	public static final int SPACE_TYPE_ENVIRONMENT = 12;	
+	public static final int SPACE_TYPE_COMPLEX = 99;
+
 	public static final int SPACE_TYPE_VALUE_SERVICE = 914;
 	public static final int SPACE_TYPE_VALUE_BIZ_MODEL = 917;
 	public static final int SPACE_TYPE_SERVICE_BIZ_MODEL = 947;
@@ -216,11 +217,41 @@ public class ProductService{
 		if(spaceName.equals(PSS_SPACE_CONTEXT)) return SPACE_TYPE_CONTEXT;
 		if(spaceName.equals(PSS_SPACE_TIME)) return SPACE_TYPE_TIME;
 		if(spaceName.equals(PSS_SPACE_ENVIRONMENT)) return SPACE_TYPE_ENVIRONMENT;
-		if(spaceName.equals(PSS_SPACE_VALUE_SERVICE)) return SPACE_TYPE_VALUE_SERVICE;
-		if(spaceName.equals(PSS_SPACE_VALUE_BIZ_MODEL)) return SPACE_TYPE_VALUE_BIZ_MODEL;
-		if(spaceName.equals(PSS_SPACE_SERVICE_BIZ_MODEL)) return SPACE_TYPE_SERVICE_BIZ_MODEL;
-		if(spaceName.equals(PSS_SPACE_VALUE_SERVICE_BIZ_MODEL)) return SPACE_TYPE_VALUE_SERVICE_BIZ_MODEL;
+		if(spaceName.equals(PSS_SPACE_COMPLEX)) return SPACE_TYPE_COMPLEX;
 
 		return SPACE_TYPE_NONE;
+	}
+	
+	public static String getSpaceName(int spaceType){
+
+		switch(spaceType){
+		case SPACE_TYPE_VALUE:
+			return PSS_SPACE_VALUE;
+		case SPACE_TYPE_SERVICE:
+			return PSS_SPACE_SERVICE;
+		case SPACE_TYPE_BIZ_MODEL:
+			return PSS_SPACE_BIZ_MODEL;
+		case SPACE_TYPE_PRODUCT_SERVICE:
+			return PSS_SPACE_PRODUCT_SERVICE;
+		case SPACE_TYPE_PRODUCT:
+			return PSS_SPACE_PRODUCT;
+		case SPACE_TYPE_TOUCH_POINT:
+			return PSS_SPACE_TOUCH_POINT;
+		case SPACE_TYPE_CUSTOMER:
+			return PSS_SPACE_CUSTOMER;
+		case SPACE_TYPE_ACTOR:
+			return PSS_SPACE_ACTOR;
+		case SPACE_TYPE_SOCIETY:
+			return PSS_SPACE_SOCIETY;
+		case SPACE_TYPE_CONTEXT:
+			return PSS_SPACE_CONTEXT;
+		case SPACE_TYPE_TIME:
+			return PSS_SPACE_TIME;
+		case SPACE_TYPE_ENVIRONMENT:
+			return PSS_SPACE_ENVIRONMENT;
+		case SPACE_TYPE_COMPLEX:
+			return PSS_SPACE_COMPLEX;
+		}
+		return PSS_SPACE_VALUE;
 	}
 }

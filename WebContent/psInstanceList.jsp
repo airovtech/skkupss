@@ -68,20 +68,28 @@
 					<select name="selSpaceName" class="js_select_space_name">
 						<option value="<%=ProductService.PSS_SPACE_VALUE%>" <%if (params.getSpaceType()
 						.equals(ProductService.PSS_SPACE_VALUE)) {%>selected<%}%>><fmt:message key="pss.title.space.value"/></option>
+						<option value="<%=ProductService.PSS_SPACE_PRODUCT_SERVICE%>" <%if (params.getSpaceType()
+						.equals(ProductService.PSS_SPACE_PRODUCT_SERVICE)) {%>selected<%}%>><fmt:message key="pss.title.space.product_service"/></option>
 						<option value="<%=ProductService.PSS_SPACE_PRODUCT%>" <%if (params.getSpaceType()
 						.equals(ProductService.PSS_SPACE_PRODUCT)) {%>selected<%}%>><fmt:message key="pss.title.space.product"/></option>
 						<option value="<%=ProductService.PSS_SPACE_SERVICE%>" <%if (params.getSpaceType().equals(
 						ProductService.PSS_SPACE_SERVICE)) {%>selected<%}%>><fmt:message key="pss.title.space.service"/></option>
+						<option value="<%=ProductService.PSS_SPACE_TOUCH_POINT%>" <%if (params.getSpaceType().equals(
+						ProductService.PSS_SPACE_TOUCH_POINT)) {%>selected<%}%>><fmt:message key="pss.title.space.touch_point"/></option>
 						<option value="<%=ProductService.PSS_SPACE_CUSTOMER%>" <%if (params.getSpaceType().equals(
 						ProductService.PSS_SPACE_CUSTOMER)) {%>selected<%}%>><fmt:message key="pss.title.space.customer"/></option>
 						<option value="<%=ProductService.PSS_SPACE_BIZ_MODEL%>" <%if (params.getSpaceType().equals(
 						ProductService.PSS_SPACE_BIZ_MODEL)) {%>selected<%}%>><fmt:message key="pss.title.space.biz_model"/></option>
 						<option value="<%=ProductService.PSS_SPACE_ACTOR%>" <%if (params.getSpaceType().equals(
 						ProductService.PSS_SPACE_ACTOR)) {%>selected<%}%>><fmt:message key="pss.title.space.actor"/></option>
+						<option value="<%=ProductService.PSS_SPACE_SOCIETY%>" <%if (params.getSpaceType().equals(
+						ProductService.PSS_SPACE_SOCIETY)) {%>selected<%}%>><fmt:message key="pss.title.space.society"/></option>
 						<option value="<%=ProductService.PSS_SPACE_CONTEXT%>" <%if (params.getSpaceType().equals(
 						ProductService.PSS_SPACE_CONTEXT)) {%>selected<%}%>><fmt:message key="pss.title.space.context"/></option>
 						<option value="<%=ProductService.PSS_SPACE_TIME%>" <%if (params.getSpaceType().equals(
 						ProductService.PSS_SPACE_TIME)) {%>selected<%}%>><fmt:message key="pss.title.space.time"/></option>
+						<option value="<%=ProductService.PSS_SPACE_ENVIRONMENT%>" <%if (params.getSpaceType().equals(
+						ProductService.PSS_SPACE_ENVIRONMENT)) {%>selected<%}%>><fmt:message key="pss.title.space.environment"/></option>
 					</select>
 					<span class="js_progress_span"></span>
 				</form>
@@ -127,20 +135,28 @@
 						<select name="selSpaceName" class="fr select_item_space_name js_select_item_space_name" style="visibility:hidden;margin-bottom:5px">
 							<option value="<%=ProductService.PSS_SPACE_VALUE%>" <%if (params.getSpaceType()
 							.equals(ProductService.PSS_SPACE_VALUE)) {%>selected<%}%>><fmt:message key="pss.title.space.value"/></option>
+							<option value="<%=ProductService.PSS_SPACE_PRODUCT_SERVICE%>" <%if (params.getSpaceType()
+							.equals(ProductService.PSS_SPACE_PRODUCT_SERVICE)) {%>selected<%}%>><fmt:message key="pss.title.space.product_service"/></option>
 							<option value="<%=ProductService.PSS_SPACE_PRODUCT%>" <%if (params.getSpaceType()
 							.equals(ProductService.PSS_SPACE_PRODUCT)) {%>selected<%}%>><fmt:message key="pss.title.space.product"/></option>
 							<option value="<%=ProductService.PSS_SPACE_SERVICE%>" <%if (params.getSpaceType().equals(
 							ProductService.PSS_SPACE_SERVICE)) {%>selected<%}%>><fmt:message key="pss.title.space.service"/></option>
+							<option value="<%=ProductService.PSS_SPACE_TOUCH_POINT%>" <%if (params.getSpaceType().equals(
+							ProductService.PSS_SPACE_TOUCH_POINT)) {%>selected<%}%>><fmt:message key="pss.title.space.touch_point"/></option>
 							<option value="<%=ProductService.PSS_SPACE_CUSTOMER%>" <%if (params.getSpaceType().equals(
 							ProductService.PSS_SPACE_CUSTOMER)) {%>selected<%}%>><fmt:message key="pss.title.space.customer"/></option>
 							<option value="<%=ProductService.PSS_SPACE_BIZ_MODEL%>" <%if (params.getSpaceType().equals(
 							ProductService.PSS_SPACE_BIZ_MODEL)) {%>selected<%}%>><fmt:message key="pss.title.space.biz_model"/></option>
 							<option value="<%=ProductService.PSS_SPACE_ACTOR%>" <%if (params.getSpaceType().equals(
 							ProductService.PSS_SPACE_ACTOR)) {%>selected<%}%>><fmt:message key="pss.title.space.actor"/></option>
+							<option value="<%=ProductService.PSS_SPACE_SOCIETY%>" <%if (params.getSpaceType().equals(
+							ProductService.PSS_SPACE_SOCIETY)) {%>selected<%}%>><fmt:message key="pss.title.space.society"/></option>
 							<option value="<%=ProductService.PSS_SPACE_CONTEXT%>" <%if (params.getSpaceType().equals(
 							ProductService.PSS_SPACE_CONTEXT)) {%>selected<%}%>><fmt:message key="pss.title.space.context"/></option>
 							<option value="<%=ProductService.PSS_SPACE_TIME%>" <%if (params.getSpaceType().equals(
 							ProductService.PSS_SPACE_TIME)) {%>selected<%}%>><fmt:message key="pss.title.space.time"/></option>
+							<option value="<%=ProductService.PSS_SPACE_ENVIRONMENT%>" <%if (params.getSpaceType().equals(
+							ProductService.PSS_SPACE_ENVIRONMENT)) {%>selected<%}%>><fmt:message key="pss.title.space.environment"/></option>
 						</select>
 						<div class="js_view_space_target">
 						<%
@@ -150,6 +166,15 @@
 													productService.getValueSpace());
 						%>
 							<jsp:include page="viewValueSpace.jsp"/>
+						<%
+							break;
+										case ProductService.SPACE_TYPE_PRODUCT_SERVICE:
+											request.setAttribute("productServiceSpace",
+													productService.getProductServiceSpace());
+						%>
+							<jsp:include page="viewProductServiceSpace.jsp">
+								<jsp:param value="<%=productService.getId()%>" name="psId"/>
+							</jsp:include>
 						<%
 							break;
 										case ProductService.SPACE_TYPE_PRODUCT:
@@ -166,6 +191,13 @@
 													productService.getServiceSpace());
 						%>
 							<jsp:include page="viewServiceSpace.jsp"/>
+						<%
+							break;
+										case ProductService.SPACE_TYPE_TOUCH_POINT:
+											request.setAttribute("touchPointSpace",
+													productService.getTouchPointSpace());
+						%>
+							<jsp:include page="viewTouchPointSpace.jsp"/>
 						<%
 							break;
 										case ProductService.SPACE_TYPE_CUSTOMER:
@@ -191,6 +223,15 @@
 							</jsp:include>
 						<%
 							break;
+										case ProductService.SPACE_TYPE_SOCIETY:
+											request.setAttribute("societySpace",
+													productService.getSocietySpace());
+						%>
+							<jsp:include page="viewSocietySpace.jsp">
+								<jsp:param value="<%=productService.getId()%>" name="psId"/>
+							</jsp:include>
+						<%
+							break;
 										case ProductService.SPACE_TYPE_CONTEXT:
 											request.setAttribute("contextSpace",
 													productService.getContextSpace());
@@ -199,12 +240,21 @@
 								<jsp:param value="<%=productService.getId()%>" name="psId"/>
 							</jsp:include>
 						<%
-						break;
+							break;
 										case ProductService.SPACE_TYPE_TIME:
 											request.setAttribute("timeSpace",
 													productService.getTimeSpace());
 						%>
 							<jsp:include page="viewTimeSpace.jsp">
+								<jsp:param value="<%=productService.getId()%>" name="psId"/>
+							</jsp:include>
+						<%
+							break;
+										case ProductService.SPACE_TYPE_ENVIRONMENT:
+											request.setAttribute("environmentSpace",
+													productService.getEnvironmentSpace());
+						%>
+							<jsp:include page="viewEnvironmentSpace.jsp">
 								<jsp:param value="<%=productService.getId()%>" name="psId"/>
 							</jsp:include>
 						<%
@@ -258,20 +308,28 @@
 					<select name="selSpaceName" class="js_select_space_name">
 						<option value="<%=ProductService.PSS_SPACE_VALUE%>" <%if (params.getSpaceType()
 						.equals(ProductService.PSS_SPACE_VALUE)) {%>selected<%}%>><fmt:message key="pss.title.space.value"/></option>
+						<option value="<%=ProductService.PSS_SPACE_PRODUCT_SERVICE%>" <%if (params.getSpaceType()
+						.equals(ProductService.PSS_SPACE_PRODUCT_SERVICE)) {%>selected<%}%>><fmt:message key="pss.title.space.product_service"/></option>
 						<option value="<%=ProductService.PSS_SPACE_PRODUCT%>" <%if (params.getSpaceType()
 						.equals(ProductService.PSS_SPACE_PRODUCT)) {%>selected<%}%>><fmt:message key="pss.title.space.product"/></option>
 						<option value="<%=ProductService.PSS_SPACE_SERVICE%>" <%if (params.getSpaceType().equals(
 						ProductService.PSS_SPACE_SERVICE)) {%>selected<%}%>><fmt:message key="pss.title.space.service"/></option>
+						<option value="<%=ProductService.PSS_SPACE_TOUCH_POINT%>" <%if (params.getSpaceType().equals(
+						ProductService.PSS_SPACE_TOUCH_POINT)) {%>selected<%}%>><fmt:message key="pss.title.space.touch_point"/></option>
 						<option value="<%=ProductService.PSS_SPACE_CUSTOMER%>" <%if (params.getSpaceType().equals(
 						ProductService.PSS_SPACE_CUSTOMER)) {%>selected<%}%>><fmt:message key="pss.title.space.customer"/></option>
 						<option value="<%=ProductService.PSS_SPACE_BIZ_MODEL%>" <%if (params.getSpaceType().equals(
 						ProductService.PSS_SPACE_BIZ_MODEL)) {%>selected<%}%>><fmt:message key="pss.title.space.biz_model"/></option>
 						<option value="<%=ProductService.PSS_SPACE_ACTOR%>" <%if (params.getSpaceType().equals(
 						ProductService.PSS_SPACE_ACTOR)) {%>selected<%}%>><fmt:message key="pss.title.space.actor"/></option>
+						<option value="<%=ProductService.PSS_SPACE_SOCIETY%>" <%if (params.getSpaceType().equals(
+						ProductService.PSS_SPACE_SOCIETY)) {%>selected<%}%>><fmt:message key="pss.title.space.society"/></option>
 						<option value="<%=ProductService.PSS_SPACE_CONTEXT%>" <%if (params.getSpaceType().equals(
 						ProductService.PSS_SPACE_CONTEXT)) {%>selected<%}%>><fmt:message key="pss.title.space.context"/></option>
 						<option value="<%=ProductService.PSS_SPACE_TIME%>" <%if (params.getSpaceType().equals(
 						ProductService.PSS_SPACE_TIME)) {%>selected<%}%>><fmt:message key="pss.title.space.time"/></option>
+						<option value="<%=ProductService.PSS_SPACE_ENVIRONMENT%>" <%if (params.getSpaceType().equals(
+						ProductService.PSS_SPACE_ENVIRONMENT)) {%>selected<%}%>><fmt:message key="pss.title.space.environment"/></option>
 					</select>
 					<span class="js_progress_span"></span>
 				</form>

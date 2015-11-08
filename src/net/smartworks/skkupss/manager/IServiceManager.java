@@ -16,6 +16,7 @@ import net.smartworks.skkupss.model.InstanceList;
 import net.smartworks.skkupss.model.ProductService;
 import net.smartworks.skkupss.model.RequestParams;
 import net.smartworks.skkupss.model.SimilarityMatrix;
+import net.smartworks.skkupss.model.SimilaritySpaceType;
 import net.smartworks.skkupss.model.User;
 
 public interface IServiceManager {
@@ -30,7 +31,7 @@ public interface IServiceManager {
 	
 	public RequestParams setInstanceListParams(Map<String, Object> requestBody, HttpServletRequest request) throws Exception;
 
-	public SimilarityMatrix[][] caculatePsSimilarities(String[] psIds, String[] psNames, String spaceType) throws Exception;
+	public SimilarityMatrix[][] caculatePsSimilarities(String[] psIds, String[] psNames, SimilaritySpaceType[] simSpaceTypes) throws Exception;
 	
 	public String getProductServicePicture(String userId, String psId) throws Exception;
 	

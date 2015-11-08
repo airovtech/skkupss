@@ -1,6 +1,6 @@
 //
 // Source Name : edgeLineController.js
-// Description : Actor DiagramÀÇ EdgeLineÀÇ Model°ú View¸¦ °ü¸®ÇÏ´Â ±â´É.
+// Description : Actor Diagramï¿½ï¿½ EdgeLineï¿½ï¿½ Modelï¿½ï¿½ Viewï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½.
 //
 try{
 ActorDiagram.Controller = ActorDiagram.Controller || {};
@@ -51,6 +51,7 @@ ActorDiagram.Controller.EdgeLine = function(canvasId, mode, context, data){
 		toNodeId: data.toNodeId,
 		direction: data.direction,
 		lineBreak: data.lineBreak,
+		lineColor: data.lineColor,
 		label: data.label
 	});
 	

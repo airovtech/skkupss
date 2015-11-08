@@ -27,14 +27,21 @@ import net.smartworks.skkupss.model.ProductSpace;
 import net.smartworks.skkupss.model.RequestParams;
 import net.smartworks.skkupss.model.ServiceSpace;
 import net.smartworks.skkupss.model.SimilarityMatrix;
+import net.smartworks.skkupss.model.SimilaritySpaceType;
 import net.smartworks.skkupss.model.SortingField;
 import net.smartworks.skkupss.model.User;
 import net.smartworks.skkupss.model.UserCond;
 import net.smartworks.skkupss.model.ValueSpace;
+import net.smartworks.skkupss.smcal.SimActor;
 import net.smartworks.skkupss.smcal.SimBizModel;
 import net.smartworks.skkupss.smcal.SimContext;
+import net.smartworks.skkupss.smcal.SimCustomer;
+import net.smartworks.skkupss.smcal.SimEnvironment;
 import net.smartworks.skkupss.smcal.SimProduct;
+import net.smartworks.skkupss.smcal.SimProductService;
 import net.smartworks.skkupss.smcal.SimService;
+import net.smartworks.skkupss.smcal.SimSociety;
+import net.smartworks.skkupss.smcal.SimTouchPoint;
 import net.smartworks.skkupss.smcal.SimValue;
 import net.smartworks.util.SmartUtil;
 
@@ -214,11 +221,13 @@ public class ServiceManagerImpl implements IServiceManager {
 	}
 
 	@Override
-	public SimilarityMatrix[][] caculatePsSimilarities(String[] psIds, String[] psNames, String spaceType) throws Exception {
+	public SimilarityMatrix[][] caculatePsSimilarities(String[] psIds, String[] psNames, SimilaritySpaceType[] simSpaceTypes) throws Exception {
 		SimilarityMatrix[][] psSimilarities = null;
 		
+		if(SmartUtil.isBlankObject(simSpaceTypes)) return null;
+		String spaceType = simSpaceTypes.length==1?simSpaceTypes[0].getSpaceType():ProductService.PSS_SPACE_COMPLEX; 
 		try{
-			ProductService[] productServices = ManagerFactory.getInstance().getDbManager().getProductServiceWithSelectedSpace(SmartUtil.getCurrentUser().getId(), spaceType, psIds);
+			ProductService[] productServices = ManagerFactory.getInstance().getDbManager().getProductServiceWithSelectedSpace(SmartUtil.getCurrentUser().getId(), SimilaritySpaceType.getSpaceTypeNames(simSpaceTypes), psIds);
 			if(SmartUtil.isBlankObject(productServices)) return null;
 			
 			psSimilarities = new SimilarityMatrix[productServices.length][productServices.length];
@@ -251,6 +260,10 @@ public class ServiceManagerImpl implements IServiceManager {
 						if(!SmartUtil.isBlankObject(sourceValue) && !SmartUtil.isBlankObject(targetValue))
 							sm.setSimilarity((new SimValue(sourceValue.getNumOfValues(), sourceValue.getValues(), targetValue.getNumOfValues(), targetValue.getValues())).calculateSimularity());
 						break;
+					case ProductService.SPACE_TYPE_PRODUCT_SERVICE:
+						if(!SmartUtil.isBlankObject(sourceProduct) && !SmartUtil.isBlankObject(targetProduct))
+							sm.setSimilarity((new SimProductService(sourceValue.getNumOfValues(), sourceValue.getValues(), targetValue.getNumOfValues(), targetValue.getValues())).calculateSimularity());
+						break;
 					case ProductService.SPACE_TYPE_PRODUCT:
 						if(!SmartUtil.isBlankObject(sourceProduct) && !SmartUtil.isBlankObject(targetProduct))
 							sm.setSimilarity((new SimProduct(sourceProduct.getUnspsc(), targetProduct.getUnspsc())).calculateSimularity());
@@ -259,9 +272,26 @@ public class ServiceManagerImpl implements IServiceManager {
 						if(!SmartUtil.isBlankObject(sourceService) && !SmartUtil.isBlankObject(targetService))
 							sm.setSimilarity((new SimService(sourceService.getNumOfActs(), sourceService.getValues(), targetService.getNumOfActs(), targetService.getValues())).calculateSimularity());
 						break;
+					case ProductService.SPACE_TYPE_TOUCH_POINT:
+						if(!SmartUtil.isBlankObject(sourceValue) && !SmartUtil.isBlankObject(targetValue))
+							sm.setSimilarity((new SimTouchPoint(sourceValue.getNumOfValues(), sourceValue.getValues(), targetValue.getNumOfValues(), targetValue.getValues())).calculateSimularity());
+						break;
+					case ProductService.SPACE_TYPE_CUSTOMER:
+						if(!SmartUtil.isBlankObject(sourceValue) && !SmartUtil.isBlankObject(targetValue))
+							sm.setSimilarity((new SimValue(sourceValue.getNumOfValues(), sourceValue.getValues(), targetValue.getNumOfValues(), targetValue.getValues())).calculateSimularity());
+//							sm.setSimilarity((new SimCustomer(sourceValue.getValues(), targetValue.getValues())).calculateSimularity());
+						break;
 					case ProductService.SPACE_TYPE_BIZ_MODEL:
 						if(!SmartUtil.isBlankObject(sourceBizModel) && !SmartUtil.isBlankObject(targetBizModel))
 							sm.setSimilarity((new SimBizModel(sourceBizModel.getNumOfStrategies(), sourceBizModel.getStrategies(), targetBizModel.getNumOfStrategies(), targetBizModel.getStrategies())).calculateSimularity());
+						break;
+					case ProductService.SPACE_TYPE_ACTOR:
+						if(!SmartUtil.isBlankObject(sourceValue) && !SmartUtil.isBlankObject(targetValue))
+							sm.setSimilarity((new SimActor(sourceValue.getNumOfValues(), sourceValue.getValues(), targetValue.getNumOfValues(), targetValue.getValues())).calculateSimularity());
+						break;
+					case ProductService.SPACE_TYPE_SOCIETY:
+						if(!SmartUtil.isBlankObject(sourceValue) && !SmartUtil.isBlankObject(targetValue))
+							sm.setSimilarity((new SimSociety(sourceValue.getNumOfValues(), sourceValue.getValues(), targetValue.getNumOfValues(), targetValue.getValues())).calculateSimularity());
 						break;
 					case ProductService.SPACE_TYPE_CONTEXT:
 						if(!SmartUtil.isBlankObject(sourceContext) && !SmartUtil.isBlankObject(targetContext)){
@@ -272,35 +302,78 @@ public class ServiceManagerImpl implements IServiceManager {
 							sm.setSimilarity(result);
 						}
 						break;
-					case ProductService.SPACE_TYPE_VALUE_SERVICE:
-						if(!SmartUtil.isBlankObject(sourceValue) && !SmartUtil.isBlankObject(targetValue)
-							&& !SmartUtil.isBlankObject(sourceService) && !SmartUtil.isBlankObject(targetService))
-							sm.setSimilarity(
-									((new SimValue(sourceValue.getNumOfValues(), sourceValue.getValues(), targetValue.getNumOfValues(), targetValue.getValues())).calculateSimularity()
-									+(new SimService(sourceService.getNumOfActs(), sourceService.getValues(), targetService.getNumOfActs(), targetService.getValues())).calculateSimularity())/2);
+					case ProductService.SPACE_TYPE_TIME:
+						if(!SmartUtil.isBlankObject(sourceValue) && !SmartUtil.isBlankObject(targetValue))
+							sm.setSimilarity((new SimValue(sourceValue.getNumOfValues(), sourceValue.getValues(), targetValue.getNumOfValues(), targetValue.getValues())).calculateSimularity());
+//							sm.setSimilarity((new SimTime(sourceValue.getNumOfValues(), sourceValue.getValues(), targetValue.getNumOfValues(), targetValue.getValues())).calculateSimularity());
 						break;
-					case ProductService.SPACE_TYPE_VALUE_BIZ_MODEL:
-						if(!SmartUtil.isBlankObject(sourceValue) && !SmartUtil.isBlankObject(targetValue)
-							&& !SmartUtil.isBlankObject(sourceBizModel) && !SmartUtil.isBlankObject(targetBizModel))
-							sm.setSimilarity(
-									((new SimValue(sourceValue.getNumOfValues(), sourceValue.getValues(), targetValue.getNumOfValues(), targetValue.getValues())).calculateSimularity()
-									+(new SimBizModel(sourceBizModel.getNumOfStrategies(), sourceBizModel.getStrategies(), targetBizModel.getNumOfStrategies(), targetBizModel.getStrategies())).calculateSimularity())/2);
+					case ProductService.SPACE_TYPE_ENVIRONMENT:
+						if(!SmartUtil.isBlankObject(sourceValue) && !SmartUtil.isBlankObject(targetValue))
+							sm.setSimilarity((new SimEnvironment(sourceValue.getNumOfValues(), sourceValue.getValues(), targetValue.getNumOfValues(), targetValue.getValues())).calculateSimularity());
 						break;
-					case ProductService.SPACE_TYPE_SERVICE_BIZ_MODEL:
-						if(!SmartUtil.isBlankObject(sourceService) && !SmartUtil.isBlankObject(targetService)
-							&& !SmartUtil.isBlankObject(sourceBizModel) && !SmartUtil.isBlankObject(targetBizModel))
-							sm.setSimilarity(
-									((new SimService(sourceService.getNumOfActs(), sourceService.getValues(), targetService.getNumOfActs(), targetService.getValues())).calculateSimularity()
-									+(new SimBizModel(sourceBizModel.getNumOfStrategies(), sourceBizModel.getStrategies(), targetBizModel.getNumOfStrategies(), targetBizModel.getStrategies())).calculateSimularity())/2);
-						break;
-					case ProductService.SPACE_TYPE_VALUE_SERVICE_BIZ_MODEL:
-						if(!SmartUtil.isBlankObject(sourceValue) && !SmartUtil.isBlankObject(targetValue)
-							&& !SmartUtil.isBlankObject(sourceService) && !SmartUtil.isBlankObject(targetService)
-							&& !SmartUtil.isBlankObject(sourceBizModel) && !SmartUtil.isBlankObject(targetBizModel))
-							sm.setSimilarity(
-									((new SimValue(sourceValue.getNumOfValues(), sourceValue.getValues(), targetValue.getNumOfValues(), targetValue.getValues())).calculateSimularity()
-									+(new SimService(sourceService.getNumOfActs(), sourceValue.getValues(), targetService.getNumOfActs(), targetService.getValues())).calculateSimularity()
-									+(new SimBizModel(sourceBizModel.getNumOfStrategies(), sourceBizModel.getStrategies(), targetBizModel.getNumOfStrategies(), targetBizModel.getStrategies())).calculateSimularity())/3);
+					case ProductService.SPACE_TYPE_COMPLEX:
+						Double sumSimValues = 0.0;
+						for(int sim=0; sim<simSpaceTypes.length; sim++){
+							SimilaritySpaceType simSpaceType = simSpaceTypes[sim];
+							switch(ProductService.getSpaceType(simSpaceType.getSpaceType())){
+							case ProductService.SPACE_TYPE_VALUE:
+								if(!SmartUtil.isBlankObject(sourceValue) && !SmartUtil.isBlankObject(targetValue))
+									sumSimValues = sumSimValues + simSpaceType.getSimilarityWeight()*(new SimValue(sourceValue.getNumOfValues(), sourceValue.getValues(), targetValue.getNumOfValues(), targetValue.getValues())).calculateSimularity();
+								break;
+							case ProductService.SPACE_TYPE_PRODUCT_SERVICE:
+								if(!SmartUtil.isBlankObject(sourceProduct) && !SmartUtil.isBlankObject(targetProduct))
+									sumSimValues = sumSimValues + simSpaceType.getSimilarityWeight()*(new SimProductService(sourceValue.getNumOfValues(), sourceValue.getValues(), targetValue.getNumOfValues(), targetValue.getValues())).calculateSimularity();
+								break;
+							case ProductService.SPACE_TYPE_PRODUCT:
+								if(!SmartUtil.isBlankObject(sourceProduct) && !SmartUtil.isBlankObject(targetProduct))
+									sumSimValues = sumSimValues + simSpaceType.getSimilarityWeight()*(new SimProduct(sourceProduct.getUnspsc(), targetProduct.getUnspsc())).calculateSimularity();
+								break;
+							case ProductService.SPACE_TYPE_SERVICE:
+								if(!SmartUtil.isBlankObject(sourceService) && !SmartUtil.isBlankObject(targetService))
+									sumSimValues = sumSimValues + simSpaceType.getSimilarityWeight()*(new SimService(sourceService.getNumOfActs(), sourceService.getValues(), targetService.getNumOfActs(), targetService.getValues())).calculateSimularity();
+								break;
+							case ProductService.SPACE_TYPE_TOUCH_POINT:
+								if(!SmartUtil.isBlankObject(sourceValue) && !SmartUtil.isBlankObject(targetValue))
+									sumSimValues = sumSimValues + simSpaceType.getSimilarityWeight()*(new SimTouchPoint(sourceValue.getNumOfValues(), sourceValue.getValues(), targetValue.getNumOfValues(), targetValue.getValues())).calculateSimularity();
+								break;
+							case ProductService.SPACE_TYPE_CUSTOMER:
+								if(!SmartUtil.isBlankObject(sourceValue) && !SmartUtil.isBlankObject(targetValue))
+									sumSimValues = sumSimValues + simSpaceType.getSimilarityWeight()*(new SimValue(sourceValue.getNumOfValues(), sourceValue.getValues(), targetValue.getNumOfValues(), targetValue.getValues())).calculateSimularity();
+//									sm.setSimilarity((new SimCustomer(sourceValue.getValues(), targetValue.getValues())).calculateSimularity());
+								break;
+							case ProductService.SPACE_TYPE_BIZ_MODEL:
+								if(!SmartUtil.isBlankObject(sourceBizModel) && !SmartUtil.isBlankObject(targetBizModel))
+									sumSimValues = sumSimValues + simSpaceType.getSimilarityWeight()*(new SimBizModel(sourceBizModel.getNumOfStrategies(), sourceBizModel.getStrategies(), targetBizModel.getNumOfStrategies(), targetBizModel.getStrategies())).calculateSimularity();
+								break;
+							case ProductService.SPACE_TYPE_ACTOR:
+								if(!SmartUtil.isBlankObject(sourceValue) && !SmartUtil.isBlankObject(targetValue))
+									sumSimValues = sumSimValues + simSpaceType.getSimilarityWeight()*(new SimActor(sourceValue.getNumOfValues(), sourceValue.getValues(), targetValue.getNumOfValues(), targetValue.getValues())).calculateSimularity();
+								break;
+							case ProductService.SPACE_TYPE_SOCIETY:
+								if(!SmartUtil.isBlankObject(sourceValue) && !SmartUtil.isBlankObject(targetValue))
+									sumSimValues = sumSimValues + simSpaceType.getSimilarityWeight()*(new SimSociety(sourceValue.getNumOfValues(), sourceValue.getValues(), targetValue.getNumOfValues(), targetValue.getValues())).calculateSimularity();
+								break;
+							case ProductService.SPACE_TYPE_CONTEXT:
+								if(!SmartUtil.isBlankObject(sourceContext) && !SmartUtil.isBlankObject(targetContext)){
+				        	        float resultAB = (new SimContext()).measureSimilarityAB(sourceContext.getSimGraph(), targetContext.getSimGraph());
+				        	        float resultBC = (new SimContext()).measureSimilarityBC(sourceContext.getSimGraph(), targetContext.getSimGraph());
+				        	        float resultAC = (new SimContext()).measureSimilarityAC(sourceContext.getSimGraph(), targetContext.getSimGraph());		        	        
+				        	        float result = (resultAB+resultBC+resultAC)/3;
+				        	        sumSimValues = sumSimValues + simSpaceType.getSimilarityWeight()*result;
+								}
+								break;
+							case ProductService.SPACE_TYPE_TIME:
+								if(!SmartUtil.isBlankObject(sourceValue) && !SmartUtil.isBlankObject(targetValue))
+									sumSimValues = sumSimValues + simSpaceType.getSimilarityWeight()*(new SimValue(sourceValue.getNumOfValues(), sourceValue.getValues(), targetValue.getNumOfValues(), targetValue.getValues())).calculateSimularity();
+//									sm.setSimilarity((new SimTime(sourceValue.getNumOfValues(), sourceValue.getValues(), targetValue.getNumOfValues(), targetValue.getValues())).calculateSimularity());
+								break;
+							case ProductService.SPACE_TYPE_ENVIRONMENT:
+								if(!SmartUtil.isBlankObject(sourceValue) && !SmartUtil.isBlankObject(targetValue))
+									sumSimValues = sumSimValues + simSpaceType.getSimilarityWeight()*(new SimEnvironment(sourceValue.getNumOfValues(), sourceValue.getValues(), targetValue.getNumOfValues(), targetValue.getValues())).calculateSimularity();
+								break;
+							}
+						}
+						sm.setSimilarity(sumSimValues);
 						break;
 					}
 					psSimilarities[i][j] = sm;

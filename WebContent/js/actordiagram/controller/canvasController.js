@@ -1,6 +1,6 @@
 //
 // Source Name : canvasController.js
-// Description : Actor DiagramÀÇ CanvasÀÇ Model°ú View¸¦ °ü¸®ÇÏ´Â ±â´É.
+// Description : Actor Diagramï¿½ï¿½ Canvasï¿½ï¿½ Modelï¿½ï¿½ Viewï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½.
 //
 try{
 ActorDiagram.Controller = ActorDiagram.Controller || {};
@@ -78,7 +78,7 @@ ActorDiagram.Controller.Canvas = function(mode, target, data){
 		this.target.parents('.js_actor_space').find('.js_object_properties tr.js_node_property, tr.js_line_property').hide();
 		if(this.selectedObjects.length==1){
 			var model = this.selectedObjects[0].model;
-			var objectProperties = this.target.parents('.js_actor_space').find('.js_object_properties').attr('canvasId', this.id).attr('objectId', model.id);
+			var objectProperties = this.target.parents('.js_actor_space:first').find('.js_object_properties').attr('canvasId', this.id).attr('objectId', model.id);
 			switch(ActorDiagram.getModelType(model)){
 			case AD$TYPE_NODE:
 				objectProperties.find('tr.js_node_property').show();
@@ -88,20 +88,20 @@ ActorDiagram.Controller.Canvas = function(mode, target, data){
 			case AD$TYPE_EDGELINE:
 				var self = model.fromNodeId == model.toNodeId;
 				objectProperties.find('tr.js_line_property').show();
-				if(self)
-					objectProperties.find('input.js_input_line_label').parents('tr:first').hide();
-				else
-					objectProperties.find('input.js_input_line_label').attr('value', model.label);
-				if(self)
-					objectProperties.find('select.js_select_line_arrow').attr('disabled', 'disabled').find('option[value="' + AD$ARROW_DIR_SINGLE + '"]').attr('selected', 'selected');
-				else
-					objectProperties.find('select.js_select_line_arrow').removeAttr('disabled').find('option[value="' + model.direction + '"]').attr('selected', 'selected');
 				var lineBreak = model.lineBreak;
 				if(!lineBreak) lineBreak = {align:AD$ARROW_ALIGN_CENTER, breaks:0};
-				if(self)
+				if(self){
+					objectProperties.find('input.js_input_line_label').parents('tr:first').hide();
+					objectProperties.find('select.js_select_line_arrow').attr('disabled', 'disabled').find('option[value="' + AD$ARROW_DIR_SINGLE + '"]').attr('selected', 'selected');
 					objectProperties.find('select.js_select_line_type').parents('tr:first').hide();
-				else
+					objectProperties.find('select.js_select_break_level').parents('tr:first').hide();
+				}else{
+					objectProperties.find('input.js_input_line_label').attr('value', model.label);
+					objectProperties.find('select.js_select_line_arrow').removeAttr('disabled').find('option[value="' + model.direction + '"]').attr('selected', 'selected');
 					objectProperties.find('select.js_select_line_type option[value="' + lineBreak + (lineBreak.align==AD$ARROW_ALIGN_CENTER?'':lineBreak.breaks) + '"]').attr('selected', 'selected');
+					if(lineBreak.align==AD$ARROW_ALIGN_CENTER)
+						objectProperties.find('select.js_select_break_level').parents('tr:first').hide();
+				}
 				break;
 			}
 		}

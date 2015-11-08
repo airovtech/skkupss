@@ -104,6 +104,20 @@ public class ProductSpace{
 			break;
 		}
 	}
+	public static String getUnspscNameCode(String unspscName, int level){
+		if(unspscName==null || unspscName.length()!=8) return null;
+		switch(level){
+		case UNSPSC_CODE_LEVEL1:
+			return unspscName.substring(0, 2);
+		case UNSPSC_CODE_LEVEL2:
+			return unspscName.substring(2, 4);
+		case UNSPSC_CODE_LEVEL3:
+			return unspscName.substring(4, 6);
+		case UNSPSC_CODE_LEVEL4:
+			return unspscName.substring(6, 8);
+		}
+		return null;
+	}
 	public static ProductSpace createProductSpace(Map<String, String> spaceTab){
 		if(SmartUtil.isBlankObject(spaceTab)) return null;
 		

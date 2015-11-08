@@ -1,6 +1,6 @@
 //
 // Source Name : edge.js
-// Description : Node¿Í Node°£ÀÇ ¿¬°á°ü°è¿¡ ´ëÇÑ ¼Ó¼ºÀ» °¡Áö°í ÀÖ´Â ¸ðµ¨ÀÌ¸ç, ºäÇü½ÄÀº ÀÏ¹æÇâ/¾ç¹æÇâ È­»ìÇ¥¸¦ Ç¥½ÃÇÏ¸ç ¶óº§À» ºÎ¿©ÇÒ ¼ö ÀÖÀ½.
+// Description : Nodeï¿½ï¿½ Nodeï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½Ó¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¹ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ È­ï¿½ï¿½Ç¥ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Î¿ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 //
 try{
 ActorDiagram.Model = ActorDiagram.Model || {};
@@ -13,6 +13,7 @@ ActorDiagram.Model.EdgeLine = function(config){
 			toPosition:'',
 			direction: AD$ARROW_DIR_SINGLE,
 			lineBreak: null,
+			lineColor: 'rgb(114, 114, 114)',
 			label: '',
 			isLining: false,
 			selected: false

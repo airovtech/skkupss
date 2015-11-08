@@ -17,6 +17,7 @@ import net.smartworks.skkupss.model.db.Db_ProductService;
 import net.smartworks.skkupss.model.db.Db_ProductServiceCond;
 import net.smartworks.skkupss.model.db.Db_ServiceSpace;
 import net.smartworks.skkupss.model.db.Db_ServiceSpaceCond;
+import net.smartworks.skkupss.model.db.Db_UnspscName;
 import net.smartworks.skkupss.model.db.Db_User;
 import net.smartworks.skkupss.model.db.Db_UserCond;
 import net.smartworks.skkupss.model.db.Db_ValueSpace;
@@ -59,6 +60,7 @@ public interface IDbDao {
 	public Db_User[] getUsers(String userId, Db_UserCond cond) throws Exception;
 	
 	public String[] getUnspscCodes(int level, Map<String, String> params) throws Exception;
+	public Db_UnspscName[] getUnspscNames(int level, Map<String, String> params) throws Exception;
 	
 	public Db_CustomerType[] getCustomerTypes(int level, Map<String, String> params) throws Exception;
 	

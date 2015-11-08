@@ -903,6 +903,50 @@
 		order by level4 
 	</select>
 
+	<resultMap id="unspscNameResult" type="net.smartworks.skkupss.model.db.Db_UnspscName">
+		<id property="id" column="id" />	
+		<result property="name" column="name"/>
+	</resultMap>
+	
+	
+	<select id="getUnspscNamesLevel1" parameterType="java.lang.String" resultType="net.smartworks.skkupss.model.db.Db_UnspscName">
+		select id, name
+		from
+		"unspscNames"
+			where level2 = '00'
+			and locale = #{locale}
+		order by id 
+	</select>
+	<select id="getUnspscNamesLevel2" parameterType="map" resultType="net.smartworks.skkupss.model.db.Db_UnspscName">
+		select id, name
+		from
+		"unspscNames"
+		where level1 = #{level1}
+			and not(level2 = '00')
+			and level3 = '00'
+			and locale = #{locale}
+		order by id 
+	</select>
+	<select id="getUnspscNamesLevel3" parameterType="map" resultType="net.smartworks.skkupss.model.db.Db_UnspscName">
+		select id, name
+		from
+		"unspscNames"
+		where level1 = #{level1} and level2 = #{level2}
+			and not(level3 = '00')
+			and level4 = '00'
+			and locale = #{locale}
+		order by id 
+	</select>
+	<select id="getUnspscNamesLevel4" parameterType="map" resultType="net.smartworks.skkupss.model.db.Db_UnspscName">
+		select id, name
+		from
+		"unspscNames"
+		where level1 = #{level1} and level2 = #{level2} and level3 = #{level3}
+			and not(level4 = '00')
+			and locale = #{locale}
+		order by id 
+	</select>
+  	
 	<resultMap id="customerTypesResult" type="net.smartworks.skkupss.model.db.Db_CustomerType">
 		<id property="id" column="id" />	
 		<result property="name" column="name"/>

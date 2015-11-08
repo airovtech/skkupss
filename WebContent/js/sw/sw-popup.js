@@ -2028,6 +2028,44 @@ smartPop = {
 		}catch(error){
 			smartPop.showInfo(smartPop.ERROR, smartMessage.get('technicalProblemOccured') + '[sw-popup adminWorkInstance]', null, error);
 		}				
+	},
+	
+	selectSpaceCombination : function(wValue, wProductService, wProduct, wService, wTouchPoint, wCustomer, wBizModel, wActor, wSociety, wContext, wTime, wEnvironment){
+		try{
+			var url = "pop_space_combination.sw?value=" + wValue + "&productService=" + wProductService + "&product=" + wProduct + "&service=" + wService + "&touchPoint=" + wTouchPoint 
+														+ "&customer=" + wCustomer + "&bizModel=" + wBizModel + "&actor=" + wActor + "&society=" + wSociety + "&context=" + wContext + "&time=" + wTime + "&environment=" + wEnvironment; 
+			$.get( url, { contentType : "charset=utf-8"}, function(data){
+				$(data).modal({
+					opacity: 10,
+					overlayCss: {backgroundColor:"#000"},
+					containerCss:{
+						height:500,
+						width:560
+					},
+					overlayClose: false,
+					onShow: function(dialog){
+						$('.js_close_space_combination').die('click');
+						$('.js_close_space_combination').live( 'click', function(e){
+							smartPop.close();
+							return false;
+						});
+						$('.js_close_space_combination').focus();
+						$('.js_close_space_combination').keypress(function (e) {
+							var e = window.event || e;
+							var keyCode = e.which || e.keyCode;
+					        if (keyCode == $.ui.keyCode.ENTER) {
+					            $('.js_close_space_combination').click();
+					            return false;
+					        } else {
+					            return true;
+					        }
+					    });
+					}
+				});
+			});
+		}catch(error){
+			smartPop.showInfo(smartPop.ERROR, smartMessage.get('technicalProblemOccured') + '[sw-popup selectSpaceCombination]', null, error);
+		}				
 	}
 		
 };

@@ -692,6 +692,7 @@ ActorDiagram.draw = function(config) {
 							fromPosition : ActorDiagram.getCenterByNode(findNodeFromData(line.fromNodeId, data)),
 							toPosition : ActorDiagram.getCenterByNode(findNodeFromData(line.toNodeId, data)),
 							direction : line.direction,
+							lineColor : line.lineColor,
 							lineBreak : line.lineBreak,
 							label : line.label,
 							selected : false

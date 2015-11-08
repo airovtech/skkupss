@@ -23,11 +23,13 @@ import net.smartworks.skkupss.model.db.Db_ProductService;
 import net.smartworks.skkupss.model.db.Db_ProductServiceCond;
 import net.smartworks.skkupss.model.db.Db_ServiceSpace;
 import net.smartworks.skkupss.model.db.Db_ServiceSpaceCond;
+import net.smartworks.skkupss.model.db.Db_UnspscName;
 import net.smartworks.skkupss.model.db.Db_User;
 import net.smartworks.skkupss.model.db.Db_UserCond;
 import net.smartworks.skkupss.model.db.Db_ValueSpace;
 import net.smartworks.skkupss.model.db.Db_ValueSpaceCond;
 import net.smartworks.util.IdUtil;
+import net.smartworks.util.SmartMessage;
 import net.smartworks.util.SmartUtil;
 
 import org.apache.ibatis.session.RowBounds;
@@ -734,6 +736,35 @@ public class DbDaoImpl implements IDbDao {
 		}		
 	}
 
+	@Override
+	public Db_UnspscName[] getUnspscNames(int level, Map<String, String> params) throws Exception {
+		SqlSession session = null;
+		try {
+			SqlSessionFactory factory = SessionFactory.getInstance().getSqlSessionFactory();
+			session = factory.openSession();
+			
+			RowBounds Rb = new RowBounds();
+			if(params ==null){
+				params = new HashMap<String, String>();
+			}
+			params.put("locale", SmartUtil.getCurrentUser().getLocale());
+			
+			List<Db_UnspscName> nameList = session.selectList("getUnspscNamesLevel" + level, params, Rb);
+			if (nameList != null && nameList.size() != 0) {
+				Db_UnspscName[] names = new Db_UnspscName[nameList.size()];
+				nameList.toArray(names);
+				return names;
+			} else {
+				return new Db_UnspscName[]{new Db_UnspscName("00", SmartMessage.getString("common.title.none"))};
+			}
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			if (session != null)
+				session.close();
+		}		
+	}
+	
 	@Override
 	public Db_CustomerType[] getCustomerTypes(int level, Map<String, String> params) throws Exception {
 		SqlSession session = null;

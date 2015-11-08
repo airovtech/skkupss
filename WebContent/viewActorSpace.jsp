@@ -87,6 +87,19 @@
 								</div>
 							</td>
 						</tr>
+ 						<tr class="js_line_property" style="display:none">
+							<td class="form_col">
+								<div class="form_label" style="width:70px"><fmt:message key="pss.title.line_color"/></div>
+								<div class="form_value" style="width:180px;padding-left:5px!important">
+									<select name="selBreakLevel" class="form_select_box js_select_line_color">
+										<option value="rgb(114, 114, 114)"><fmt:message key="pss.title.line_color.black"/></option>
+										<option value="blue"><fmt:message key="pss.title.line_color.blue"/></option>
+										<option value="green"><fmt:message key="pss.title.line_color.green"/></option>
+										<option value="yellow"><fmt:message key="pss.title.line_color.yellow"/></option>
+									</select>
+								</div>
+							</td>
+						</tr>
 						<tr class="js_line_property" style="display:none">
 							<td class="form_col">
 								<div class="form_label" style="width:70px"><fmt:message key="pss.title.line_arrow"/></div>
@@ -113,19 +126,19 @@
 								</div>
 							</td>
 						</tr>
-<!-- 						<tr class="js_line_property" style="display:none">
+ 						<tr class="js_line_property" style="display:none">
 							<td class="form_col">
-								<div class="form_label" style="width:70px">꺽임 정도</div>
+								<div class="form_label" style="width:70px"><fmt:message key="pss.title.line_break_level"/></div>
 								<div class="form_value" style="width:180px;padding-left:5px!important">
 									<select name="selBreakLevel" class="form_select_box js_select_break_level">
-										<option value="30">낮음</option>
-										<option value="50">보통</option>
-										<option value="70">높음</option>
+										<option value="30"><fmt:message key="pss.title.line_break_level.low"/></option>
+										<option value="50"><fmt:message key="pss.title.line_break_level.middle"/></option>
+										<option value="70"><fmt:message key="pss.title.line_break_level.high"/></option>
 									</select>
 								</div>
 							</td>
 						</tr>
- -->					</table>
+					</table>
 				</td>
 			</tr>
 		</table>
@@ -171,7 +184,7 @@ $(function() {
 			fieldName: 'Servitization Process',
 			columns: 1,
 			required: true,
-			value: "<%=servitizationProcess%>",
+			value: "<%=CommonUtil.toNotNull(servitizationProcess) %>",
 			readOnly: <%=!isEditMode%>			
 		});
  		

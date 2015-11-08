@@ -1,6 +1,6 @@
 //
 // Source Name : edgeLineView.js
-// Description : Node¿Í Node°£ÀÇ ¿¬°á¼± View¸¦ ±×·ÁÁÖ´Â ¼Ò½º
+// Description : Nodeï¿½ï¿½ Nodeï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½á¼± Viewï¿½ï¿½ ï¿½×·ï¿½ï¿½Ö´ï¿½ ï¿½Ò½ï¿½
 //
 try{
 ActorDiagram.View = ActorDiagram.View || {};
@@ -30,7 +30,7 @@ ActorDiagram.View.EdgeLine.draw = function(config){
 	context.save();	
     
     context.lineWidth = lineWidth;
-    context.fillStyle = context.strokeStyle = model.selected?AD$SELECTED_STYLE:fillStyle;
+    context.fillStyle = context.strokeStyle = model.selected?AD$SELECTED_STYLE:model.lineColor;
     ActorDiagram.arrowLine(context, 
     		{x:model.fromPosition.left|0, y:model.fromPosition.top|0}, 
     		{x:model.toPosition.left|0, y:model.toPosition.top|0}, 

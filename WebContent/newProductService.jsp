@@ -430,17 +430,17 @@ try{
 			 '<table class="kpi_tab_area">' + 
 				'<tr class="js_select_space_type">' + 
 					'<th class="current"><a spaceType="1" spaceTypeStr="<%=ProductService.PSS_SPACE_VALUE%>" href="viewValueSpace.jsp">Value Space</a></th>' +  
-					'<th><a spaceType="2" spaceTypeStr="<%=ProductService.PSS_SPACE_PRODUCT_SERVICE%>" href="viewDefaultSpace.jsp">Product-Service Space</a></th>' +  
+					'<th><a spaceType="2" spaceTypeStr="<%=ProductService.PSS_SPACE_PRODUCT_SERVICE%>" href="viewProductServiceSpace.jsp">Product-Service Space</a></th>' +  
 					'<th><a spaceType="3" spaceTypeStr="<%=ProductService.PSS_SPACE_PRODUCT%>" href="viewProductSpace.jsp">Product Space</a></th>' +  
 					'<th><a spaceType="4" spaceTypeStr="<%=ProductService.PSS_SPACE_SERVICE%>" href="viewServiceSpace.jsp">Service Space</a></th>' +  
-					'<th><a spaceType="5" spaceTypeStr="<%=ProductService.PSS_SPACE_TOUCH_POINT%>" href="viewDefaultSpace.jsp">Touch Point Space</a></th>' +  
+					'<th><a spaceType="5" spaceTypeStr="<%=ProductService.PSS_SPACE_TOUCH_POINT%>" href="viewTouchPointSpace.jsp">Touch Point Space</a></th>' +  
 					'<th><a spaceType="6" spaceTypeStr="<%=ProductService.PSS_SPACE_CUSTOMER%>" href="viewCustomerSpace.jsp">Customer Space</a></th>' +  
 					'<th><a spaceType="7" spaceTypeStr="<%=ProductService.PSS_SPACE_BIZ_MODEL%>" href="viewBizModelSpace.jsp">Biz Model Space</a></th>' +  
 					'<th><a spaceType="8" spaceTypeStr="<%=ProductService.PSS_SPACE_ACTOR%>" href="viewActorSpace.jsp">Actor Space</a></th>' +  
-					'<th><a spaceType="9" spaceTypeStr="<%=ProductService.PSS_SPACE_SOCIETY%>" href="viewDefaultSpace.jsp">Society Space</a></th>' +  
+					'<th><a spaceType="9" spaceTypeStr="<%=ProductService.PSS_SPACE_SOCIETY%>" href="viewSocietySpace.jsp">Society Space</a></th>' +  
 					'<th><a spaceType="10" spaceTypeStr="<%=ProductService.PSS_SPACE_CONTEXT%>" href="viewContextSpace.jsp">Context Space</a></th>' +  
 					'<th><a spaceType="11" spaceTypeStr="<%=ProductService.PSS_SPACE_TIME%>" href="viewTimeSpace.jsp">Time Space</a></th>' +  
-					'<th><a spaceType="12" spaceTypeStr="<%=ProductService.PSS_SPACE_ENVIRONMENT%>" href="viewDefaultSpace.jsp">Environment Space</a></th>' +  
+					'<th><a spaceType="12" spaceTypeStr="<%=ProductService.PSS_SPACE_ENVIRONMENT%>" href="viewEnvironmentSpace.jsp">Environment Space</a></th>' +  
 				'</tr>' + 
 			'</table>' +
 			'<div class="up" style="border-top: #dfeffc 1px solid">' +

@@ -91,26 +91,6 @@ $(function() {
 		}			
 	});
 
-	$('input.js_edit_element_item').live('focusout',function(e) {
-//		try{
-//			var input = $(targetElement(e));
-//			if(input.attr('value') === ''){
-//				if(isEmpty(input.nextAll('.js_select_element_item'))){
-//					input.prev().find('.js_remove_element_item').click();
-//				}
-//			}else{
-//				input.css({"width": "auto"}).nextAll('.js_select_element_item').remove();
-//				input.hide().prevAll('.js_view_element_item').show().find('.js_action_element_item').attr('title', input.attr('value')).text(input.attr('value'));
-//				if(!isEmpty(input.parents('.js_biz_model_space'))){
-//					input.parents('.js_element_item:first').css({"color": "blue"});
-//					input.attr('name', "txt" + input.parents('.js_element_item:first').attr('itemName') + "UserItem");
-//				}
-//			}
-//		}catch(error){
-//			smartPop.showInfo(smartPop.ERROR, smartMessage.get('technicalProblemOccured') + '[sw-act-pss js_edit_element_item]', null, error);
-//		}			
-	});
-
 	$('input.js_edit_element_item').live('keydown', function(e) {
 		var e = window.event || e;
 		var keyCode = e.which || e.keyCode;
@@ -171,18 +151,36 @@ $(function() {
 	$('select.js_select_space_name').live('change', function(e){
 		var input = $(targetElement(e));
 		var progressSpan = input.siblings('.js_progress_span:first');
-		if(isEmpty(input.parents('.js_similarity_matrix_page'))){
+		var similarityMatrix = input.parents('.js_similarity_matrix_page');
+		if(isEmpty(similarityMatrix)){
 			selectListParam(progressSpan, false);
 		}else{
 			var spaceType = input.find('option:selected').attr('value');
-			smartPop.progressCenter();
-			$.ajax({
-				url : "psSimilarityMatrix.jsp?spaceType=" + spaceType,
-				success : function(data, status, jqXHR) {
-					$('#content').html(data);
-					smartPop.closeProgress();
-				}
-			});
+			
+			if(spaceType=='complexSpace'){
+				var wValue=similarityMatrix.attr('valueSpace');
+				var wProductService=similarityMatrix.attr('productServiceSpace');
+				var wProduct=similarityMatrix.attr('productSpace');
+				var wService=similarityMatrix.attr('serviceSpace');
+				var wTouchPoint=similarityMatrix.attr('touchPointSpace');
+				var wCustomer=similarityMatrix.attr('customerSpace');
+				var wBizModel=similarityMatrix.attr('bizModelSpace');
+				var wActor=similarityMatrix.attr('actorSpace');
+				var wSociety=similarityMatrix.attr('societySpace');
+				var wContext=similarityMatrix.attr('contextSpace');
+				var wTime=similarityMatrix.attr('timeSpace');
+				var wEnvironment=similarityMatrix.attr('environmentSpace');
+				smartPop.selectSpaceCombination(wValue||null, wProductService||null, wProduct||null, wService||null, wTouchPoint||null, wCustomer||null, wBizModel||null, wActor||null, wSociety||null, wContext||null, wTime||null, wEnvironment||null);
+			}else{
+				smartPop.progressCenter();
+				$.ajax({
+					url : "psSimilarityMatrix.jsp?spaceType=" + spaceType,
+					success : function(data, status, jqXHR) {
+						$('#content').html(data);
+						smartPop.closeProgress();
+					}
+				});
+			}
 		}
 		return false;
 	});
@@ -198,20 +196,28 @@ $(function() {
 		var url;
 		if(spaceType == 'valueSpace')
 			url = "viewValueSpace.jsp?psId="+psId;
+		else if(spaceType == 'productServiceSpace')
+			url = "viewProductServiceSpace.jsp?psId="+psId;
 		else if(spaceType == 'productSpace')
 			url = "viewProductSpace.jsp?psId="+psId;
 		else if(spaceType == 'serviceSpace')
 			url = "viewServiceSpace.jsp?psId="+psId;
+		else if(spaceType == 'touchPointSpace')
+			url = "viewTouchPointSpace.jsp?psId="+psId;
 		else if(spaceType == 'customerSpace')
 			url = "viewCustomerSpace.jsp?psId="+psId;
 		else if(spaceType == 'bizModelSpace')
 			url = "viewBizModelSpace.jsp?psId="+psId;
 		else if(spaceType == 'actorSpace')
 			url = "viewActorSpace.jsp?psId="+psId;
+		else if(spaceType == 'societySpace')
+			url = "viewSocietySpace.jsp?psId="+psId;
 		else if(spaceType == 'contextSpace')
 			url = "viewContextSpace.jsp?psId="+psId;
 		else if(spaceType == 'timeSpace')
 			url = "viewTimeSpace.jsp?psId="+psId;
+		else if(spaceType == 'environmentSpace')
+			url = "viewEnvironmentSpace.jsp?psId="+psId;
 		$.ajax({
 			url : url,
 			success : function(data, status, jqXHR) {
@@ -560,23 +566,23 @@ $(function() {
 			switch(lineType){
 			case CD$ARROW_ALIGN_CENTER:
 				lineBreak = {align:CD$ARROW_ALIGN_CENTER, breaks:0};
-				breakLevel.hide();
+				breakLevel.parents('tr:first').hide();
 				break;
 			case CD$ARROW_ALIGN_LEFT*10+1:
 				lineBreak = {align:CD$ARROW_ALIGN_LEFT, breaks:1, level:50};
-				breakLevel.show();
+				breakLevel.parents('tr:first').show();
 				break;
 			case CD$ARROW_ALIGN_LEFT*10+2:
 				lineBreak = {align:CD$ARROW_ALIGN_LEFT, breaks:2};
-				breakLevel.show();
+				breakLevel.parents('tr:first').show();
 				break;
 			case CD$ARROW_ALIGN_RIGHT*10+1:
 				lineBreak = {align:CD$ARROW_ALIGN_RIGHT, breaks:1};
-				breakLevel.show();
+				breakLevel.parents('tr:first').show();
 				break;
 			case CD$ARROW_ALIGN_RIGHT*10+2:
 				lineBreak = {align:CD$ARROW_ALIGN_RIGHT, breaks:2};
-				breakLevel.show();
+				breakLevel.parents('tr:first').show();
 				break;
 			}
 			ctrl.model.lineBreak = lineBreak;
@@ -592,23 +598,23 @@ $(function() {
 			switch(lineType){
 			case AD$ARROW_ALIGN_CENTER:
 				lineBreak = {align:AD$ARROW_ALIGN_CENTER, breaks:0};
-				breakLevel.hide();
+				breakLevel.parents('tr:first').hide();
 				break;
 			case AD$ARROW_ALIGN_LEFT*10+1:
 				lineBreak = {align:AD$ARROW_ALIGN_LEFT, breaks:1, level:50};
-				breakLevel.show();
+				breakLevel.parents('tr:first').show();
 				break;
 			case AD$ARROW_ALIGN_LEFT*10+2:
 				lineBreak = {align:AD$ARROW_ALIGN_LEFT, breaks:2};
-				breakLevel.show();
+				breakLevel.parents('tr:first').show();
 				break;
 			case AD$ARROW_ALIGN_RIGHT*10+1:
 				lineBreak = {align:AD$ARROW_ALIGN_RIGHT, breaks:1};
-				breakLevel.show();
+				breakLevel.parents('tr:first').show();
 				break;
 			case AD$ARROW_ALIGN_RIGHT*10+2:
 				lineBreak = {align:AD$ARROW_ALIGN_RIGHT, breaks:2};
-				breakLevel.show();
+				breakLevel.parents('tr:first').show();
 				break;
 			}
 			ctrl.model.lineBreak = lineBreak;
@@ -642,6 +648,25 @@ $(function() {
 		}
 	});			
 
+	$('select.js_select_line_color').live('change', function(e) {
+		var input = $(targetElement(e));
+		var canvasId = input.parents('.js_object_properties:first').attr('canvasId');
+		var objectId = input.parents('.js_object_properties:first').attr('objectId');
+		var canvasCtrl = CD$CONTROLLERS.findControllerById(canvasId, canvasId);
+		if(!isEmpty(canvasCtrl)){
+			var ctrl = CD$CONTROLLERS.findControllerById(canvasId, objectId);
+			ctrl.model.lineColor = input.find('option:selected').attr('value');
+			CD$CONTROLLERS.updateModel(canvasId, ctrl.model);
+			ContextDiagram.redraw(canvasId);
+		}else{
+			canvasCtrl = AD$CONTROLLERS.findControllerById(canvasId, canvasId);
+			var ctrl = AD$CONTROLLERS.findControllerById(canvasId, objectId);
+			ctrl.model.lineColor = input.find('option:selected').attr('value');
+			AD$CONTROLLERS.updateModel(canvasId, ctrl.model);
+			ActorDiagram.redraw(canvasId);
+		}
+	});			
+
 	$('input.js_toggle_time_value').live('click', function(e) {
 		var input = $(targetElement(e));		
 		var position = input.parent().prevAll().length;
@@ -667,11 +692,11 @@ $(function() {
 				params = params + "&level" + k + "=" + code;
 			}
 			$.ajax({
-				url : "get_unspsc_codes.sw" + "?level=" + (level+2) + params,
-				success : function(data, status, jqXHR) {
-					input.next().html(data);
+				url : "get_unspsc_names.sw" + "?level=" + (level+2) + params,
+				success : function(result, status, jqXHR) {
+					input.next().html(result.data);
 					input.next().nextAll('.js_select_unspsc_code').each(function() {
-						$(this).html('<option value="00">00</option');
+						$(this).html('<option value="00">' + smartMessage.get('textNone') + '</option');
 					});
 					smartPop.closeProgress();
 				}
@@ -733,4 +758,33 @@ $(function() {
 		}
 	});			
 
+	$('.js_select_sim_space input[type="checkbox"]').live('change', function(e) {
+		var input = $(targetElement(e));
+		var weightText = input.parents('tr:first').find('input[type="text"]');
+		if(input.is(':checked')){
+			weightText.removeAttr('readonly').addClass('fieldline').addClass('sw_required').show();
+		}else{
+			weightText.attr('readonly', 'readonly').removeClass('fieldline').removeClass('sw_required');
+			weightText.attr('value', '0.0').hide();
+			var simWeights = input.parents('table:first').find('.js_sim_weight');
+			var simWeight = 0;
+			simWeights.each(function(){ simWeight = simWeight + parseFloat($(this).attr('value'))});
+			input.parents('table:first').find('.js_weight_summary').attr('value', simWeight);
+		}
+	});			
+	
+	$('.js_select_sim_space input[type="text"]').live('change', function(e) {
+		var input = $(targetElement(e));
+		var simValue = parseFloat(input.attr('value'));
+	    if(!(/^\-?([0-9]+(\.[0-9]+)?|Infinity)$/.test(simValue)) || simValue>1){
+	    	input.attr('value', '0.0');
+	    	return;
+	    }
+		
+		var simWeights = input.parents('table:first').find('.js_sim_weight');
+		var simWeight = 0;
+		simWeights.each(function(){ simWeight = simWeight + parseFloat($(this).attr('value'))});
+		input.parents('table:first').find('.js_weight_summary').attr('value', simWeight);
+	});			
+	
 });
