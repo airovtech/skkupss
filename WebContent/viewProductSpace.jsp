@@ -71,7 +71,7 @@
 							<select class="js_select_unspsc_code" <%if(!isEditMode){ %>disabled<%} %> name="selUnspscCode1">
 								<option value="00"><fmt:message key="common.title.none"/></option>
 								<%
-								for(int i=0; i<codeLevel1s.length; i++){
+								for(int i=0; codeLevel1s!=null && i<codeLevel1s.length; i++){
 									Db_UnspscName code = codeLevel1s[i];
 									if(code.getId().equals("00")) continue;
 									String codeId = ProductSpace.getUnspscNameCode(code.getId(), ProductSpace.UNSPSC_CODE_LEVEL1);
@@ -83,7 +83,7 @@
 							<select  class="js_select_unspsc_code" <%if(!isEditMode){ %>disabled<%} %> name="selUnspscCode2">
 								<option value="00"><fmt:message key="common.title.none"/></option>
 								<%
-								for(int i=0; i<codeLevel2s.length; i++){
+								for(int i=0; codeLevel2s!=null && i<codeLevel2s.length; i++){
 									Db_UnspscName code = codeLevel2s[i];
 									if(code.getId().equals("00")) continue;
 									String codeId = ProductSpace.getUnspscNameCode(code.getId(), ProductSpace.UNSPSC_CODE_LEVEL2);
@@ -95,7 +95,7 @@
 							<select  class="js_select_unspsc_code" <%if(!isEditMode){ %>disabled<%} %> name="selUnspscCode3">
 								<option value="00"><fmt:message key="common.title.none"/></option>
 								<%
-								for(int i=0; i<codeLevel3s.length; i++){
+								for(int i=0; codeLevel3s!=null && i<codeLevel3s.length; i++){
 									Db_UnspscName code = codeLevel3s[i];
 									if(code.getId().equals("00")) continue;
 									String codeId = ProductSpace.getUnspscNameCode(code.getId(), ProductSpace.UNSPSC_CODE_LEVEL3);
@@ -107,7 +107,7 @@
 							<select  class="js_select_unspsc_code" <%if(!isEditMode){ %>disabled<%} %> name="selUnspscCode4">
 								<option value="00"><fmt:message key="common.title.none"/></option>
 								<%
-								for(int i=0; i<codeLevel4s.length; i++){
+								for(int i=0; codeLevel4s!=null && i<codeLevel4s.length; i++){
 									Db_UnspscName code = codeLevel4s[i];
 									if(code.getId().equals("00")) continue;
 									String codeId = ProductSpace.getUnspscNameCode(code.getId(), ProductSpace.UNSPSC_CODE_LEVEL4);

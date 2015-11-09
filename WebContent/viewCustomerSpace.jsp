@@ -83,7 +83,7 @@
 								<div class="js_customer_type_list">
 									<select style="display:none" class="js_select_customer_type" <%if(!isEditMode){ %>disabled<%} %> name="selTypeCode1">
 										<%
-										for(int i=0; i<codeLevel1s.length; i++){
+										for(int i=0; codeLevel1s!=null && i<codeLevel1s.length; i++){
 											Db_CustomerType code = codeLevel1s[i];
 										%>
 										<option value="<%=CustomerSpace.getCustomerTypeCode(code.getId(), CustomerSpace.CUSTOMER_TYPE_LEVEL1)%>" <%if(code.getId().equals("02000000")){ %>selected<%} %>><%=code.getName() %></option>
@@ -93,7 +93,7 @@
 									<select class="js_select_customer_type" <%if(!isEditMode){ %>disabled<%} %> name="selTypeCode2">
 										<option value="00"><fmt:message key="common.title.none"/></option>
 										<%
-										for(int i=0; i<codeLevel2s.length; i++){
+										for(int i=0; codeLevel2s!=null && i<codeLevel2s.length; i++){
 											Db_CustomerType code = codeLevel2s[i];
 											String codeId = code.getId().equals("00")?code.getId():CustomerSpace.getCustomerTypeCode(code.getId(), CustomerSpace.CUSTOMER_TYPE_LEVEL2);
 										%>
@@ -104,7 +104,7 @@
 									<select class="js_select_customer_type" <%if(!isEditMode){ %>disabled<%} %> name="selTypeCode3">
 										<option value="00"><fmt:message key="common.title.none"/></option>
 										<%
-										for(int i=0; i<codeLevel3s.length; i++){
+										for(int i=0; codeLevel3s!=null && i<codeLevel3s.length; i++){
 											Db_CustomerType code = codeLevel3s[i];
 											String codeId = code.getId().equals("00")?code.getId():CustomerSpace.getCustomerTypeCode(code.getId(), CustomerSpace.CUSTOMER_TYPE_LEVEL3);
 										%>
@@ -115,7 +115,7 @@
 									<select class="js_select_customer_type" <%if(!isEditMode){ %>disabled<%} %> name="selTypeCode4">
 										<option value="00"><fmt:message key="common.title.none"/></option>
 										<%
-										for(int i=0; i<codeLevel4s.length; i++){
+										for(int i=0; codeLevel4s!=null && i<codeLevel4s.length; i++){
 											Db_CustomerType code = codeLevel4s[i];
 											String codeId = code.getId().equals("00")?code.getId():CustomerSpace.getCustomerTypeCode(code.getId(), CustomerSpace.CUSTOMER_TYPE_LEVEL4);
 										%>
@@ -157,7 +157,7 @@
 								<div class="js_customer_activity_type_list">
 									<select style="display:none" class="js_select_customer_activity_type" <%if(!isEditMode){ %>disabled<%} %> name="selActivityTypeCode1">
 										<%
-										for(int i=0; i<codeLevel1s.length; i++){
+										for(int i=0; codeLevel1s!=null && i<codeLevel1s.length; i++){
 											Db_CustomerType code = codeLevel1s[i];
 										%>
 										<option value="<%=CustomerSpace.getCustomerTypeCode(code.getId(), CustomerSpace.CUSTOMER_TYPE_LEVEL1)%>" <%if(code.getId().equals("01000000")){ %>selected<%} %>><%=code.getName() %></option>
@@ -167,7 +167,7 @@
 									<select class="js_select_customer_activity_type" <%if(!isEditMode){ %>disabled<%} %> name="selActivityTypeCode2">
 										<option value="00"><fmt:message key="common.title.none"/></option>
 										<%
-										for(int i=0; i<codeLevel2s.length; i++){
+										for(int i=0; codeLevel2s!=null && i<codeLevel2s.length; i++){
 											Db_CustomerType code = codeLevel2s[i];
 											String codeId = code.getId().equals("00")?code.getId():CustomerSpace.getCustomerTypeCode(code.getId(), CustomerSpace.CUSTOMER_TYPE_LEVEL2);
 										%>
@@ -178,7 +178,7 @@
 									<select class="js_select_customer_activity_type" <%if(!isEditMode){ %>disabled<%} %> name="selActivityTypeCode3">
 										<option value="00"><fmt:message key="common.title.none"/></option>
 										<%
-										for(int i=0; i<codeLevel3s.length; i++){
+										for(int i=0; codeLevel3s!=null && i<codeLevel3s.length; i++){
 											Db_CustomerType code = codeLevel3s[i];
 											String codeId = code.getId().equals("00")?code.getId():CustomerSpace.getCustomerTypeCode(code.getId(), CustomerSpace.CUSTOMER_TYPE_LEVEL3);
 										%>
@@ -189,7 +189,7 @@
 									<select class="js_select_customer_activity_type" <%if(!isEditMode){ %>disabled<%} %> name="selActivityTypeCode4">
 										<option value="00"><fmt:message key="common.title.none"/></option>
 										<%
-										for(int i=0; i<codeLevel4s.length; i++){
+										for(int i=0; codeLevel4s!=null && i<codeLevel4s.length; i++){
 											Db_CustomerType code = codeLevel4s[i];
 											String codeId = code.getId().equals("00")?code.getId():CustomerSpace.getCustomerTypeCode(code.getId(), CustomerSpace.CUSTOMER_TYPE_LEVEL4);
 										%>

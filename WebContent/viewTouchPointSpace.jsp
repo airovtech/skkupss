@@ -8,7 +8,7 @@
 <%@ page contentType="text/html; charset=utf-8"%>
 
 <%
-	DefaultSpace defaultSpace = (DefaultSpace)request.getAttribute("defaultSpace");
+	DefaultSpace defaultSpace = (DefaultSpace)request.getAttribute("touchPointSpace");
 	String psId = request.getParameter("psId");
 	String spaceTypeStr = request.getParameter("spaceType");
 	int spaceType = SmartUtil.isBlankObject(spaceTypeStr) ? ProductService.SPACE_TYPE_NONE : Integer.parseInt(spaceTypeStr);
@@ -45,21 +45,14 @@
 %>
  	 
 <!-- 컨텐츠 레이아웃-->
-<div class="js_space_tab js_default_space" spaceType="<%=spaceType%>">
-	<table class="js_dummy_element_item" style="display:none">
-		<tr>
-			<td class="vt edit_action" style="height:100%;padding:0;border-bottom:none">
-				<span class="edit_item js_element_item" style="background-color: rgb(234, 232, 230);text-align: center;border: black 1px solid;font-size: 12px;height: 24px;margin:4px; padding:4px 6px; line-height:30px">
-					<span class="js_view_element_item" style="display:none">
-						<span class="<%if(isEditMode){ %>js_action_element_item<%}%>"></span>
-						<span class="edit_actions">
-							<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
-							<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
-						</span>
-					</span>
-					<input class="fieldline js_edit_element_item" name="txtElementItem" style="display:inline-block; background-color:white; width:auto" type="text" value="">
-				</span>
-			</td>
+<div class="js_space_tab js_touch_point_space" spaceType="<%=spaceType%>">
+	<table class="up tc" style="width:550px;min-height:200px;margin-left:auto;margin-right:auto;">
+		<tr style="border-bottom: darkgray solid 8px;height:24px">
+			<th class="tc" style="width:20%"><img src="images/pss/pss-receiver.png"/></th>
+			<th class="tc" style="width:20%"><img src="images/pss/service-bullet.png"/></th>
+			<th class="tc" style="width:20%"><img src="images/pss/service-bullet.png"/></th>
+			<th class="tc" style="width:20%"><img src="images/pss/service-bullet.png"/></th>
+			<th class="tc" style="width:20%"><img src="images/pss/pss-provider.png"/></th>
 		</tr>
 	</table>
 	<table class="tc" style="min-height:50px">
