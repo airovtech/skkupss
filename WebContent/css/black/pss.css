@@ -21,3 +21,10 @@ td.edit_action .service_item:hover{height:auto!important}
 
 .js_time_value_desc {color:lightgray}
 .js_time_value_desc.checked {color:black}
+
+.interaction-hpi {background: url("images/pss/interaction-hpi.png") repeat-x scroll 0 0}
+.interaction-hpihhi {background: url("images/pss/interaction-hpihhi.png") repeat-x scroll 0 0}
+.interaction-hpim {background: url("images/pss/interaction-hpim.png") repeat-x scroll 0 0}
+.interaction-hpihhi2 {background: url("images/pss/interaction-hpihhi2.png") repeat-x scroll 0 0}
+.interaction-hhi {background: url("images/pss/interaction-hhi.png") repeat-x scroll 0 0}
+.selected_background {background-color: yellow}

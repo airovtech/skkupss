@@ -1,3 +1,7 @@
+<%@page import="net.smartworks.util.PropertiesLoader"%>
+<%@page import="net.smartworks.skkupss.model.Affordance"%>
+<%@page import="net.smartworks.skkupss.model.TouchPoint"%>
+<%@page import="net.smartworks.skkupss.model.TouchPointSpace"%>
 <%@page import="net.smartworks.skkupss.model.DefaultSpace"%>
 <%@page import="net.smartworks.factory.ManagerFactory"%>
 <%@page import="net.smartworks.skkupss.model.ProductService"%>
@@ -8,111 +12,50 @@
 <%@ page contentType="text/html; charset=utf-8"%>
 
 <%
-	DefaultSpace defaultSpace = (DefaultSpace)request.getAttribute("defaultSpace");
+	DefaultSpace productServiceSpace = (DefaultSpace)request.getAttribute("productServiceSpace");
 	String psId = request.getParameter("psId");
 	String spaceTypeStr = request.getParameter("spaceType");
 	int spaceType = SmartUtil.isBlankObject(spaceTypeStr) ? ProductService.SPACE_TYPE_NONE : Integer.parseInt(spaceTypeStr);
 	
-	if(SmartUtil.isBlankObject(defaultSpace) && !SmartUtil.isBlankObject(psId) && spaceType > ProductService.SPACE_TYPE_ALL ){
+	if(SmartUtil.isBlankObject(productServiceSpace) && !SmartUtil.isBlankObject(psId) && spaceType > ProductService.SPACE_TYPE_ALL ){
 
 		ProductService productService = null;
 		try{
 			productService = ManagerFactory.getInstance().getServiceManager().getProductService(psId, spaceType);
 		}catch(Exception e){}
 		
-		if(!SmartUtil.isBlankObject(productService)){
-			switch(spaceType){
-			case ProductService.SPACE_TYPE_PRODUCT_SERVICE:
-				defaultSpace = productService.getProductServiceSpace();
-				break;
-			case ProductService.SPACE_TYPE_TOUCH_POINT:
-				defaultSpace = productService.getTouchPointSpace();
-				break;
-			case ProductService.SPACE_TYPE_SOCIETY:
-				defaultSpace = productService.getSocietySpace();
-				break;
-			case ProductService.SPACE_TYPE_ENVIRONMENT:
-				defaultSpace = productService.getEnvironmentSpace();
-				break;
-			}
-		}		
+		productServiceSpace = productService.getProductServiceSpace();
 	}
 	String isEditModeStr = request.getParameter("isEditMode");
 	boolean isEditMode = SmartUtil.isBlankObject(isEditModeStr) || !isEditModeStr.equalsIgnoreCase("true") ? false : true;
-	if(SmartUtil.isBlankObject(defaultSpace)) defaultSpace = new DefaultSpace();;
-
-	String[] values = defaultSpace.getElements();
+	if(SmartUtil.isBlankObject(productServiceSpace)) productServiceSpace = new DefaultSpace();
+	
+	String[] elements = productServiceSpace.getElements();
+	if(SmartUtil.isBlankObject(elements) || elements.length!=6) elements = new String[]{null, null, null, null, null, null};
+	
 %>
  	 
 <!-- 컨텐츠 레이아웃-->
-<div class="js_space_tab js_default_space" spaceType="<%=spaceType%>">
-	<table class="js_dummy_element_item" style="display:none">
-		<tr>
-			<td class="vt edit_action" style="height:100%;padding:0;border-bottom:none">
-				<span class="edit_item js_element_item" style="background-color: rgb(234, 232, 230);text-align: center;border: black 1px solid;font-size: 12px;height: 24px;margin:4px; padding:4px 6px; line-height:30px">
-					<span class="js_view_element_item" style="display:none">
-						<span class="<%if(isEditMode){ %>js_action_element_item<%}%>"></span>
-						<span class="edit_actions">
-							<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
-							<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
-						</span>
-					</span>
-					<input class="fieldline js_edit_element_item" name="txtElementItem" style="display:inline-block; background-color:white; width:auto" type="text" value="">
-				</span>
-			</td>
-		</tr>
-	</table>
-	<table class="tc" style="min-height:50px">
-		<%
-		for(int i=0; values!=null && i<values.length; i++){
-		%>
+<div class="js_space_tab js_product_service_space" spaceType="<%=spaceType%>">
+		<table class="tc fieldline" style="width:800px;min-height:200px;margin-left:auto;margin-right:auto;">
 			<tr>
-				<td class="vt edit_action" style="height:100%;padding:0;border-bottom:none">
-					<span class="edit_item js_element_item" style="background-color: rgb(234, 232, 230);text-align: center;border: black 1px solid;font-size: 12px;height: 24px;margin:4px; padding:4px 6px; line-height:30px">
-						<span class="js_view_element_item">
-							<span class="<%if(isEditMode){ %>js_action_element_item<%}%>"><%=CommonUtil.toNotNull(values[i]) %></span>
-							<%
-							if(isEditMode){
-							%>
-								<span class="edit_actions">
-									<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
-									<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
-								</span>
-							<%
-							}
-							%>
-						</span>
-						<%
-						if(isEditMode){
-						%>
-							<input class="fieldline js_edit_element_item" name="txtElementItem" style="display:none; background-color:white; width:auto" type="text" value="<%=CommonUtil.toNotNull(values[i]) %>">
-						<%
-						}
-						%>
-					</span>
-				</td>
+				<th class="tc vm" style="width:20%;padding-left:20px;padding-top:30px">
+					<div class="up js_ps_item <%if(elements[0]!=null&&elements[0].equals("selected")){ %>selected_background<%} %>" style="margin-bottom:15px"><a href="" class="js_select_ps_item">Product-Oriented</a></div>
+					<div class="up js_ps_item <%if(elements[1]!=null&&elements[1].equals("selected")){ %>selected_background<%} %>" style="margin-bottom:15px"><a href="" class="js_select_ps_item">Use-Oriented</a></div>
+					<div class="up js_ps_item <%if(elements[2]!=null&&elements[2].equals("selected")){ %>selected_background<%} %>" style="margin-bottom:15px"><a href="" class="js_select_ps_item">Result-Oriented</a></div>
+				</th>
+				<th class="tc vb" style="width:20%"></th>
+				<th class="tc vm" style="width:20%;padding-top:30px">
+					<div class="up js_ps_item <%if(elements[3]!=null&&elements[3].equals("selected")){ %>selected_background<%} %>" style="margin-bottom:15px"><a href="" class="js_select_ps_item">Product Focused</a></div>
+					<div class="up js_ps_item <%if(elements[4]!=null&&elements[4].equals("selected")){ %>selected_background<%} %>" style="margin-bottom:15px"><a href="" class="js_select_ps_item">Service Focused</a></div>
+					<div class="up js_ps_item <%if(elements[5]!=null&&elements[5].equals("selected")){ %>selected_background<%} %>" style="margin-bottom:15px"><a href="" class="js_select_ps_item">Mixed</a></div>
+				</th>
+				<th class="tl vm" style="width:40%">
+					<div><img src="images/pss/product-focused.png" style="width:200px"/></div>
+					<div><img src="images/pss/service-focused.png" style="width:200px"/></div>
+					<div><img src="images/pss/mixed.png" style="width:200px"/></div>
+				</th>
 			</tr>
-		<%
-		}
-		if(SmartUtil.isBlankObject(values) && isEditMode){
-		%>
-			<tr>
-				<td class="vt edit_action" style="height:100%;padding:0;border-bottom:none">
-					<span class="edit_item js_element_item" style="background-color: rgb(234, 232, 230);text-align: center;border: black 1px solid;font-size: 12px;height: 24px;margin:4px; padding:4px 6px; line-height:30px">
-						<span class="js_view_element_item" style="display:none">
-							<span class="<%if(isEditMode){ %>js_action_element_item<%}%>"></span>
-							<span class="edit_actions">
-								<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
-								<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
-							</span>
-						</span>
-						<input class="fieldline js_edit_element_item" name="txtElementItem" style="display:inline-block; background-color:white; width:auto" type="text" value="">
-					</span>
-				</td>
-			</tr>
-		<%
-		}
-		%>
-	</table>
+		</table>
 </div>
 <!-- 컨텐츠 레이아웃//-->

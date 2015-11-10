@@ -785,6 +785,33 @@ $(function() {
 		var simWeight = 0;
 		simWeights.each(function(){ simWeight = simWeight + parseFloat($(this).attr('value'))});
 		input.parents('table:first').find('.js_weight_summary').attr('value', simWeight);
-	});			
+	});		
 	
+	$('a.js_toggle_affordance').live('click', function(e) {
+		var input = $(targetElement(e));
+		var iconSpan = input.next();
+		if(iconSpan.hasClass('icon_in_down')){
+			iconSpan.removeClass('icon_in_down').addClass('icon_in_up');
+		}else{
+			iconSpan.addClass('icon_in_down').removeClass('icon_in_up');
+		}
+		input.parents('tr:first').next().toggle();
+		return false;
+	});			
+
+	$('.js_select_interaction_type').live('change', function(e) {
+		var input = $(targetElement(e));
+		var selectedValue = input.find('option:selected').text();
+		input.parents('th:first').find('.js_interaction_details li[value="' + selectedValue + '"]').show().siblings().hide();
+	});		
+	
+	$('a.js_select_ps_item').live('click', function(e) {
+		var input = $(targetElement(e));
+		var target = input.parents('.js_ps_item:first');
+		if(target.hasClass('selected_background')) target.removeClass('selected_background');
+		else target.addClass('selected_background').siblings().removeClass('selected_background');
+		return false;
+	});			
+
+
 });

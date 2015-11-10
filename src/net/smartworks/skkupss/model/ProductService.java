@@ -62,7 +62,7 @@ public class ProductService{
 	private BizModelSpace bizModelSpace;
 	private DefaultSpace productServiceSpace;
 	private ProductSpace productSpace;
-	private DefaultSpace touchPointSpace;
+	private TouchPointSpace touchPointSpace;
 	private CustomerSpace customerSpace;
 	private ActorSpace actorSpace;
 	private DefaultSpace societySpace;
@@ -135,10 +135,10 @@ public class ProductService{
 	public void setProductSpace(ProductSpace productSpace) {
 		this.productSpace = productSpace;
 	}
-	public DefaultSpace getTouchPointSpace() {
+	public TouchPointSpace getTouchPointSpace() {
 		return touchPointSpace;
 	}
-	public void setTouchPointSpace(DefaultSpace touchPointSpace) {
+	public void setTouchPointSpace(TouchPointSpace touchPointSpace) {
 		this.touchPointSpace = touchPointSpace;
 	}
 	public CustomerSpace getCustomerSpace() {

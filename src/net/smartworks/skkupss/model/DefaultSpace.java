@@ -23,6 +23,15 @@ public class DefaultSpace{
 		return defaultSpace;
 	}
 	
+	public static DefaultSpace createDefaultSpaceWithDelimeter(String frmSpaceDefault, String delimiter){
+		if(frmSpaceDefault==null) return null;
+		
+		DefaultSpace defaultSpace = new DefaultSpace();		
+		
+		defaultSpace.setElements(frmSpaceDefault.split(delimiter));
+		return defaultSpace;
+	}
+	
 	public static DefaultSpace createSocietySpace(Map<String, Object> frmSpaceDefault){
 		if(frmSpaceDefault==null) return null;
 		

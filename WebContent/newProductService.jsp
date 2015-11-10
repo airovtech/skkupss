@@ -123,6 +123,19 @@ function submitForms(tempSave) {
 					activityTypes : customerActivityTypes
 			};
 			paramsJsonHiddens[spaceType] = customerSpaceValues;
+		}else if(spaceType == '<%=ProductService.SPACE_TYPE_TOUCH_POINT%>'){
+			var touchPoints = new Array();
+			spaceTab.find('form').each(function(){
+				touchPoints.push( mergeObjects($(this).serializeObject(), SmartWorks.GridLayout.serializeObject($(this))));
+			});
+			paramsJsonHiddens[spaceType] = touchPoints;
+		}else if(spaceType == '<%=ProductService.SPACE_TYPE_PRODUCT_SERVICE%>'){
+			var valueString = "";
+			var psItems = spaceTab.find('.js_ps_item');
+			for(var j=0; j<psItems.length; j++){
+				valueString = valueString + (j==0?"":";") + ($(psItems[j]).hasClass('selected_background')?'selected':'no') 
+			}
+			paramsJsonHiddens[spaceType] = valueString;
 		}else if(isEmpty(spaceTab.parent('form'))){
 			newSpaceTab = spaceTab.clone();
 			cloneSelectedValues(spaceTab, newSpaceTab);

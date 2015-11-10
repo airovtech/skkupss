@@ -36,6 +36,7 @@ import net.smartworks.skkupss.model.SimilarityMatrix;
 import net.smartworks.skkupss.model.SimilaritySpaceType;
 import net.smartworks.skkupss.model.SortingField;
 import net.smartworks.skkupss.model.TimeSpace;
+import net.smartworks.skkupss.model.TouchPointSpace;
 import net.smartworks.skkupss.model.User;
 import net.smartworks.skkupss.model.ValueSpace;
 import net.smartworks.skkupss.model.db.Db_CustomerType;
@@ -179,10 +180,10 @@ public class PssController {
 			Map<String, Object> frmSpaceTabs = (Map<String, Object>)requestBody.get("frmSpaceTabs");
 			if(frmSpaceTabs!=null){
 				productService.setValueSpace(ValueSpace.createValueSpace((Map<String, Object>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_VALUE)));				
-				productService.setProductServiceSpace(DefaultSpace.createDefaultSpace((Map<String, Object>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_PRODUCT_SERVICE)));
+				productService.setProductServiceSpace(DefaultSpace.createDefaultSpaceWithDelimeter((String)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_PRODUCT_SERVICE), ";"));
 				productService.setProductSpace(ProductSpace.createProductSpace((Map<String, String>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_PRODUCT)));
 				productService.setServiceSpace(ServiceSpace.createServiceSpace((Map<String, Object>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_SERVICE)));
-				productService.setTouchPointSpace(DefaultSpace.createDefaultSpace((Map<String, Object>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_TOUCH_POINT)));
+				productService.setTouchPointSpace(TouchPointSpace.createTouchPointSpace((List<Map<String, Object>>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_TOUCH_POINT)));
 				productService.setCustomerSpace(CustomerSpace.createCustomerSpace((Map<String, Object>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_CUSTOMER)));
 				productService.setBizModelSpace(BizModelSpace.createBizModelSpace((Map<String, Object>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_BIZ_MODEL)));
 				productService.setActorSpace(ActorSpace.createActorSpace((String)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_ACTOR), txtServitizationProcess));

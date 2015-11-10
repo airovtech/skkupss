@@ -24,6 +24,8 @@ import net.smartworks.skkupss.model.ProductServiceCond;
 import net.smartworks.skkupss.model.ProductSpace;
 import net.smartworks.skkupss.model.ServiceSpace;
 import net.smartworks.skkupss.model.TimeSpace;
+import net.smartworks.skkupss.model.TouchPoint;
+import net.smartworks.skkupss.model.TouchPointSpace;
 import net.smartworks.skkupss.model.User;
 import net.smartworks.skkupss.model.UserCond;
 import net.smartworks.skkupss.model.ValueSpace;
@@ -45,7 +47,7 @@ import org.springframework.util.StringUtils;
 public class DbManagerImpl implements IDbManager {
 
 	public static final String delimiters = ";";
-	public static final String DELIMITER_ACTOR = ";$$;";
+	public static final String DELIMITER_SPECIAL = ";$$;";
 	
 	private DefaultSpace getDefaultSpace(String[] elements) throws Exception {
 		if (elements == null)
@@ -113,6 +115,16 @@ public class DbManagerImpl implements IDbManager {
 		customerSpace.setTypesWithCommaString(elements[0]);
 		customerSpace.setActivityTypesWithCommaString(elements[1]);
 		return customerSpace;
+	}
+	private TouchPointSpace getTouchPointSpace(String[] elements) throws Exception {
+		if (elements == null)
+			return null;
+		TouchPointSpace touchPointSpace = new TouchPointSpace();
+		TouchPoint[] touchPoints = new TouchPoint[elements.length];
+		for(int i=0; i<elements.length; i++)
+			touchPoints[i] = TouchPoint.createTouchPoint(elements[i]);
+		touchPointSpace.setTouchPoints(touchPoints);
+		return touchPointSpace;
 	}
 	private Db_ProductService[] convertProductServiceToDb_ProductService(ProductService[] productServices) throws Exception {
 
@@ -196,11 +208,17 @@ public class DbManagerImpl implements IDbManager {
 			if(ps.getProductSpace()!=null)
 				productService.setProductSpace(ps.getProductSpace().getUnspsc() + delimiters + ps.getProductSpace().getLifecycleSteps());
 			
-			productService.setTouchPointSpace(makeStringFromDefaultSpace(ps.getTouchPointSpace()));
+			if(ps.getTouchPointSpace()!=null && ps.getTouchPointSpace().getTouchPoints()!=null){
+				String touchPointString = "";
+				for(int j=0; j<ps.getTouchPointSpace().getTouchPoints().length; j++){
+					touchPointString = touchPointString + (i==0?"":DELIMITER_SPECIAL) + ps.getTouchPointSpace().getTouchPoints()[j].toString();
+				}					
+				productService.setTouchPointSpace(touchPointString);
+			}
 			if(ps.getCustomerSpace()!=null)
 				productService.setCustomerSpace(ps.getCustomerSpace().getTypesWithComma() + delimiters + ps.getCustomerSpace().getActivityTypesWithComma());
 			if(ps.getActorSpace()!=null)
-				productService.setActorSpace(ps.getActorSpace().getDiagramData() + DELIMITER_ACTOR + ps.getActorSpace().getServitizationProcess());
+				productService.setActorSpace(ps.getActorSpace().getDiagramData() + DELIMITER_SPECIAL + ps.getActorSpace().getServitizationProcess());
 			productService.setSocietySpace(makeStringFromDefaultSpace(ps.getSocietySpace()));
 			if(ps.getContextSpace()!=null)
 				productService.setContextSpace(ps.getContextSpace().getContextData());
@@ -299,9 +317,9 @@ public class DbManagerImpl implements IDbManager {
 			productService.setProductServiceSpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getProductServiceSpace(), delimiters)));
 			productService.setProductSpace(getProductSpace(StringUtils.tokenizeToStringArray(dbPs.getProductSpace(), delimiters)));
 			
-			productService.setTouchPointSpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getTouchPointSpace(), delimiters)));
+			productService.setTouchPointSpace(getTouchPointSpace(new String[]{dbPs.getTouchPointSpace()}));
 			productService.setCustomerSpace(getCustomerSpace(StringUtils.tokenizeToStringArray(dbPs.getCustomerSpace(), delimiters)));
-			productService.setActorSpace(getActorSpace(StringUtils.tokenizeToStringArray(dbPs.getActorSpace(), DELIMITER_ACTOR)));
+			productService.setActorSpace(getActorSpace(StringUtils.tokenizeToStringArray(dbPs.getActorSpace(), DELIMITER_SPECIAL)));
 			productService.setSocietySpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getSocietySpace(), delimiters)));
 			productService.setContextSpace(ContextSpace.createContextSpace(dbPs.getContextSpace()));
 			productService.setTimeSpace(getTimeSpace(dbPs.getTimeSpace()));
@@ -450,9 +468,10 @@ public class DbManagerImpl implements IDbManager {
 		productService.setProductServiceSpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getProductServiceSpace(), delimiters)));
 		productService.setProductSpace(getProductSpace(StringUtils.tokenizeToStringArray(dbPs.getProductSpace(), delimiters)));
 		
-		productService.setTouchPointSpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getTouchPointSpace(), delimiters)));
+//		productService.setTouchPointSpace(getTouchPointSpace(StringUtils.tokenizeToStringArray(dbPs.getTouchPointSpace(), DELIMITER_SPECIAL)));
+		productService.setTouchPointSpace(getTouchPointSpace(new String[]{dbPs.getTouchPointSpace()}));
 		productService.setCustomerSpace(getCustomerSpace(StringUtils.tokenizeToStringArray(dbPs.getCustomerSpace(), delimiters)));
-		productService.setActorSpace(getActorSpace(StringUtils.tokenizeToStringArray(dbPs.getActorSpace(), DELIMITER_ACTOR)));
+		productService.setActorSpace(getActorSpace(StringUtils.tokenizeToStringArray(dbPs.getActorSpace(), DELIMITER_SPECIAL)));
 		productService.setSocietySpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getSocietySpace(), delimiters)));
 		productService.setContextSpace(ContextSpace.createContextSpace(dbPs.getContextSpace()));
 		productService.setTimeSpace(getTimeSpace(dbPs.getTimeSpace()));
