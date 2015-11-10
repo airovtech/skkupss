@@ -74,13 +74,17 @@ public class TouchPoint{
 							+this.providerName+delimiter_touch_point
 							+this.providerInteraction+delimiter_touch_point;
 		if(!SmartUtil.isBlankObject(this.receiverAffordances)){
-			for(int i=0; i<this.receiverAffordances.length; i++)
+			for(int i=0; i<this.receiverAffordances.length; i++){
+				if(this.receiverAffordances[i]==null) continue;
 				stringValue = stringValue+(i==0?"":Affordance.delimiter_affordance)+this.receiverAffordances[i].toString();
+			}
 		}
 		stringValue = stringValue +delimiter_touch_point;
 		if(!SmartUtil.isBlankObject(this.providerAffordances)){
-			for(int i=0; i<this.providerAffordances.length; i++)
+			for(int i=0; i<this.providerAffordances.length; i++){
+				if(this.providerAffordances[i]==null) continue;
 				stringValue = stringValue+(i==0?"":Affordance.delimiter_affordance)+this.providerAffordances[i].toString();
+			}
 		}
 		return stringValue;		
 	}
@@ -107,7 +111,7 @@ public class TouchPoint{
 		for(int i=0, j=0; i<valueStrings.length; i++,j++){
 			affordances[j] = new Affordance();
 			affordances[j].setAffordanceName(valueStrings[i++]);
-			affordances[j++].setAffordanceImage(valueStrings[i]);
+			affordances[j].setAffordanceImage(valueStrings[i]);
 		}
 		return affordances;
 	}

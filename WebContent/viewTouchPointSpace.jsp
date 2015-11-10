@@ -107,7 +107,10 @@
 	 				<ul>
 	 					<%
 	 					Affordance[] rAffordances = tp.getReceiverAffordances();
-	 					if(SmartUtil.isBlankObject(rAffordances)) rAffordances = new Affordance[]{new Affordance()};
+	 					if(SmartUtil.isBlankObject(rAffordances) && isEditMode )
+							rAffordances = new Affordance[]{new Affordance(), new Affordance(), new Affordance(), new Affordance(), new Affordance()};
+	 					else if(SmartUtil.isBlankObject(rAffordances))
+							rAffordances = new Affordance[]{new Affordance()};
 	 					for(int j=0; j<rAffordances.length; j++){
 	 						Affordance af = rAffordances[j];
 	 						if(af==null) continue;
@@ -129,7 +132,10 @@
 	 				<ul>
 	 					<%
 	 					Affordance[] pAffordances = tp.getProviderAffordances();
-	 					if(SmartUtil.isBlankObject(pAffordances)) pAffordances = new Affordance[]{new Affordance()};
+	 					if(SmartUtil.isBlankObject(pAffordances) && isEditMode )
+	 						pAffordances = new Affordance[]{new Affordance(), new Affordance(), new Affordance(), new Affordance(), new Affordance()};
+	 					else if(SmartUtil.isBlankObject(rAffordances))
+	 						pAffordances = new Affordance[]{new Affordance()};
 	 					for(int j=0; j<pAffordances.length; j++){
 	 						Affordance af = pAffordances[j];
 	 						if(af==null) continue;
@@ -162,9 +168,15 @@ $(function() {
 		for(int i=0; i<touchPoints.length; i++){
 			if(touchPoints[i]==null) continue;
 			Affordance[] rAffordances = touchPoints[i].getReceiverAffordances();
-			if(SmartUtil.isBlankObject(rAffordances)) rAffordances = new Affordance[]{new Affordance()};
+			if(SmartUtil.isBlankObject(rAffordances) && isEditMode) 
+				rAffordances = new Affordance[]{new Affordance(), new Affordance(), new Affordance(), new Affordance(), new Affordance()};
+			else if(SmartUtil.isBlankObject(rAffordances))
+				rAffordances = new Affordance[]{new Affordance()};
 			Affordance[] pAffordances = touchPoints[i].getProviderAffordances();
-			if(SmartUtil.isBlankObject(pAffordances)) pAffordances = new Affordance[]{new Affordance()};
+			if(SmartUtil.isBlankObject(pAffordances) && isEditMode) 
+				pAffordances = new Affordance[]{new Affordance(), new Affordance(), new Affordance(), new Affordance(), new Affordance()};
+			else if(SmartUtil.isBlankObject(pAffordances))
+				pAffordances = new Affordance[]{new Affordance()};
 			String touchPointImg = SmartUtil.isBlankObject(touchPoints[i].getTouchPointImage()) ? "" : PSS_PICTURE_URL + touchPoints[i].getTouchPointImage();
 
 		%>
@@ -200,7 +212,7 @@ $(function() {
 					
 					SmartWorks.FormRuntime.ImageBoxBuilder.buildEx({
 						container: gridRow,
-						fieldId: "imgRAffordance",
+						fieldId: "imgRAffordance"+'<%=j%>',
 						fieldName: "picture profile",
 			 			imgSource: '<%=rAfforanceImg%>',
 						pictureWidth: 100,
@@ -227,7 +239,7 @@ $(function() {
 					
 					SmartWorks.FormRuntime.ImageBoxBuilder.buildEx({
 						container: gridRow,
-						fieldId: "imgPAffordance",
+						fieldId: "imgPAffordance"+'<%=j%>',
 						fieldName: "picture profile",
 			 			imgSource: '<%=pAfforanceImg%>',
 						pictureWidth: 100,

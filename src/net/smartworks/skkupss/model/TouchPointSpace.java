@@ -53,26 +53,63 @@ public class TouchPointSpace{
 			tp.setProviderName((String)frmSpaceTouchPoint.get("txtProviderName"));
 			tp.setProviderInteraction((String)frmSpaceTouchPoint.get("selProviderInteractionType"));
 			
-			Affordance rAffordance = new Affordance();
-			rAffordance.setAffordanceName((String)frmSpaceTouchPoint.get("txtRAffordanceName"));
-			Map<String, Object> imgRAffordance = (Map<String, Object>)frmSpaceTouchPoint.get("imgRAffordance");
-			if(imgRAffordance!=null){
-				List<Map<String, String>> files = (ArrayList<Map<String, String>>)imgRAffordance.get("files");
-				if(files!=null && files.size()==1){
-					rAffordance.setAffordanceImage(files.get(0).get("fileId"));
+			
+//			Affordance rAffordance = new Affordance();
+//			rAffordance.setAffordanceName((String)frmSpaceTouchPoint.get("txtRAffordanceName"));
+//			Map<String, Object> imgRAffordance = (Map<String, Object>)frmSpaceTouchPoint.get("imgRAffordance");
+//			if(imgRAffordance!=null){
+//				List<Map<String, String>> files = (ArrayList<Map<String, String>>)imgRAffordance.get("files");
+//				if(files!=null && files.size()==1){
+//					rAffordance.setAffordanceImage(files.get(0).get("fileId"));
+//				}
+//			}
+//			tp.setReceiverAffordances(new Affordance[]{rAffordance});
+//			Affordance pAffordance = new Affordance();
+//			pAffordance.setAffordanceName((String)frmSpaceTouchPoint.get("txtPAffordanceName"));
+//			Map<String, Object> imgPAffordance = (Map<String, Object>)frmSpaceTouchPoint.get("imgPAffordance");
+//			if(imgPAffordance!=null){
+//				List<Map<String, String>> files = (ArrayList<Map<String, String>>)imgPAffordance.get("files");
+//				if(files!=null && files.size()==1){
+//					pAffordance.setAffordanceImage(files.get(0).get("fileId"));
+//				}
+//			}			
+//			tp.setProviderAffordances(new Affordance[]{pAffordance});
+			
+			List<String> txtRAffordanceNames = (List<String>)frmSpaceTouchPoint.get("txtRAffordanceName");
+			Affordance[] rAffordances = new Affordance[txtRAffordanceNames.size()];
+			for(int j=0; j<txtRAffordanceNames.size(); j++){
+				Affordance affordance = new Affordance();
+				affordance.setAffordanceName(txtRAffordanceNames.get(j));
+				if(SmartUtil.isBlankObject(affordance.getAffordanceName())) continue;
+				
+				Map<String, Object> imgRAffordance = (Map<String, Object>)frmSpaceTouchPoint.get("imgRAffordance"+j);
+				if(imgRAffordance!=null){
+					List<Map<String, String>> files = (ArrayList<Map<String, String>>)imgRAffordance.get("files");
+					if(files!=null && files.size()==1){
+						affordance.setAffordanceImage(files.get(0).get("fileId"));
+					}
 				}
+				rAffordances[j] = affordance;
 			}
-			tp.setReceiverAffordances(new Affordance[]{rAffordance});
-			Affordance pAffordance = new Affordance();
-			pAffordance.setAffordanceName((String)frmSpaceTouchPoint.get("txtPAffordanceName"));
-			Map<String, Object> imgPAffordance = (Map<String, Object>)frmSpaceTouchPoint.get("imgPAffordance");
-			if(imgPAffordance!=null){
-				List<Map<String, String>> files = (ArrayList<Map<String, String>>)imgPAffordance.get("files");
-				if(files!=null && files.size()==1){
-					pAffordance.setAffordanceImage(files.get(0).get("fileId"));
+			tp.setReceiverAffordances(rAffordances);
+
+			List<String> txtPAffordanceNames = (List<String>)frmSpaceTouchPoint.get("txtPAffordanceName");
+			Affordance[] pAffordances = new Affordance[txtPAffordanceNames.size()];
+			for(int j=0; j<txtPAffordanceNames.size(); j++){
+				Affordance affordance = new Affordance();
+				affordance.setAffordanceName(txtPAffordanceNames.get(j));
+				if(SmartUtil.isBlankObject(affordance.getAffordanceName())) continue;
+				Map<String, Object> imgPAffordance = (Map<String, Object>)frmSpaceTouchPoint.get("imgPAffordance"+j);
+				if(imgPAffordance!=null){
+					List<Map<String, String>> files = (ArrayList<Map<String, String>>)imgPAffordance.get("files");
+					if(files!=null && files.size()==1){
+						affordance.setAffordanceImage(files.get(0).get("fileId"));
+					}
 				}
-			}			
-			tp.setProviderAffordances(new Affordance[]{pAffordance});
+				pAffordances[j] = affordance;
+			}
+			tp.setProviderAffordances(pAffordances);
+
 		}
 		TouchPointSpace touchPointSpace = new TouchPointSpace();
 		touchPointSpace.setTouchPoints(touchPoints);		

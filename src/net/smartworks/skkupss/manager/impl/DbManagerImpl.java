@@ -211,6 +211,7 @@ public class DbManagerImpl implements IDbManager {
 			if(ps.getTouchPointSpace()!=null && ps.getTouchPointSpace().getTouchPoints()!=null){
 				String touchPointString = "";
 				for(int j=0; j<ps.getTouchPointSpace().getTouchPoints().length; j++){
+					if(ps.getTouchPointSpace().getTouchPoints()[j]==null) continue;
 					touchPointString = touchPointString + (i==0?"":DELIMITER_SPECIAL) + ps.getTouchPointSpace().getTouchPoints()[j].toString();
 				}					
 				productService.setTouchPointSpace(touchPointString);
