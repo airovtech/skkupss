@@ -183,7 +183,7 @@ public class PssController {
 				productService.setProductServiceSpace(DefaultSpace.createDefaultSpaceWithDelimeter((String)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_PRODUCT_SERVICE), ";"));
 				productService.setProductSpace(ProductSpace.createProductSpace((Map<String, String>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_PRODUCT)));
 				productService.setServiceSpace(ServiceSpace.createServiceSpace((Map<String, Object>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_SERVICE)));
-				productService.setTouchPointSpace(TouchPointSpace.createTouchPointSpace((List<Map<String, Object>>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_TOUCH_POINT)));
+				productService.setTouchPointSpace(TouchPointSpace.createTouchPointSpace(psId, (List<Map<String, Object>>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_TOUCH_POINT)));
 				productService.setCustomerSpace(CustomerSpace.createCustomerSpace((Map<String, Object>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_CUSTOMER)));
 				productService.setBizModelSpace(BizModelSpace.createBizModelSpace((Map<String, Object>)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_BIZ_MODEL)));
 				productService.setActorSpace(ActorSpace.createActorSpace((String)frmSpaceTabs.get("" + ProductService.SPACE_TYPE_ACTOR), txtServitizationProcess));

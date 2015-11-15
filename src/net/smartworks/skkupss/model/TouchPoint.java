@@ -1,7 +1,6 @@
 package net.smartworks.skkupss.model;
 
-import org.springframework.util.StringUtils;
-
+import net.smartworks.util.IdUtil;
 import net.smartworks.util.SmartUtil;
 
 public class TouchPoint{
@@ -9,6 +8,7 @@ public class TouchPoint{
 	private final static String delimiter_touch_point = "$TP$";
 	private final static String delimiter2_touch_point = "\\$TP\\$";
 	
+	private String id;
 	private String receiverName;
 	private String receiverInteraction;
 	private Affordance[] receiverAffordances;
@@ -18,6 +18,12 @@ public class TouchPoint{
 	private String providerInteraction;
 	private Affordance[] providerAffordances;
 
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	public String getReceiverName() {
 		return receiverName;
 	}
@@ -67,7 +73,8 @@ public class TouchPoint{
 		this.providerAffordances = providerAffordances;
 	}
 	public String toString(){
-		String stringValue = this.receiverName+delimiter_touch_point
+		String stringValue = this.id+delimiter_touch_point
+							+this.receiverName+delimiter_touch_point
 							+this.receiverInteraction+delimiter_touch_point
 							+this.touchPointImage+delimiter_touch_point
 							+this.touchPointName+delimiter_touch_point
@@ -91,28 +98,45 @@ public class TouchPoint{
 	public static TouchPoint createTouchPoint(String stringValue){
 		if(stringValue==null) return null;
 		String[] valueStrings = stringValue.split(TouchPoint.delimiter2_touch_point);
-		if(SmartUtil.isBlankObject(valueStrings) || valueStrings.length != 8) return null;
+		if(SmartUtil.isBlankObject(valueStrings) || (valueStrings.length > 9 || valueStrings.length < 7)) return null;
 		TouchPoint touchPoint = new TouchPoint();
-		touchPoint.setReceiverName(valueStrings[0]);
-		touchPoint.setReceiverInteraction(valueStrings[1]);
-		touchPoint.setTouchPointImage(valueStrings[2]);
-		touchPoint.setTouchPointName(valueStrings[3]);
-		touchPoint.setProviderName(valueStrings[4]);
-		touchPoint.setProviderInteraction(valueStrings[5]);
-		touchPoint.setReceiverAffordances(TouchPoint.createAffordances(valueStrings[6]));
-		touchPoint.setProviderAffordances(TouchPoint.createAffordances(valueStrings[7]));
+		touchPoint.setId(valueStrings[0]);
+		touchPoint.setReceiverName(valueStrings[1]);
+		touchPoint.setReceiverInteraction(valueStrings[2]);
+		touchPoint.setTouchPointImage(valueStrings[3]);
+		touchPoint.setTouchPointName(valueStrings[4]);
+		touchPoint.setProviderName(valueStrings[5]);
+		touchPoint.setProviderInteraction(valueStrings[6]);
+		if(valueStrings.length == 9){
+			touchPoint.setReceiverAffordances(TouchPoint.createAffordances(valueStrings[7]));
+			touchPoint.setProviderAffordances(TouchPoint.createAffordances(valueStrings[8]));
+		}
 		return touchPoint;
 	}
 
 	public static Affordance[] createAffordances(String stringValue){
 		if(stringValue==null) return null;
 		String[] valueStrings = stringValue.split(Affordance.delimiter2_affordance);
-		Affordance[] affordances = new Affordance[valueStrings.length / 2];
+		if(valueStrings.length % 3 != 0) return null;
+		Affordance[] affordances = new Affordance[valueStrings.length / 3];
 		for(int i=0, j=0; i<valueStrings.length; i++,j++){
 			affordances[j] = new Affordance();
+			affordances[j].setId(valueStrings[i++]);
 			affordances[j].setAffordanceName(valueStrings[i++]);
 			affordances[j].setAffordanceImage(valueStrings[i]);
 		}
 		return affordances;
+	}
+	
+	public static TouchPoint getTouchPointById(String id, TouchPointSpace touchPointSpace){
+		if(id==null || touchPointSpace==null || touchPointSpace.getTouchPoints()==null) return null;
+		for(int i=0; i<touchPointSpace.getTouchPoints().length; i++)
+			if(id.equals(touchPointSpace.getTouchPoints()[i].getId()))
+				return touchPointSpace.getTouchPoints()[i];
+		return null;
+	}
+	
+	public static String createNewId(){
+		return "TP_" + new IdUtil().generate();
 	}
 }

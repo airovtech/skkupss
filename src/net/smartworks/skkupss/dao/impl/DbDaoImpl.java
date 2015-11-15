@@ -62,6 +62,24 @@ public class DbDaoImpl implements IDbDao {
 				selectId = "getProductServiceWithServiceBizModelSpaceSize";
 			} else if (spaceType != null && spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_VALUE_SERVICE_BIZ_MODEL)) {
 				selectId = "getProductServiceWithValueServiceBizModelSpaceSize";
+			} else if (spaceType != null && spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_PRODUCT_SERVICE)) {
+				selectId = "getProductServiceWithProductServiceSpaceSize";
+			} else if (spaceType != null && spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_PRODUCT)) {
+				selectId = "getProductServiceWithProductSpaceSize";
+			} else if (spaceType != null && spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_TOUCH_POINT)) {
+				selectId = "getProductServiceWithTouchPointSpaceSize";
+			} else if (spaceType != null && spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_CUSTOMER)) {
+				selectId = "getProductServiceWithCustomerSpaceSize";
+			} else if (spaceType != null && spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_ACTOR)) {
+				selectId = "getProductServiceWithActorSpaceSize";
+			} else if (spaceType != null && spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_SOCIETY)) {
+				selectId = "getProductServiceWithSocietySpaceSize";
+			} else if (spaceType != null && spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_CONTEXT)) {
+				selectId = "getProductServiceWithContextSpaceSize";
+			} else if (spaceType != null && spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_TIME)) {
+				selectId = "getProductServiceWithTimeSpaceSize";
+			} else if (spaceType != null && spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_ENVIRONMENT)) {
+				selectId = "getProductServiceWithEnvironmentSpaceSize";
 			}
 			
 			int totalSize = session.selectOne(selectId, cond);
@@ -109,6 +127,24 @@ public class DbDaoImpl implements IDbDao {
 				selectId = "getProductServiceWithServiceBizModelSpace";
 			} else if (spaceType != null && spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_VALUE_SERVICE_BIZ_MODEL)) {
 				selectId = "getProductServiceWithValueServiceBizModelSpace";
+			} else if (spaceType != null && spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_PRODUCT_SERVICE)) {
+				selectId = "getProductServiceWithProductServiceSpace";
+			} else if (spaceType != null && spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_PRODUCT)) {
+				selectId = "getProductServiceWithProductSpace";
+			} else if (spaceType != null && spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_TOUCH_POINT)) {
+				selectId = "getProductServiceWithTouchPointSpace";
+			} else if (spaceType != null && spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_CUSTOMER)) {
+				selectId = "getProductServiceWithCustomerSpace";
+			} else if (spaceType != null && spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_ACTOR)) {
+				selectId = "getProductServiceWithActorSpace";
+			} else if (spaceType != null && spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_SOCIETY)) {
+				selectId = "getProductServiceWithSocietySpace";
+			} else if (spaceType != null && spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_CONTEXT)) {
+				selectId = "getProductServiceWithContextSpace";
+			} else if (spaceType != null && spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_TIME)) {
+				selectId = "getProductServiceWithTimeSpace";
+			} else if (spaceType != null && spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_ENVIRONMENT)) {
+				selectId = "getProductServiceWithEnvironmentSpace";
 			}
 			
 			List<Db_ProductService> productServiceList = session.selectList(selectId, cond, Rb);

@@ -125,8 +125,52 @@ function submitForms(tempSave) {
 			paramsJsonHiddens[spaceType] = customerSpaceValues;
 		}else if(spaceType == '<%=ProductService.SPACE_TYPE_TOUCH_POINT%>'){
 			var touchPoints = new Array();
-			spaceTab.find('form').each(function(){
-				touchPoints.push( mergeObjects($(this).serializeObject(), SmartWorks.GridLayout.serializeObject($(this))));
+			spaceTab.find('form:visible').each(function(){
+				var touchPointId = {};
+				if(!isEmpty($(this).attr('touchPointId')))
+					touchPointId['touchPointId'] = $(this).attr('touchPointId'); 
+				var affordanceNames = {};
+				var txtRAffordanceNameValues = $(this).find('textarea[name="txtRAffordanceName"]');
+				var txtPAffordanceNameValues = $(this).find('textarea[name="txtPAffordanceName"]');
+				if(!isEmpty(txtRAffordanceNameValues)){
+					var values = new Array();
+					var ids = new Array();
+					txtRAffordanceNameValues.each(function(){
+						values.push($(this).attr('value'));
+						ids.push($(this).attr('affordanceId'));
+					});
+					affordanceNames['txtRAffordanceNames'] = values;
+					affordanceNames['txtRAffordanceIds'] = ids;					
+				}
+				if(!isEmpty(txtPAffordanceNameValues)){
+					var values = new Array();
+					var ids = new Array();
+ 					txtPAffordanceNameValues.each(function(){
+						values.push($(this).attr('value'));
+						ids.push($(this).attr('affordanceId'));
+					});
+					affordanceNames['txtPAffordanceNames'] = values;
+					affordanceNames['txtPAffordanceIds'] = ids;
+				}
+				var affordanceImages = {};
+				var imgRAffordances = $(this).find('.js_raffordance_fields');
+				var imgPAffordances = $(this).find('.js_paffordance_fields');
+				if(!isEmpty(imgRAffordances)){
+					var values = new Array();
+					imgRAffordances.each(function(){
+						values.push(SmartWorks.GridLayout.serializeObject($(this))["imgRAffordance"]);
+					});
+					affordanceImages['imgRAffordances'] = values;
+				}
+				if(!isEmpty(imgPAffordances)){
+					var values = new Array();
+					imgPAffordances.each(function(){
+						values.push(SmartWorks.GridLayout.serializeObject($(this))["imgPAffordance"]);
+					});
+					affordanceImages['imgPAffordances'] = values;
+				}
+				console.log(affordanceImages);
+				touchPoints.push( merge3Objects($(this).serializeObject(), SmartWorks.GridLayout.serializeObject($(this)), merge3Objects(touchPointId, affordanceNames, affordanceImages)));
 			});
 			paramsJsonHiddens[spaceType] = touchPoints;
 		}else if(spaceType == '<%=ProductService.SPACE_TYPE_PRODUCT_SERVICE%>'){

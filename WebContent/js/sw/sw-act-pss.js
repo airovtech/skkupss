@@ -813,5 +813,102 @@ $(function() {
 		return false;
 	});			
 
+	$('a.js_add_raffordance_item').live('click', function(e) {
+		var input = $(targetElement(e));
+		var target = input.parents('td:first').find('ul:first');
+		var raffordanceItem = target.find('.js_hidden_raffordance').clone().removeClass('js_hidden_raffordance');
+		target.append(raffordanceItem);
+		raffordanceItem.find('textarea').attr('name', 'txtRAffordanceName');
+		var affordanceFields = raffordanceItem.find('.js_affordance_fields').removeClass('js_affordance_fields').addClass('js_raffordance_fields');
+		var gridRow = SmartWorks.GridLayout.newGridRow();
+		var gridTable = SmartWorks.GridLayout.newGridTable();
+		affordanceFields.html(gridTable.html(gridRow));
+		
+		SmartWorks.FormRuntime.ImageBoxBuilder.buildEx({
+			container: gridRow,
+			fieldId: "imgRAffordance",
+			fieldName: "picture profile",
+			pictureWidth: 100,
+			pictureHeight: 100,
+			required: false,
+			readOnly: false						
+		}); 
+		
+		gridRow.find('.form_label').css('margin-top', '-26px').css('margin-left', '16px');
+		gridRow.find('.form_value').attr('style', 'padding-top:0px!important;margin:0px!important');
+		
+		raffordanceItem.show();
+		return false;
+	});			
+
+	$('a.js_add_paffordance_item').live('click', function(e) {
+		var input = $(targetElement(e));
+		var target = input.parents('td:first').find('ul:first');
+		var paffordanceItem = target.find('.js_hidden_paffordance').clone().removeClass('js_hidden_paffordance');
+		target.append(paffordanceItem);
+		paffordanceItem.find('textarea').attr('name', 'txtPAffordanceName');
+		var affordanceFields = paffordanceItem.find('.js_affordance_fields').removeClass('js_affordance_fields').addClass('js_paffordance_fields');
+		var gridRow = SmartWorks.GridLayout.newGridRow();
+		var gridTable = SmartWorks.GridLayout.newGridTable();
+		affordanceFields.html(gridTable.html(gridRow));
+		
+		SmartWorks.FormRuntime.ImageBoxBuilder.buildEx({
+			container: gridRow,
+			fieldId: "imgPAffordance",
+			fieldName: "picture profile",
+			pictureWidth: 100,
+			pictureHeight: 100,
+			required: false,
+			readOnly: false						
+		}); 
+		
+		gridRow.find('.form_label').css('margin-top', '-26px').css('margin-left', '16px');
+		gridRow.find('.form_value').attr('style', 'padding-top:0px!important;margin:0px!important');
+		
+		paffordanceItem.show();
+		return false;
+	});			
+
+	$('a.js_delete_affordance_item').live('click', function(e) {
+		var input = $(targetElement(e));
+		input.parents('li:first').remove();
+		return false;
+	});			
+
+	$('a.js_add_touch_point_item').live('click', function(e) {
+		var input = $(targetElement(e));
+		var target = input.parents('.js_touch_point_space:first');
+		var touchPointItem = target.find('.js_hidden_touch_point').clone().removeClass('js_hidden_touch_point');
+		target.append(touchPointItem);
+
+		var touchPointField = touchPointItem.find('.js_touch_point_fields:first');
+		var gridRow = SmartWorks.GridLayout.newGridRow();
+		var gridTable = SmartWorks.GridLayout.newGridTable();
+		touchPointField.html(gridTable.html(gridRow));
+		
+		SmartWorks.FormRuntime.ImageBoxBuilder.buildEx({
+			container: gridRow,
+			fieldId: "imgTouchPoint",
+			fieldName: "picture profile",
+ 			imgSource: '<%=touchPointImg%>',
+			pictureWidth: 100,
+			pictureHeight: 100,
+			required: false,
+			readOnly: false							
+		}); 
+		
+		gridRow.find('.form_label').css('margin-top', '-26px').css('margin-left', '16px');
+		gridRow.find('.form_value').attr('style', 'padding-top:0px!important;margin:0px!important');
+		touchPointField.find('.js_type_imageBox:first').css('padding', '0px');
+		
+		touchPointItem.show();
+		return false;
+	});			
+
+	$('a.js_delete_touch_point_item').live('click', function(e) {
+		var input = $(targetElement(e));
+		input.parents('form:first').remove();
+		return false;
+	});			
 
 });

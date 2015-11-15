@@ -197,7 +197,9 @@
 											request.setAttribute("touchPointSpace",
 													productService.getTouchPointSpace());
 						%>
-							<jsp:include page="viewTouchPointSpace.jsp"/>
+							<jsp:include page="viewTouchPointSpace.jsp">
+								<jsp:param value="<%=productService.getId()%>" name="psId"/>
+							</jsp:include>
 						<%
 							break;
 										case ProductService.SPACE_TYPE_CUSTOMER:

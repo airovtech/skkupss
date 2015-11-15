@@ -32,13 +32,25 @@ public class TouchPointSpace{
 	public void setTouchPoints(TouchPoint[] touchPoints) {
 		this.touchPoints = touchPoints;
 	}
-	public static TouchPointSpace createTouchPointSpace(List<Map<String, Object>> frmSpaceTouchPoints){
+	public static TouchPointSpace createTouchPointSpace(String psId, List<Map<String, Object>> frmSpaceTouchPoints){
 		if(frmSpaceTouchPoints==null) return null;
+		
+		TouchPointSpace oldTouchPointSpace = null;
+		if(!SmartUtil.isBlankObject(psId)){
+			try{
+				ProductService productService = ManagerFactory.getInstance().getDbManager().getProductService("", psId);
+				if(productService!=null){
+					oldTouchPointSpace = productService.getTouchPointSpace();
+				}
+			}catch(Exception e){}
+		}
 		
 		TouchPoint[] touchPoints = new TouchPoint[frmSpaceTouchPoints.size()];
 		for(int i=0; i<frmSpaceTouchPoints.size(); i++){
 			Map<String, Object> frmSpaceTouchPoint = frmSpaceTouchPoints.get(i);
+			TouchPoint oldTouchPoint = TouchPoint.getTouchPointById((String)frmSpaceTouchPoint.get("touchPointId"), oldTouchPointSpace);
 			touchPoints[i] = new TouchPoint();
+			touchPoints[i].setId(oldTouchPoint==null?TouchPoint.createNewId():oldTouchPoint.getId());
 			TouchPoint tp = touchPoints[i];
 			tp.setReceiverName((String)frmSpaceTouchPoint.get("txtReceiverName"));
 			tp.setReceiverInteraction((String)frmSpaceTouchPoint.get("selReceiverInteractionType"));
@@ -48,68 +60,62 @@ public class TouchPointSpace{
 				List<Map<String, String>> files = (ArrayList<Map<String, String>>)imgTouchPoint.get("files");
 				if(files!=null && files.size()==1){
 					tp.setTouchPointImage(files.get(0).get("fileId"));
+				}else if(oldTouchPoint!=null){
+					tp.setTouchPointImage(oldTouchPoint.getTouchPointImage());
 				}
 			}
 			tp.setProviderName((String)frmSpaceTouchPoint.get("txtProviderName"));
 			tp.setProviderInteraction((String)frmSpaceTouchPoint.get("selProviderInteractionType"));
 			
-			
-//			Affordance rAffordance = new Affordance();
-//			rAffordance.setAffordanceName((String)frmSpaceTouchPoint.get("txtRAffordanceName"));
-//			Map<String, Object> imgRAffordance = (Map<String, Object>)frmSpaceTouchPoint.get("imgRAffordance");
-//			if(imgRAffordance!=null){
-//				List<Map<String, String>> files = (ArrayList<Map<String, String>>)imgRAffordance.get("files");
-//				if(files!=null && files.size()==1){
-//					rAffordance.setAffordanceImage(files.get(0).get("fileId"));
-//				}
-//			}
-//			tp.setReceiverAffordances(new Affordance[]{rAffordance});
-//			Affordance pAffordance = new Affordance();
-//			pAffordance.setAffordanceName((String)frmSpaceTouchPoint.get("txtPAffordanceName"));
-//			Map<String, Object> imgPAffordance = (Map<String, Object>)frmSpaceTouchPoint.get("imgPAffordance");
-//			if(imgPAffordance!=null){
-//				List<Map<String, String>> files = (ArrayList<Map<String, String>>)imgPAffordance.get("files");
-//				if(files!=null && files.size()==1){
-//					pAffordance.setAffordanceImage(files.get(0).get("fileId"));
-//				}
-//			}			
-//			tp.setProviderAffordances(new Affordance[]{pAffordance});
-			
-			List<String> txtRAffordanceNames = (List<String>)frmSpaceTouchPoint.get("txtRAffordanceName");
-			Affordance[] rAffordances = new Affordance[txtRAffordanceNames.size()];
-			for(int j=0; j<txtRAffordanceNames.size(); j++){
-				Affordance affordance = new Affordance();
-				affordance.setAffordanceName(txtRAffordanceNames.get(j));
-				if(SmartUtil.isBlankObject(affordance.getAffordanceName())) continue;
-				
-				Map<String, Object> imgRAffordance = (Map<String, Object>)frmSpaceTouchPoint.get("imgRAffordance"+j);
-				if(imgRAffordance!=null){
-					List<Map<String, String>> files = (ArrayList<Map<String, String>>)imgRAffordance.get("files");
-					if(files!=null && files.size()==1){
-						affordance.setAffordanceImage(files.get(0).get("fileId"));
+			List<String> txtRAffordanceNames = (List<String>)frmSpaceTouchPoint.get("txtRAffordanceNames");
+			List<String> txtRAffordanceIds = (List<String>)frmSpaceTouchPoint.get("txtRAffordanceIds");
+			List<Map<String, Object>> imgRAffordances = (List<Map<String, Object>>)frmSpaceTouchPoint.get("imgRAffordances");
+			if(!SmartUtil.isBlankObject(txtRAffordanceNames) && !SmartUtil.isBlankObject(txtRAffordanceIds)){
+				Affordance[] rAffordances = new Affordance[txtRAffordanceNames.size()];
+				for(int j=0; j<txtRAffordanceNames.size(); j++){
+					Affordance oldAffordance = Affordance.getReceiverAffordanceById(txtRAffordanceIds.get(j), oldTouchPoint);
+					Affordance affordance = new Affordance();
+					affordance.setId(oldAffordance==null?Affordance.createNewId():oldAffordance.getId());
+					affordance.setAffordanceName(txtRAffordanceNames.get(j));
+					if(SmartUtil.isBlankObject(affordance.getAffordanceName()) || imgRAffordances==null) continue;
+					Map<String, Object> imgRAffordance = imgRAffordances.get(j);
+					if(imgRAffordance!=null){
+						List<Map<String, String>> files = (ArrayList<Map<String, String>>)imgRAffordance.get("files");
+						if(files!=null && files.size()>=1){
+							affordance.setAffordanceImage(files.get(files.size()-1).get("fileId"));
+						}else if(oldAffordance!=null){
+							affordance.setAffordanceImage(oldAffordance.getAffordanceImage());							
+						}
 					}
+					rAffordances[j] = affordance;
 				}
-				rAffordances[j] = affordance;
+				tp.setReceiverAffordances(rAffordances);
 			}
-			tp.setReceiverAffordances(rAffordances);
 
-			List<String> txtPAffordanceNames = (List<String>)frmSpaceTouchPoint.get("txtPAffordanceName");
-			Affordance[] pAffordances = new Affordance[txtPAffordanceNames.size()];
-			for(int j=0; j<txtPAffordanceNames.size(); j++){
-				Affordance affordance = new Affordance();
-				affordance.setAffordanceName(txtPAffordanceNames.get(j));
-				if(SmartUtil.isBlankObject(affordance.getAffordanceName())) continue;
-				Map<String, Object> imgPAffordance = (Map<String, Object>)frmSpaceTouchPoint.get("imgPAffordance"+j);
-				if(imgPAffordance!=null){
-					List<Map<String, String>> files = (ArrayList<Map<String, String>>)imgPAffordance.get("files");
-					if(files!=null && files.size()==1){
-						affordance.setAffordanceImage(files.get(0).get("fileId"));
+			List<String> txtPAffordanceNames = (List<String>)frmSpaceTouchPoint.get("txtPAffordanceNames");
+			List<String> txtPAffordanceIds = (List<String>)frmSpaceTouchPoint.get("txtPAffordanceIds");
+			List<Map<String, Object>> imgPAffordances = (List<Map<String, Object>>)frmSpaceTouchPoint.get("imgPAffordances");
+			if(!SmartUtil.isBlankObject(txtPAffordanceNames) && !SmartUtil.isBlankObject(txtPAffordanceIds)){
+				Affordance[] pAffordances = new Affordance[txtPAffordanceNames.size()];
+				for(int j=0; j<txtPAffordanceNames.size(); j++){
+					Affordance oldAffordance = Affordance.getProviderAffordanceById(txtPAffordanceIds.get(i), oldTouchPoint);
+					Affordance affordance = new Affordance();
+					affordance.setId(oldAffordance==null?Affordance.createNewId():oldAffordance.getId());
+					affordance.setAffordanceName(txtPAffordanceNames.get(j));
+					if(SmartUtil.isBlankObject(affordance.getAffordanceName()) || imgPAffordances == null) continue;
+					Map<String, Object> imgPAffordance = imgPAffordances.get(j);
+					if(imgPAffordance!=null){
+						List<Map<String, String>> files = (ArrayList<Map<String, String>>)imgPAffordance.get("files");
+						if(files!=null && files.size()>=1){
+							affordance.setAffordanceImage(files.get(files.size()-1).get("fileId"));
+						}else if(oldAffordance!=null){
+							affordance.setAffordanceImage(oldAffordance.getAffordanceImage());							
+						}
 					}
+					pAffordances[j] = affordance;
 				}
-				pAffordances[j] = affordance;
+				tp.setProviderAffordances(pAffordances);
 			}
-			tp.setProviderAffordances(pAffordances);
-
 		}
 		TouchPointSpace touchPointSpace = new TouchPointSpace();
 		touchPointSpace.setTouchPoints(touchPoints);		

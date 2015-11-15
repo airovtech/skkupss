@@ -439,12 +439,11 @@
 	    </if>
 	</select>
 
-
-	<select id="getProductServiceWithContextSpaceSize" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultType="java.lang.Integer">
+	<select id="getProductServiceWithProductServiceSpaceSize" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultType="java.lang.Integer">
 		select count(*)
 		from
 		productService a 
-		where a.contextSpace is not null
+		where a.productServiceSpace is not null and a.productServiceSpace != ''
 	    <if test="id != null">
 	       	and a.id = #{id}
 	    </if>
@@ -458,11 +457,11 @@
 	    	)
 	    </if>
 	</select>
-	<select id="getProductServiceWithContextSpace" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultMap="productServiceAllSpaceResult">
+	<select id="getProductServiceWithProductServiceSpace" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultMap="productServiceAllSpaceResult">
 		select a.*
 		from
 		productService a 
-		where a.contextSpace is not null
+		where a.productServiceSpace is not null and a.productServiceSpace != ''
 	    <if test="id != null">
 	       	and a.id = #{id}
 	    </if>
@@ -480,8 +479,326 @@
 	    </if>
 	</select>
 	
-
-
+	<select id="getProductServiceWithProductSpaceSize" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultType="java.lang.Integer">
+		select count(*)
+		from
+		productService a 
+		where a.productSpace is not null and a.productSpace != ''
+	    <if test="id != null">
+	       	and a.id = #{id}
+	    </if>
+		<if test="idIns != null">
+			and a.id in (
+            <foreach collection="idIns" item="a" separator=",">#{a}</foreach>
+            )
+		</if>
+	    <if test="searchKey != null">
+	    	and ((UPPER(a.name) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.description) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.lastModifiedUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.createdUser) like '%'|| UPPER(#{searchKey}) ||'%')
+	    	)
+	    </if>
+	</select>
+	<select id="getProductServiceWithProductSpace" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultMap="productServiceAllSpaceResult">
+		select a.*
+		from
+		productService a 
+		where a.productSpace is not null and a.productSpace != ''
+	    <if test="id != null">
+	       	and a.id = #{id}
+	    </if>
+		<if test="idIns != null">
+			and a.id in (
+            <foreach collection="idIns" item="a" separator=",">#{a}</foreach>
+            )
+		</if>
+	    <if test="searchKey != null">
+	    	and ((UPPER(a.name) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.description) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.lastModifiedUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.createdUser) like '%'|| UPPER(#{searchKey}) ||'%')
+	    	)
+	    </if>
+	    <if test="orders != null">
+			order by ${orderQuery}
+	    </if>
+	</select>
+	
+	<select id="getProductServiceWithTouchPointSpaceSize" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultType="java.lang.Integer">
+		select count(*)
+		from
+		productService a 
+		where a.touchPointSpace is not null and a.touchPointSpace != ''
+	    <if test="id != null">
+	       	and a.id = #{id}
+	    </if>
+		<if test="idIns != null">
+			and a.id in (
+            <foreach collection="idIns" item="a" separator=",">#{a}</foreach>
+            )
+		</if>
+	    <if test="searchKey != null">
+	    	and ((UPPER(a.name) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.description) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.lastModifiedUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.createdUser) like '%'|| UPPER(#{searchKey}) ||'%')
+	    	)
+	    </if>
+	</select>
+	<select id="getProductServiceWithTouchPointSpace" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultMap="productServiceAllSpaceResult">
+		select a.*
+		from
+		productService a 
+		where a.touchPointSpace is not null and a.touchPointSpace != ''
+	    <if test="id != null">
+	       	and a.id = #{id}
+	    </if>
+		<if test="idIns != null">
+			and a.id in (
+            <foreach collection="idIns" item="a" separator=",">#{a}</foreach>
+            )
+		</if>
+	    <if test="searchKey != null">
+	    	and ((UPPER(a.name) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.description) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.lastModifiedUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.createdUser) like '%'|| UPPER(#{searchKey}) ||'%')
+	    	)
+	    </if>
+	    <if test="orders != null">
+			order by ${orderQuery}
+	    </if>
+	</select>
+	
+	<select id="getProductServiceWithCustomerSpaceSize" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultType="java.lang.Integer">
+		select count(*)
+		from
+		productService a 
+		where a.customerSpace is not null and a.customerSpace != ''
+	    <if test="id != null">
+	       	and a.id = #{id}
+	    </if>
+		<if test="idIns != null">
+			and a.id in (
+            <foreach collection="idIns" item="a" separator=",">#{a}</foreach>
+            )
+		</if>
+	    <if test="searchKey != null">
+	    	and ((UPPER(a.name) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.description) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.lastModifiedUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.createdUser) like '%'|| UPPER(#{searchKey}) ||'%')
+	    	)
+	    </if>
+	</select>
+	<select id="getProductServiceWithCustomerSpace" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultMap="productServiceAllSpaceResult">
+		select a.*
+		from
+		productService a 
+		where a.customerSpace is not null and a.customerSpace != ''
+	    <if test="id != null">
+	       	and a.id = #{id}
+	    </if>
+		<if test="idIns != null">
+			and a.id in (
+            <foreach collection="idIns" item="a" separator=",">#{a}</foreach>
+            )
+		</if>
+	    <if test="searchKey != null">
+	    	and ((UPPER(a.name) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.description) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.lastModifiedUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.createdUser) like '%'|| UPPER(#{searchKey}) ||'%')
+	    	)
+	    </if>
+	    <if test="orders != null">
+			order by ${orderQuery}
+	    </if>
+	</select>
+	
+	<select id="getProductServiceWithActorSpaceSize" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultType="java.lang.Integer">
+		select count(*)
+		from
+		productService a 
+		where a.actorSpace is not null and a.actorSpace != ''
+	    <if test="id != null">
+	       	and a.id = #{id}
+	    </if>
+		<if test="idIns != null">
+			and a.id in (
+            <foreach collection="idIns" item="a" separator=",">#{a}</foreach>
+            )
+		</if>
+	    <if test="searchKey != null">
+	    	and ((UPPER(a.name) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.description) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.lastModifiedUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.createdUser) like '%'|| UPPER(#{searchKey}) ||'%')
+	    	)
+	    </if>
+	</select>
+	<select id="getProductServiceWithActorSpace" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultMap="productServiceAllSpaceResult">
+		select a.*
+		from
+		productService a 
+		where a.actorSpace is not null and a.actorSpace != ''
+	    <if test="id != null">
+	       	and a.id = #{id}
+	    </if>
+		<if test="idIns != null">
+			and a.id in (
+            <foreach collection="idIns" item="a" separator=",">#{a}</foreach>
+            )
+		</if>
+	    <if test="searchKey != null">
+	    	and ((UPPER(a.name) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.description) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.lastModifiedUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.createdUser) like '%'|| UPPER(#{searchKey}) ||'%')
+	    	)
+	    </if>
+	    <if test="orders != null">
+			order by ${orderQuery}
+	    </if>
+	</select>
+	
+	<select id="getProductServiceWithSocietySpaceSize" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultType="java.lang.Integer">
+		select count(*)
+		from
+		productService a 
+		where a.societySpace is not null and a.societySpace != ''
+	    <if test="id != null">
+	       	and a.id = #{id}
+	    </if>
+		<if test="idIns != null">
+			and a.id in (
+            <foreach collection="idIns" item="a" separator=",">#{a}</foreach>
+            )
+		</if>
+	    <if test="searchKey != null">
+	    	and ((UPPER(a.name) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.description) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.lastModifiedUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.createdUser) like '%'|| UPPER(#{searchKey}) ||'%')
+	    	)
+	    </if>
+	</select>
+	<select id="getProductServiceWithSocietySpace" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultMap="productServiceAllSpaceResult">
+		select a.*
+		from
+		productService a 
+		where a.societySpace is not null and a.societySpace != ''
+	    <if test="id != null">
+	       	and a.id = #{id}
+	    </if>
+		<if test="idIns != null">
+			and a.id in (
+            <foreach collection="idIns" item="a" separator=",">#{a}</foreach>
+            )
+		</if>
+	    <if test="searchKey != null">
+	    	and ((UPPER(a.name) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.description) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.lastModifiedUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.createdUser) like '%'|| UPPER(#{searchKey}) ||'%')
+	    	)
+	    </if>
+	    <if test="orders != null">
+			order by ${orderQuery}
+	    </if>
+	</select>
+	
+	<select id="getProductServiceWithContextSpaceSize" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultType="java.lang.Integer">
+		select count(*)
+		from
+		productService a 
+		where a.contextSpace is not null and a.contextSpace != ''
+	    <if test="id != null">
+	       	and a.id = #{id}
+	    </if>
+		<if test="idIns != null">
+			and a.id in (
+            <foreach collection="idIns" item="a" separator=",">#{a}</foreach>
+            )
+		</if>
+	    <if test="searchKey != null">
+	    	and ((UPPER(a.name) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.description) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.lastModifiedUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.createdUser) like '%'|| UPPER(#{searchKey}) ||'%')
+	    	)
+	    </if>
+	</select>
+	<select id="getProductServiceWithContextSpace" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultMap="productServiceAllSpaceResult">
+		select a.*
+		from
+		productService a 
+		where a.contextSpace is not null and a.contextSpace != ''
+	    <if test="id != null">
+	       	and a.id = #{id}
+	    </if>
+		<if test="idIns != null">
+			and a.id in (
+            <foreach collection="idIns" item="a" separator=",">#{a}</foreach>
+            )
+		</if>
+	    <if test="searchKey != null">
+	    	and ((UPPER(a.name) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.description) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.lastModifiedUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.createdUser) like '%'|| UPPER(#{searchKey}) ||'%')
+	    	)
+	    </if>
+	    <if test="orders != null">
+			order by ${orderQuery}
+	    </if>
+	</select>
+	
+	<select id="getProductServiceWithTimeSpaceSize" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultType="java.lang.Integer">
+		select count(*)
+		from
+		productService a 
+		where a.timeSpace is not null and a.timeSpace != ''
+	    <if test="id != null">
+	       	and a.id = #{id}
+	    </if>
+		<if test="idIns != null">
+			and a.id in (
+            <foreach collection="idIns" item="a" separator=",">#{a}</foreach>
+            )
+		</if>
+	    <if test="searchKey != null">
+	    	and ((UPPER(a.name) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.description) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.lastModifiedUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.createdUser) like '%'|| UPPER(#{searchKey}) ||'%')
+	    	)
+	    </if>
+	</select>
+	<select id="getProductServiceWithTimeSpace" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultMap="productServiceAllSpaceResult">
+		select a.*
+		from
+		productService a 
+		where a.timeSpace is not null and a.timeSpace != ''
+	    <if test="id != null">
+	       	and a.id = #{id}
+	    </if>
+		<if test="idIns != null">
+			and a.id in (
+            <foreach collection="idIns" item="a" separator=",">#{a}</foreach>
+            )
+		</if>
+	    <if test="searchKey != null">
+	    	and ((UPPER(a.name) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.description) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.lastModifiedUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.createdUser) like '%'|| UPPER(#{searchKey}) ||'%')
+	    	)
+	    </if>
+	    <if test="orders != null">
+			order by ${orderQuery}
+	    </if>
+	</select>
+	
+	<select id="getProductServiceWithEnvironmentSpaceSize" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultType="java.lang.Integer">
+		select count(*)
+		from
+		productService a 
+		where a.environmentSpace is not null and a.environmentSpace != ''
+	    <if test="id != null">
+	       	and a.id = #{id}
+	    </if>
+		<if test="idIns != null">
+			and a.id in (
+            <foreach collection="idIns" item="a" separator=",">#{a}</foreach>
+            )
+		</if>
+	    <if test="searchKey != null">
+	    	and ((UPPER(a.name) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.description) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.lastModifiedUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.createdUser) like '%'|| UPPER(#{searchKey}) ||'%')
+	    	)
+	    </if>
+	</select>
+	<select id="getProductServiceWithEnvironmentSpace" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultMap="productServiceAllSpaceResult">
+		select a.*
+		from
+		productService a 
+		where a.environmentSpace is not null and a.environmentSpace != ''
+	    <if test="id != null">
+	       	and a.id = #{id}
+	    </if>
+		<if test="idIns != null">
+			and a.id in (
+            <foreach collection="idIns" item="a" separator=",">#{a}</foreach>
+            )
+		</if>
+	    <if test="searchKey != null">
+	    	and ((UPPER(a.name) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.description) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.lastModifiedUser) like '%'|| UPPER(#{searchKey}) ||'%') or (UPPER(a.createdUser) like '%'|| UPPER(#{searchKey}) ||'%')
+	    	)
+	    </if>
+	    <if test="orders != null">
+			order by ${orderQuery}
+	    </if>
+	</select>
+	
 	<select id="getProductServiceSize" parameterType="net.smartworks.skkupss.model.db.Db_ProductServiceCond" resultType="java.lang.Integer">
 		select count(*) 
 		from productService 

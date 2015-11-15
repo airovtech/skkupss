@@ -47,7 +47,8 @@ import org.springframework.util.StringUtils;
 public class DbManagerImpl implements IDbManager {
 
 	public static final String delimiters = ";";
-	public static final String DELIMITER_SPECIAL = ";$$;";
+	public static final String delimiter_special = "$DELIMITER$";
+	public static final String delimiter2_special = "\\$DELIMITER\\$";
 	
 	private DefaultSpace getDefaultSpace(String[] elements) throws Exception {
 		if (elements == null)
@@ -212,14 +213,14 @@ public class DbManagerImpl implements IDbManager {
 				String touchPointString = "";
 				for(int j=0; j<ps.getTouchPointSpace().getTouchPoints().length; j++){
 					if(ps.getTouchPointSpace().getTouchPoints()[j]==null) continue;
-					touchPointString = touchPointString + (i==0?"":DELIMITER_SPECIAL) + ps.getTouchPointSpace().getTouchPoints()[j].toString();
+					touchPointString = touchPointString + (j==0?"":delimiter_special) + ps.getTouchPointSpace().getTouchPoints()[j].toString();
 				}					
 				productService.setTouchPointSpace(touchPointString);
 			}
 			if(ps.getCustomerSpace()!=null)
 				productService.setCustomerSpace(ps.getCustomerSpace().getTypesWithComma() + delimiters + ps.getCustomerSpace().getActivityTypesWithComma());
 			if(ps.getActorSpace()!=null)
-				productService.setActorSpace(ps.getActorSpace().getDiagramData() + DELIMITER_SPECIAL + ps.getActorSpace().getServitizationProcess());
+				productService.setActorSpace((ps.getActorSpace().getDiagramData()==null && ps.getActorSpace().getServitizationProcess()==null)?null:(ps.getActorSpace().getDiagramData() + delimiter_special + ps.getActorSpace().getServitizationProcess()));
 			productService.setSocietySpace(makeStringFromDefaultSpace(ps.getSocietySpace()));
 			if(ps.getContextSpace()!=null)
 				productService.setContextSpace(ps.getContextSpace().getContextData());
@@ -318,9 +319,9 @@ public class DbManagerImpl implements IDbManager {
 			productService.setProductServiceSpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getProductServiceSpace(), delimiters)));
 			productService.setProductSpace(getProductSpace(StringUtils.tokenizeToStringArray(dbPs.getProductSpace(), delimiters)));
 			
-			productService.setTouchPointSpace(getTouchPointSpace(new String[]{dbPs.getTouchPointSpace()}));
+			productService.setTouchPointSpace(getTouchPointSpace(dbPs.getTouchPointSpace()==null?null:dbPs.getTouchPointSpace().split(delimiter2_special)));
 			productService.setCustomerSpace(getCustomerSpace(StringUtils.tokenizeToStringArray(dbPs.getCustomerSpace(), delimiters)));
-			productService.setActorSpace(getActorSpace(StringUtils.tokenizeToStringArray(dbPs.getActorSpace(), DELIMITER_SPECIAL)));
+			productService.setActorSpace(getActorSpace(dbPs.getActorSpace()==null?null:dbPs.getActorSpace().split(delimiter2_special)));
 			productService.setSocietySpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getSocietySpace(), delimiters)));
 			productService.setContextSpace(ContextSpace.createContextSpace(dbPs.getContextSpace()));
 			productService.setTimeSpace(getTimeSpace(dbPs.getTimeSpace()));
@@ -469,10 +470,9 @@ public class DbManagerImpl implements IDbManager {
 		productService.setProductServiceSpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getProductServiceSpace(), delimiters)));
 		productService.setProductSpace(getProductSpace(StringUtils.tokenizeToStringArray(dbPs.getProductSpace(), delimiters)));
 		
-//		productService.setTouchPointSpace(getTouchPointSpace(StringUtils.tokenizeToStringArray(dbPs.getTouchPointSpace(), DELIMITER_SPECIAL)));
-		productService.setTouchPointSpace(getTouchPointSpace(new String[]{dbPs.getTouchPointSpace()}));
+		productService.setTouchPointSpace(getTouchPointSpace(dbPs.getTouchPointSpace()==null?null:dbPs.getTouchPointSpace().split(delimiter2_special)));
 		productService.setCustomerSpace(getCustomerSpace(StringUtils.tokenizeToStringArray(dbPs.getCustomerSpace(), delimiters)));
-		productService.setActorSpace(getActorSpace(StringUtils.tokenizeToStringArray(dbPs.getActorSpace(), DELIMITER_SPECIAL)));
+		productService.setActorSpace(getActorSpace(dbPs.getActorSpace()==null?null:dbPs.getActorSpace().split(delimiter2_special)));
 		productService.setSocietySpace(getDefaultSpace(StringUtils.tokenizeToStringArray(dbPs.getSocietySpace(), delimiters)));
 		productService.setContextSpace(ContextSpace.createContextSpace(dbPs.getContextSpace()));
 		productService.setTimeSpace(getTimeSpace(dbPs.getTimeSpace()));
