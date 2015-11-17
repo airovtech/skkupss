@@ -61,15 +61,35 @@ public class ContextSpace{
 			Map nodeIds = new HashMap();
 			for(int i=0; i<nodeArray.length(); i++){
 				JSONObject jsonObj  = nodeArray.getJSONObject(i);
-				nodes[i] = new Node(jsonObj.getString("id"), jsonObj.getString("type"), jsonObj.getString("name"));	
+				String id=null, type=null, name=null;
+				try{
+					id = jsonObj.getString("id");
+				}catch(Exception e){}
+				try{
+					type = jsonObj.getString("type");
+				}catch(Exception e){}
+				try{
+					name = jsonObj.getString("name");
+				}catch(Exception e){}
+				nodes[i] = new Node(id, type, name);	
 				nodeIds.put(nodes[i].getId(), nodes[i]);
 			}
 	
 			for(int i=0; i<edgeLineArray.length(); i++){
 				JSONObject jsonObj  = edgeLineArray.getJSONObject(i);
-				graph.addEdge((Node)nodeIds.get(jsonObj.getString("fromNodeId")), (Node)nodeIds.get(jsonObj.getString("toNodeId")));
+				String fromNodeId=null, toNodeId=null;
+				try{
+					fromNodeId = jsonObj.getString("fromNodeId");
+				}catch(Exception e){}
+				try{
+					toNodeId = jsonObj.getString("toNodeId");
+				}catch(Exception e){}
+				if(fromNodeId!=null && toNodeId!=null)
+					graph.addEdge((Node)nodeIds.get(fromNodeId), (Node)nodeIds.get(toNodeId));
 			}
-		}catch(Exception e){}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		return graph;
 	}
 }

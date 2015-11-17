@@ -54,11 +54,11 @@ public class SimTouchPoint{
 		
 		for(int i=0; i<touchPointSpace.getTouchPoints().length; i++){
 			TouchPoint tp = touchPointSpace.getTouchPoints()[i];
-			wordList.add(tp.getReceiverName());
-			wordList.add(tp.getReceiverInteraction());
-			wordList.add(tp.getTouchPointName());
-			wordList.add(tp.getProviderName());
-			wordList.add(tp.getProviderInteraction());
+//			wordList.add(tp.getReceiverName());
+//			wordList.add(tp.getReceiverInteraction());
+//			wordList.add(tp.getTouchPointName());
+//			wordList.add(tp.getProviderName());
+//			wordList.add(tp.getProviderInteraction());
 			if(!SmartUtil.isBlankObject(tp.getReceiverAffordances())){
 				for(int j=0; j<tp.getReceiverAffordances().length; j++){
 					Affordance af = tp.getReceiverAffordances()[j];
@@ -152,8 +152,8 @@ public class SimTouchPoint{
 			}
 		
 		}
-		
-		sum = sum+ (isum/count);
+		if(count!=0)
+			sum = sum+ (isum/count);
 		double length = wordsA.size();
 		result= sum/length;
 		System.out.println("sum = " + sum+ " total number = "+length);

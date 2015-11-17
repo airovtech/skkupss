@@ -21,6 +21,7 @@ import net.smartworks.skkupss.manager.IServiceManager;
 import net.smartworks.skkupss.model.ActorSpace;
 import net.smartworks.skkupss.model.BizModelSpace;
 import net.smartworks.skkupss.model.ContextSpace;
+import net.smartworks.skkupss.model.CustomerSpace;
 import net.smartworks.skkupss.model.DefaultSpace;
 import net.smartworks.skkupss.model.InstanceList;
 import net.smartworks.skkupss.model.ProductService;
@@ -257,6 +258,8 @@ public class ServiceManagerImpl implements IServiceManager {
 					ServiceSpace targetService = target.getServiceSpace();
 					TouchPointSpace sourceTouchPoint = source.getTouchPointSpace();
 					TouchPointSpace targetTouchPoint = target.getTouchPointSpace();
+					CustomerSpace sourceCustomer = source.getCustomerSpace();
+					CustomerSpace targetCustomer = target.getCustomerSpace();
 					BizModelSpace sourceBizModel = source.getBizModelSpace();
 					BizModelSpace targetBizModel = target.getBizModelSpace();
 					ActorSpace sourceActor = source.getActorSpace();
@@ -292,9 +295,8 @@ public class ServiceManagerImpl implements IServiceManager {
 							sm.setSimilarity((new SimTouchPoint(sourceTouchPoint, targetTouchPoint)).calculateSimularity());
 						break;
 					case ProductService.SPACE_TYPE_CUSTOMER:
-						if(!SmartUtil.isBlankObject(sourceValue) && !SmartUtil.isBlankObject(targetValue))
-							sm.setSimilarity((new SimValue(sourceValue.getNumOfValues(), sourceValue.getValues(), targetValue.getNumOfValues(), targetValue.getValues())).calculateSimularity());
-//							sm.setSimilarity((new SimCustomer(sourceValue.getValues(), targetValue.getValues())).calculateSimularity());
+						if(!SmartUtil.isBlankObject(sourceCustomer) && !SmartUtil.isBlankObject(targetCustomer))
+							sm.setSimilarity((new SimCustomer(sourceCustomer.getActivityTypes(), targetCustomer.getActivityTypes())).calculateSimularity());
 						break;
 					case ProductService.SPACE_TYPE_BIZ_MODEL:
 						if(!SmartUtil.isBlankObject(sourceBizModel) && !SmartUtil.isBlankObject(targetBizModel))
@@ -302,7 +304,7 @@ public class ServiceManagerImpl implements IServiceManager {
 						break;
 					case ProductService.SPACE_TYPE_ACTOR:
 						if(!SmartUtil.isBlankObject(sourceActor) && !SmartUtil.isBlankObject(targetActor))
-							sm.setSimilarity((new SimActor()).measureSimilarityAA(sourceActor.getSimGraph(), targetActor.getSimGraph()));
+							sm.setSimilarity((new SimActor()).measureSimilarityBC(sourceActor.getSimGraph(), targetActor.getSimGraph()));
 						break;
 					case ProductService.SPACE_TYPE_SOCIETY:
 						if(!SmartUtil.isBlankObject(sourceSociety) && !SmartUtil.isBlankObject(targetSociety))
@@ -351,9 +353,8 @@ public class ServiceManagerImpl implements IServiceManager {
 									sm.setSimilarity((new SimTouchPoint(sourceTouchPoint, targetTouchPoint)).calculateSimularity());
 								break;
 							case ProductService.SPACE_TYPE_CUSTOMER:
-								if(!SmartUtil.isBlankObject(sourceValue) && !SmartUtil.isBlankObject(targetValue))
-									sumSimValues = sumSimValues + simSpaceType.getSimilarityWeight()*(new SimValue(sourceValue.getNumOfValues(), sourceValue.getValues(), targetValue.getNumOfValues(), targetValue.getValues())).calculateSimularity();
-//									sm.setSimilarity((new SimCustomer(sourceValue.getValues(), targetValue.getValues())).calculateSimularity());
+								if(!SmartUtil.isBlankObject(sourceCustomer) && !SmartUtil.isBlankObject(targetCustomer))
+									sm.setSimilarity((new SimCustomer(sourceCustomer.getActivityTypes(), targetCustomer.getActivityTypes())).calculateSimularity());
 								break;
 							case ProductService.SPACE_TYPE_BIZ_MODEL:
 								if(!SmartUtil.isBlankObject(sourceBizModel) && !SmartUtil.isBlankObject(targetBizModel))
@@ -361,7 +362,7 @@ public class ServiceManagerImpl implements IServiceManager {
 								break;
 							case ProductService.SPACE_TYPE_ACTOR:
 								if(!SmartUtil.isBlankObject(sourceActor) && !SmartUtil.isBlankObject(targetActor))
-									sm.setSimilarity((new SimActor()).measureSimilarityAA(sourceActor.getSimGraph(), targetActor.getSimGraph()));
+									sm.setSimilarity((new SimActor()).measureSimilarityBC(sourceActor.getSimGraph(), targetActor.getSimGraph()));
 								break;
 							case ProductService.SPACE_TYPE_SOCIETY:
 								if(!SmartUtil.isBlankObject(sourceSociety) && !SmartUtil.isBlankObject(targetSociety))

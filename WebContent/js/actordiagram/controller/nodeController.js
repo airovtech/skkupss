@@ -1,6 +1,6 @@
 //
 // Source Name : nodeController.js
-// Description : Actor DiagramÀÇ NodeÀÇ Model°ú View¸¦ °ü¸®ÇÏ´Â ±â´É.
+// Description : Actor Diagramï¿½ï¿½ Nodeï¿½ï¿½ Modelï¿½ï¿½ Viewï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½.
 //
 try{
 ActorDiagram.Controller = ActorDiagram.Controller || {};
@@ -49,6 +49,7 @@ ActorDiagram.Controller.Node = function(canvasId, mode, context, data){
 	this.model = ActorDiagram.Model.Node({
 		id: data.id,
 		type: data.type,  // product, provider, touchPoint, user
+		typeName: data.typeName,
 		position: data.position,
 		name: data.name
 	});

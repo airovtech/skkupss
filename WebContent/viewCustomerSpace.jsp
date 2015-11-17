@@ -54,7 +54,7 @@
 <div class="js_space_tab js_customer_space" spaceType="<%=ProductService.SPACE_TYPE_CUSTOMER%>">
 	<!-- 스마트폼에서 해당 업무화면을 그려주는 곳 -->
 	<div class="form_layout">
-		<%if(isEditMode){ %>
+<%-- 		<%if(isEditMode){ %>
 		<!-- 우측버튼 -->
 		<div class="title_line_btns" style="float:none;text-align:center;margin-top:5px">
 			<div class="icon_btn_add">
@@ -63,7 +63,7 @@
 		</div>
 		<!-- 우측버튼 //-->
 		<%} %>
-		<table class="js_customer_type">
+ --%>		<table class="js_customer_type">
 			<tbody>
 				<tr>
 					<td class="form_col">
@@ -168,10 +168,10 @@
 										<%
 										}%>
 									</select>
-									<%if(isEditMode){ %>
+<%-- 									<%if(isEditMode){ %>
 										<a href="" style="margin-left:10px;margin-top:5px" class="list_action js_delete_customer_type" title="<fmt:message key='common.button.delete'/>"> X </a>
 									<%} %>
-								</div>
+ --%>								</div>
 							<%
 							}
 							%>

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class SimContext {
 	
 	
+	
     public static int num = 0;
     float cost = 0;
 	float max = 0;
@@ -24,6 +25,7 @@ public class SimContext {
 
 		 //Between User and Provider
 		 float result1 = Similarity(graph1, graph2, Node.NODE_TYPE_PRODUCT, Node.NODE_TYPE_PROVIDER);
+		
 		 
 		 // CLEAR ARRAYLIST FOR LATER CALCUATION
 		 pathA.clear();
@@ -33,6 +35,7 @@ public class SimContext {
 		 
 		 //FROM B TO A
 		 float result2 = Similarity(graph1, graph2, Node.NODE_TYPE_PROVIDER, Node.NODE_TYPE_PRODUCT);
+		 
 		 
 		 // CLEAR ARRAYLIST FOR LATER CALCUATION
 		 pathA.clear();
@@ -124,6 +127,10 @@ public class SimContext {
 		 // A to B
 		 SearchPath path1 = new SearchPath(graph1, sp, ep);
 		 SearchPath path2 = new SearchPath(graph2, sp, ep);
+		 //System.out.println("here");
+		 //System.out.println(path1);
+		 //System.out.println(path2);
+
 		 
 		 if(path1.returnSize() >= path2.returnSize()) {
 			 //PATH1 >= PATH2

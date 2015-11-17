@@ -15,30 +15,120 @@ public class SimActor{
 	ArrayList<Integer> indexB = new ArrayList<Integer>();
 	
 	
-	 public float measureSimilarityAA(Graph graph1, Graph graph2) {
+	 public float measureSimilarityAB(Graph graph1, Graph graph2) {
 		 
 		 // MEASURE SIMILARITY BY COMPARING ALL THE PATHS FROM A TO B OF GRAPH1 AND GRAPH2
 		 // AND COMPARING ALL THE PATHS FROM B TO A OF GRAPH1 AND GRAPH2
 		 // FINAL SIMILARITY RESULTS FROM MEAN VALUE OF A TO B SIMILARITY AND B TO A SIMILARITY
 
 		 //Between User and Provider
-		 float result = Similarity(graph1, graph2, Node.NODE_TYPE_PRODUCT, Node.NODE_TYPE_PRODUCT);
+		 float result1 = Similarity(graph1, graph2, Node.NODE_TYPE_PRODUCT, Node.NODE_TYPE_PROVIDER);
+		
 		 
 		 // CLEAR ARRAYLIST FOR LATER CALCUATION
 		 pathA.clear();
 		 pathB.clear();
 		 indexA.clear();
 		 indexB.clear();
-
-			 return result;	
+		 
+		 //FROM B TO A
+		 float result2 = Similarity(graph1, graph2, Node.NODE_TYPE_PROVIDER, Node.NODE_TYPE_PRODUCT);
+		 
+		 
+		 // CLEAR ARRAYLIST FOR LATER CALCUATION
+		 pathA.clear();
+		 pathB.clear();
+		 indexA.clear();
+		 indexB.clear();
+		 
+		
+		 
+		// if(result1 == 0 && result2 != 0) {
+		//	 return result2;
+		// } else if (result2 == 0 && result1 != 0) {
+		//	 return result1;
+		//	 } 
+		 //else {
+			//MEAN VALUE OF SIM1 AND SIM2
+			 return (result1 + result2)/2 ;
+		// }
+		
 
 	       
 	    }
+	 public float measureSimilarityBC(Graph graph1, Graph graph2) {
+		 
+		 // MEASURE SIMILARITY BY COMPARING ALL THE PATHS FROM A TO B OF GRAPH1 AND GRAPH2
+		 // AND COMPARING ALL THE PATHS FROM B TO A OF GRAPH1 AND GRAPH2
+		 // FINAL SIMILARITY RESULTS FROM MEAN VALUE OF A TO B SIMILARITY AND B TO A SIMILARITY
+
+		 //Between User and Provider
+		 float result1 = Similarity(graph1, graph2, Node.NODE_TYPE_PROVIDER, Node.NODE_TYPE_USER);
+		 
+		 // CLEAR ARRAYLIST FOR LATER CALCUATION
+		 pathA.clear();
+		 pathB.clear();
+		 indexA.clear();
+		 indexB.clear();
+		 
+		 //FROM B TO A
+		 float result2 = Similarity(graph1, graph2, Node.NODE_TYPE_USER, Node.NODE_TYPE_PROVIDER);
+		 
+		 // CLEAR ARRAYLIST FOR LATER CALCUATION
+		 pathA.clear();
+		 pathB.clear();
+		 indexA.clear();
+		 indexB.clear();
+		 
+		 
+	
+			 return (result1 + result2)/2 ;
+		
+		
+
+	       
+	 }
 	 
+	 public float measureSimilarityAC(Graph graph1, Graph graph2) {
+		 
+		 // MEASURE SIMILARITY BY COMPARING ALL THE PATHS FROM A TO B OF GRAPH1 AND GRAPH2
+		 // AND COMPARING ALL THE PATHS FROM B TO A OF GRAPH1 AND GRAPH2
+		 // FINAL SIMILARITY RESULTS FROM MEAN VALUE OF A TO B SIMILARITY AND B TO A SIMILARITY
+
+		 //Between User and Provider
+		 float result1 = Similarity(graph1, graph2, Node.NODE_TYPE_PRODUCT, Node.NODE_TYPE_USER);
+		 
+		 // CLEAR ARRAYLIST FOR LATER CALCUATION
+		 pathA.clear();
+		 pathB.clear();
+		 indexA.clear();
+		 indexB.clear();
+		 
+		 //FROM B TO A
+		 float result2 = Similarity(graph1, graph2, Node.NODE_TYPE_USER, Node.NODE_TYPE_PRODUCT);
+		 
+		 // CLEAR ARRAYLIST FOR LATER CALCUATION
+		 pathA.clear();
+		 pathB.clear();
+		 indexA.clear();
+		 indexB.clear();
+		 
+		 
+		
+			 return (result1 + result2)/2 ;
+	
+		
+
+	       
+	    }
 	 public float Similarity(Graph graph1, Graph graph2, String sp, String ep) {
 		 // A to B
 		 SearchPath path1 = new SearchPath(graph1, sp, ep);
 		 SearchPath path2 = new SearchPath(graph2, sp, ep);
+		 //System.out.println("here");
+		 //System.out.println(path1);
+		 //System.out.println(path2);
+
 		 
 		 if(path1.returnSize() >= path2.returnSize()) {
 			 //PATH1 >= PATH2

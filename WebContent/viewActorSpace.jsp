@@ -75,7 +75,7 @@
 							<td class="form_col">
 								<div class="form_label" style="width:70px"><fmt:message key="pss.title.node_type"/></div>
 								<div class="form_value" style="width:180px;padding-left:5px!important">								
-									<input type="text" name="selNodeType" style="width:180px!important" class="fieldline js_select_node_type">
+									<input type="text" name="txtNodeTypeName" style="width:180px!important" class="fieldline js_select_node_type_name">
 								</div>
 							</td>
 						</tr>

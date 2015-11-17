@@ -1,10 +1,10 @@
 //
 // Source Name : node.js
-// Description : Node ´ëÇÑ ¼Ó¼ºÀ» °¡Áö°í ÀÖ´Â ¸ðµ¨
-//					- Á¦Ç° : product
-//					- Á¦°øÀÚ : provider
-//					- ¼öÇýÀÚ : user
-//					- Á¦Ç°ÅÍÄ¡Æ÷ÀÎÆ® : touchPoint
+// Description : Node ï¿½ï¿½ï¿½ï¿½ ï¿½Ó¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½
+//					- ï¿½ï¿½Ç° : product
+//					- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ : provider
+//					- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ : user
+//					- ï¿½ï¿½Ç°ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½Æ® : touchPoint
 //
 try{
 ActorDiagram.Model = ActorDiagram.Model || {};
@@ -12,6 +12,7 @@ ActorDiagram.Model.Node = function(config){
 	var options = {
 			id: '',
 			type: '',  // product, provider, touchPoint, user
+			typeName: '',
 			position: '',
 			name: smartMessage.get('pssNode'),
 			selected: false

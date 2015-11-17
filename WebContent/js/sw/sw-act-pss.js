@@ -667,6 +667,16 @@ $(function() {
 		}
 	});			
 
+	$('input.js_select_node_type_name').live('change', function(e) {
+		var input = $(targetElement(e));
+		var canvasId = input.parents('.js_object_properties:first').attr('canvasId');
+		var objectId = input.parents('.js_object_properties:first').attr('objectId');
+		canvasCtrl = AD$CONTROLLERS.findControllerById(canvasId, canvasId);
+		var ctrl = AD$CONTROLLERS.findControllerById(canvasId, objectId);
+		ctrl.model.typeName = input.attr('value');
+		AD$CONTROLLERS.updateModel(canvasId, ctrl.model);
+	});			
+
 	$('input.js_toggle_time_value').live('click', function(e) {
 		var input = $(targetElement(e));		
 		var position = input.parent().prevAll().length;

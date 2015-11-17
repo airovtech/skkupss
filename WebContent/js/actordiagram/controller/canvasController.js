@@ -83,7 +83,7 @@ ActorDiagram.Controller.Canvas = function(mode, target, data){
 			case AD$TYPE_NODE:
 				objectProperties.find('tr.js_node_property').show();
 				objectProperties.find('input.js_input_node_name').attr('value', model.name);
-				objectProperties.find('select.js_select_node_type option[value="' + model.type + '"]').attr('selected', 'selected');
+				objectProperties.find('input.js_select_node_type_name').attr('value', model.typeName);
 				break;
 			case AD$TYPE_EDGELINE:
 				var self = model.fromNodeId == model.toNodeId;

@@ -676,6 +676,7 @@ ActorDiagram.draw = function(config) {
 					context : context,
 					model : {
 						type : node.type,
+						typeName : node.typeName,
 						position : node.position,
 						name : node.name,
 						selected : false		
