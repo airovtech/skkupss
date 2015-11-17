@@ -1,49 +1,69 @@
 package net.smartworks.skkupss.smcal;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import edu.cmu.lti.lexical_db.ILexicalDatabase;
-import edu.cmu.lti.lexical_db.NictWordNet;
-import edu.cmu.lti.ws4j.impl.Lin;
-import edu.cmu.lti.ws4j.util.WS4JConfiguration;
+import net.smartworks.skkupss.model.TimeSpace;
 
 public class SimTime{
 	    
-	private String valuesS=null;
-	private String valuesT=null;
+	private TimeSpace timeS=null;
+	private TimeSpace timeT=null;
 	
-	public SimTime(String valuesS, String valuesT){
-		this.valuesS = valuesS;
-		this.valuesT = valuesT;
+	public SimTime(TimeSpace timeS, TimeSpace timeT){
+		this.timeS = timeS;
+		this.timeT = timeT;
 	}
-	
-	public String getValuesS() {
-		return valuesS;
-	}
-	public void setValuesS(String valuesS) {
-		this.valuesS = valuesS;
-	}
-	public String getValuesT() {
-		return valuesT;
-	}
-	public void setValuesT(String valuesT) {
-		this.valuesT = valuesT;
-	}
-	
-	public double calculateSimularity(){
-		String code1 = this.valuesS;
-		String code2 = this.valuesT;
 		
-		int code1Value = Integer.parseInt(code1);
-		int code2Value = Integer.parseInt(code2);
+	public TimeSpace getTimeS() {
+		return timeS;
+	}
+	public void setTimeS(TimeSpace timeS) {
+		this.timeS = timeS;
+	}
+	public TimeSpace getTimeT() {
+		return timeT;
+	}
+	public void setTimeT(TimeSpace timeT) {
+		this.timeT = timeT;
+	}
 
-        double sim = 0 ;
-
-        sim = (3-Math.abs(code1Value-code2Value))/3;
-        
-        return sim;    
+	public String[] getNumbersS(){
+		return getNumbers(this.timeS);
+	}
+	public String[] getNumbersT(){
+		return getNumbers(this.timeT);
+	}
+	
+	private String[] getNumbers(TimeSpace timeSpace){
+		String[] none = new String[]{"0"};
+		if(timeSpace==null) return none;
+		
+		String numberStr = "";
+		for(int i=0; i<4; i++){
+			if(timeSpace.isTrueValue(i)){
+				numberStr = numberStr + (numberStr.equals("")?"":",") + (i+1);
+			}
+		}
+		if(numberStr.equals("")) return none;
+		return numberStr.split("\\,");
+	}
+	public double calculateSimularity(){
+		float result = 0;
+		String[] occX = this.getNumbersS();
+		String[] occY = this.getNumbersT();
+		
+		if(occX.length*occY.length==1){
+			//both has only 1 occurrence
+			result = (3-Math.abs(Float.valueOf(occX[0])-Float.valueOf(occY[0])));
+		}else{
+			//at least one service has more than 2 occurrences
+			//summarize all value of distance and divide to all available number of matchings
+			for(int i = 0 ; i < occX.length; i++){
+				for(int j = 0 ; j < occY.length; j++){
+					result += (3-Math.abs(Float.valueOf(occX[i])-Float.valueOf(occY[j])));
+				}
+			}
+			result /= occX.length*occY.length;
+		}
+		
+		return result/3;		
 	}
 }

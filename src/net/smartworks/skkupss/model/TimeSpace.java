@@ -58,12 +58,12 @@ public class TimeSpace{
 		setValue(3, continuousDelivery);
 	}
 	
-	private boolean isTrueValue(int index) {
+	public boolean isTrueValue(int index) {
 		if(valueString==null || valueString.length()!=4) return false;
 		byte[] valueBytes = valueString.getBytes();
 		return valueBytes[index] == VALUE_TRUE;
 	}
-	private void setValue(int index, boolean value) {
+	public void setValue(int index, boolean value) {
 		if(valueString==null || valueString.length()!=4) valueString = DEFAULT_VALUES;
 		byte[] valueBytes = valueString.getBytes();
 		valueBytes[index] = (value?VALUE_TRUE:VALUE_FALSE);
