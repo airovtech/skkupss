@@ -37,7 +37,7 @@
  	 
 <!-- 컨텐츠 레이아웃-->
 <div class="js_space_tab js_product_service_space" spaceType="<%=spaceType%>">
-		<table class="tc fieldline" style="width:800px;min-height:200px;margin-left:auto;margin-right:auto;">
+		<table class="tc fieldline" style="width:600px;min-height:200px;margin-left:auto;margin-right:auto;">
 			<tr>
 				<th class="tc vm" style="width:20%;padding-left:20px;padding-top:30px">
 					<div class="up js_ps_item <%if(elements[0]!=null&&elements[0].equals("selected")){ %>selected_background<%} %>" style="margin-bottom:15px"><a href="" class="js_select_ps_item">Product-Oriented</a></div>

@@ -54,12 +54,57 @@
 <div class="js_space_tab js_customer_space" spaceType="<%=ProductService.SPACE_TYPE_CUSTOMER%>">
 	<!-- 스마트폼에서 해당 업무화면을 그려주는 곳 -->
 	<div class="form_layout">
-		<table>
+		<%if(isEditMode){ %>
+		<!-- 우측버튼 -->
+		<div class="title_line_btns" style="float:none;text-align:center;margin-top:5px">
+			<div class="icon_btn_add">
+				<a class="icon_btn_tail js_add_customer_type" href=""><fmt:message key="common.button.add_new"/></a>
+			</div>
+		</div>
+		<!-- 우측버튼 //-->
+		<%} %>
+		<table class="js_customer_type">
 			<tbody>
 				<tr>
 					<td class="form_col">
 						<div class="form_label" style="width:25%"><span><fmt:message key='pss.title.customer_type'/></span></div>
 						<div class="form_value" style="width:75%">
+							<div class="list_action_item js_hidden_customer_type" style="display:none">
+								<%
+								Db_CustomerType[] cLevel1s, cLevel2s;
+								Map<String, String> params1 = new HashMap<String, String>();
+								cLevel1s = DaoFactory.getInstance().getDbDao().getCustomerTypes(1, params1);
+								params1.put("level1", "02");
+								cLevel2s = DaoFactory.getInstance().getDbDao().getCustomerTypes(2, params1);		
+								%>
+								<select style="display:none" class="js_select_customer_type">
+									<%
+									for(int i=0; cLevel1s!=null && i<cLevel1s.length; i++){
+										Db_CustomerType code = cLevel1s[i];
+									%>
+									<option value="<%=CustomerSpace.getCustomerTypeCode(code.getId(), CustomerSpace.CUSTOMER_TYPE_LEVEL1)%>"><%=code.getName() %></option>
+									<%
+									}%>
+								</select>
+								<select class="js_select_customer_type">
+									<option value="00"><fmt:message key="common.title.none"/></option>
+									<%
+									for(int i=0; cLevel2s!=null && i<cLevel2s.length; i++){
+										Db_CustomerType code = cLevel2s[i];
+										String codeId = code.getId().equals("00")?code.getId():CustomerSpace.getCustomerTypeCode(code.getId(), CustomerSpace.CUSTOMER_TYPE_LEVEL2);
+									%>
+									<option value="<%=codeId%>"><%=code.getName() %></option>
+									<%
+									}%>
+								</select>
+								<select class="js_select_customer_type">
+									<option value="00"><fmt:message key="common.title.none"/></option>
+								</select>
+								<select class="js_select_customer_type">
+									<option value="00"><fmt:message key="common.title.none"/></option>
+								</select>
+								<a href="" style="margin-left:10px;margin-top:5px" class="list_action js_delete_customer_type" title="<fmt:message key='common.button.delete'/>"> X </a>
+							</div>
 							<%
 							for(int index=0; types!=null && index<types.length; index++){
 								String type = types[index];
@@ -80,7 +125,7 @@
 								}
 								
 								%>
-								<div class="js_customer_type_list">
+								<div class="list_action_item js_customer_type_list">
 									<select style="display:none" class="js_select_customer_type" <%if(!isEditMode){ %>disabled<%} %> name="selTypeCode1">
 										<%
 										for(int i=0; codeLevel1s!=null && i<codeLevel1s.length; i++){
@@ -123,6 +168,9 @@
 										<%
 										}%>
 									</select>
+									<%if(isEditMode){ %>
+										<a href="" style="margin-left:10px;margin-top:5px" class="list_action js_delete_customer_type" title="<fmt:message key='common.button.delete'/>"> X </a>
+									<%} %>
 								</div>
 							<%
 							}
@@ -130,10 +178,60 @@
 						</div>
 					</td>
 				</tr>
+			</tbody>
+		</table>
+		
+		<%if(isEditMode){ %>
+		<!-- 우측버튼 -->
+		<div class="title_line_btns" style="float:none;text-align:center;margin-top:5px">
+			<div class="icon_btn_add">
+				<a class="icon_btn_tail js_add_customer_activity_type" href=""><fmt:message key="common.button.add_new"/></a>
+			</div>
+		</div>
+		<!-- 우측버튼 //-->
+		<%} %>
+		<table class="js_customer_activity_type">
+			<tbody>
 				<tr>
 					<td class="form_col">
 						<div class="form_label" style="width:25%"><span><span><fmt:message key='pss.title.customer_activity_type'/></span></div>
 						<div class="form_value" style="width:75%">
+							<div class="list_action_item js_hidden_customer_activity_type" style="display:none">
+								<%
+								Db_CustomerType[] cdLevel1s, cdLevel2s;
+								Map<String, String> params2 = new HashMap<String, String>();
+								cdLevel1s = DaoFactory.getInstance().getDbDao().getCustomerTypes(1, params2);
+								params2.put("level1", "01");
+								cdLevel2s = DaoFactory.getInstance().getDbDao().getCustomerTypes(2, params2);		
+								%>
+								<select style="display:none" class="js_select_customer_activity_type">
+									<%
+									for(int i=0; cdLevel1s!=null && i<cdLevel1s.length; i++){
+										Db_CustomerType code = cdLevel1s[i];
+									%>
+									<option value="<%=CustomerSpace.getCustomerTypeCode(code.getId(), CustomerSpace.CUSTOMER_TYPE_LEVEL1)%>"><%=code.getName() %></option>
+									<%
+									}%>
+								</select>
+								<select class="js_select_customer_activity_type">
+									<option value="00"><fmt:message key="common.title.none"/></option>
+									<%
+									for(int i=0; cdLevel2s!=null && i<cdLevel2s.length; i++){
+										Db_CustomerType code = cdLevel2s[i];
+										String codeId = code.getId().equals("00")?code.getId():CustomerSpace.getCustomerTypeCode(code.getId(), CustomerSpace.CUSTOMER_TYPE_LEVEL2);
+									%>
+									<option value="<%=codeId%>"><%=code.getName() %></option>
+									<%
+									}%>
+								</select>
+								<select class="js_select_customer_activity_type">
+									<option value="00"><fmt:message key="common.title.none"/></option>
+								</select>
+								<select class="js_select_customer_activity_type">
+									<option value="00"><fmt:message key="common.title.none"/></option>
+								</select>
+								<a href="" style="margin-left:10px;margin-top:5px" class="list_action js_delete_customer_activity_type" title="<fmt:message key='common.button.delete'/>"> X </a>
+							</div>
 							<%
 							for(int index=0; activityTypes!=null && index<activityTypes.length; index++){
 								String activityType = activityTypes[index];
@@ -154,7 +252,7 @@
 								}
 								
 								%>
-								<div class="js_customer_activity_type_list">
+								<div class="list_action_item js_customer_activity_type_list">
 									<select style="display:none" class="js_select_customer_activity_type" <%if(!isEditMode){ %>disabled<%} %> name="selActivityTypeCode1">
 										<%
 										for(int i=0; codeLevel1s!=null && i<codeLevel1s.length; i++){
@@ -197,6 +295,9 @@
 										<%
 										}%>
 									</select>
+									<%if(isEditMode){ %>
+										<a href="" style="margin-left:10px;margin-top:5px" class="list_action js_delete_customer_activity_type" title="<fmt:message key='common.button.delete'/>"> X </a>
+									<%} %>
 								</div>
 							<%
 							}

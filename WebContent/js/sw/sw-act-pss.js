@@ -911,4 +911,42 @@ $(function() {
 		return false;
 	});			
 
+	$('a.js_add_customer_type').live('click', function(e) {
+		var input = $(targetElement(e));
+		var target = input.parents('.js_customer_space').find('.js_customer_type .form_value:first');
+		var customerTypeItem = target.find('.js_hidden_customer_type').clone().removeClass('js_hidden_customer_type').addClass('js_customer_type_list');
+		target.append(customerTypeItem);
+		
+		customerTypeItem.find('.js_select_customer_type').each(function(index){
+			$(this).attr('name', 'selTypeCode' + (index+1));
+		});
+		customerTypeItem.show();
+		return false;
+	});			
+
+	$('a.js_add_customer_activity_type').live('click', function(e) {
+		var input = $(targetElement(e));
+		var target = input.parents('.js_customer_space').find('.js_customer_activity_type .form_value:first');
+		var customerActivityTypeItem = target.find('.js_hidden_customer_activity_type').clone().removeClass('js_hidden_customer_activity_type').addClass('js_customer_activity_type_list');
+		target.append(customerActivityTypeItem);
+		
+		customerActivityTypeItem.find('.js_select_customer_activity_type').each(function(index){
+			$(this).attr('name', 'selActivityTypeCode' + (index+1));
+		});
+		customerActivityTypeItem.show();
+		return false;
+	});			
+
+	$('a.js_delete_customer_type').live('click', function(e) {
+		var input = $(targetElement(e));
+		input.parents('.js_customer_type_list:first').remove();
+		return false;
+	});			
+
+	$('a.js_delete_customer_activity_type').live('click', function(e) {
+		var input = $(targetElement(e));
+		input.parents('.js_customer_activity_type_list:first').remove();
+		return false;
+	});			
+
 });

@@ -192,6 +192,9 @@ li.list_action_item:hover .list_action {visibility:visible}
 table.list_action_item .list_action {visibility:hidden}
 table.list_action_item:hover .list_action {visibility:visible}
 
+div.list_action_item .list_action {visibility:hidden}
+div.list_action_item:hover .list_action {visibility:visible}
+
 
 /*global Menu */
 .global_menu {position:absolute; right:10px; top:11px;  font-family:'돋움',Dotum; font-size: 11px; color:#c5c5c5;min-width:100px}

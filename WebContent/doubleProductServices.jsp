@@ -80,17 +80,17 @@
 							</div>
 							<select class="js_select_double_space_name" sourcePsId="<%=sourcePsId %>" targetPsId="<%=targetPsId%>">
 								<option href="viewValueSpace.jsp" spaceType="1" value="<%=ProductService.PSS_SPACE_VALUE%>" <%if(spaceType.equals(ProductService.PSS_SPACE_VALUE)){%>selected<%} %>><fmt:message key="pss.title.space.value"/></option>
-								<option href="viewDefaultSpace.jsp" spaceType="2" value="<%=ProductService.PSS_SPACE_PRODUCT_SERVICE%>" <%if(spaceType.equals(ProductService.PSS_SPACE_PRODUCT_SERVICE)){%>selected<%} %>><fmt:message key="pss.title.space.product_service"/></option>
-								<option href="viewDefaultSpace.jsp" spaceType="3" value="<%=ProductService.PSS_SPACE_PRODUCT%>" <%if(spaceType.equals(ProductService.PSS_SPACE_PRODUCT)){%>selected<%} %>><fmt:message key="pss.title.space.product"/></option>
+								<option href="viewProductServiceSpace.jsp" spaceType="2" value="<%=ProductService.PSS_SPACE_PRODUCT_SERVICE%>" <%if(spaceType.equals(ProductService.PSS_SPACE_PRODUCT_SERVICE)){%>selected<%} %>><fmt:message key="pss.title.space.product_service"/></option>
+								<option href="viewProductSpace.jsp" spaceType="3" value="<%=ProductService.PSS_SPACE_PRODUCT%>" <%if(spaceType.equals(ProductService.PSS_SPACE_PRODUCT)){%>selected<%} %>><fmt:message key="pss.title.space.product"/></option>
 								<option href="viewServiceSpace.jsp" spaceType="4" value="<%=ProductService.PSS_SPACE_SERVICE%>" <%if(spaceType.equals(ProductService.PSS_SPACE_SERVICE)){%>selected<%} %>><fmt:message key="pss.title.space.service"/></option>
-								<option href="viewDefaultSpace.jsp" spaceType="5" value="<%=ProductService.PSS_SPACE_TOUCH_POINT%>" <%if(spaceType.equals(ProductService.PSS_SPACE_TOUCH_POINT)){%>selected<%} %>><fmt:message key="pss.title.space.touch_point"/></option>
-								<option href="viewDefaultSpace.jsp" spaceType="6" value="<%=ProductService.PSS_SPACE_CUSTOMER%>" <%if(spaceType.equals(ProductService.PSS_SPACE_CUSTOMER)){%>selected<%} %>><fmt:message key="pss.title.space.customer"/></option>
+								<option href="viewTouchPointSpace.jsp" spaceType="5" value="<%=ProductService.PSS_SPACE_TOUCH_POINT%>" <%if(spaceType.equals(ProductService.PSS_SPACE_TOUCH_POINT)){%>selected<%} %>><fmt:message key="pss.title.space.touch_point"/></option>
+								<option href="viewCustomerSpace.jsp" spaceType="6" value="<%=ProductService.PSS_SPACE_CUSTOMER%>" <%if(spaceType.equals(ProductService.PSS_SPACE_CUSTOMER)){%>selected<%} %>><fmt:message key="pss.title.space.customer"/></option>
 								<option href="viewBizModelSpace.jsp" spaceType="7" value="<%=ProductService.PSS_SPACE_BIZ_MODEL%>" <%if(spaceType.equals(ProductService.PSS_SPACE_BIZ_MODEL)){%>selected<%} %>><fmt:message key="pss.title.space.biz_model"/></option>
-								<option href="viewDefaultSpace.jsp" spaceType="8" value="<%=ProductService.PSS_SPACE_ACTOR%>" <%if(spaceType.equals(ProductService.PSS_SPACE_ACTOR)){%>selected<%} %>><fmt:message key="pss.title.space.actor"/></option>
-								<option href="viewDefaultSpace.jsp" spaceType="9" value="<%=ProductService.PSS_SPACE_SOCIETY%>" <%if(spaceType.equals(ProductService.PSS_SPACE_SOCIETY)){%>selected<%} %>><fmt:message key="pss.title.space.society"/></option>
+								<option href="viewActorSpace.jsp" spaceType="8" value="<%=ProductService.PSS_SPACE_ACTOR%>" <%if(spaceType.equals(ProductService.PSS_SPACE_ACTOR)){%>selected<%} %>><fmt:message key="pss.title.space.actor"/></option>
+								<option href="viewSocietySpace.jsp" spaceType="9" value="<%=ProductService.PSS_SPACE_SOCIETY%>" <%if(spaceType.equals(ProductService.PSS_SPACE_SOCIETY)){%>selected<%} %>><fmt:message key="pss.title.space.society"/></option>
 								<option href="viewContextSpace.jsp" spaceType="10" value="<%=ProductService.PSS_SPACE_CONTEXT%>" <%if(spaceType.equals(ProductService.PSS_SPACE_CONTEXT)){%>selected<%} %>><fmt:message key="pss.title.space.context"/></option>
-								<option href="viewDefaultSpace.jsp" spaceType="11" value="<%=ProductService.PSS_SPACE_TIME%>" <%if(spaceType.equals(ProductService.PSS_SPACE_TIME)){%>selected<%} %>><fmt:message key="pss.title.space.time"/>시간공간(Time Space)</option>
-								<option href="viewDefaultSpace.jsp" spaceType="12" value="<%=ProductService.PSS_SPACE_ENVIRONMENT%>" <%if(spaceType.equals(ProductService.PSS_SPACE_ENVIRONMENT)){%>selected<%} %>><fmt:message key="pss.title.space.environment"/></option>
+								<option href="viewTimeSpace.jsp" spaceType="11" value="<%=ProductService.PSS_SPACE_TIME%>" <%if(spaceType.equals(ProductService.PSS_SPACE_TIME)){%>selected<%} %>><fmt:message key="pss.title.space.time"/>시간공간(Time Space)</option>
+								<option href="viewEnvironmentSpace.jsp" spaceType="12" value="<%=ProductService.PSS_SPACE_ENVIRONMENT%>" <%if(spaceType.equals(ProductService.PSS_SPACE_ENVIRONMENT)){%>selected<%} %>><fmt:message key="pss.title.space.environment"/></option>
 							</select>
 							<%if(!SmartUtil.isBlankObject(value)) {%>
 								<span style="font-size: 12px;font-weight: bold;margin-left: 10px;">[<fmt:message key="pss.title.similarity"/> : <%=value %>]</span>
@@ -128,9 +128,37 @@
 														</jsp:include>
 													<%
 													break;
+													case ProductService.SPACE_TYPE_PRODUCT_SERVICE:
+													%>
+														<jsp:include page="viewProductServiceSpace.jsp">
+															<jsp:param value="<%=sourcePsId %>" name="psId"/>
+														</jsp:include>
+													<%
+													break;
+													case ProductService.SPACE_TYPE_PRODUCT:
+													%>
+														<jsp:include page="viewProductSpace.jsp">
+															<jsp:param value="<%=sourcePsId %>" name="psId"/>
+														</jsp:include>
+													<%
+													break;
 													case ProductService.SPACE_TYPE_SERVICE:
 													%>
 														<jsp:include page="viewServiceSpace.jsp">
+															<jsp:param value="<%=sourcePsId %>" name="psId"/>
+														</jsp:include>
+													<%
+													break;
+													case ProductService.SPACE_TYPE_TOUCH_POINT:
+													%>
+														<jsp:include page="viewTouchPointSpace.jsp">
+															<jsp:param value="<%=sourcePsId %>" name="psId"/>
+														</jsp:include>
+													<%
+													break;
+													case ProductService.SPACE_TYPE_CUSTOMER:
+													%>
+														<jsp:include page="viewCustomerSpace.jsp">
 															<jsp:param value="<%=sourcePsId %>" name="psId"/>
 														</jsp:include>
 													<%
@@ -142,6 +170,20 @@
 														</jsp:include>
 													<%
 													break;
+													case ProductService.SPACE_TYPE_ACTOR:
+													%>
+														<jsp:include page="viewActorSpace.jsp">
+															<jsp:param value="<%=sourcePsId %>" name="psId"/>
+														</jsp:include>
+													<%
+													break;
+													case ProductService.SPACE_TYPE_SOCIETY:
+													%>
+														<jsp:include page="viewSocietySpace.jsp">
+															<jsp:param value="<%=sourcePsId %>" name="psId"/>
+														</jsp:include>
+													<%
+													break;
 													case ProductService.SPACE_TYPE_CONTEXT:
 													%>
 														<jsp:include page="viewContextSpace.jsp">
@@ -149,9 +191,16 @@
 														</jsp:include>
 													<%
 													break;
-													default:
+													case ProductService.SPACE_TYPE_TIME:
 													%>
-														<jsp:include page="viewValueSpace.jsp">
+														<jsp:include page="viewTimeSpace.jsp">
+															<jsp:param value="<%=sourcePsId %>" name="psId"/>
+														</jsp:include>
+													<%
+													break;
+													case ProductService.SPACE_TYPE_ENVIRONMENT:
+													%>
+														<jsp:include page="viewEnvironmentSpace.jsp">
 															<jsp:param value="<%=sourcePsId %>" name="psId"/>
 														</jsp:include>
 													<%
@@ -171,9 +220,37 @@
 														</jsp:include>
 													<%
 													break;
+													case ProductService.SPACE_TYPE_PRODUCT_SERVICE:
+													%>
+														<jsp:include page="viewProductServiceSpace.jsp">
+															<jsp:param value="<%=targetPsId %>" name="psId"/>
+														</jsp:include>
+													<%
+													break;
+													case ProductService.SPACE_TYPE_PRODUCT:
+													%>
+														<jsp:include page="viewProductSpace.jsp">
+															<jsp:param value="<%=targetPsId %>" name="psId"/>
+														</jsp:include>
+													<%
+													break;
 													case ProductService.SPACE_TYPE_SERVICE:
 													%>
 														<jsp:include page="viewServiceSpace.jsp">
+															<jsp:param value="<%=targetPsId %>" name="psId"/>
+														</jsp:include>
+													<%
+													break;
+													case ProductService.SPACE_TYPE_TOUCH_POINT:
+													%>
+														<jsp:include page="viewTouchPointSpace.jsp">
+															<jsp:param value="<%=targetPsId %>" name="psId"/>
+														</jsp:include>
+													<%
+													break;
+													case ProductService.SPACE_TYPE_CUSTOMER:
+													%>
+														<jsp:include page="viewCustomerSpace.jsp">
 															<jsp:param value="<%=targetPsId %>" name="psId"/>
 														</jsp:include>
 													<%
@@ -185,6 +262,20 @@
 														</jsp:include>
 													<%
 													break;
+													case ProductService.SPACE_TYPE_ACTOR:
+													%>
+														<jsp:include page="viewActorSpace.jsp">
+															<jsp:param value="<%=targetPsId %>" name="psId"/>
+														</jsp:include>
+													<%
+													break;
+													case ProductService.SPACE_TYPE_SOCIETY:
+													%>
+														<jsp:include page="viewSocietySpace.jsp">
+															<jsp:param value="<%=targetPsId %>" name="psId"/>
+														</jsp:include>
+													<%
+													break;
 													case ProductService.SPACE_TYPE_CONTEXT:
 													%>
 														<jsp:include page="viewContextSpace.jsp">
@@ -192,9 +283,16 @@
 														</jsp:include>
 													<%
 													break;
-													default:
+													case ProductService.SPACE_TYPE_TIME:
 													%>
-														<jsp:include page="viewValueSpace.jsp">
+														<jsp:include page="viewTimeSpace.jsp">
+															<jsp:param value="<%=targetPsId %>" name="psId"/>
+														</jsp:include>
+													<%
+													break;
+													case ProductService.SPACE_TYPE_ENVIRONMENT:
+													%>
+														<jsp:include page="viewEnvironmentSpace.jsp">
 															<jsp:param value="<%=targetPsId %>" name="psId"/>
 														</jsp:include>
 													<%

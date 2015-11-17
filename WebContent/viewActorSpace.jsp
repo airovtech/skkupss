@@ -32,7 +32,7 @@
 
 	String jsonDataString = actorSpace.getDiagramData();
 	String servitizationProcess = actorSpace.getServitizationProcess();
-	
+	if(servitizationProcess!=null) servitizationProcess = servitizationProcess.replaceAll("\'", "'");
 %>
 <fmt:setLocale value="<%=cUser.getLocale() %>" scope="request" />
 <fmt:setBundle basename="resource.smartworksMessage" scope="request" />
@@ -184,7 +184,7 @@ $(function() {
 			fieldName: 'Servitization Process',
 			columns: 1,
 			required: true,
-			value: "<%=CommonUtil.toNotNull(servitizationProcess) %>",
+			value: '<%=CommonUtil.toNotNull(servitizationProcess) %>',
 			readOnly: <%=!isEditMode%>			
 		});
  		
