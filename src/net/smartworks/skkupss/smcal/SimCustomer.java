@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import net.smartworks.factory.DaoFactory;
+import net.smartworks.factory.ManagerFactory;
+
 public class SimCustomer{
     
 	private String[] valuesS=null;
@@ -26,8 +29,8 @@ public class SimCustomer{
 	}
 	public void setValuesT(String[] valuesT) {
 		this.valuesT = valuesT;
-	}
-	
+	}	
+
 	public Customer getCustomerS(){
 		return getCustomer(this.valuesS);
 	}
@@ -40,15 +43,18 @@ public class SimCustomer{
 		if(values==null) return customer;
 		for(int i=0; i<values.length; i++){
 			String value = values[i];
-			if(value.length()!=8) continue;
-			customer.addActivity(Integer.parseInt(value.substring(2, 4)), Integer.parseInt(value.substring(4,6)), "");
+			if(value.length()!=8) continue;			
+			String name = "";
+			try{
+				name = DaoFactory.getInstance().getDbDao().getCustomerName(value);
+			}catch(Exception e){}
+			customer.addActivity(Integer.parseInt(value.substring(2, 4)), Integer.parseInt(value.substring(4,6)), name);
 		}
 		return customer;
 	}
 	public double calculateSimularity(){
 		Customer cusA = this.getCustomerS();
 		Customer cusB = this.getCustomerT();
-
 
 		float num_sum = 0;
 		float sim_sum = 0;
@@ -59,32 +65,79 @@ public class SimCustomer{
 		for(int i=0; i < cusA.getSize(); i++){
 			for(int j=0; j < cusB.getSize(); j++){
 				double adder = 0;
+				
 				if(cusA.firstCat.get(i) == cusB.firstCat.get(j)){
-					if(cusA.secondCat.get(i) != cusB.secondCat.get(j)){
+					if(cusA.secondCat.get(i) == cusB.secondCat.get(j)){
+						if(cusA.thirdName.get(i).equals(cusB.thirdName.get(j))){
+							//1,2,3 parents are all same
+							adder = 1.6902;
+						}else{
+							//1,2 is same
+							switch ( cusA.firstCat.get(i)*10 + cusA.secondCat.get(i) ){
+							case 11: 
+								adder = 0.9912;
+								break;
+								
+							case 21:	
+								adder = 0.8451;
+								break;
+							case 22:	
+								adder = 1.2131;
+								break;
+								
+							case 31:	
+								adder = 0.7360;
+								break;
+							case 32:	
+								adder = 0.8451;
+								break;
+							case 33:	
+								adder = 0.9912;
+								break;
+								
+							case 41:	
+								adder = 1.2131;
+								break;
+							case 42:	
+								adder = 0.7360;
+								break;
+							case 43:	
+								adder = 0.5763;
+								break;
+								
+							default:	
+								adder = 0.0;
+								break;
+							}
+						}
+						adder = 0.9542;
+					}
+					else if(cusA.secondCat.get(i) != cusB.secondCat.get(j)){
+						//1 is same
 						switch ( cusA.firstCat.get(i) ){
-							case 1: 
-								adder = 0.9542;
+							case 1: //Necessary
+								adder = 0.9912;
 								break;
-							case 2:
-								adder = 0.6532;
+							case 2:	//Contracted
+								adder = 0.6902;
 								break;
-							case 3:
-								adder = 0.4771;
+							case 3:	//Committed
+								adder = 0.3680;
 								break;
-							case 4:
-								adder = 0.4771;
+							case 4:	//Leisure
+								adder = 0.5763;
 								break;
 							}
 					}
-					else if(cusA.secondCat.get(i) == cusB.secondCat.get(j)){
-						adder = 0.9542;
-					}
+				}else{
+					adder = 0;
 				}
 				sim_sum += adder;
 			}			
 		}
 
 		result = sim_sum/num_sum;
+		
 		
 		/*
 		 * if two customer is exactly same
@@ -103,7 +156,9 @@ public class SimCustomer{
 			}
 			result = (tmp==cusA.getSize())? 1:result;
 		}
-				
+		
+		result = (result>1)? 1:result;
+		
 		return result;
     }
 
@@ -211,5 +266,4 @@ class Customer {
 		// System.out.println(keyacts.toString());
 
 	}
-
 }

@@ -19,6 +19,7 @@ public class Node{
 	public Node(String id, String type, String name){
 		this.id = id;
 		this.type = Node.getNodeType(type);
+//		this.type = type;
 		this.name = name;
 	}
 	

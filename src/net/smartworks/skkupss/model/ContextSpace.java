@@ -78,14 +78,21 @@ public class ContextSpace{
 			for(int i=0; i<edgeLineArray.length(); i++){
 				JSONObject jsonObj  = edgeLineArray.getJSONObject(i);
 				String fromNodeId=null, toNodeId=null;
+				int direction=0;
 				try{
 					fromNodeId = jsonObj.getString("fromNodeId");
 				}catch(Exception e){}
 				try{
 					toNodeId = jsonObj.getString("toNodeId");
 				}catch(Exception e){}
-				if(fromNodeId!=null && toNodeId!=null)
+				try{
+					direction = jsonObj.getInt("direction");
+				}catch(Exception e){}
+				if(fromNodeId!=null && toNodeId!=null){
 					graph.addEdge((Node)nodeIds.get(fromNodeId), (Node)nodeIds.get(toNodeId));
+					if(direction!=1)
+						graph.addEdge((Node)nodeIds.get(toNodeId), (Node)nodeIds.get(fromNodeId));
+				}
 			}
 		}catch(Exception e){
 			e.printStackTrace();

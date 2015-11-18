@@ -1307,5 +1307,12 @@
 			and locale = #{locale}
 		order by id 
 	</select>
-  	
+	<select id="getCustomerNames" parameterType="java.lang.String" resultType="java.lang.String">
+		select name
+		from
+		"customerTypes"
+		where id = #{id}
+			and locale = 'en'
+		order by name 
+	</select>
 </mapper>

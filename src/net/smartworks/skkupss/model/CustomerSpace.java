@@ -20,7 +20,7 @@ public class CustomerSpace{
 	private String psId;
 	private String[] types;
 	private String[] activityTypes;
-	
+
 	public String getId() {
 		return id;
 	}

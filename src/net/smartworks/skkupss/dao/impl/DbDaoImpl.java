@@ -829,4 +829,26 @@ public class DbDaoImpl implements IDbDao {
 				session.close();
 		}		
 	}
+
+	@Override
+	public String getCustomerName(String id) throws Exception {
+		SqlSession session = null;
+		try {
+			SqlSessionFactory factory = SessionFactory.getInstance().getSqlSessionFactory();
+			session = factory.openSession();
+			
+			RowBounds Rb = new RowBounds();
+			List<String> nameList = session.selectList("getCustomerNames", id, Rb);
+			if (nameList != null && nameList.size() == 1) {
+				return nameList.get(0);
+			} else {
+				return null;
+			}
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			if (session != null)
+				session.close();
+		}		
+	}
 }

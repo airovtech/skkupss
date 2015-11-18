@@ -63,5 +63,6 @@ public interface IDbDao {
 	public Db_UnspscName[] getUnspscNames(int level, Map<String, String> params) throws Exception;
 	
 	public Db_CustomerType[] getCustomerTypes(int level, Map<String, String> params) throws Exception;
+	public String getCustomerName(String id) throws Exception;
 	
 }
