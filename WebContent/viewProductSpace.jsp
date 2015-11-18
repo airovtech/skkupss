@@ -42,9 +42,10 @@
 	Db_UnspscName[] codeLevel1s, codeLevel2s, codeLevel3s, codeLevel4s;
 	Map<String, String> params = new HashMap<String, String>();
 	codeLevel1s = codeLevel2s = codeLevel3s = codeLevel4s = new Db_UnspscName[]{new Db_UnspscName("00", SmartMessage.getString("common.title.none"))};
-	if(isEditMode || !SmartUtil.isBlankObject(unspsc))
-		codeLevel1s = DaoFactory.getInstance().getDbDao().getUnspscNames(1, params);
+	int code0=0 ;
 	if(!SmartUtil.isBlankObject(unspsc)){
+		code0 = ProductSpace.getUnspscCode0FromUnspscName(unspsc);
+		codeLevel1s = DaoFactory.getInstance().getDbDao().getUnspscNames(1, params);
 		params.put("level1", ProductSpace.getUnspscNameCode(unspsc, ProductSpace.UNSPSC_CODE_LEVEL1));
 		codeLevel2s = DaoFactory.getInstance().getDbDao().getUnspscNames(2, params);
 		params.put("level2", ProductSpace.getUnspscNameCode(unspsc, ProductSpace.UNSPSC_CODE_LEVEL2));
@@ -68,6 +69,14 @@
 					<td class="form_col">
 						<div class="form_label" style="width:12%"><span>UNSPSC</span></div>
 						<div class="form_value" style="width:88%">
+							<select class="js_select_unspsc_code0" <%if(!isEditMode){ %>disabled<%} %>>
+								<option value="00"><fmt:message key="common.title.none"/></option>
+								<option value="01" <%if(code0==1){ %>selected<%} %>>Raw Materials</option>
+								<option value="02" <%if(code0==2){ %>selected<%} %>>Industrial Equipment</option>
+								<option value="03" <%if(code0==3){ %>selected<%} %>>Components and Supplies</option>
+								<option value="04" <%if(code0==4){ %>selected<%} %>>End Use Products</option>
+								<option value="05" <%if(code0==5){ %>selected<%} %>>Services</option>
+							</select>
 							<select class="js_select_unspsc_code" <%if(!isEditMode){ %>disabled<%} %> name="selUnspscCode1">
 								<option value="00"><fmt:message key="common.title.none"/></option>
 								<%
@@ -75,6 +84,7 @@
 									Db_UnspscName code = codeLevel1s[i];
 									if(code.getId().equals("00")) continue;
 									String codeId = ProductSpace.getUnspscNameCode(code.getId(), ProductSpace.UNSPSC_CODE_LEVEL1);
+									if(code0>0 && ProductSpace.getUnspscCode0FromCodeLevel1(codeId)!=code0) continue;
 								%>
 									<option value="<%=codeId%>" <%if(codeId.equals(ProductSpace.getUnspscNameCode(unspsc, ProductSpace.UNSPSC_CODE_LEVEL1))){ %>selected<%} %>><%=code.getName() %></option>
 								<%
@@ -128,7 +138,7 @@
 <!-- 컨텐츠 레이아웃//-->
 <script type="text/javascript">
 $(function() {
-
+console.log(LD$CONTROLLERS);
 	if(isEmpty(LD$CONTROLLERS)){
 		LifecycleDiagram.draw({
 			mode : <%if(isEditMode){%>LD$MODE_EDIT<%}else{%>LD$MODE_VIEW<%}%>,

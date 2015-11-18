@@ -15,7 +15,7 @@ LifecycleDiagram.View.Canvas.draw = function(config){
 	var CANVAS_STROKE_STYLE = 'rgb(182,182,182)';
 	LifecycleDiagram.extend(options, config);
 	
-	if(!options.target || !options.model) return null;
+	if(isEmpty(options.target) || isEmpty(options.model)) return null;
 	
 	var model = options.model;
 	options.target.html('<canvas canvasId="' + model.id + '" width="' + model.width + '" height="' + model.height + '"tabindex="0" style="margin:auto; width:' + model.width + 'px;height:' + model.height + 'px;background-color:' + model.backgroundColor + '"><canvas>');

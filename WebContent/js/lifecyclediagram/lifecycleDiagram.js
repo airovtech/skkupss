@@ -177,7 +177,8 @@ LifecycleDiagram.draw = function(config) {
 		for(var i=0; i<LD$STEPS.length; i++){
 			LD$CONTROLLERS.push(new LifecycleDiagram.Controller.Step(options.mode, context, i, data[i]==1));
 		}
-		LD$CONTROLLERS = new Array();
+		
+		LD$CONTROLLERS.splice(0,LD$CONTROLLERS.length)
 		
 	}else{
 		

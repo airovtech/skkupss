@@ -9,7 +9,9 @@ import java.util.Set;
 
 public class Graph {
     private Map<Node, LinkedHashSet<Node>> map = new HashMap();
+    //public ArrayList<Node> NODES = new ArrayList<Node>();
     public ArrayList<Node> NODES = new ArrayList<Node>();
+
     
 
     public void addEdge(Node node1, Node node2) {

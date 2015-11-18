@@ -4,6 +4,7 @@ import java.util.LinkedList;
 
 public class SearchPath {
 	
+	
 	ArrayList<String> PATHS = new ArrayList<String>();
 	ArrayList<Integer> INDEX = new ArrayList<Integer>();
 
@@ -15,19 +16,27 @@ public class SearchPath {
     SearchPath(Graph graph, String sp, String ep) {
     	
     	ArrayList<Node> NODELIST = graph.nodeList();
-    	System.out.println("NODES: "+ NODELIST);
-    	
+    	//////////////
+    	System.out.print("NODES: ");
+    	for(int i =0 ; i <NODELIST.size() ; i++) {
+    		System.out.print(NODELIST.get(i).getType()+NODELIST.get(i).getId()+" ");
+    	}
+    	System.out.println();
+    	//////////////
     	for (int i= 0 ; i < NODELIST.size() ; i++) {
     		
     		Node node = NODELIST.get(i);
     		
     		
+    		
     		if(node.getType().equals(sp)) {
     			START.add(node);
-    			System.out.println("ADDING "+node.getName()+" to START");
-    		} else if(node.getType().equals(ep)) {
+    			System.out.println("ADDING "+node.getType()+node.getId()+" to START");
+    		} 
+    		
+    		if(node.getType().equals(ep)) {
     			END.add(node);
-    			System.out.println("ADDING "+node.getName()+" to END");
+    			System.out.println("ADDING "+node.getType()+node.getId()+" to END");
     		}
     			
     	}
@@ -37,7 +46,7 @@ public class SearchPath {
     	for(int i = 0; i < START.size() ; i++) {
         	for(int j = 0 ; j < END.size() ; j++) {
         		num = j ;
-        		System.out.println(START.get(i).getName()+" to "+END.get(j).getName());
+        		System.out.println(START.get(i).getType()+START.get(i).getId()+" to "+END.get(j).getType()+END.get(j).getId());
         		LinkedList<Node> visited = new LinkedList();
         		visited.add(START.get(i));
         		depthFirst(graph, visited);
@@ -94,7 +103,7 @@ public class SearchPath {
     	int curNum = 1;
     	
         for (Node node : visited) {
-        	line = line+node.getName();
+        	line = line+node.getType();
         }
         
         // first time
@@ -108,5 +117,4 @@ public class SearchPath {
     	}
        
     }
-  
 }

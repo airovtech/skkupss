@@ -690,6 +690,28 @@ $(function() {
 		}
 	});			
 
+	$('select.js_select_unspsc_code0').live('change', function(e) {
+		var input = $(targetElement(e));
+		var value = input.find('option:selected').attr('value');
+		var params = "&level0" + "=" + value;
+		$.ajax({
+			url : "get_unspsc_names.sw" + "?level=1" + params,
+			success : function(result, status, jqXHR) {
+				input.next().html(result.data);
+				input.next().nextAll('.js_select_unspsc_code').each(function() {
+					$(this).html('<option value="00">' + smartMessage.get('textNone') + '</option');
+				});
+				smartPop.closeProgress();
+			}
+		});
+		var unspscCode="";
+		var productSpace = input.parents('.js_product_space:first');
+		productSpace.find('.js_select_unspsc_code').each(function() {
+			unspscCode = unspscCode + $(this).find('option:selected').attr('value');
+		});		
+		productSpace.find('.js_unspsc_name').html(smartMessage.get(unspscCode));
+	});			
+
 	$('select.js_select_unspsc_code').live('change', function(e) {
 		var input = $(targetElement(e));
 		var prevAlls = input.prevAll('.js_select_unspsc_code');

@@ -125,5 +125,25 @@ public class ProductSpace{
 		productSpace.setUnspsc((String)spaceTab.get("unspscCode"));
 		productSpace.setLifecycleSteps((String)spaceTab.get("lifecycleSteps"));
 		return productSpace;
-	}	
+	}
+	
+	public static int getUnspscCode0FromUnspscName(String unspscName){
+		if(unspscName==null || unspscName.length()!=8) return 0;
+		return ProductSpace.getUnspscCode0FromCodeLevel1(unspscName.substring(0, 2));
+	}
+	
+	public static int getUnspscCode0FromCodeLevel1(String codeLevel1){
+		int code1 = 0;
+		try{
+			code1 = Integer.parseInt(codeLevel1);
+		}catch(Exception e){}
+		
+		if(code1>=10 && code1<=15) return 1;
+		if(code1>=20 && code1<=27) return 2;
+		if(code1>=30 && code1<=41) return 3;
+		if(code1>=42 && code1<=60) return 4;
+		if(code1>=70 && code1<=94) return 5;
+		return 0;
+		
+	}
 }

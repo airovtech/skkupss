@@ -54,7 +54,7 @@ public class SimCustomer{
 		float sim_sum = 0;
 		float result = 0;
 
-		num_sum = cusA.getSize()+cusB.getSize();
+		num_sum = cusA.getSize()*cusB.getSize();
 		
 		for(int i=0; i < cusA.getSize(); i++){
 			for(int j=0; j < cusB.getSize(); j++){
@@ -86,6 +86,24 @@ public class SimCustomer{
 
 		result = sim_sum/num_sum;
 		
+		/*
+		 * if two customer is exactly same
+		 * (data & input order are all same)
+		 * **/
+		if(cusA.getSize()==cusB.getSize()){
+			int tmp = 0;
+			for(int i = 0; i < cusA.getSize(); i++){
+				if((cusA.thirdName.get(i)==cusB.thirdName.get(i))
+						&&(cusA.secondCat.get(i)==cusB.secondCat.get(i))
+						&&(cusA.firstCat.get(i)==cusB.firstCat.get(i))){
+					tmp += 1;
+				}else{
+					break;
+				}				
+			}
+			result = (tmp==cusA.getSize())? 1:result;
+		}
+				
 		return result;
     }
 

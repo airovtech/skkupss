@@ -628,8 +628,9 @@ public class PssController {
 		Map<String, String> map = new HashMap<String, String>();
 		String returnString = "<option value='00'>" + SmartMessage.getString("common.title.none") + "</option>";
 		
-		try {			
+		try {
 			String levelStr = request.getParameter("level");
+			String level0Str = request.getParameter("level0");
 			String level1 = request.getParameter("level1");
 			String level2 = request.getParameter("level2");
 			String level3 = request.getParameter("level3");
@@ -639,9 +640,11 @@ public class PssController {
 			params.put("level2", level2);
 			params.put("level3", level3);
 			Db_UnspscName[] unspscNames = DaoFactory.getInstance().getDbDao().getUnspscNames(level, params);
-			if(SmartUtil.isBlankObject(unspscNames)) return map;			
+			if(SmartUtil.isBlankObject(unspscNames)) return map;
+			int level0 = SmartUtil.isBlankObject(level0Str)?0:Integer.parseInt(level0Str);
 			for(int i=0; i<unspscNames.length; i++){
 				Db_UnspscName code = unspscNames[i];
+				if(level==1 && level0>0 && ProductSpace.getUnspscCode0FromUnspscName(code.getId())!=level0) continue;
 				returnString = returnString + "<option value='" + ProductSpace.getUnspscNameCode(code.getId(), level-1) + "'>" + code.getName() + "</option>"; 
 			}
 		} catch(Exception e){
