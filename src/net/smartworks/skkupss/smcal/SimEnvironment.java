@@ -64,6 +64,19 @@ public class SimEnvironment{
 		
 		String[] values_X=this.getNumbersS();
 		String[] values_Y=this.getNumbersT();
+
+		if(values_X==null && values_Y==null) return 1;
+		if(values_X==null || values_Y==null) return 0;
+		if(values_X.length == values_Y.length){
+			boolean found = false;
+			for(int i=0; i<values_X.length; i++){
+				if(!values_X[i].equals(values_Y[i])){
+					found = true;
+					break;
+				}
+			}
+			if(!found) return 1;
+		}
 		
 		//location
 		if(Integer.valueOf(values_X[0])==1 && Integer.valueOf(values_Y[0])==1){

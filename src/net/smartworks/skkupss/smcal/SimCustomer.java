@@ -143,19 +143,20 @@ public class SimCustomer{
 		 * if two customer is exactly same
 		 * (data & input order are all same)
 		 * **/
-		if(cusA.getSize()==cusB.getSize()){
-			int tmp = 0;
-			for(int i = 0; i < cusA.getSize(); i++){
-				if((cusA.thirdName.get(i)==cusB.thirdName.get(i))
-						&&(cusA.secondCat.get(i)==cusB.secondCat.get(i))
-						&&(cusA.firstCat.get(i)==cusB.firstCat.get(i))){
-					tmp += 1;
-				}else{
-					break;
-				}				
-			}
-			result = (tmp==cusA.getSize())? 1:result;
-		}
+		if(cusA.firstCat.equals(cusB.firstCat)&&cusA.secondCat.equals(cusB.secondCat)&&cusA.thirdName.equals(cusB.thirdName))	result = 1;
+//		if(cusA.getSize()==cusB.getSize()){
+//			int tmp = 0;
+//			for(int i = 0; i < cusA.getSize(); i++){
+//				if((cusA.thirdName.get(i)==cusB.thirdName.get(i))
+//						&&(cusA.secondCat.get(i)==cusB.secondCat.get(i))
+//						&&(cusA.firstCat.get(i)==cusB.firstCat.get(i))){
+//					tmp += 1;
+//				}else{
+//					break;
+//				}				
+//			}
+//			result = (tmp==cusA.getSize())? 1:result;
+//		}
 		
 		result = (result>1)? 1:result;
 		

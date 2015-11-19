@@ -49,10 +49,22 @@ public class SimTime{
 		float result = 0;
 		String[] occX = this.getNumbersS();
 		String[] occY = this.getNumbersT();
-		
+		if(occX==null && occY==null) return 1;
+		if(occX==null || occY==null) return 0;
+		if(occX.length == occY.length){
+			boolean found = false;
+			for(int i=0; i<occX.length; i++){
+				if(!occX[i].equals(occY[i])){
+					found = true;
+					break;
+				}
+			}
+			if(!found) return 1;
+		}
+
 		if(occX.length*occY.length==1){
 			//both has only 1 occurrence
-			result = (3-Math.abs(Float.valueOf(occX[0])-Float.valueOf(occY[0])));
+			result = (3-Math.abs(Float.valueOf(occX[0])-Float.valueOf(occY[0])))/3;
 		}else{
 			//at least one service has more than 2 occurrences
 			//summarize all value of distance and divide to all available number of matchings
@@ -61,9 +73,11 @@ public class SimTime{
 					result += (3-Math.abs(Float.valueOf(occX[i])-Float.valueOf(occY[j])));
 				}
 			}
-			result /= occX.length*occY.length;
+			result /= occX.length*occY.length*3;
 		}
 		
-		return result/3;		
+//		if(occX.equals(occY))	result = 1;
+		
+		return result;		
 	}
 }

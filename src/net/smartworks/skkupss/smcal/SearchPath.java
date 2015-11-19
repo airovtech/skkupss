@@ -19,6 +19,7 @@ public class SearchPath {
     	//////////////
     	System.out.print("NODES: ");
     	for(int i =0 ; i <NODELIST.size() ; i++) {
+    		if(NODELIST.get(i)==null) continue;
     		System.out.print(NODELIST.get(i).getType()+NODELIST.get(i).getId()+" ");
     	}
     	System.out.println();
@@ -27,7 +28,7 @@ public class SearchPath {
     		
     		Node node = NODELIST.get(i);
     		
-    		
+    		if(node==null) continue;
     		
     		if(node.getType().equals(sp)) {
     			START.add(node);
@@ -45,6 +46,7 @@ public class SearchPath {
     	
     	for(int i = 0; i < START.size() ; i++) {
         	for(int j = 0 ; j < END.size() ; j++) {
+        		if(START.get(i)==null || END.get(j)==null) continue;
         		num = j ;
         		System.out.println(START.get(i).getType()+START.get(i).getId()+" to "+END.get(j).getType()+END.get(j).getId());
         		LinkedList<Node> visited = new LinkedList();
@@ -78,7 +80,7 @@ public class SearchPath {
             if (visited.contains(node)) {
                 continue;
             }
-            
+            if(node==null || END.get(num)==null) continue;
             if (node.getId().equals(END.get(num).getId())) {
                 visited.add(node);
                 printPath(visited); 
@@ -89,7 +91,8 @@ public class SearchPath {
         
         // in breadth-first, recursion needs to come after visiting adjacent nodes
         for (Node node : nodes) {
-             if (visited.contains(node) || node.getId().equals(END.get(num).getId())) {
+            if(node==null || END.get(num)==null) continue;
+            if (visited.contains(node) || node.getId().equals(END.get(num).getId())) {
                 continue;
             }
             visited.addLast(node);
@@ -103,6 +106,7 @@ public class SearchPath {
     	int curNum = 1;
     	
         for (Node node : visited) {
+        	if(node==null) continue;
         	line = line+node.getType();
         }
         

@@ -96,6 +96,18 @@ public class SimTouchPoint{
 		ArrayList<String> wordsA = new ArrayList<String>();
 		ArrayList<String> wordsB = new ArrayList<String>();
 		
+		if(words1==null && words2==null) return 1;
+		if(words1==null || words2==null) return 0;
+		if(words1.length == words2.length){
+			boolean diffFound = false;
+			for(int i=0; i<words1.length; i++){
+				if(!words1[i].equals(words2[i])){
+					diffFound = true;
+					break;
+				}
+			}
+			if(!diffFound) return 1;
+		}
 		
 		double sum=0;
 		double result=0;
