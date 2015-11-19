@@ -1,3 +1,4 @@
+<%@page import="net.smartworks.skkupss.model.User"%>
 <%@page import="net.smartworks.factory.ManagerFactory"%>
 <%@page import="net.smartworks.skkupss.model.ProductService"%>
 <%@page import="net.smartworks.skkupss.model.BizModelSpace"%>
@@ -5,8 +6,10 @@
 <%@page import="net.smartworks.util.SmartUtil"%>
 <%@page import="net.smartworks.skkupss.model.ServiceSpace"%>
 <%@ page contentType="text/html; charset=utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <%
+	User cUser = SmartUtil.getCurrentUser();
 
 	BizModelSpace bizModelSpace = (BizModelSpace)request.getAttribute("bizModelSpace");
 	String psId = request.getParameter("psId");
@@ -27,6 +30,8 @@
 	String[] values = null;
 	String[] userValues = null;
 %>
+<fmt:setLocale value="<%=cUser.getLocale() %>" scope="request" />
+<fmt:setBundle basename="resource.smartworksMessage" scope="request" />
  	 
 <!-- 컨텐츠 레이아웃-->
 <div class="js_space_tab js_biz_model_space" spaceType="<%=ProductService.SPACE_TYPE_BIZ_MODEL%>">

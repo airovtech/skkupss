@@ -49,17 +49,18 @@ public class SimTime{
 		float result = 0;
 		String[] occX = this.getNumbersS();
 		String[] occY = this.getNumbersT();
+		
 		if(occX==null && occY==null) return 1;
 		if(occX==null || occY==null) return 0;
 		if(occX.length == occY.length){
-			boolean found = false;
+			boolean diffFound = false;
 			for(int i=0; i<occX.length; i++){
 				if(!occX[i].equals(occY[i])){
-					found = true;
+					diffFound = true;
 					break;
 				}
 			}
-			if(!found) return 1;
+			if(!diffFound) return 1;
 		}
 
 		if(occX.length*occY.length==1){
