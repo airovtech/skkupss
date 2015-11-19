@@ -14,14 +14,12 @@
 <%
 	DefaultSpace productServiceSpace = (DefaultSpace)request.getAttribute("productServiceSpace");
 	String psId = request.getParameter("psId");
-	String spaceTypeStr = request.getParameter("spaceType");
-	int spaceType = SmartUtil.isBlankObject(spaceTypeStr) ? ProductService.SPACE_TYPE_NONE : Integer.parseInt(spaceTypeStr);
 	
-	if(SmartUtil.isBlankObject(productServiceSpace) && !SmartUtil.isBlankObject(psId) && spaceType > ProductService.SPACE_TYPE_ALL ){
+	if(SmartUtil.isBlankObject(productServiceSpace) && !SmartUtil.isBlankObject(psId)){
 
 		ProductService productService = null;
 		try{
-			productService = ManagerFactory.getInstance().getServiceManager().getProductService(psId, spaceType);
+			productService = ManagerFactory.getInstance().getServiceManager().getProductService(psId, ProductService.SPACE_TYPE_PRODUCT_SERVICE);
 		}catch(Exception e){}
 		
 		productServiceSpace = productService.getProductServiceSpace();
@@ -36,7 +34,7 @@
 %>
  	 
 <!-- 컨텐츠 레이아웃-->
-<div class="js_space_tab js_product_service_space" spaceType="<%=spaceType%>">
+<div class="js_space_tab js_product_service_space" spaceType="<%=ProductService.SPACE_TYPE_PRODUCT_SERVICE%>">
 		<table class="tc fieldline" style="width:600px;min-height:200px;margin-left:auto;margin-right:auto;">
 			<tr>
 				<th class="tc vm" style="width:20%;padding-left:20px;padding-top:30px">

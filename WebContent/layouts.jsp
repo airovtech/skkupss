@@ -204,7 +204,7 @@ try{
 <script type="text/javascript" src="js/contextdiagram/view/nodeView.js?v=3.5.7" ></script>
 
 <script type="text/javascript" src="js/actordiagram/actorDiagram.js?v=3.5.7" ></script>
-<script type="text/javascript" src="js/actordiagram/controller/canvasController.js?v=3.5.7" ></script>
+<script type="text/javascript" src="js/actordiagram/controller/canvasController.js?v=3.5.8" ></script>
 <script type="text/javascript" src="js/actordiagram/controller/edgeLineController.js?v=3.5.7" ></script>
 <script type="text/javascript" src="js/actordiagram/controller/nodeController.js?v=3.5.7" ></script>
 <script type="text/javascript" src="js/actordiagram/model/canvas.js?v=3.5.7" ></script>

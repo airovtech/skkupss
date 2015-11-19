@@ -18,14 +18,12 @@
 
 	TouchPointSpace touchPointSpace = (TouchPointSpace)request.getAttribute("touchPointSpace");
 	String psId = request.getParameter("psId");
-	String spaceTypeStr = request.getParameter("spaceType");
-	int spaceType = SmartUtil.isBlankObject(spaceTypeStr) ? ProductService.SPACE_TYPE_NONE : Integer.parseInt(spaceTypeStr);
 	
-	if(SmartUtil.isBlankObject(touchPointSpace) && !SmartUtil.isBlankObject(psId) && spaceType > ProductService.SPACE_TYPE_ALL ){
+	if(SmartUtil.isBlankObject(touchPointSpace) && !SmartUtil.isBlankObject(psId)){
 
 		ProductService productService = null;
 		try{
-			productService = ManagerFactory.getInstance().getServiceManager().getProductService(psId, spaceType);
+			productService = ManagerFactory.getInstance().getServiceManager().getProductService(psId, ProductService.SPACE_TYPE_TOUCH_POINT);
 		}catch(Exception e){}
 		
 		touchPointSpace = productService.getTouchPointSpace();
@@ -45,7 +43,7 @@
 <fmt:setBundle basename="resource.smartworksMessage" scope="request" />
  	 
 <!-- 컨텐츠 레이아웃-->
-<div class="js_space_tab js_touch_point_space" spaceType="<%=spaceType%>" psId="<%=psId%>">
+<div class="js_space_tab js_touch_point_space" spaceType="<%=ProductService.SPACE_TYPE_TOUCH_POINT%>" psId="<%=psId%>">
 	<%if(isEditMode){ %>
 	<!-- 우측버튼 -->
 	<div class="title_line_btns" style="float:none;text-align:right">

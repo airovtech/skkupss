@@ -1,3 +1,4 @@
+<%@page import="net.smartworks.util.SmartMessage"%>
 <%@page import="net.smartworks.skkupss.model.User"%>
 <%@page import="net.smartworks.util.PropertiesLoader"%>
 <%@page import="net.smartworks.skkupss.manager.impl.DocFileManagerImpl"%>
@@ -307,7 +308,7 @@ function submitForms(tempSave) {
 								<%
 								}else{
 								%>
-									<div class="title">항목 상세보기</div>
+									<div class="title"><fmt:message key="pss.title.instance_detail"/></div>
 								<%
 								}
 								%>
@@ -416,7 +417,11 @@ function submitForms(tempSave) {
 </div>
 <!-- 컨텐츠 레이아웃//-->
 
-
+<%
+String productServiceName = SmartMessage.getString("pss.title.product_service_name");
+String productPictureName = SmartMessage.getString("pss.title.product_picture");
+String productDescName = SmartMessage.getString("common.title.desc");
+%>
 
 <script>
 try{
@@ -436,7 +441,7 @@ try{
 		SmartWorks.FormRuntime.TextInputBuilder.buildEx({
 			container: gridRow,
 			fieldId: "txtName",
-			fieldName: "제품-서비스 이름",
+			fieldName: "<%=productServiceName %>",
 			columns: 3,
 			colSpan: 3,
 			value: psName,
@@ -448,7 +453,7 @@ try{
  		SmartWorks.FormRuntime.ImageBoxBuilder.buildEx({
 			container: gridRow,
 			fieldId: "imgPicture",
-			fieldName: "제품사진",
+			fieldName: "<%=productPictureName%>",
 			imgSource: psPicture,
 			columns: 3,
 			colSpan: 1,
@@ -461,7 +466,7 @@ try{
 		SmartWorks.FormRuntime.TextInputBuilder.buildEx({
 			container: gridRow,
 			fieldId: "txtDesc",
-			fieldName: "설명",
+			fieldName: "<%=productDescName%>",
 			columns: 3,
 			colSpan: 2,
 			multiLines: 6,

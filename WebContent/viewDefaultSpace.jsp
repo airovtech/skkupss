@@ -50,8 +50,8 @@
 					<span class="js_view_element_item" style="display:none">
 						<span class="<%if(isEditMode){ %>js_action_element_item<%}%>"></span>
 						<span class="edit_actions">
-							<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
-							<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
+							<a href="" class="icon_hide js_remove_element_item" title="<fmt:message key='common.title.delete'/>"></a>
+							<a href="" class="icon_show js_add_element_item" title="<fmt:message key='common.title.add_new'/>"></a>
 						</span>
 					</span>
 					<input class="fieldline js_edit_element_item" name="txtElementItem" style="display:inline-block; background-color:white; width:auto" type="text" value="">
@@ -72,8 +72,8 @@
 							if(isEditMode){
 							%>
 								<span class="edit_actions">
-									<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
-									<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
+									<a href="" class="icon_hide js_remove_element_item" title="<fmt:message key='common.title.delete'/>"></a>
+									<a href="" class="icon_show js_add_element_item" title="<fmt:message key='common.title.add_new'/>"></a>
 								</span>
 							<%
 							}
@@ -99,8 +99,8 @@
 						<span class="js_view_element_item" style="display:none">
 							<span class="<%if(isEditMode){ %>js_action_element_item<%}%>"></span>
 							<span class="edit_actions">
-								<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
-								<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
+								<a href="" class="icon_hide js_remove_element_item" title="<fmt:message key='common.title.delete'/>"></a>
+								<a href="" class="icon_show js_add_element_item" title="<fmt:message key='common.title.add_new'/>"></a>
 							</span>
 						</span>
 						<input class="fieldline js_edit_element_item" name="txtElementItem" style="display:inline-block; background-color:white; width:auto" type="text" value="">

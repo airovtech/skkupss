@@ -235,7 +235,7 @@
 				<option <%if (pageSize == 50) {%> selected <%}%>>50</option>
 				<option <%if (pageSize == 100) {%> selected <%}%>>100</option>
 			</select>
-			&nbsp<a href="#" class="wrap_top">맨 위로▲</a>
+			&nbsp<a href="#" class="wrap_top"><fmt:message key="pss.button.goto_top"/>▲</a>
 		</div>
 	</div>
 

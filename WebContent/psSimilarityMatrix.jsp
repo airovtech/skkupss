@@ -1,3 +1,4 @@
+<%@page import="net.smartworks.util.SmartMessage"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="net.smartworks.skkupss.model.SimilaritySpaceType"%>
@@ -92,6 +93,7 @@
 	session.setAttribute("psNames", psNames);
 
  	if(SmartUtil.isBlankObject(data)) return;
+ 	String productServiceName = SmartMessage.getString("pss.title.product_service_name");
 	
 %>
 <fmt:setLocale value="<%=cUser.getLocale() %>" scope="request" />
@@ -102,7 +104,7 @@
 	var colNames = [];
 	var colModels = [];
 
-	colNames[0]  = "제품-서비스 이름";
+	colNames[0]  = "<%=productServiceName%>";
 	colModels[0] =  {name: "name", index:'name', align: 'center', sortable:true, width:'200'};
 	
 	<%

@@ -165,7 +165,9 @@
 											request.setAttribute("valueSpace",
 													productService.getValueSpace());
 						%>
-							<jsp:include page="viewValueSpace.jsp"/>
+							<jsp:include page="viewValueSpace.jsp">
+								<jsp:param value="<%=productService.getId()%>" name="psId"/>
+							</jsp:include>
 						<%
 							break;
 										case ProductService.SPACE_TYPE_PRODUCT_SERVICE:
@@ -190,7 +192,9 @@
 											request.setAttribute("serviceSpace",
 													productService.getServiceSpace());
 						%>
-							<jsp:include page="viewServiceSpace.jsp"/>
+							<jsp:include page="viewServiceSpace.jsp">
+								<jsp:param value="<%=productService.getId()%>" name="psId"/>
+							</jsp:include>
 						<%
 							break;
 										case ProductService.SPACE_TYPE_TOUCH_POINT:
@@ -206,14 +210,18 @@
 											request.setAttribute("customerSpace",
 													productService.getCustomerSpace());
 						%>
-							<jsp:include page="viewCustomerSpace.jsp"/>
+							<jsp:include page="viewCustomerSpace.jsp">
+								<jsp:param value="<%=productService.getId()%>" name="psId"/>
+							</jsp:include>
 						<%
 							break;
 										case ProductService.SPACE_TYPE_BIZ_MODEL:
 											request.setAttribute("bizModelSpace",
 													productService.getBizModelSpace());
 						%>
-							<jsp:include page="viewBizModelSpace.jsp"/>
+							<jsp:include page="viewBizModelSpace.jsp">
+								<jsp:param value="<%=productService.getId()%>" name="psId"/>
+							</jsp:include>
 						<%
 							break;
 										case ProductService.SPACE_TYPE_ACTOR:
@@ -298,13 +306,13 @@
 				<span><fmt:message key="common.title.number"/></span>
 			</th>
 	 		<th class="r_line">
-	 			<a href="" class="js_select_field_sorting" fieldId="<%=ProductService.FIELD_NAME%>">제품-서비스 이름
+	 			<a href="" class="js_select_field_sorting" fieldId="<%=ProductService.FIELD_NAME%>"><fmt:message key="pss.title.product_service_name"/>
  			 		<span class="<%if (sortedField.getFieldId().equals(ProductService.FIELD_NAME)) {
 					if (sortedField.isAscending()) {%>icon_in_up<%} else {%>icon_in_down<%}
 				}%>"></span>
 				<span class="js_progress_span"></span>
 			</th>
-	 		<th class="r_line"  style="min-width:200px">설 명</th>
+	 		<th class="r_line"  style="min-width:200px"><fmt:message key="common.title.desc"/></th>
 	 		<th class="r_line">
 				<form class="form_space js_space_name" name="frmSpaceName">
 					<select name="selSpaceName" class="js_select_space_name">
@@ -431,7 +439,7 @@
 				<option <%if (pageSize == 50) {%> selected <%}%>>50</option>
 				<option <%if (pageSize == 100) {%> selected <%}%>>100</option>
 			</select>
-			&nbsp<a href="#" class="wrap_top">맨 위로▲</a>
+			&nbsp<a href="#" class="wrap_top"><fmt:message key="pss.button.goto_top"/>▲</a>
 		</div>
 	</div>
 

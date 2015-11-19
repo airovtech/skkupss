@@ -33,8 +33,8 @@
 			<span class="js_view_element_item" style="display:none">
 				<span class="js_action_element_item"></span>
 				<span class="edit_actions">
-					<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
-					<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
+					<a href="" class="icon_hide js_remove_element_item" title="<fmt:message key='common.title.delete'/>"></a>
+					<a href="" class="icon_show js_add_element_item" title="<fmt:message key='common.title.add_new'/>"></a>
 				</span>
 			</span>
 			<input class="fieldline js_edit_element_item" name="" style="display:inline-block; font-size:11px; background-color:white" type="text" value="">
@@ -73,8 +73,8 @@
 								if(isEditMode){
 								%>
 									<span class="edit_actions">
-										<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
-										<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
+										<a href="" class="icon_hide js_remove_element_item" title="<fmt:message key='common.title.delete'/>"></a>
+										<a href="" class="icon_show js_add_element_item" title="<fmt:message key='common.title.add_new'/>"></a>
 									</span>
 								<%
 								}
@@ -96,8 +96,8 @@
 							<span class="js_view_element_item" style="display:none">
 								<span class="js_action_element_item"></span>
 								<span class="edit_actions">
-									<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
-									<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
+									<a href="" class="icon_hide js_remove_element_item" title="<fmt:message key='common.title.delete'/>"></a>
+									<a href="" class="icon_show js_add_element_item" title="<fmt:message key='common.title.add_new'/>"></a>
 								</span>
 							</span>
 							<input class="fieldline js_edit_element_item" name="txtEcologicalItem" style="display:inline-block; font-size:11px; background-color:white" type="text" value="">
@@ -123,8 +123,8 @@
 								if(isEditMode){
 								%>
 									<span class="edit_actions">
-										<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
-										<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
+										<a href="" class="icon_hide js_remove_element_item" title="<fmt:message key='common.title.delete'/>"></a>
+										<a href="" class="icon_show js_add_element_item" title="<fmt:message key='common.title.add_new'/>"></a>
 									</span>
 								<%
 								}
@@ -146,8 +146,8 @@
 							<span class="js_view_element_item" style="display:none">
 								<span class="js_action_element_item"></span>
 								<span class="edit_actions">
-									<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
-									<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
+									<a href="" class="icon_hide js_remove_element_item" title="<fmt:message key='common.title.delete'/>"></a>
+									<a href="" class="icon_show js_add_element_item" title="<fmt:message key='common.title.add_new'/>"></a>
 								</span>
 							</span>
 							<input class="fieldline js_edit_element_item" name="txtEconomicalItem" style="display:inline-block; font-size:11px; background-color:white" type="text" value="">
@@ -198,8 +198,8 @@
 											if(isEditMode){
 											%>
 												<span class="edit_actions">
-													<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
-													<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
+													<a href="" class="icon_hide js_remove_element_item" title="<fmt:message key='common.title.delete'/>"></a>
+													<a href="" class="icon_show js_add_element_item" title="<fmt:message key='common.title.add_new'/>"></a>
 												</span>
 											<%
 											}
@@ -221,8 +221,8 @@
 										<span class="js_view_element_item" style="display:none">
 											<span class="js_action_element_item"></span>
 											<span class="edit_actions">
-												<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
-												<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
+												<a href="" class="icon_hide js_remove_element_item" title="<fmt:message key='common.title.delete'/>"></a>
+												<a href="" class="icon_show js_add_element_item" title="<fmt:message key='common.title.add_new'/>"></a>
 											</span>
 										</span>
 										<input class="fieldline js_edit_element_item" name="txtFunctionItem" style="display:inline-block; font-size:11px; background-color:white" type="text" value="">
@@ -247,8 +247,8 @@
 											if(isEditMode){
 											%>
 												<span class="edit_actions">
-													<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
-													<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
+													<a href="" class="icon_hide js_remove_element_item" title="<fmt:message key='common.title.delete'/>"></a>
+													<a href="" class="icon_show js_add_element_item" title="<fmt:message key='common.title.add_new'/>"></a>
 												</span>
 											<%
 											}
@@ -270,8 +270,8 @@
 										<span class="js_view_element_item" style="display:none">
 											<span class="js_action_element_item"></span>
 											<span class="edit_actions">
-												<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
-												<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
+												<a href="" class="icon_hide js_remove_element_item" title="<fmt:message key='common.title.delete'/>"></a>
+												<a href="" class="icon_show js_add_element_item" title="<fmt:message key='common.title.add_new'/>"></a>
 											</span>
 										</span>
 										<input class="fieldline js_edit_element_item" name="txtExtrinsicSocialItem" style="display:inline-block; font-size:11px; background-color:white" type="text" value="">
@@ -296,8 +296,8 @@
 											if(isEditMode){
 											%>
 												<span class="edit_actions">
-													<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
-													<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
+													<a href="" class="icon_hide js_remove_element_item" title="<fmt:message key='common.title.delete'/>"></a>
+													<a href="" class="icon_show js_add_element_item" title="<fmt:message key='common.title.add_new'/>"></a>
 												</span>
 											<%
 											}
@@ -319,8 +319,8 @@
 										<span class="js_view_element_item" style="display:none">
 											<span class="js_action_element_item"></span>
 											<span class="edit_actions">
-												<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
-												<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
+												<a href="" class="icon_hide js_remove_element_item" title="<fmt:message key='common.title.delete'/>"></a>
+												<a href="" class="icon_show js_add_element_item" title="<fmt:message key='common.title.add_new'/>"></a>
 											</span>
 										</span>
 										<input class="fieldline js_edit_element_item" name="txtActiveEmotionalItem" style="display:inline-block; font-size:11px; background-color:white" type="text" value="">
@@ -346,8 +346,8 @@
 											if(isEditMode){
 											%>
 												<span class="edit_actions">
-													<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
-													<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
+													<a href="" class="icon_hide js_remove_element_item" title="<fmt:message key='common.title.delete'/>"></a>
+													<a href="" class="icon_show js_add_element_item" title="<fmt:message key='common.title.add_new'/>"></a>
 												</span>
 											<%
 											}
@@ -369,8 +369,8 @@
 										<span class="js_view_element_item" style="display:none">
 											<span class="js_action_element_item"></span>
 											<span class="edit_actions">
-												<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
-												<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
+												<a href="" class="icon_hide js_remove_element_item" title="<fmt:message key='common.title.delete'/>"></a>
+												<a href="" class="icon_show js_add_element_item" title="<fmt:message key='common.title.add_new'/>"></a>
 											</span>
 										</span>
 										<input class="fieldline js_edit_element_item" name="txtReactiveEmotionalItem" style="display:inline-block; font-size:11px; background-color:white" type="text" value="">
@@ -396,8 +396,8 @@
 											if(isEditMode){
 											%>
 												<span class="edit_actions">
-													<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
-													<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
+													<a href="" class="icon_hide js_remove_element_item" title="<fmt:message key='common.title.delete'/>"></a>
+													<a href="" class="icon_show js_add_element_item" title="<fmt:message key='common.title.add_new'/>"></a>
 												</span>
 											<%
 											}
@@ -419,8 +419,8 @@
 										<span class="js_view_element_item" style="display:none">
 											<span class="js_action_element_item"></span>
 											<span class="edit_actions">
-												<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
-												<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
+												<a href="" class="icon_hide js_remove_element_item" title="<fmt:message key='common.title.delete'/>"></a>
+												<a href="" class="icon_show js_add_element_item" title="<fmt:message key='common.title.add_new'/>"></a>
 											</span>
 										</span>
 										<input class="fieldline js_edit_element_item" name="txtIntrinsicSocialItem" style="display:inline-block; font-size:11px; background-color:white" type="text" value="">
@@ -445,8 +445,8 @@
 											if(isEditMode){
 											%>
 												<span class="edit_actions">
-													<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
-													<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
+													<a href="" class="icon_hide js_remove_element_item" title="<fmt:message key='common.title.delete'/>"></a>
+													<a href="" class="icon_show js_add_element_item" title="<fmt:message key='common.title.add_new'/>"></a>
 												</span>
 											<%
 											}
@@ -468,8 +468,8 @@
 										<span class="js_view_element_item" style="display:none">
 											<span class="js_action_element_item"></span>
 											<span class="edit_actions">
-												<a href="" class="icon_hide js_remove_element_item" title="항목 삭제"></a>
-												<a href="" class="icon_show js_add_element_item" title="아래에 항목 추가"></a>
+												<a href="" class="icon_hide js_remove_element_item" title="<fmt:message key='common.title.delete'/>"></a>
+												<a href="" class="icon_show js_add_element_item" title="<fmt:message key='common.title.add_new'/>"></a>
 											</span>
 										</span>
 										<input class="fieldline js_edit_element_item" name="txtEpistemicItem" style="display:inline-block; font-size:11px; background-color:white" type="text" value="">

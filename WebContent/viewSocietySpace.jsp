@@ -14,14 +14,12 @@
 
 	DefaultSpace defaultSpace = (DefaultSpace)request.getAttribute("societySpace");
 	String psId = request.getParameter("psId");
-	String spaceTypeStr = request.getParameter("spaceType");
-	int spaceType = SmartUtil.isBlankObject(spaceTypeStr) ? ProductService.SPACE_TYPE_NONE : Integer.parseInt(spaceTypeStr);
 	
-	if(SmartUtil.isBlankObject(defaultSpace) && !SmartUtil.isBlankObject(psId) && spaceType > ProductService.SPACE_TYPE_ALL ){
+	if(SmartUtil.isBlankObject(defaultSpace) && !SmartUtil.isBlankObject(psId)){
 
 		ProductService productService = null;
 		try{
-			productService = ManagerFactory.getInstance().getServiceManager().getProductService(psId, spaceType);
+			productService = ManagerFactory.getInstance().getServiceManager().getProductService(psId, ProductService.SPACE_TYPE_SOCIETY);
 		}catch(Exception e){}
 		
 		defaultSpace = productService.getSocietySpace();
