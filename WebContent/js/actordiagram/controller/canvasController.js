@@ -389,6 +389,7 @@ ActorDiagram.Controller.Canvas = function(mode, target, data){
 			var position = {top:e.clientY, left:e.clientX};
 			var canvasId = input.parents('.js_actor_space:first').find('canvas:first').attr('canvasId');
 			var canvasCtrl = AD$CONTROLLERS.findControllerById(canvasId, canvasId);
+			if(canvasCtrl==null) return;
 			if(canvasCtrl.verticalResizing && canvasCtrl.draggingPosition){
 				var offsetY = position.top-canvasCtrl.draggingPosition.top;
 				canvasCtrl.verticalResize(offsetY);

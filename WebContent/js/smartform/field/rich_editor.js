@@ -161,9 +161,17 @@ SmartWorks.FormRuntime.RichEditorBuilder.build = function(config) {
 	return options.container;
 };
 
-richEditorSetValue = function($this, id, value){
-	var smartForm = $this.parents('form[name="frmSmartForm"]');
-	var richEditor = smartForm.find('.js_type_richEditor[fieldId="' + id + '"]');
+richEditorSetValue = function($this, id, value, target){
+	var richEditor = null;
+	if($this!=null){
+		var smartForm = $this.parents('form[name="frmSmartForm"]');
+		richEditor = smartForm.find('.js_type_richEditor[fieldId="' + id + '"]');
+	}else if(id!=null){
+		richEditor = $('.js_type_richEditor[fieldId="' + id + '"]');		
+	}
+	
+	if(target!=null) richEditor = target;
+	
 	var frame = richEditor.find('iframe');
 	frame.contents().find('html').html("");
 	value = smartDecode(value);

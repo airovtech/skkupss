@@ -422,6 +422,21 @@ var cloneSelectedValues = function(cloneSource, cloned){
 		var select = this;
 		$(cloned).find("select").eq(i).val($(select).val());
 	});
+	var richEditors = $(cloneSource).find('.js_type_richEditor');
+	$(richEditors).each(function(i){
+		var richEditor = this;
+		var value = "";
+		try{
+			value = SmartWorks.FormRuntime.RichEditorBuilder.getValue($(richEditor));
+		}catch(error){
+			value = $(richEditor).find('textarea').val();
+		}
+		try{
+			richEditorSetValue(null, null, value, $(cloned).find('.js_type_richEditor').eq(i));
+		}catch(error){
+			$(cloned).find('.js_type_richEditor textarea').eq(i).val(value);
+		}
+	});
 };
 
 var refreshCurrentContent = function(js_page){

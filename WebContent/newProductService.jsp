@@ -63,9 +63,12 @@ function submitForms(tempSave) {
 			var canvas = {};
 			var nodes = new Array();
 			var edgeLines = new Array();
+			console.log('AD$CONTROLLERS :', AD$CONTROLLERS);
 			for(var j=0; j<AD$CONTROLLERS.length; j++){
 				var ctrl = AD$CONTROLLERS[j];
 				var model = ctrl.model;
+				console.log('ctrl ', ctrl);
+				console.log('model ', model);
 				switch(ActorDiagram.getModelType(model)){
 				case AD$TYPE_CANVAS :
 					canvas =  model;
@@ -94,8 +97,8 @@ function submitForms(tempSave) {
 			var lifecycleSteps = '000000000000';
 			if(!isEmpty(LD$DATA)){
 				lifecycleSteps = '';
-				for(var i=0; i<LD$DATA.length; i++)
-					lifecycleSteps = lifecycleSteps + LD$DATA[i];
+				for(var j=0; j<LD$DATA.length; j++)
+					lifecycleSteps = lifecycleSteps + LD$DATA[j];
 			}
 			var productSpaceValues = {
 					unspscCode : unspscCode,
@@ -126,7 +129,7 @@ function submitForms(tempSave) {
 			paramsJsonHiddens[spaceType] = customerSpaceValues;
 		}else if(spaceType == '<%=ProductService.SPACE_TYPE_TOUCH_POINT%>'){
 			var touchPoints = new Array();
-			spaceTab.find('form:visible').each(function(){
+			spaceTab.find('form.js_validation_required').each(function(){
 				var touchPointId = {};
 				if(!isEmpty($(this).attr('touchPointId')))
 					touchPointId['touchPointId'] = $(this).attr('touchPointId'); 

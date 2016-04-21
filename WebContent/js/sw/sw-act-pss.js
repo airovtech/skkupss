@@ -28,6 +28,9 @@ $(function() {
 					success : function(data, status, jqXHR) {
 						newProductService.find('.js_space_view_target').html(data);
 						newProductService.attr('spaceType', spaceTypeStr);
+						if(spaceType == '8' && !isEmpty(savedSpaceTab)){
+							newProductService.find('.js_space_view_target .js_type_richEditor textarea').val(savedSpaceTab.find('textarea').val());
+						}
 					}
 				});
 			}else{

@@ -81,7 +81,10 @@
 		String[] serviceProviders = new String[]{null, null, null, null};
 		if(!SmartUtil.isBlankObject(serviceProvider)){
 			String[] temp = serviceProvider.split("\\,");
-			if(temp!=null && temp.length==4) serviceProviders = temp;
+			if(temp!=null && temp.length<=4){
+				for(int i=0; i<temp.length; i++)
+				serviceProviders[i] = temp[i];
+			}
 		}
 		%>
 		<tr>
@@ -97,7 +100,10 @@
 		String[] relatedCompanys = new String[]{null, null, null};
 		if(!SmartUtil.isBlankObject(relatedCompany)){
 			String[] temp = relatedCompany.split("\\,");
-			if(temp!=null && temp.length==3) relatedCompanys = temp;
+			if(temp!=null && temp.length<=3){
+				for(int i=0; i<temp.length; i++)
+				relatedCompanys[i] = temp[i];
+			}
 		}
 		%>
 		<tr>
