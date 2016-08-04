@@ -234,11 +234,15 @@ try{
 
 <script type="">smartPop.progressCenter();</script>
 
-<%
-
+<%-- <%
+ 
 	String spaceType = request.getParameter("spaceType");
-%>
+ 	try{
+		SmartUtil.test();
+	}catch(Exception e){e.printStackTrace();}
 
+%>
+ --%>
 	<div id="wrap">
 		<!-- Header -->
 		<div id="header" style="">

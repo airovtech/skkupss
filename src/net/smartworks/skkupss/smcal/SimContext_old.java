@@ -3,7 +3,7 @@ package net.smartworks.skkupss.smcal;
 import java.util.ArrayList;
 
 
-public class SimContext {
+public class SimContext_old {
 	
 	
     public static int num = 0;
@@ -168,14 +168,12 @@ public class SimContext {
 		 float sim = 0;
 		 float minCost = 0;
 		 float curCost = 0;
-		 float length = 0;
 		 float curMax = 0;
 		 float curSim = 0;
 		 
 		 float sim2 = 0;
 		 float minCost2 = 0;
 		 float curCost2 = 0;
-		 float length2 = 0;
 		 float curMax2 = 0;
 		 float curSim2 = 0;
 		 
@@ -238,28 +236,18 @@ public class SimContext {
 	        		// SED (STRING EDIT DISTANCE)
 	        		// WEIGHT = 1
 	        		else {
+		        		
 	
-	        			/////
 	        			curCost = Levenshtein(node1, node2);
-	        			length = Math.max(node1.length(), node2.length());
+	        			System.out.println(node1 + " and " + node2 + " = " + curCost);
 
 	        			
-	        			if(j == 0) {
-	        				minCost = curCost;
-	        				curMax = length;
-	        				//curMax = node1.length();
-	        				//curMax = curMax;
-	        			}
+	        			if(j == 0) minCost = curCost;
 	        			
-	        			if(minCost > curCost) {
+	        			if(minCost >= curCost) {
 	        				minCost = curCost;
-	        				curMax = length;	
-	        			} else if (minCost == curCost && curMax < length) {
-	        				minCost = curCost;
-	        				curMax = length;
+	        				curMax = Math.max(node1.length(), node2.length());
 	        			}
-	        			System.out.println(node1 + " and " + node2 + " = " + curCost +", "+length);
-	        			/////
 	        		}  	
 	        			
 	        	}
@@ -329,28 +317,18 @@ public class SimContext {
        		// SED (STRING EDIT DISTANCE)
        		// WEIGHT = 1
        		else {
-	  
-       		/////
-    			curCost2 = Levenshtein(node1, node2);
-    			length2 = Math.max(node1.length(), node2.length());
+	        		
 
-    			
-    			if(j == 0) {
-    				minCost2 = curCost2;
-    				curMax2 = length2;
-    				//curMax = node1.length();
-    				//curMax = curMax;
-    			}
-    			
-    			if(minCost2 > curCost2) {
-    				minCost2 = curCost2;
-    				curMax2 = length2;	
-    			} else if (minCost2 == curCost2 && curMax2 < length2) {
-    				minCost2 = curCost2;
-    				curMax2 = length2;
-    			}
-    			System.out.println(node1 + " and " + node2 + " = " + curCost2 +", "+length2);
-    			/////
+       			curCost2 = Levenshtein(node1, node2);
+       			System.out.println(node1 + " and " + node2 + " = " + curCost2);
+
+       			
+       			if(j == 0) minCost2 = curCost2;
+       			
+       			if(minCost2 >= curCost2) {
+       				minCost2 = curCost2;
+       				curMax2 = Math.max(node1.length(), node2.length());
+       			}
        		}  	
        			
        	}
@@ -376,7 +354,9 @@ public class SimContext {
        /* *****PHASE 2 END ***** */
        
        sim = (sim + sim2)/2;
- 	 
+       
+	        
+	    		 
 	    		 	 
 	    	 } else {
 	    		 
@@ -427,24 +407,15 @@ public class SimContext {
 		        		
 	
 	        			curCost = Levenshtein(node1, node2);
-	        			length = Math.max(node1.length(), node2.length());
+	        			System.out.println(node1 + " and " + node2 + " = " + curCost);
 
 	        			
-	        			if(j == 0) {
-	        				minCost = curCost;
-	        				curMax = length;
-	        				//curMax = node1.length();
-	        				//curMax = curMax;
-	        			}
+	        			if(j == 0) minCost = curCost;
 	        			
-	        			if(minCost > curCost) {
+	        			if(minCost >= curCost) {
 	        				minCost = curCost;
-	        				curMax = length;	
-	        			} else if (minCost == curCost && curMax < length) {
-	        				minCost = curCost;
-	        				curMax = length;
+	        				curMax = Math.max(node1.length(), node2.length());
 	        			}
-	        			System.out.println(node1 + " and " + node2 + " = " + curCost +", "+length);
 	        		}  	
 	        			
 	        	}

@@ -2,10 +2,10 @@ package net.smartworks.skkupss.smcal;
 
 public class Node{
 	
-	private static final String TYPE_PRODUCT = "product";
-	private static final String TYPE_PROVIDER = "provider";
-	private static final String TYPE_TOUCHPOINT = "touchPoint";
-	private static final String TYPE_USER = "user";
+	public static final String TYPE_PRODUCT = "product";
+	public static final String TYPE_PROVIDER = "provider";
+	public static final String TYPE_TOUCHPOINT = "touchPoint";
+	public static final String TYPE_USER = "user";
 	
 	public static final String NODE_TYPE_PRODUCT = "A";
 	public static final String NODE_TYPE_PROVIDER = "B";

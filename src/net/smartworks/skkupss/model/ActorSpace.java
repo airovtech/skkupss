@@ -6,7 +6,7 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import net.smartworks.skkupss.smcal.Graph;
+import net.smartworks.skkupss.smcal.GraphActor;
 import net.smartworks.skkupss.smcal.Node;
 import net.smartworks.util.SmartUtil;
 
@@ -51,8 +51,8 @@ public class ActorSpace{
 		return actorSpace;
 	}
 	
-	public Graph getSimGraph(){
-		Graph graph =  new Graph();
+	public GraphActor getSimGraph(){
+		GraphActor graph =  new GraphActor();
 		JSONObject contextObject = null;
 		try{
 			contextObject =  new JSONObject(diagramData);

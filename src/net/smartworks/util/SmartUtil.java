@@ -25,6 +25,9 @@ import javax.servlet.http.HttpServletResponse;
 import net.smartworks.factory.ManagerFactory;
 import net.smartworks.skkupss.model.Login;
 import net.smartworks.skkupss.model.User;
+import net.smartworks.skkupss.smcal.Graph;
+import net.smartworks.skkupss.smcal.Node;
+import net.smartworks.skkupss.smcal.SimContext;
 
 import org.apache.axis.utils.StringUtils;
 import org.cometd.bayeux.client.ClientSession;
@@ -305,6 +308,14 @@ public class SmartUtil {
 		return false;
 	}
 	
+	public static String getPathNameOnlyFromDepartment(String fullPathName){
+		if(fullPathName==null) return null;
+		String[] tokens = fullPathName.split("▶");
+		String pathNameOnly = tokens[0];
+		for(int i=1; i<tokens.length-1; i++)
+			pathNameOnly = pathNameOnly + "▶" + tokens[i];
+		return pathNameOnly;
+	}
 	public static boolean isEmailAddress(String str){
 		
 		if(SmartUtil.isBlankObject(str)) return false;
@@ -396,6 +407,100 @@ public class SmartUtil {
 			e.printStackTrace();
 		}
 		return user;
+	}
+	
+	public static void test(){
+    	//USER
+        Node n1 = new Node("1", Node.TYPE_USER, "고객1");
+        Node n2 = new Node("2", Node.TYPE_USER, "고객2");
+        
+        //PROVIDER
+        Node n3 = new Node("3", Node.TYPE_PROVIDER, "콘텐츠제작업체");
+        Node n4 = new Node("4", Node.TYPE_PROVIDER, "완구제조업체");
+        Node n5 = new Node("5", Node.TYPE_PROVIDER, "도료제조업체");
+
+        //PRODUCT
+        Node n6 = new Node("6", Node.TYPE_PRODUCT, "키덜트장난감");
+      //PRODUCT
+        Node n7 = new Node("7", Node.TYPE_TOUCHPOINT, "kidultPlayRoom");
+        
+        Graph graph23 = new Graph();
+        graph23.addEdge(n3, n4);
+        graph23.addEdge(n4, n3);
+        graph23.addEdge(n4, n5);
+        graph23.addEdge(n4, n6);
+        graph23.addEdge(n7, n1);
+        graph23.addEdge(n7, n2);
+        graph23.addEdge(n1, n7);
+        graph23.addEdge(n2, n7);
+        graph23.addTwoWayVertex(n1, n2);       
+        graph23.addEdge(n4, n7);
+        graph23.addEdge(n5, n7);
+        graph23.addEdge(n6, n7);
+        graph23.addEdge(n7, n3);
+        
+        ////////////////CASE B - Kidult Toy ////////////////
+        //USER
+        Node s1 = new Node("8", Node.TYPE_USER, "고객1");
+    
+        //PROVIDER
+        Node s3 = new Node("9", Node.TYPE_PROVIDER, "콘텐츠제작업체");
+        Node s4 = new Node("10", Node.TYPE_PROVIDER, "완구제조업체");
+        Node s5 = new Node("11", Node.TYPE_PROVIDER, "공구제조업체");
+
+        //PRODUCT
+        Node s6 = new Node("12", Node.TYPE_PRODUCT, "키덜트토이");
+        //PRODUCT
+        Node s7 = new Node("13", Node.TYPE_TOUCHPOINT, "판매점");
+    
+        Graph graph24 = new Graph();
+        graph24.addTwoWayVertex(s3, s4);
+        graph24.addEdge(s4, s6);
+        graph24.addTwoWayVertex(s1, s5);
+        graph24.addEdge(s6, s7);
+        graph24.addEdge(s7, s4);
+        graph24.addTwoWayVertex(s7, s1);
+       ////////////////CASE C  유모차 서비스 개선  ////////////////
+        //USER
+        Node l1 = new Node("14", Node.TYPE_USER, "엄마아빠");
+        Node l2 = new Node("15", Node.TYPE_USER, "아기");
+
+        //PRODUCT
+        Node l3 = new Node("16", Node.TYPE_PRODUCT, "유모차");
+        //PRODUCT
+        Node l4 = new Node("17", Node.TYPE_TOUCHPOINT, "유모차앱");
+        Node l5 = new Node("18", Node.TYPE_TOUCHPOINT, "지문인식");
+        Node l6 = new Node("19", Node.TYPE_TOUCHPOINT, "유모차제어");
+        Node l7 = new Node("20", Node.TYPE_TOUCHPOINT, "아이용패드");
+        Node l8 = new Node("21", Node.TYPE_TOUCHPOINT, "유모차브레이크");
+
+        Graph graph25 = new Graph();
+        graph25.addEdge(l1, l4);
+        graph25.addEdge(l4, l3);
+        graph25.addEdge(l5, l3);
+        graph25.addEdge(l3, l6);
+        graph25.addEdge(l3, l7);
+        graph25.addEdge(l3, l8);
+        graph25.addEdge(l6, l2);
+        graph25.addTwoWayVertex(l7, l2);
+        graph25.addEdge(l8, l2);
+
+
+        
+    	SimContext gSim = new SimContext();
+    	
+    	
+   
+    	float result1 = gSim.measureSimilarityAB(graph23, graph24 );
+    	
+    	float result2 = gSim.measureSimilarityAC(graph23, graph24 );
+    	float result3 = gSim.measureSimilarityBC(graph23, graph24  );
+    	
+    	float result = (result1+result2+result3)/3;
+        	       
+    	System.out.println("Similarity Result : " + result + ", ab : " + result1 + ", ac : " + result2 + ", bc : " + result3);
+      
+
 	}
 	
 }

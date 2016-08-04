@@ -74,7 +74,6 @@ public class ContextSpace{
 				nodes[i] = new Node(id, type, name);	
 				nodeIds.put(nodes[i].getId(), nodes[i]);
 			}
-	
 			for(int i=0; i<edgeLineArray.length(); i++){
 				JSONObject jsonObj  = edgeLineArray.getJSONObject(i);
 				String fromNodeId=null, toNodeId=null;

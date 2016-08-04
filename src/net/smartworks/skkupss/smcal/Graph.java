@@ -13,18 +13,26 @@ public class Graph {
     public ArrayList<Node> NODES = new ArrayList<Node>();
 
     
-
-    public void addEdge(Node node1, Node node2) {
+    public Map<Node, LinkedHashSet<Node>> getMap() {
+		return map;
+	}
+	public void setMap(Map<Node, LinkedHashSet<Node>> map) {
+		this.map = map;
+	}
+	public void addEdge(Node node1, Node node2) {
+    	if(node1==null || node2==null) return;
         LinkedHashSet<Node> adjacent = map.get(node1);
         if(adjacent==null) {
             adjacent = new LinkedHashSet();
             map.put(node1, adjacent);
         }
-        adjacent.add(node2); 
+        if(!adjacent.contains(node2))
+        	adjacent.add(node2); 
         
         addNodes(node1, node2);
     }
     public void addNode(String id, String type, String name) {
+    	if(id==null || type==null) return;
     	Node node1 = new Node(id, type, name);
     	
     	if(!(NODES.contains(node1))) {
@@ -35,13 +43,13 @@ public class Graph {
     public void addNodes(Node node1, Node node2) {
     	
     	//STORE ALL NODES IN NODES LIST
-        if (!(NODES.contains(node1))) {
+        if (!(NODES.contains(node1)) && node1!=null) {
             NODES.add(node1);
             System.out.println("Adding: "+ node1.getId() + " " + node1.getType());} 
         
        
         
-        if (!(NODES.contains(node2))) {
+        if (!(NODES.contains(node2)) && node2!=null) {
             NODES.add(node2);
             System.out.println("Adding: "+ node2.getId() + " " + node2.getType());} 
         

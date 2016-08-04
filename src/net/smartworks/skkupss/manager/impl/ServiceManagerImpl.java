@@ -39,6 +39,7 @@ import net.smartworks.skkupss.model.UserCond;
 import net.smartworks.skkupss.model.ValueSpace;
 import net.smartworks.skkupss.smcal.Graph;
 import net.smartworks.skkupss.smcal.Node;
+import net.smartworks.skkupss.smcal.SemanticSim;
 import net.smartworks.skkupss.smcal.SimActor;
 import net.smartworks.skkupss.smcal.SimBizModel;
 import net.smartworks.skkupss.smcal.SimContext;
@@ -307,8 +308,20 @@ public class ServiceManagerImpl implements IServiceManager {
 							sm.setSimilarity((new SimBizModel(sourceBizModel.getNumOfStrategies(), sourceBizModel.getStrategies(), targetBizModel.getNumOfStrategies(), targetBizModel.getStrategies())).calculateSimularity());
 						break;
 					case ProductService.SPACE_TYPE_ACTOR:
-						if(!SmartUtil.isBlankObject(sourceActor) && !SmartUtil.isBlankObject(targetActor))
-							sm.setSimilarity((new SimActor()).measureSimilarityBC(sourceActor.getSimGraph(), targetActor.getSimGraph()));
+						if(!SmartUtil.isBlankObject(sourceActor) && !SmartUtil.isBlankObject(targetActor)){
+							//sm.setSimilarity((new SimActor()).measureSimilarityBC(sourceActor.getSimGraph(), targetActor.getSimGraph()));
+						    float result1 = ((new SimActor()).measureSimilarityB(sourceActor.getSimGraph(), targetActor.getSimGraph()));
+						    float result2 = ((new SimActor()).measureSimilarityD(sourceActor.getSimGraph(), targetActor.getSimGraph()));
+						    float result3 = ((new SimActor()).measureSimilarityC(sourceActor.getSimGraph(), targetActor.getSimGraph()));						    
+						    
+						    //어디를 엔드 (end node)로 볼지에 따라 웨이트가 달라질 수 있음. 
+						    float result = (result1+result2+result3)/3;
+						    
+							//semantic
+							SemanticSim sSim = new SemanticSim();
+							float result_s = sSim.measureSimilarity(sourceActor.getSimGraph(), targetActor.getSimGraph());
+							sm.setSimilarity(Math.sqrt(result*result_s)); 
+						}
 						break;
 					case ProductService.SPACE_TYPE_SOCIETY:
 						if(!SmartUtil.isBlankObject(sourceSociety) && !SmartUtil.isBlankObject(targetSociety))
@@ -365,8 +378,20 @@ public class ServiceManagerImpl implements IServiceManager {
 									sumSimValues = sumSimValues + simSpaceType.getSimilarityWeight()*(new SimBizModel(sourceBizModel.getNumOfStrategies(), sourceBizModel.getStrategies(), targetBizModel.getNumOfStrategies(), targetBizModel.getStrategies())).calculateSimularity();
 								break;
 							case ProductService.SPACE_TYPE_ACTOR:
-								if(!SmartUtil.isBlankObject(sourceActor) && !SmartUtil.isBlankObject(targetActor))
-									sm.setSimilarity((new SimActor()).measureSimilarityBC(sourceActor.getSimGraph(), targetActor.getSimGraph()));
+								if(!SmartUtil.isBlankObject(sourceActor) && !SmartUtil.isBlankObject(targetActor)){
+//									sm.setSimilarity((new SimActor()).measureSimilarityBC(sourceActor.getSimGraph(), targetActor.getSimGraph()));
+								    float result1 = ((new SimActor()).measureSimilarityB(sourceActor.getSimGraph(), targetActor.getSimGraph()));
+								    float result2 = ((new SimActor()).measureSimilarityD(sourceActor.getSimGraph(), targetActor.getSimGraph()));
+								    float result3 = ((new SimActor()).measureSimilarityC(sourceActor.getSimGraph(), targetActor.getSimGraph()));						    
+								    
+								    //어디를 엔드 (end node)로 볼지에 따라 웨이트가 달라질 수 있음. 
+								    float result = (result1+result2+result3)/3;
+								    
+									//semantic
+									SemanticSim sSim = new SemanticSim();
+									float result_s = sSim.measureSimilarity(sourceActor.getSimGraph(), targetActor.getSimGraph());
+									sm.setSimilarity(Math.sqrt(result*result_s)); 
+								}
 								break;
 							case ProductService.SPACE_TYPE_SOCIETY:
 								if(!SmartUtil.isBlankObject(sourceSociety) && !SmartUtil.isBlankObject(targetSociety))

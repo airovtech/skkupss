@@ -1814,6 +1814,50 @@ $(function() {
 			return false;
 		});
 		
+		$('.js_toggle_view_histories').live('click', function(e){
+			try{
+				var input = $(targetElement(e));
+				if(!input.hasClass('js_toggle_view_histories')) input = input.parents('.js_toggle_view_histories');
+				var workSpace = input.parents('.js_iwork_space_page:first');
+				var target = workSpace.find('.js_instance_histories');
+				if(isEmpty(target.children())){
+					target.addClass('js_view');
+				}else{
+					target.html('').hide();
+					if(!target.hasClass('js_view')){
+						target.addClass('js_view').removeClass('js_download').removeClass('js_forward').removeClass('js_related').removeClass('js_update');
+					}else{
+						target.removeClass('js_view');
+						return false;
+					}
+				}
+				var domainId = workSpace.attr('domainId');
+				var instanceId = workSpace.attr('instId');
+				$.ajax({
+					url : 'view_histories.sw',
+					data : {
+						domainId : domainId,
+						instanceId : instanceId
+					},
+					success : function(data, status, jqXHR) {
+						try{
+							target.html(data).show();
+							var target_point = $(target).find("div.up_point:first");
+							target_point.css({"left": (input.position().left) + "px"});
+						}catch(error){
+							smartPop.showInfo(smartPop.ERROR, smartMessage.get('technicalProblemOccured') + '[sw-act-space js_toggle_view_histories view_histories]', null, error);
+						}			
+					},
+					error : function(xhr, ajaxOptions, e) {
+						smartPop.showInfo(smartPop.ERROR, smartMessage.get('technicalProblemOccured') + '[sw-act-space js_toggle_view_histories]', null, e);
+					}
+				});				
+			}catch(error){
+				smartPop.showInfo(smartPop.ERROR, smartMessage.get('technicalProblemOccured') + '[sw-act-space js_toggle_view_histories]', null, error);
+			}
+			return false;
+		});
+		
 		$('.js_toggle_update_histories').live('click', function(e){
 			try{
 				var input = $(targetElement(e));
@@ -1825,7 +1869,7 @@ $(function() {
 				}else{
 					target.html('').hide();
 					if(!target.hasClass('js_update')){
-						target.addClass('js_update').removeClass('js_download').removeClass('js_forward').removeClass('js_related');
+						target.addClass('js_update').removeClass('js_download').removeClass('js_forward').removeClass('js_related').removeClass('js_view');
 					}else{
 						target.removeClass('js_update');
 						return false;
@@ -1868,7 +1912,7 @@ $(function() {
 				}else{
 					target.html('').hide();
 					if(!target.hasClass('js_forward')){
-						target.addClass('js_forward').removeClass('js_download').removeClass('js_update').removeClass('js_related');
+						target.addClass('js_forward').removeClass('js_download').removeClass('js_update').removeClass('js_related').removeClass('js_view');
 					}else{
 						target.removeClass('js_forward');
 						return false;
@@ -1910,7 +1954,7 @@ $(function() {
 				}else{
 					target.html('').hide();
 					if(!target.hasClass('js_download')){
-						target.addClass('js_download').removeClass('js_update').removeClass('js_forward').removeClass('js_related');
+						target.addClass('js_download').removeClass('js_update').removeClass('js_forward').removeClass('js_related').removeClass('js_view');
 					}else{
 						target.removeClass('js_download');
 						return false;
@@ -1954,7 +1998,7 @@ $(function() {
 				}else{
 					target.html('').hide();
 					if(!target.hasClass('js_related')){
-						target.addClass('js_related').removeClass('js_download').removeClass('js_forward').removeClass('js_update');
+						target.addClass('js_related').removeClass('js_download').removeClass('js_forward').removeClass('js_update').removeClass('js_view');
 					}else{
 						target.removeClass('js_related');
 						return false;
