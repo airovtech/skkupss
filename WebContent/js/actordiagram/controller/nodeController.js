@@ -50,6 +50,7 @@ ActorDiagram.Controller.Node = function(canvasId, mode, context, data){
 		id: data.id,
 		type: data.type,  // product, provider, touchPoint, user
 		typeName: data.typeName,
+		isPrimaryNode: data.isPrimaryNode,
 		position: data.position,
 		name: data.name
 	});

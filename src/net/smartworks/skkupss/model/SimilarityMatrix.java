@@ -8,6 +8,7 @@ public class SimilarityMatrix{
 	private String targetPsId;
 	private String targetPsName;
 	private double similarity;
+	private String[] rootNodes = new String[2];
 	
 	public int getSpaceType() {
 		return spaceType;
@@ -45,5 +46,10 @@ public class SimilarityMatrix{
 	public void setSimilarity(double similarity) {
 		this.similarity = similarity;
 	}
-	
+	public String[] getRootNodes() {
+		return rootNodes;
+	}
+	public void setRootNodes(String[] rootNodes) {
+		this.rootNodes = rootNodes;
+	}
 }

@@ -68,6 +68,7 @@ public class ActorSpace{
 			for(int i=0; i<nodeArray.length(); i++){
 				JSONObject jsonObj  = nodeArray.getJSONObject(i);
 				String id=null, type=null, name=null, typeName=null;
+				boolean isPrimayCustomer=false;
 				try{
 					id = jsonObj.getString("id");
 				}catch(Exception e){}
@@ -80,13 +81,16 @@ public class ActorSpace{
 				try{
 					typeName = jsonObj.getString("typeName");
 				}catch(Exception e){}
-				nodes[i] = new Node(id, type, name, typeName);	
+				try{
+					isPrimayCustomer = jsonObj.getBoolean("isPrimaryNode");
+				}catch(Exception e){}
+				nodes[i] = new Node(id, type, name, typeName, isPrimayCustomer);	
 				nodeIds.put(nodes[i].getId(), nodes[i]);
 			}
 	
 			for(int i=0; i<edgeLineArray.length(); i++){
 				JSONObject jsonObj  = edgeLineArray.getJSONObject(i);
-				String fromNodeId=null, toNodeId=null;
+				String fromNodeId=null, toNodeId=null, label=null;
 				int direction=0;
 				try{
 					fromNodeId = jsonObj.getString("fromNodeId");
@@ -97,10 +101,13 @@ public class ActorSpace{
 				try{
 					direction = jsonObj.getInt("direction");
 				}catch(Exception e){}
+				try{
+					label = jsonObj.getString("label");
+				}catch(Exception e){}
 				if(fromNodeId!=null && toNodeId!=null){
-					graph.addEdge((Node)nodeIds.get(fromNodeId), (Node)nodeIds.get(toNodeId));
+					graph.addEdge((Node)nodeIds.get(fromNodeId), (Node)nodeIds.get(toNodeId), label);
 					if(direction!=1)
-						graph.addEdge((Node)nodeIds.get(toNodeId), (Node)nodeIds.get(fromNodeId));
+						graph.addEdge((Node)nodeIds.get(toNodeId), (Node)nodeIds.get(fromNodeId), label);
 				}
 			}
 		}catch(Exception e){

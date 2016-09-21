@@ -28,6 +28,7 @@ function submitForms(tempSave) {
 	var paramsJsonHiddens = {};
 	var spaceTabs = forms.find('.js_space_tab');
 	var currentSpaceType = forms.find('.js_select_space_type th.current>a').attr('spaceTypeStr');
+	var isCVCAEnabled = forms.find('.js_select_space_type th.current>a').attr('isCVCAEnabled');
 	for(var i=0; i<spaceTabs.length; i++){
 		var spaceTab = $(spaceTabs[i]);
 		var spaceType = spaceTab.attr('spaceType');
@@ -236,7 +237,7 @@ function submitForms(tempSave) {
 					smartPop.closeProgress();
 				});
 			}else{
-				var url = 'newProductService.jsp?psId=' + psId + '&isEditMode=false' + '&spaceType=' + currentSpaceType;
+				var url = 'newProductService.jsp?psId=' + psId + '&isEditMode=false' + '&spaceType=' + (isCVCAEnabled === 'true' && currentSpaceType === 'actorSpace' ? 'actorCvcaSpace' : currentSpaceType);
 				var target = $('#content');
 				$.ajax({
 					url : url,
@@ -264,6 +265,12 @@ function submitForms(tempSave) {
 	String isEditModeStr = request.getParameter("isEditMode");
 	boolean isEditMode = SmartUtil.isBlankObject(isEditModeStr) ? false : isEditModeStr.equalsIgnoreCase("true"); 
 	String spaceType = request.getParameter("spaceType");
+	boolean isCVCAEnabled = true;
+	if(ProductService.PSS_SPACE_ACTOR_CVCA.equals(spaceType)){
+		spaceType = ProductService.PSS_SPACE_ACTOR;
+	}else if(ProductService.PSS_SPACE_ACTOR.equals(spaceType)){
+		isCVCAEnabled = false;
+	}
 	ProductService productService = new ProductService();
 	if(!SmartUtil.isBlankObject(psId)){
 		try{
@@ -301,7 +308,7 @@ function submitForms(tempSave) {
 
 					<!-- 상세필터 및 새업무등록하기 화면 -->
 					<div id="search_filter" class="filter_section js_new_work_form">
-						<div class="form_wrap up js_form_wrap js_new_iwork_page js_new_product_service_page" psId="<%=psId%>" isEditMode="<%=isEditMode%>" spaceType="<%=spaceType%>">
+						<div class="form_wrap up js_form_wrap js_new_iwork_page js_new_product_service_page" psId="<%=psId%>" isEditMode="<%=isEditMode%>" spaceType="<%=spaceType%>" isCVCAEnabled="<%=isCVCAEnabled%>">
 							<div class="form_title js_form_header">
 								<!-- 해당 업무이름을 표시하는 곳 -->
 								<%
@@ -501,7 +508,7 @@ try{
 					'<th><a spaceType="5" spaceTypeStr="<%=ProductService.PSS_SPACE_TOUCH_POINT%>" href="viewTouchPointSpace.jsp">Touch Point Space</a></th>' +  
 					'<th><a spaceType="6" spaceTypeStr="<%=ProductService.PSS_SPACE_CUSTOMER%>" href="viewCustomerSpace.jsp">Customer Space</a></th>' +  
 					'<th><a spaceType="7" spaceTypeStr="<%=ProductService.PSS_SPACE_BIZ_MODEL%>" href="viewBizModelSpace.jsp">Biz Model Space</a></th>' +  
-					'<th><a spaceType="8" spaceTypeStr="<%=ProductService.PSS_SPACE_ACTOR%>" href="viewActorSpace.jsp">Actor Space</a></th>' +  
+					'<th><a spaceType="8" spaceTypeStr="<%=ProductService.PSS_SPACE_ACTOR%>" isCVCAEnabled="<%=isCVCAEnabled%>" href="viewActorSpace.jsp">Actor Space</a></th>' +  
 					'<th><a spaceType="9" spaceTypeStr="<%=ProductService.PSS_SPACE_SOCIETY%>" href="viewSocietySpace.jsp">Society Space</a></th>' +  
 					'<th><a spaceType="10" spaceTypeStr="<%=ProductService.PSS_SPACE_CONTEXT%>" href="viewContextSpace.jsp">Interaction Context Space</a></th>' +  
 					'<th><a spaceType="11" spaceTypeStr="<%=ProductService.PSS_SPACE_TIME%>" href="viewTimeSpace.jsp">Time Space</a></th>' +  

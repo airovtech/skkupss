@@ -2,7 +2,8 @@ package net.smartworks.skkupss.smcal;
 
 import java.util.ArrayList;
 
-public class SimActor{
+
+public class SimActor {
 	
 	
     public static int num = 0;
@@ -15,122 +16,129 @@ public class SimActor{
 	float cost3 = 0;
 	float max3 = 0;
 	
+	String rootNodeA ="";
+	String rootNodeB ="";
+	
 	ArrayList<String> pathA = new ArrayList<String>();
 	ArrayList<String> pathB = new ArrayList<String>();
 	ArrayList<Integer> indexA = new ArrayList<Integer>();
 	ArrayList<Integer> indexB = new ArrayList<Integer>();
 	
 	
-	 public float measureSimilarityB(GraphActor graph1, GraphActor graph2) {
-		 
-		 // MEASURE SIMILARITY BY COMPARING ALL THE PATHS FROM A TO B OF GRAPH1 AND GRAPH2
-		 // AND COMPARING ALL THE PATHS FROM B TO A OF GRAPH1 AND GRAPH2
-		 // FINAL SIMILARITY RESULTS FROM MEAN VALUE OF A TO B SIMILARITY AND B TO A SIMILARITY
-
-		 //Between User and Provider
-		 float result1 = Similarity(graph1, graph2, Node.NODE_TYPE_PRODUCT, Node.NODE_TYPE_PROVIDER);
-		
-		 
-		 // CLEAR ARRAYLIST FOR LATER CALCUATION
-		 pathA.clear();
-		 pathB.clear();
-		 indexA.clear();
-		 indexB.clear();
-		 
-		 //FROM B TO A
-		 float result2 = Similarity(graph1, graph2, Node.NODE_TYPE_PROVIDER, Node.NODE_TYPE_PRODUCT);
-		 
-		 
-		 // CLEAR ARRAYLIST FOR LATER CALCUATION
-		 pathA.clear();
-		 pathB.clear();
-		 indexA.clear();
-		 indexB.clear();
-		 
-		
-		 
-		// if(result1 == 0 && result2 != 0) {
-		//	 return result2;
-		// } else if (result2 == 0 && result1 != 0) {
-		//	 return result1;
-		//	 } 
-		 //else {
-			//MEAN VALUE OF SIM1 AND SIM2
-			 return (result1 + result2)/2 ;
-		// }
-		
-
-	       
-	    }
-	 public float measureSimilarityC(GraphActor graph1, GraphActor graph2) {
-		 
-		 // MEASURE SIMILARITY BY COMPARING ALL THE PATHS FROM A TO B OF GRAPH1 AND GRAPH2
-		 // AND COMPARING ALL THE PATHS FROM B TO A OF GRAPH1 AND GRAPH2
-		 // FINAL SIMILARITY RESULTS FROM MEAN VALUE OF A TO B SIMILARITY AND B TO A SIMILARITY
-
-		 //Between User and Provider
-		 float result1 = Similarity(graph1, graph2, Node.NODE_TYPE_PRODUCT, Node.NODE_TYPE_USER);
-		 
-		 // CLEAR ARRAYLIST FOR LATER CALCUATION
-		 pathA.clear();
-		 pathB.clear();
-		 indexA.clear();
-		 indexB.clear();
-		 
-		 //FROM B TO A
-		 float result2 = Similarity(graph1, graph2, Node.NODE_TYPE_USER, Node.NODE_TYPE_PRODUCT);
-		 
-		 // CLEAR ARRAYLIST FOR LATER CALCUATION
-		 pathA.clear();
-		 pathB.clear();
-		 indexA.clear();
-		 indexB.clear();
-		 
-		 
+	public String[] returnRootNodes(){
+		String[] rootnodes = new String[2];
+		rootnodes[0] = rootNodeA;
+		rootnodes[1] = rootNodeB;
+		return rootnodes;
+	}
 	
-			 return (result1 + result2)/2 ;
+	public float measureSimilarity(GraphActor graph1, GraphActor graph2){
 		
+		System.out.println("ADDING ROOTNODES ");
+		ArrayList<Node> START1 = new ArrayList<Node>();
+		ArrayList<Node> START2 = new ArrayList<Node>();
 		
-
-	       
-	 }
-	 
-	 public float measureSimilarityD(GraphActor graph1, GraphActor graph2) {
-		 
-		 // MEASURE SIMILARITY BY COMPARING ALL THE PATHS FROM A TO B OF GRAPH1 AND GRAPH2
-		 // AND COMPARING ALL THE PATHS FROM B TO A OF GRAPH1 AND GRAPH2
-		 // FINAL SIMILARITY RESULTS FROM MEAN VALUE OF A TO B SIMILARITY AND B TO A SIMILARITY
-
-		 //Between User and Provider
-		 float result1 = Similarity(graph1, graph2, Node.NODE_TYPE_PRODUCT, Node.NODE_TYPE_TOUCHPOINT);
-		 
-		 // CLEAR ARRAYLIST FOR LATER CALCUATION
-		 pathA.clear();
-		 pathB.clear();
-		 indexA.clear();
-		 indexB.clear();
-		 
-		 //FROM B TO A
-		 float result2 = Similarity(graph1, graph2, Node.NODE_TYPE_TOUCHPOINT, Node.NODE_TYPE_PRODUCT);
-		 
-		 // CLEAR ARRAYLIST FOR LATER CALCUATION
-		 pathA.clear();
-		 pathB.clear();
-		 indexA.clear();
-		 indexB.clear();
-		 
-		 
+		ArrayList<Node> NODELIST1 = graph1.nodeList();
+		ArrayList<Node> NODELIST2 = graph2.nodeList();
 		
-			 return (result1 + result2)/2 ;
+		float resultB1=0;
+		float resultB2=0;
+	
+		float resultC1=0;
+		float resultC2=0;
+	
+		float resultD1=0;
+		float resultD2=0;
+		
+		float maxSim=0;
 	
 		
+		//System.out.println("NODELIST: " + NODELIST1.size());
+		
+		for (int i= 0 ; i < NODELIST1.size() ; i++) {
+    		
+    		Node node = NODELIST1.get(i);
+    		
+    		if(node.getType().equals(Node.NODE_TYPE_PRODUCT)) {
+    			START1.add(node);
+    			System.out.println("GRAPH1: ADDING "+node.getType()+node.getId()+" as a rootnode");
+    		}		
+    	}
+		for (int i= 0 ; i < NODELIST2.size() ; i++) {
+    		
+    		Node node = NODELIST2.get(i);
+    		
+    		if(node.getType().equals(Node.NODE_TYPE_PRODUCT)) {
+    			START2.add(node);
+    			System.out.println("GRAPH2: ADDING "+node.getType()+node.getId()+" as a rootnode");
+    		}		
+    	}
+		
+		//provider similairty
+		for (int i = 0 ; i<  START1.size() ; i++){
+			String rootA = START1.get(i).getId();
+			for (int j = 0 ; j<  START2.size() ; j++){
+			String rootB = START2.get(j).getId();
+			
+			System.out.println(rootA +  ", " + rootB + " : ");
+			resultB1 = Similarity(graph1, graph2, rootA, rootB, Node.NODE_TYPE_PROVIDER, Node.NODE_TYPE_PROVIDER);
+			pathA.clear();
+			pathB.clear();
+			indexA.clear();
+			indexB.clear();
+			resultB2 = Similarity(graph1, graph2, Node.NODE_TYPE_PROVIDER, Node.NODE_TYPE_PROVIDER, rootA, rootB);
+			pathA.clear();
+			pathB.clear();
+			indexA.clear();
+			indexB.clear();
+			System.out.println(rootA +  ", " + rootB + " : PROVIDER Similarity: " + resultB1+ ", " +resultB2);
+			resultC1 = Similarity(graph1, graph2, rootA, rootB, Node.NODE_TYPE_USER, Node.NODE_TYPE_USER);
+			pathA.clear();
+			pathB.clear();
+			indexA.clear();
+			indexB.clear();
+			resultC2 = Similarity(graph1, graph2, Node.NODE_TYPE_USER, Node.NODE_TYPE_USER, rootA, rootB);
+			pathA.clear();
+			pathB.clear();
+			indexA.clear();
+			indexB.clear();
+			System.out.println(rootA +  ", " + rootB + " : CUSTOMER Similarity: " + resultC1+ ", " +resultC2);
+			resultD1 = Similarity(graph1, graph2, rootA, rootB, Node.NODE_TYPE_TOUCHPOINT, Node.NODE_TYPE_TOUCHPOINT);
+			pathA.clear();
+			pathB.clear();
+			indexA.clear();
+			indexB.clear();
+			resultD2 = Similarity(graph1, graph2, Node.NODE_TYPE_TOUCHPOINT, Node.NODE_TYPE_TOUCHPOINT, rootA, rootB);
+			pathA.clear();
+			pathB.clear();
+			indexA.clear();
+			indexB.clear();
+			System.out.println(rootA +  ", " + rootB + " : OBJECT Similarity: " + resultD1+ ", " +resultD2);
+			
+			float sim = ((resultB1 + resultB2)/2 +(resultC1 + resultC2)/2 + (resultD1 + resultD2)/2)/3 ;
+			
+			
+			if(i ==0 && j==0 || sim > maxSim){
+				maxSim = sim;
+				rootNodeA = rootA;
+				rootNodeB = rootB;
+			}
+			
+		}
+		}
+		System.out.println("Maximum Sim: " + maxSim );
+		
+		
+			return maxSim ;
+		
+	}
+	
+	
 
-	       
-	    }
-	 public float Similarity(GraphActor graph1, GraphActor graph2, String sp, String ep) {
+	 public float Similarity(GraphActor graph1, GraphActor graph2, String sp1, String sp2, String ep1, String ep2) {
 		 // A to B
-		 SearchPath path1 = new SearchPath(graph1, sp, ep);
-		 SearchPath path2 = new SearchPath(graph2, sp, ep);
+		 SearchPath path1 = new SearchPath(graph1, sp1, ep1);
+		 SearchPath path2 = new SearchPath(graph2, sp2, ep2);
 		 //System.out.println("here");
 		 //System.out.println(path1);
 		 //System.out.println(path2);
@@ -155,7 +163,7 @@ public class SimActor{
 		 
 		 float result = Compute();
 		 
-		 System.out.println(sp + " to " + ep + " Similarity: " + result);
+		 System.out.println(sp1 + " to " + ep1 + " Similarity: " + result);
 		 System.out.println();
 		 
 		 return result;	 

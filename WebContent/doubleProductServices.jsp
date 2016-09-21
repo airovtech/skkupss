@@ -20,6 +20,8 @@
 
 	String sourcePsId = request.getParameter("sourcePsId");
 	String targetPsId = request.getParameter("targetPsId");
+	String sourceRootNodeId = request.getParameter("sourceRootNodeId");
+	String targetRootNodeId = request.getParameter("targetRootNodeId");
 	String spaceType = request.getParameter("spaceType");
 	String value = request.getParameter("value");
 	String isSimStr = request.getParameter("isSim");
@@ -86,6 +88,7 @@
 								<option href="viewTouchPointSpace.jsp" spaceType="5" value="<%=ProductService.PSS_SPACE_TOUCH_POINT%>" <%if(spaceType.equals(ProductService.PSS_SPACE_TOUCH_POINT)){%>selected<%} %>><fmt:message key="pss.title.space.touch_point"/></option>
 								<option href="viewCustomerSpace.jsp" spaceType="6" value="<%=ProductService.PSS_SPACE_CUSTOMER%>" <%if(spaceType.equals(ProductService.PSS_SPACE_CUSTOMER)){%>selected<%} %>><fmt:message key="pss.title.space.customer"/></option>
 								<option href="viewBizModelSpace.jsp" spaceType="7" value="<%=ProductService.PSS_SPACE_BIZ_MODEL%>" <%if(spaceType.equals(ProductService.PSS_SPACE_BIZ_MODEL)){%>selected<%} %>><fmt:message key="pss.title.space.biz_model"/></option>
+								<option href="viewActorSpace.jsp" spaceType="21" value="<%=ProductService.PSS_SPACE_ACTOR_CVCA%>" <%if(spaceType.equals(ProductService.PSS_SPACE_ACTOR_CVCA)){%>selected<%} %>><fmt:message key="pss.title.space.actor_cvca"/></option>
 								<option href="viewActorSpace.jsp" spaceType="8" value="<%=ProductService.PSS_SPACE_ACTOR%>" <%if(spaceType.equals(ProductService.PSS_SPACE_ACTOR)){%>selected<%} %>><fmt:message key="pss.title.space.actor"/></option>
 								<option href="viewSocietySpace.jsp" spaceType="9" value="<%=ProductService.PSS_SPACE_SOCIETY%>" <%if(spaceType.equals(ProductService.PSS_SPACE_SOCIETY)){%>selected<%} %>><fmt:message key="pss.title.space.society"/></option>
 								<option href="viewContextSpace.jsp" spaceType="10" value="<%=ProductService.PSS_SPACE_CONTEXT%>" <%if(spaceType.equals(ProductService.PSS_SPACE_CONTEXT)){%>selected<%} %>><fmt:message key="pss.title.space.context"/></option>
@@ -105,7 +108,7 @@
 					<!-- 목록 테이블 -->
 					<div class="list_contents">
 						<div id='iwork_instance_list_page' >					
-							<div class="form_wrap up js_form_wrap js_new_iwork_page js_double_product_services_page" sourcePsId="<%=sourcePsId%>" targetPsId="<%=targetPsId %>" spaceType="<%=spaceType%>">
+							<div class="form_wrap up js_form_wrap js_new_iwork_page js_double_product_services_page" sourcePsId="<%=sourcePsId%>" targetPsId="<%=targetPsId %>" spaceType="<%=spaceType%>"  sourceRootNodeId="<%=sourceRootNodeId%>" targetRootNodeId="<%=targetRootNodeId%>">
 								<form name="frmDoubleProductServices" class="js_validation_required form_layout">
 									<table>
 										<tr class="tit_bg">
@@ -171,9 +174,13 @@
 													<%
 													break;
 													case ProductService.SPACE_TYPE_ACTOR:
+													case ProductService.SPACE_TYPE_ACTOR_CVCA:
+														boolean isCVCAEnabled = ProductService.getSpaceType(spaceType) ==ProductService.SPACE_TYPE_ACTOR_CVCA;
 													%>
 														<jsp:include page="viewActorSpace.jsp">
 															<jsp:param value="<%=sourcePsId %>" name="psId"/>
+															<jsp:param value="<%=sourceRootNodeId %>" name="rootNodeId"/>
+															<jsp:param value="<%=isCVCAEnabled %>" name="isCVCAEnabled"/>
 														</jsp:include>
 													<%
 													break;
@@ -263,9 +270,13 @@
 													<%
 													break;
 													case ProductService.SPACE_TYPE_ACTOR:
+													case ProductService.SPACE_TYPE_ACTOR_CVCA:
+														boolean isCVCAEnabled = ProductService.getSpaceType(spaceType) ==ProductService.SPACE_TYPE_ACTOR_CVCA;
 													%>
 														<jsp:include page="viewActorSpace.jsp">
 															<jsp:param value="<%=targetPsId %>" name="psId"/>
+															<jsp:param value="<%=targetRootNodeId %>" name="rootNodeId"/>
+															<jsp:param value="<%=isCVCAEnabled %>" name="isCVCAEnabled"/>
 														</jsp:include>
 													<%
 													break;

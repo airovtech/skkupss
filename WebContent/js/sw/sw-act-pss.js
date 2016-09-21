@@ -11,6 +11,8 @@ $(function() {
 			var href = input.attr('href');
 			var spaceType = input.attr('spaceType');
 			var spaceTypeStr = input.attr('spaceTypeStr');
+			var isCVCAEnabledStr = input.attr('isCVCAEnabled') || "true";
+			var isCVCAEnabled = isCVCAEnabledStr === 'true';
 			input.parent().addClass('current').siblings().removeClass('current');
 
 			var newSpaceTab = newProductService.find('.js_space_tab:visible').clone();
@@ -24,7 +26,7 @@ $(function() {
 			var savedSpaceTab = newProductService.find('form[name="frmNewProductService"]').find('.js_space_tab[spaceType="' + spaceType + '"]:hidden');
 			if(isEmpty(savedSpaceTab) || (spaceType == '3' && isEditMode) || (spaceType == '8' && isEditMode) || (spaceType == '10' && isEditMode)){
 				$.ajax({
-					url : href + "?psId=" + psId + "&spaceType=" + spaceType + "&isEditMode=" + isEditMode,
+					url : href + "?psId=" + psId + "&spaceType=" + spaceType + "&isEditMode=" + isEditMode + "&isCVCAEnabled=" + isCVCAEnabled,
 					success : function(data, status, jqXHR) {
 						newProductService.find('.js_space_view_target').html(data);
 						newProductService.attr('spaceType', spaceTypeStr);
@@ -213,6 +215,8 @@ $(function() {
 			url = "viewBizModelSpace.jsp?psId="+psId;
 		else if(spaceType == 'actorSpace')
 			url = "viewActorSpace.jsp?psId="+psId;
+		else if(spaceType == 'actorCvcaSpace')
+			url = "viewActorSpace.jsp?psId="+psId + '&isCVCAEnabled=true';
 		else if(spaceType == 'societySpace')
 			url = "viewSocietySpace.jsp?psId="+psId;
 		else if(spaceType == 'contextSpace')
@@ -390,6 +394,9 @@ $(function() {
 			var newProductService = input.parents('.js_new_product_service_page');
 			var psId = input.attr('psId');
 			var spaceType = newProductService.attr('spaceType');
+			var isCVCAEnabled = newProductService.attr('isCVCAEnabled');
+			if(spaceType === 'actorSpace' && isCVCAEnabled === 'true')
+				spaceType = 'actorCvcaSpace';
 			var url = 'newProductService.jsp?psId=' + psId + '&isEditMode=true' + '&spaceType=' + spaceType;
 			var target = $('#content');
 			$.ajax({
@@ -436,21 +443,27 @@ $(function() {
 
 	$('select.js_select_double_space_name').live('change', function(e){
 		var input = $(targetElement(e));
+		var doubleProductService = $('.js_double_product_services_page:first');
 		var progressSpan = input.siblings('.js_progress_span:first');
 		var spaceType = input.find('option:selected').attr('spaceType');
 		var url = input.find('option:selected').attr('href');
 		var sourcePsId = input.attr('sourcePsId');
 		var targetPsId = input.attr('targetPsId');
+		var sourceRootNodeId = doubleProductService.attr('sourceRootNodeId');
+		var targetRootNodeId = doubleProductService.attr('targetRootNodeId');
+		var isCVCAEnabled = true;
+		if(spaceType === '8')
+			isCVCAEnabled = false;
 		smartPop.progressCenter();
 		$.ajax({
-			url : url + "?psId=" + sourcePsId + "&spaceType=" + spaceType,
+			url : url + "?psId=" + sourcePsId + "&spaceType=" + spaceType + "&isCVCAEnabled=" + isCVCAEnabled + "&rootNodeId=" + sourceRootNodeId,
 			success : function(data, status, jqXHR) {
 				$('#source_view_target').html(data);
 				smartPop.closeProgress();
 			}
 		});
 		$.ajax({
-			url : url + "?psId=" + targetPsId + "&spaceType=" + spaceType,
+			url : url + "?psId=" + targetPsId + "&spaceType=" + spaceType + "&isCVCAEnabled=" + isCVCAEnabled + "&rootNodeId=" + targetRootNodeId,
 			success : function(data, status, jqXHR) {
 				$('#target_view_target').html(data);
 				smartPop.closeProgress();
@@ -670,13 +683,31 @@ $(function() {
 		}
 	});			
 
-	$('input.js_select_node_type_name').live('change', function(e) {
+	$('select.js_select_node_type_name').live('change', function(e) {
 		var input = $(targetElement(e));
 		var canvasId = input.parents('.js_object_properties:first').attr('canvasId');
 		var objectId = input.parents('.js_object_properties:first').attr('objectId');
 		canvasCtrl = AD$CONTROLLERS.findControllerById(canvasId, canvasId);
 		var ctrl = AD$CONTROLLERS.findControllerById(canvasId, objectId);
 		ctrl.model.typeName = input.attr('value');
+		AD$CONTROLLERS.updateModel(canvasId, ctrl.model);
+
+		var nodeTypePrimary = input.parents('.js_object_properties:first').find('.js_select_node_type_primary:first');
+		if(ctrl.model.typeName === 'receiver'){
+			nodeTypePrimary.parents('.js_node_type_property:first').show();
+			nodeTypePrimary.attr('checked', ctrl.model.isPrimaryNode);
+		}else{
+			nodeTypePrimary.parents('.js_node_type_property:first').hide();			
+		}
+	});			
+
+	$('input.js_select_node_type_primary').live('change', function(e) {
+		var input = $(targetElement(e));
+		var canvasId = input.parents('.js_object_properties:first').attr('canvasId');
+		var objectId = input.parents('.js_object_properties:first').attr('objectId');
+		canvasCtrl = AD$CONTROLLERS.findControllerById(canvasId, canvasId);
+		var ctrl = AD$CONTROLLERS.findControllerById(canvasId, objectId);
+		ctrl.model.isPrimaryNode = input.is(':checked');
 		AD$CONTROLLERS.updateModel(canvasId, ctrl.model);
 	});			
 

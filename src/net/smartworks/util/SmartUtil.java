@@ -25,9 +25,9 @@ import javax.servlet.http.HttpServletResponse;
 import net.smartworks.factory.ManagerFactory;
 import net.smartworks.skkupss.model.Login;
 import net.smartworks.skkupss.model.User;
+import net.smartworks.skkupss.smcal.SimContext;
 import net.smartworks.skkupss.smcal.Graph;
 import net.smartworks.skkupss.smcal.Node;
-import net.smartworks.skkupss.smcal.SimContext;
 
 import org.apache.axis.utils.StringUtils;
 import org.cometd.bayeux.client.ClientSession;

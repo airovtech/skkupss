@@ -18,15 +18,19 @@ public class Node{
 	
 	public Node(String id, String type, String name){
 		this.id = id;
+		// 2016.09.19 Modified by Y.S.Jung
+		// 실제로 실행시에는, type에 'produce', 'provider', 'touchPoint', 'user'값이 들어있음으로 getNodeType()을 호출하여 Node Type을 가져와야 한다.
+		// 카이스트에서 테스트시에는, 주석처리하 아래 주석되어있는 this.type = type;을 사용하여야 한다. 
 		this.type = Node.getNodeType(type);
 //		this.type = type;
 		this.name = name;
 	}
 	
-	public Node(String id, String type, String name, String typeName){
+	// 2016.09.21 Modified by Y.S.Jung
+	public Node(String id, String type, String name, String typeName, boolean isPrimaryCustomer){
 		this.id = id;
 		this.name = name;
-		this.type = Node.getNodeTypeFromName(typeName);
+		this.type = Node.getNodeTypeFromName(typeName, isPrimaryCustomer);
 	}
 	
 	public String getId() {
@@ -56,10 +60,15 @@ public class Node{
 		if(type.equals(TYPE_USER)) return NODE_TYPE_USER;
 		return null;
 	}
-	public static String getNodeTypeFromName(String typeName){
-		if(typeName==null) return NODE_TYPE_PRODUCT;
-		if(typeName.equals("제공자")) return NODE_TYPE_PROVIDER;
-		if(typeName.equals("수혜자")) return NODE_TYPE_USER;
-		return NODE_TYPE_PRODUCT;
+	// 2016.09.21 Modified by Y.S.Jung
+	public static String getNodeTypeFromName(String typeName, boolean isPrimaryCustomer){
+		if(typeName==null) return NODE_TYPE_TOUCHPOINT;
+		if(typeName.equals("제공자") || typeName.equals("provider")) return NODE_TYPE_PROVIDER;
+		if(typeName.equals("수혜자") || typeName.equals("receiver")){
+			if(isPrimaryCustomer)
+				return NODE_TYPE_PRODUCT;
+			return NODE_TYPE_USER;
+		}
+		return NODE_TYPE_TOUCHPOINT;
 	}
 }

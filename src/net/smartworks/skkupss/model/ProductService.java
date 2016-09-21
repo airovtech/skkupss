@@ -12,6 +12,7 @@ public class ProductService{
 	public static final String PSS_SPACE_TOUCH_POINT = "touchPointSpace";
 	public static final String PSS_SPACE_CUSTOMER = "customerSpace";
 	public static final String PSS_SPACE_ACTOR = "actorSpace";
+	public static final String PSS_SPACE_ACTOR_CVCA = "actorCvcaSpace";
 	public static final String PSS_SPACE_SOCIETY = "societySpace";
 	public static final String PSS_SPACE_CONTEXT = "contextSpace";
 	public static final String PSS_SPACE_TIME = "timeSpace";
@@ -45,6 +46,7 @@ public class ProductService{
 	public static final int SPACE_TYPE_CONTEXT = 10;
 	public static final int SPACE_TYPE_TIME = 11;
 	public static final int SPACE_TYPE_ENVIRONMENT = 12;	
+	public static final int SPACE_TYPE_ACTOR_CVCA = 21;
 	public static final int SPACE_TYPE_COMPLEX = 99;
 
 	public static final int SPACE_TYPE_VALUE_SERVICE = 914;
@@ -213,6 +215,7 @@ public class ProductService{
 		if(spaceName.equals(PSS_SPACE_TOUCH_POINT)) return SPACE_TYPE_TOUCH_POINT;
 		if(spaceName.equals(PSS_SPACE_CUSTOMER)) return SPACE_TYPE_CUSTOMER;
 		if(spaceName.equals(PSS_SPACE_ACTOR)) return SPACE_TYPE_ACTOR;
+		if(spaceName.equals(PSS_SPACE_ACTOR_CVCA)) return SPACE_TYPE_ACTOR_CVCA;
 		if(spaceName.equals(PSS_SPACE_SOCIETY)) return SPACE_TYPE_SOCIETY;
 		if(spaceName.equals(PSS_SPACE_CONTEXT)) return SPACE_TYPE_CONTEXT;
 		if(spaceName.equals(PSS_SPACE_TIME)) return SPACE_TYPE_TIME;
@@ -241,6 +244,8 @@ public class ProductService{
 			return PSS_SPACE_CUSTOMER;
 		case SPACE_TYPE_ACTOR:
 			return PSS_SPACE_ACTOR;
+		case SPACE_TYPE_ACTOR_CVCA:
+			return PSS_SPACE_ACTOR_CVCA;
 		case SPACE_TYPE_SOCIETY:
 			return PSS_SPACE_SOCIETY;
 		case SPACE_TYPE_CONTEXT:

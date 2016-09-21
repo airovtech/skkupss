@@ -4,7 +4,6 @@ import java.util.LinkedList;
 
 public class SearchPath {
 	
-	
 	ArrayList<String> PATHS = new ArrayList<String>();
 	ArrayList<Integer> INDEX = new ArrayList<Integer>();
 
@@ -13,7 +12,12 @@ public class SearchPath {
     
     public int num = 0;
     
-    SearchPath(Graph graph, String sp, String ep) {
+    
+    // 2016.09.19 Added by Y.S. Jung 
+    //
+    // Actor Space가 아닌 Context Space만을 위한 Search Path
+    //
+    public SearchPath(Graph graph, String sp, String ep) {
     	
     	ArrayList<Node> NODELIST = graph.nodeList();
     	//////////////
@@ -56,6 +60,80 @@ public class SearchPath {
         }
 		
 	}
+    
+    //
+    // Actor Space만을 위한 Search Path
+    //
+    SearchPath(GraphActor graph, String sp, String ep) {
+    	
+    	ArrayList<Node> NODELIST = graph.nodeList();
+    	//////////////
+    	System.out.print("NODES: ");
+    	for(int i =0 ; i <NODELIST.size() ; i++) {
+    		// Null 처리를 위하여 추가됨
+       		if(NODELIST.get(i)==null) continue;
+    		System.out.print(NODELIST.get(i).getType()+NODELIST.get(i).getId()+" ");
+    	}
+    	System.out.println();
+    	if(sp == Node.NODE_TYPE_PRODUCT || sp == Node.NODE_TYPE_TOUCHPOINT || sp == Node.NODE_TYPE_PROVIDER ||
+				sp == Node.NODE_TYPE_USER) {
+    	//////////////
+	    	for (int i= 0 ; i < NODELIST.size() ; i++) {
+	    		
+	    		Node node = NODELIST.get(i);
+	    		
+	    		// Null 처리를 위하여 추가됨 by Y.S.Jung
+	    		if(node==null) continue;  		
+	    		
+	    		if(node.getType().equals(sp)) {
+	    			START.add(node);
+	    			System.out.println("ADDING "+node.getType()+node.getId()+" to START");
+	    		} 
+	    		
+	    		if(node.getId().equals(ep)) {
+	    			END.add(node);
+	    			System.out.println("ADDING "+node.getType()+node.getId()+" to END");
+	    		}
+	    		
+	    			
+	    	}
+    	} else {
+    		for (int i= 0 ; i < NODELIST.size() ; i++) {
+        		
+        		Node node = NODELIST.get(i);
+
+	    		// Null 처리를 위하여 추가됨 by Y.S.Jung
+	    		if(node==null) continue;  		
+        		
+        		if(node.getId().equals(sp)) {
+        			START.add(node);
+        			System.out.println("ADDING "+node.getType()+node.getId()+" to START");
+        		} 
+        		
+        		if(node.getType().equals(ep)) {
+        			END.add(node);
+        			System.out.println("ADDING "+node.getType()+node.getId()+" to END");
+        		}
+        		
+        			
+        	}
+    	}
+    	
+    	System.out.println("SEARCHING FOR PATHS");
+    	
+    	for(int i = 0; i < START.size() ; i++) {
+        	for(int j = 0 ; j < END.size() ; j++) {
+	    		// Null 처리를 위하여 추가됨 by Y.S.Jung
+        		if(START.get(i)==null || END.get(j)==null) continue;
+        		num = j ;
+        		System.out.println(START.get(i).getType()+START.get(i).getId()+" to "+END.get(j).getType()+END.get(j).getId());
+        		LinkedList<Node> visited = new LinkedList();
+        		visited.add(START.get(i));
+        		depthFirst(graph, visited);
+        	}
+        }
+		
+	}
    
     public ArrayList<String> returnPath () {
     
@@ -72,7 +150,13 @@ public class SearchPath {
     	
     	return PATHS.size();
     }
-    	
+    
+    
+    // 2016.09.19 Modified by Y.S. Jung
+    //
+    // depthFirst(GraphActor graph, LinkedList<Node> visited) --> depthFirst(Graph graph, LinkedList<Node> visited) 수정.
+    // GraphActor를 Graph로 변경하여 Graph 및 GraphActor둘 다 받아들일수 있도록 변경
+    //
     private void depthFirst(Graph graph, LinkedList<Node> visited) {
         LinkedList<Node> nodes = graph.adjacentNodes(visited.getLast());
         // examine adjacent nodes
@@ -80,7 +164,7 @@ public class SearchPath {
             if (visited.contains(node)) {
                 continue;
             }
-            if(node==null || END.get(num)==null) continue;
+            
             if (node.getId().equals(END.get(num).getId())) {
                 visited.add(node);
                 printPath(visited); 
@@ -91,8 +175,7 @@ public class SearchPath {
         
         // in breadth-first, recursion needs to come after visiting adjacent nodes
         for (Node node : nodes) {
-            if(node==null || END.get(num)==null) continue;
-            if (visited.contains(node) || node.getId().equals(END.get(num).getId())) {
+             if (visited.contains(node) || node.getId().equals(END.get(num).getId())) {
                 continue;
             }
             visited.addLast(node);
@@ -106,7 +189,6 @@ public class SearchPath {
     	int curNum = 1;
     	
         for (Node node : visited) {
-        	if(node==null) continue;
         	line = line+node.getType();
         }
         
@@ -121,4 +203,5 @@ public class SearchPath {
     	}
        
     }
+  
 }

@@ -8,7 +8,6 @@
 
 package net.smartworks.skkupss.dao.impl;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -70,7 +69,7 @@ public class DbDaoImpl implements IDbDao {
 				selectId = "getProductServiceWithTouchPointSpaceSize";
 			} else if (spaceType != null && spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_CUSTOMER)) {
 				selectId = "getProductServiceWithCustomerSpaceSize";
-			} else if (spaceType != null && spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_ACTOR)) {
+			} else if (spaceType != null && (spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_ACTOR) || spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_ACTOR_CVCA))) {
 				selectId = "getProductServiceWithActorSpaceSize";
 			} else if (spaceType != null && spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_SOCIETY)) {
 				selectId = "getProductServiceWithSocietySpaceSize";
@@ -135,7 +134,7 @@ public class DbDaoImpl implements IDbDao {
 				selectId = "getProductServiceWithTouchPointSpace";
 			} else if (spaceType != null && spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_CUSTOMER)) {
 				selectId = "getProductServiceWithCustomerSpace";
-			} else if (spaceType != null && spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_ACTOR)) {
+			} else if (spaceType != null && (spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_ACTOR) || spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_ACTOR_CVCA))) {
 				selectId = "getProductServiceWithActorSpace";
 			} else if (spaceType != null && spaceType.equalsIgnoreCase(ProductService.PSS_SPACE_SOCIETY)) {
 				selectId = "getProductServiceWithSocietySpace";

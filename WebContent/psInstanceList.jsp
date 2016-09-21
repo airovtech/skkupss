@@ -80,6 +80,8 @@
 						ProductService.PSS_SPACE_CUSTOMER)) {%>selected<%}%>><fmt:message key="pss.title.space.customer"/></option>
 						<option value="<%=ProductService.PSS_SPACE_BIZ_MODEL%>" <%if (params.getSpaceType().equals(
 						ProductService.PSS_SPACE_BIZ_MODEL)) {%>selected<%}%>><fmt:message key="pss.title.space.biz_model"/></option>
+						<option value="<%=ProductService.PSS_SPACE_ACTOR_CVCA%>" <%if (params.getSpaceType().equals(
+						ProductService.PSS_SPACE_ACTOR_CVCA)) {%>selected<%}%>><fmt:message key="pss.title.space.actor_cvca"/></option>
 						<option value="<%=ProductService.PSS_SPACE_ACTOR%>" <%if (params.getSpaceType().equals(
 						ProductService.PSS_SPACE_ACTOR)) {%>selected<%}%>><fmt:message key="pss.title.space.actor"/></option>
 						<option value="<%=ProductService.PSS_SPACE_SOCIETY%>" <%if (params.getSpaceType().equals(
@@ -147,6 +149,8 @@
 							ProductService.PSS_SPACE_CUSTOMER)) {%>selected<%}%>><fmt:message key="pss.title.space.customer"/></option>
 							<option value="<%=ProductService.PSS_SPACE_BIZ_MODEL%>" <%if (params.getSpaceType().equals(
 							ProductService.PSS_SPACE_BIZ_MODEL)) {%>selected<%}%>><fmt:message key="pss.title.space.biz_model"/></option>
+							<option value="<%=ProductService.PSS_SPACE_ACTOR_CVCA%>" <%if (params.getSpaceType().equals(
+							ProductService.PSS_SPACE_ACTOR_CVCA)) {%>selected<%}%>><fmt:message key="pss.title.space.actor_cvca"/></option>
 							<option value="<%=ProductService.PSS_SPACE_ACTOR%>" <%if (params.getSpaceType().equals(
 							ProductService.PSS_SPACE_ACTOR)) {%>selected<%}%>><fmt:message key="pss.title.space.actor"/></option>
 							<option value="<%=ProductService.PSS_SPACE_SOCIETY%>" <%if (params.getSpaceType().equals(
@@ -225,11 +229,13 @@
 						<%
 							break;
 										case ProductService.SPACE_TYPE_ACTOR:
+										case ProductService.SPACE_TYPE_ACTOR_CVCA:
 											request.setAttribute("actorSpace",
 													productService.getActorSpace());
 						%>
 							<jsp:include page="viewActorSpace.jsp">
 								<jsp:param value="<%=productService.getId()%>" name="psId"/>
+								<jsp:param value="<%=productService.getSpaceType() == ProductService.SPACE_TYPE_ACTOR_CVCA%>" name="isCVCAEnabled"/>
 							</jsp:include>
 						<%
 							break;
@@ -330,6 +336,8 @@
 						ProductService.PSS_SPACE_CUSTOMER)) {%>selected<%}%>><fmt:message key="pss.title.space.customer"/></option>
 						<option value="<%=ProductService.PSS_SPACE_BIZ_MODEL%>" <%if (params.getSpaceType().equals(
 						ProductService.PSS_SPACE_BIZ_MODEL)) {%>selected<%}%>><fmt:message key="pss.title.space.biz_model"/></option>
+						<option value="<%=ProductService.PSS_SPACE_ACTOR_CVCA%>" <%if (params.getSpaceType().equals(
+						ProductService.PSS_SPACE_ACTOR_CVCA)) {%>selected<%}%>><fmt:message key="pss.title.space.actor_cvca"/></option>
 						<option value="<%=ProductService.PSS_SPACE_ACTOR%>" <%if (params.getSpaceType().equals(
 						ProductService.PSS_SPACE_ACTOR)) {%>selected<%}%>><fmt:message key="pss.title.space.actor"/></option>
 						<option value="<%=ProductService.PSS_SPACE_SOCIETY%>" <%if (params.getSpaceType().equals(

@@ -10,14 +10,17 @@ public class Edge {
 	
 	private String name = null;
 	
+	private String type = null;
+	
 	public Edge (Node n1, Node n2, String name){
 		this.n1_id = n1.getId();
 		this.n2_id = n2.getId();
 		
 		this.setN1(n1);
-		this.n2 = n2;
+		this.setN2(n2);
 		
 		this.name = name;
+		this.type = n1.getType() + n2.getType();
 		
 	}
 	public String getName() {
@@ -35,5 +38,12 @@ public class Edge {
 	public void setN2(Node n2) {
 		this.n2 = n2;
 	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	
 
 }

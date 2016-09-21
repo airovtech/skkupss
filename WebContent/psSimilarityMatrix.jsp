@@ -112,7 +112,7 @@
 		SimilarityMatrix sm = data[0][i];
 	%>
 		colNames[<%=i+1%>]  = "<%=sm.getTargetPsName()%>";
-		colModels[<%=i+1%>] =  {name: "<%=sm.getTargetPsId()%>", index: "<%=sm.getTargetPsId()%>", align: 'right',  sortable:false, formatter:'integer',  formatoptions:{defaultValue:'', thousandsSeparator: ",",  decimalPlaces: 2 }};
+		colModels[<%=i+1%>] =  {name: "<%=sm.getTargetPsId()%>", rootNodeId: "<%=sm.getRootNodes()[1]%>", index: "<%=sm.getTargetPsId()%>", align: 'right',  sortable:false, formatter:'integer',  formatoptions:{defaultValue:'', thousandsSeparator: ",",  decimalPlaces: 2 }};
 	<%
 	}
 	%>
@@ -128,7 +128,10 @@
 		for(int j=0; !SmartUtil.isBlankObject(data[i]) && j<data[i].length; j++){
 			SimilarityMatrix sm = data[i][j];
 		%>
-			rowData['<%=sm.getTargetPsId()%>'] = <%=sm.getSimilarity()%>;		
+			var NaNStr = '-1';
+			rowData['<%=sm.getTargetPsId()%>'] = <%=sm.getSimilarity()%>;
+			if(isNaN(rowData['<%=sm.getTargetPsId()%>']))
+				rowData['<%=sm.getTargetPsId()%>'] = -1;
 		<%	
 			if(data[i][j].getSourcePsId().equals(data[i][j].getTargetPsId()))
 				break;
@@ -176,12 +179,15 @@
 			colModel:colModels,
 			onCellSelect : function(rowid, colid, value){
 				if(rowid==0 || colid==0 || value==null || value=="" || rowid==colid) return;
-				console.log('colModels=', colModels[rowid]);
+				console.log('colModels=', colModels);
+				console.log('colModel=', colModels[rowid]);
 				var sourcePsId = colModels[rowid].name;
+				var sourceRootNodeId = colModels[rowid].rootNodeId;
 				var targetPsId = colModels[colid].name;
+				var targetRootNodeId = colModels[colid].rootNodeId;
 				smartPop.progressCenter();
 				$.ajax({
-					url : "doubleProductServices.jsp?sourcePsId=" + sourcePsId + "&targetPsId=" + targetPsId + "&spaceType=<%=spaceName%>" + "&isSim=true&value=" + value,
+					url : "doubleProductServices.jsp?sourcePsId=" + sourcePsId + "&sourceRootNodeId=" + sourceRootNodeId + "&targetPsId=" + targetPsId + "&targetRootNodeId=" + targetRootNodeId + "&targetPsId=" + targetPsId + "&spaceType=<%=spaceName%>" + "&isSim=true&value=" + value,
 					success : function(data, status, jqXHR) {
 						$('#double_product_service').html(data);
 						smartPop.closeProgress();
@@ -234,6 +240,7 @@
 								<option value="<%=ProductService.PSS_SPACE_TOUCH_POINT%>" <%if(spaceType.equals(ProductService.PSS_SPACE_TOUCH_POINT)){%>selected<%} %>><fmt:message key="pss.title.space.touch_point"/></option>
 								<option value="<%=ProductService.PSS_SPACE_CUSTOMER%>" <%if(spaceType.equals(ProductService.PSS_SPACE_CUSTOMER)){%>selected<%} %>><fmt:message key="pss.title.space.customer"/></option>
 								<option value="<%=ProductService.PSS_SPACE_BIZ_MODEL%>" <%if(spaceType.equals(ProductService.PSS_SPACE_BIZ_MODEL)){%>selected<%} %>><fmt:message key="pss.title.space.biz_model"/></option>
+								<option value="<%=ProductService.PSS_SPACE_ACTOR_CVCA%>" <%if(spaceType.equals(ProductService.PSS_SPACE_ACTOR_CVCA)){%>selected<%} %>><fmt:message key="pss.title.space.actor_cvca"/></option>
 								<option value="<%=ProductService.PSS_SPACE_ACTOR%>" <%if(spaceType.equals(ProductService.PSS_SPACE_ACTOR)){%>selected<%} %>><fmt:message key="pss.title.space.actor"/></option>
 								<option value="<%=ProductService.PSS_SPACE_SOCIETY%>" <%if(spaceType.equals(ProductService.PSS_SPACE_SOCIETY)){%>selected<%} %>><fmt:message key="pss.title.space.society"/></option>
 								<option value="<%=ProductService.PSS_SPACE_CONTEXT%>" <%if(spaceType.equals(ProductService.PSS_SPACE_CONTEXT)){%>selected<%} %>><fmt:message key="pss.title.space.context"/></option>

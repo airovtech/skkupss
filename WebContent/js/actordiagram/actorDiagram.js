@@ -14,6 +14,9 @@ AD$TEXT_MAXWIDTH = 70;
 AD$TEXT_LINEHEIGHT = 14;
 
 AD$SELECTED_STYLE = 'red';
+AD$PRIMARY_STYLE = 'darkorchid';
+AD$ROOTNODE_STYLE = 'red';
+
 
 AD$NODE_TYPE_PRODUCT = 'product';
 AD$NODE_TYPE_PROVIDER = 'provider';
@@ -555,6 +558,8 @@ AD$TOOL_EDGELINE = 21;
 ActorDiagram.draw = function(config) {
 	var options = {
 		mode : AD$MODE_VIEW,
+		isCVCAEnabled : true,
+		rootNodeId : null,
 		target : $('<div></div>'),
 		jsonDataString : '',
 		reload : false
@@ -671,12 +676,15 @@ ActorDiagram.draw = function(config) {
 			
 			for(var i=0; i<data.nodes.length; i++){
 				var node = data.nodes[i];
+				var isRootNode = node.id === options.rootNodeId;
 				ActorDiagram.View.Node.draw({
 					mode : options.mode,
 					context : context,
 					model : {
 						type : node.type,
 						typeName : node.typeName,
+						isPrimaryNode : node.isPrimaryNode,
+						isRootNode : isRootNode,
 						position : node.position,
 						name : node.name,
 						selected : false		
@@ -696,6 +704,7 @@ ActorDiagram.draw = function(config) {
 							lineColor : line.lineColor,
 							lineBreak : line.lineBreak,
 							label : line.label,
+							isCVCAEnabled : options.isCVCAEnabled,
 							selected : false
 						}
 					});

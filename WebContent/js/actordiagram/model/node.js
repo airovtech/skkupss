@@ -11,8 +11,10 @@ ActorDiagram.Model = ActorDiagram.Model || {};
 ActorDiagram.Model.Node = function(config){
 	var options = {
 			id: '',
-			type: '',  // product, provider, touchPoint, user
-			typeName: '',
+			type: '',  
+			typeName: '', // provider(제공자), receiver(수혜자, 옵션 --> Primary Customer: 주요고객), object(오브젝트)
+			isPrimaryNode: false,
+			isRootNode: false,
 			position: '',
 			name: smartMessage.get('pssNode'),
 			selected: false

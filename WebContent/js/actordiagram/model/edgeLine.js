@@ -16,6 +16,7 @@ ActorDiagram.Model.EdgeLine = function(config){
 			lineColor: 'rgb(114, 114, 114)',
 			label: '',
 			isLining: false,
+			isCVCAEnabled: true,
 			selected: false
 	};
 

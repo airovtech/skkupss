@@ -7,7 +7,6 @@ import edu.cmu.lti.lexical_db.ILexicalDatabase;
 import edu.cmu.lti.lexical_db.NictWordNet;
 import edu.cmu.lti.ws4j.impl.Lin;
 import edu.cmu.lti.ws4j.util.WS4JConfiguration;
-import net.smartworks.skkupss.smcal.Node;
 
 public class SemanticSim {
 	//	General processing part

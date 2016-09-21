@@ -28,6 +28,9 @@
 	}
 	String isEditModeStr = request.getParameter("isEditMode");
 	boolean isEditMode = SmartUtil.isBlankObject(isEditModeStr) || !isEditModeStr.equalsIgnoreCase("true") ? false : true;
+	String isCVCAEnabledStr = request.getParameter("isCVCAEnabled");
+	boolean isCVCAEnabled = SmartUtil.isBlankObject(isCVCAEnabledStr) || isCVCAEnabledStr.equalsIgnoreCase("true") ? true : false;
+	String rootNodeId = request.getParameter("rootNodeId");
 	if(SmartUtil.isBlankObject(actorSpace)) actorSpace = new ActorSpace();;
 
 	String jsonDataString = actorSpace.getDiagramData();
@@ -75,7 +78,20 @@
 							<td class="form_col">
 								<div class="form_label" style="width:70px"><fmt:message key="pss.title.node_type"/></div>
 								<div class="form_value" style="width:180px;padding-left:5px!important">								
-									<input type="text" name="txtNodeTypeName" style="width:180px!important" class="fieldline js_select_node_type_name">
+<!-- 									<input type="text" name="txtNodeTypeName" style="width:180px!important" class="fieldline js_select_node_type_name">
+ -->									<select name="txtNodeTypeName" class="form_select_box js_select_node_type_name">
+										<option value="provider"><fmt:message key="pss.title.node_type.provider"/></option>
+										<option value="receiver"><fmt:message key="pss.title.node_type.receiver"/></option>
+										<option value="object"><fmt:message key="pss.title.node_type.object"/></option>
+									</select>
+								</div>
+							</td>
+						</tr>
+						<tr class="js_node_type_property" style="display:none">
+							<td class="form_col">
+								<div class="form_label" style="width:70px"><fmt:message key="pss.title.node_type_primary"/></div>
+								<div class="form_value" style="width:180px;padding-left:5px!important">								
+ 									<input type="checkbox" name="txtNodeTypePrimay" class="js_select_node_type_primary">
 								</div>
 							</td>
 						</tr>
@@ -158,12 +174,16 @@ $(function() {
 	if(isEmpty(AD$CONTROLLERS)){
 		ActorDiagram.draw({
 			mode : <%if(isEditMode){%>AD$MODE_EDIT<%}else{%>AD$MODE_VIEW<%}%>,
+			isCVCAEnabled : <%if(isCVCAEnabled){%>true<%}else{%>false<%}%>,
+			rootNodeId : <%if(rootNodeId==null){%>null<%}else{%>'<%=rootNodeId%>'<%}%>,
 			target : $('.js_context_diagram_target[psId="' + '<%=psId%>' + '"]'),
 			jsonDataString : '<%=jsonDataString%>'
 		});
 	}else{
 		ActorDiagram.draw({
 			mode : <%if(isEditMode){%>AD$MODE_EDIT<%}else{%>AD$MODE_VIEW<%}%>,
+			isCVCAEnabled : <%if(isCVCAEnabled){%>true<%}else{%>false<%}%>,
+			rootNodeId : <%if(rootNodeId==null){%>null<%}else{%>'<%=rootNodeId%>'<%}%>,
 			target : $('.js_context_diagram_target[psId="' + '<%=psId%>' + '"]'),
 			jsonDataString : '<%=jsonDataString%>',
 			reload : true 

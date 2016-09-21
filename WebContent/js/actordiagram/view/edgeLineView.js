@@ -35,11 +35,11 @@ ActorDiagram.View.EdgeLine.draw = function(config){
     		{x:model.fromPosition.left|0, y:model.fromPosition.top|0}, 
     		{x:model.toPosition.left|0, y:model.toPosition.top|0}, 
     		arrowSize, 
-    		model.direction,
+    		(options.mode == AD$MODE_EDIT || model.isCVCAEnabled) ? model.direction : AD$ARROW_DIR_NONE,
     		model.lineBreak,
     		model.isLining?AD$EDGE_TYPE_NONE:null);
     var labelRect = null;
-    if(model.label)
+    if(model.label && (options.mode == AD$MODE_EDIT || model.isCVCAEnabled))
 	    labelRect = ActorDiagram.textOnArrowLine(context, 
 	    		{x:model.fromPosition.left|0, y:model.fromPosition.top|0}, 
 	    		{x:model.toPosition.left|0, y:model.toPosition.top|0}, 

@@ -1,6 +1,6 @@
 //
 // Source Name : nodeView.js
-// Description : Canvas¸¦ ÀÌ¿ëÇÏ¿© NodeÇü½Äº°·Î View¸¦ ±×¸®´Â ¼Ò½º
+// Description : Canvasï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½Ï¿ï¿½ Nodeï¿½ï¿½ï¿½Äºï¿½ï¿½ï¿½ Viewï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ ï¿½Ò½ï¿½
 //
 try{
 ActorDiagram.View = ActorDiagram.View || {};
@@ -74,7 +74,7 @@ ActorDiagram.View.Node.draw = function(config){
 	var nameRect = null;
 	if(!isEmpty(model.name)){
 		context.font = AD$TEXT_FONT;
-		context.fillStyle = model.selected?AD$SELECTED_STYLE:AD$TEXT_FILLSTYLE;
+		context.fillStyle = model.selected?AD$SELECTED_STYLE:model.isRootNode?AD$ROOTNODE_STYLE:(model.isPrimaryNode && (model.typeName === 'receiver' || model.typeName === 'ìˆ˜í˜œì'))?AD$PRIMARY_STYLE:AD$TEXT_FILLSTYLE;
 		context.textAlign = 'center';
 		nameRect = ActorDiagram.wrapText(context, model.name, positionX+nodeSize/2, positionY+AD$TEXT_LINEHEIGHT/2, AD$TEXT_MAXWIDTH, AD$TEXT_LINEHEIGHT);
 	}

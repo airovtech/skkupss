@@ -75,7 +75,7 @@ ActorDiagram.Controller.Canvas = function(mode, target, data){
 			for(var i=0; i<selections.length; i++)
 				selections[i].select(true);
 		}
-		this.target.parents('.js_actor_space').find('.js_object_properties tr.js_node_property, tr.js_line_property').hide();
+		this.target.parents('.js_actor_space').find('.js_object_properties tr.js_node_property, tr.js_node_type_property, tr.js_line_property').hide();
 		if(this.selectedObjects.length==1){
 			var model = this.selectedObjects[0].model;
 			var objectProperties = this.target.parents('.js_actor_space:first').find('.js_object_properties').attr('canvasId', this.id).attr('objectId', model.id);
@@ -83,7 +83,13 @@ ActorDiagram.Controller.Canvas = function(mode, target, data){
 			case AD$TYPE_NODE:
 				objectProperties.find('tr.js_node_property').show();
 				objectProperties.find('input.js_input_node_name').attr('value', model.name);
-				objectProperties.find('input.js_select_node_type_name').attr('value', (model.typeName||""));
+//				objectProperties.find('input.js_select_node_type_name').attr('value', (model.typeName||""));
+				var typeName = (model.typeName==null || model.typeName === '' || (model.typeName !== 'provider' && model.typeName !== 'receiver' && model.typeName !== '제공자' && model.typeName !== '수혜자')) ? 'object' : model.typeName;
+				objectProperties.find('select.js_select_node_type_name').attr('value', typeName);
+				if(model.typeName === 'receiver'){
+					objectProperties.find('tr.js_node_type_property').show();					
+					objectProperties.find('input.js_select_node_type_primary').attr('checked', (model.isPrimaryNode));
+				}
 				break;
 			case AD$TYPE_EDGELINE:
 				var self = model.fromNodeId == model.toNodeId;

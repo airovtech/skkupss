@@ -2,7 +2,6 @@ package net.smartworks.skkupss.smcal;
 
 import java.util.ArrayList;
 
-
 public class SimContext {
 	
 	
