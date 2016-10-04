@@ -77,6 +77,7 @@
 			</th>
 	 		<th style="min-width:300px"><fmt:message key="common.title.desc"/></th>
 		</tr>	
+		<tr style="height:1px"></tr>
 		<%
 		pageSize = instanceList.getPageSize();
 		totalPages = instanceList.getTotalPages();

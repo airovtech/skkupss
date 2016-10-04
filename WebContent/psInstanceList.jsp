@@ -82,9 +82,9 @@
 						ProductService.PSS_SPACE_BIZ_MODEL)) {%>selected<%}%>><fmt:message key="pss.title.space.biz_model"/></option>
 						<option value="<%=ProductService.PSS_SPACE_ACTOR_CVCA%>" <%if (params.getSpaceType().equals(
 						ProductService.PSS_SPACE_ACTOR_CVCA)) {%>selected<%}%>><fmt:message key="pss.title.space.actor_cvca"/></option>
-						<option value="<%=ProductService.PSS_SPACE_ACTOR%>" <%if (params.getSpaceType().equals(
+<%-- 						<option value="<%=ProductService.PSS_SPACE_ACTOR%>" <%if (params.getSpaceType().equals(
 						ProductService.PSS_SPACE_ACTOR)) {%>selected<%}%>><fmt:message key="pss.title.space.actor"/></option>
-						<option value="<%=ProductService.PSS_SPACE_SOCIETY%>" <%if (params.getSpaceType().equals(
+ --%>						<option value="<%=ProductService.PSS_SPACE_SOCIETY%>" <%if (params.getSpaceType().equals(
 						ProductService.PSS_SPACE_SOCIETY)) {%>selected<%}%>><fmt:message key="pss.title.space.society"/></option>
 						<option value="<%=ProductService.PSS_SPACE_CONTEXT%>" <%if (params.getSpaceType().equals(
 						ProductService.PSS_SPACE_CONTEXT)) {%>selected<%}%>><fmt:message key="pss.title.space.context"/></option>
@@ -107,7 +107,8 @@
 				</a>
 				<span class="js_progress_span"></span>
 			</th>		
-		</tr>	
+		</tr>
+		<tr style="height:1px"></tr>
 	<%
 		pageSize = instanceList.getPageSize();
 		totalPages = instanceList.getTotalPages();
@@ -151,9 +152,9 @@
 							ProductService.PSS_SPACE_BIZ_MODEL)) {%>selected<%}%>><fmt:message key="pss.title.space.biz_model"/></option>
 							<option value="<%=ProductService.PSS_SPACE_ACTOR_CVCA%>" <%if (params.getSpaceType().equals(
 							ProductService.PSS_SPACE_ACTOR_CVCA)) {%>selected<%}%>><fmt:message key="pss.title.space.actor_cvca"/></option>
-							<option value="<%=ProductService.PSS_SPACE_ACTOR%>" <%if (params.getSpaceType().equals(
+<%-- 							<option value="<%=ProductService.PSS_SPACE_ACTOR%>" <%if (params.getSpaceType().equals(
 							ProductService.PSS_SPACE_ACTOR)) {%>selected<%}%>><fmt:message key="pss.title.space.actor"/></option>
-							<option value="<%=ProductService.PSS_SPACE_SOCIETY%>" <%if (params.getSpaceType().equals(
+ --%>							<option value="<%=ProductService.PSS_SPACE_SOCIETY%>" <%if (params.getSpaceType().equals(
 							ProductService.PSS_SPACE_SOCIETY)) {%>selected<%}%>><fmt:message key="pss.title.space.society"/></option>
 							<option value="<%=ProductService.PSS_SPACE_CONTEXT%>" <%if (params.getSpaceType().equals(
 							ProductService.PSS_SPACE_CONTEXT)) {%>selected<%}%>><fmt:message key="pss.title.space.context"/></option>
@@ -338,9 +339,9 @@
 						ProductService.PSS_SPACE_BIZ_MODEL)) {%>selected<%}%>><fmt:message key="pss.title.space.biz_model"/></option>
 						<option value="<%=ProductService.PSS_SPACE_ACTOR_CVCA%>" <%if (params.getSpaceType().equals(
 						ProductService.PSS_SPACE_ACTOR_CVCA)) {%>selected<%}%>><fmt:message key="pss.title.space.actor_cvca"/></option>
-						<option value="<%=ProductService.PSS_SPACE_ACTOR%>" <%if (params.getSpaceType().equals(
+<%-- 						<option value="<%=ProductService.PSS_SPACE_ACTOR%>" <%if (params.getSpaceType().equals(
 						ProductService.PSS_SPACE_ACTOR)) {%>selected<%}%>><fmt:message key="pss.title.space.actor"/></option>
-						<option value="<%=ProductService.PSS_SPACE_SOCIETY%>" <%if (params.getSpaceType().equals(
+ --%>						<option value="<%=ProductService.PSS_SPACE_SOCIETY%>" <%if (params.getSpaceType().equals(
 						ProductService.PSS_SPACE_SOCIETY)) {%>selected<%}%>><fmt:message key="pss.title.space.society"/></option>
 						<option value="<%=ProductService.PSS_SPACE_CONTEXT%>" <%if (params.getSpaceType().equals(
 						ProductService.PSS_SPACE_CONTEXT)) {%>selected<%}%>><fmt:message key="pss.title.space.context"/></option>

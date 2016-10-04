@@ -29,6 +29,10 @@
 	String wContextStr = request.getParameter("context");
 	String wTimeStr = request.getParameter("time");
 	String wEnvironmentStr = request.getParameter("environment");
+	String isCVCAEnabledStr = request.getParameter("isCVCAEnabled");
+	boolean isCVCAEnabled = (isCVCAEnabledStr!=null && isCVCAEnabledStr.equals("true")) ? true : false;
+	String useSimColorStr = request.getParameter("useSimColor");
+	boolean useSimColor = (useSimColorStr!=null && useSimColorStr.equals("true")) ? true : false;
 		
 	SimilarityMatrix[][] data = (SimilarityMatrix[][])request.getAttribute("psSimilarities");
 	String[] psIds = (String[])request.getAttribute("psIds");
@@ -56,6 +60,7 @@
 	if(wCustomer>0) weightList.add(new SimilaritySpaceType(ProductService.PSS_SPACE_CUSTOMER, wCustomer, "Customer"));
 	if(wBizModel>0) weightList.add(new SimilaritySpaceType(ProductService.PSS_SPACE_BIZ_MODEL, wBizModel, "Biz Model"));
 	if(wActor>0) weightList.add(new SimilaritySpaceType(ProductService.PSS_SPACE_ACTOR, wActor, "Actor"));
+	if(wActor>0) weightList.add(new SimilaritySpaceType(ProductService.PSS_SPACE_ACTOR_CVCA, wActor, "ActorCvca"));
 	if(wSociety>0) weightList.add(new SimilaritySpaceType(ProductService.PSS_SPACE_SOCIETY, wSociety, "Society"));
 	if(wContext>0) weightList.add(new SimilaritySpaceType(ProductService.PSS_SPACE_CONTEXT, wContext, "Context"));
 	if(wTime>0) weightList.add(new SimilaritySpaceType(ProductService.PSS_SPACE_TIME, wTime, "Time"));
@@ -72,7 +77,14 @@
 	if(SmartUtil.isBlankObject(psIds)){
 		spaceType = request.getParameter("spaceType");
 		if(!ProductService.PSS_SPACE_COMPLEX.equals(spaceType)){
-			simSpaceTypes = new SimilaritySpaceType[]{new SimilaritySpaceType(spaceType)};
+			String requestSpaceType = spaceType;
+			if(spaceType.equals(ProductService.PSS_SPACE_ACTOR) || spaceType.equals(ProductService.PSS_SPACE_ACTOR_CVCA)){
+				if(isCVCAEnabled)
+					requestSpaceType = ProductService.PSS_SPACE_ACTOR_CVCA;
+				else
+					requestSpaceType = ProductService.PSS_SPACE_ACTOR;
+			}
+			simSpaceTypes = new SimilaritySpaceType[]{new SimilaritySpaceType(requestSpaceType)};
 		}
 		psIds = (String[])session.getAttribute("psIds");
 		psNames = (String[])session.getAttribute("psNames");
@@ -81,6 +93,9 @@
 		}catch(Exception e){}
 	}else{
 		if(!ProductService.PSS_SPACE_COMPLEX.equals(spaceType)){
+			if(spaceType.equals(ProductService.PSS_SPACE_ACTOR_CVCA)){
+				isCVCAEnabled = true;
+			}
 			simSpaceTypes = new SimilaritySpaceType[]{new SimilaritySpaceType(spaceType)};
 		}		
 	}
@@ -92,7 +107,20 @@
 	session.setAttribute("psNames", psNames);
 	session.setAttribute("psNames", psNames);
 
- 	if(SmartUtil.isBlankObject(data)) return;
+ 	if(SmartUtil.isBlankObject(data)){
+		data = new SimilarityMatrix[psIds.length][psIds.length];
+		for(int i=0; i<psIds.length; i++){
+			for(int j=0; j<psIds.length; j++){
+				data[i][j] = new SimilarityMatrix();
+				data[i][j].setSpaceType(ProductService.getSpaceType(spaceType));
+				data[i][j].setSourcePsId(psIds[i]);
+				data[i][j].setSourcePsName(psNames[i]);
+				data[i][j].setTargetPsId(psIds[j]);
+				data[i][j].setTargetPsName(psNames[j]);
+				data[i][j].setSimilarity(-1);
+			}
+		}
+ 	}
  	String productServiceName = SmartMessage.getString("pss.title.product_service_name");
 	
 %>
@@ -195,7 +223,11 @@
 				});
 				
 			},
-			gridComplete : function() { 	        	  
+			gridComplete : function() {
+				<%if(useSimColor){%>
+					useColorValues();
+				<%}%>
+
 			},
 			loadError:function(xhr, status, error) {
 				console.log("error=" + error);
@@ -241,8 +273,8 @@
 								<option value="<%=ProductService.PSS_SPACE_CUSTOMER%>" <%if(spaceType.equals(ProductService.PSS_SPACE_CUSTOMER)){%>selected<%} %>><fmt:message key="pss.title.space.customer"/></option>
 								<option value="<%=ProductService.PSS_SPACE_BIZ_MODEL%>" <%if(spaceType.equals(ProductService.PSS_SPACE_BIZ_MODEL)){%>selected<%} %>><fmt:message key="pss.title.space.biz_model"/></option>
 								<option value="<%=ProductService.PSS_SPACE_ACTOR_CVCA%>" <%if(spaceType.equals(ProductService.PSS_SPACE_ACTOR_CVCA)){%>selected<%} %>><fmt:message key="pss.title.space.actor_cvca"/></option>
-								<option value="<%=ProductService.PSS_SPACE_ACTOR%>" <%if(spaceType.equals(ProductService.PSS_SPACE_ACTOR)){%>selected<%} %>><fmt:message key="pss.title.space.actor"/></option>
-								<option value="<%=ProductService.PSS_SPACE_SOCIETY%>" <%if(spaceType.equals(ProductService.PSS_SPACE_SOCIETY)){%>selected<%} %>><fmt:message key="pss.title.space.society"/></option>
+<%-- 								<option value="<%=ProductService.PSS_SPACE_ACTOR%>" <%if(spaceType.equals(ProductService.PSS_SPACE_ACTOR)){%>selected<%} %>><fmt:message key="pss.title.space.actor"/></option>
+ --%>								<option value="<%=ProductService.PSS_SPACE_SOCIETY%>" <%if(spaceType.equals(ProductService.PSS_SPACE_SOCIETY)){%>selected<%} %>><fmt:message key="pss.title.space.society"/></option>
 								<option value="<%=ProductService.PSS_SPACE_CONTEXT%>" <%if(spaceType.equals(ProductService.PSS_SPACE_CONTEXT)){%>selected<%} %>><fmt:message key="pss.title.space.context"/></option>
 								<option value="<%=ProductService.PSS_SPACE_TIME%>" <%if(spaceType.equals(ProductService.PSS_SPACE_TIME)){%>selected<%} %>><fmt:message key="pss.title.space.time"/></option>
 								<option value="<%=ProductService.PSS_SPACE_ENVIRONMENT%>" <%if(spaceType.equals(ProductService.PSS_SPACE_ENVIRONMENT)){%>selected<%} %>><fmt:message key="pss.title.space.environment"/></option>
@@ -254,7 +286,10 @@
 								<%} %>
 							</span>
 							<span class="js_progress_span"></span>
-							<input style="margin-left:20px" class="js_toggle_use_sim_color" type="checkbox"/><span style="margin-left:6px"><fmt:message key="pss.desc.similarity_legend"/></span>
+							<%if(spaceType.equals(ProductService.PSS_SPACE_ACTOR_CVCA)){%>
+								<input style="margin-left:20px" class="js_toggle_actor_sim_cvca"  type="checkbox" <%if(isCVCAEnabled){ %>checked<%} %>><span style="margin-left:6px"><fmt:message key="pss.desc.sim_cvca"/></span>
+							<%} %>
+							<input style="margin-left:20px" class="js_toggle_use_sim_color" type="checkbox" <%if(useSimColor){ %>checked<%} %> /><span style="margin-left:6px"><fmt:message key="pss.desc.similarity_legend"/></span>
 						</div>
 					</div>
 					<!-- 목록보기 타이틀-->

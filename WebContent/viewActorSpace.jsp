@@ -31,6 +31,7 @@
 	String isCVCAEnabledStr = request.getParameter("isCVCAEnabled");
 	boolean isCVCAEnabled = SmartUtil.isBlankObject(isCVCAEnabledStr) || isCVCAEnabledStr.equalsIgnoreCase("true") ? true : false;
 	String rootNodeId = request.getParameter("rootNodeId");
+	
 	if(SmartUtil.isBlankObject(actorSpace)) actorSpace = new ActorSpace();;
 
 	String jsonDataString = actorSpace.getDiagramData();
@@ -41,7 +42,7 @@
 <fmt:setBundle basename="resource.smartworksMessage" scope="request" />
  	 
 <!-- 컨텐츠 레이아웃-->
-<div class="js_space_tab js_actor_space" spaceType="<%=ProductService.SPACE_TYPE_ACTOR%>">
+<div class="js_space_tab js_actor_space" spaceType="<%=ProductService.SPACE_TYPE_ACTOR%>" psId="<%=psId%>" isEditMode="<%=isEditMode%>" isCVCAEnabled="<%=isCVCAEnabled%>" rooNodeId="<%=rootNodeId%>">
 	<%if(isEditMode){ %>
 		<table>
 			<tr>
@@ -160,6 +161,10 @@
 		</table>
 		<div class="js_diagram_vertical_resizer" style="height:24px"></div>
 	<%}else{ %>
+		<div class="pl20">
+			<a href="" class="linkline js_toggle_actor_cvca" isCVCAEnabled="false" <%if(!isCVCAEnabled){ %>style="display:none"<%} %>><fmt:message key="pss.title.hide_cvca"/></a>
+			<a href="" class="linkline js_toggle_actor_cvca" isCVCAEnabled="true" <%if(isCVCAEnabled){ %>style="display:none"<%} %>><fmt:message key="pss.title.show_cvca"/></a>
+		</div>
 		<div class="js_context_diagram_target" psId="<%=psId%>"></div>
 	<%} %>
 	<!-- 스마트폼에서 해당 업무화면을 그려주는 곳 -->

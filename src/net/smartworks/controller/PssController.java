@@ -144,6 +144,11 @@ public class PssController {
 		return SmartUtil.returnMnv(request, "pop_space_combination.jsp", "");
 	}
 	
+	@RequestMapping("/viewActorSpace")
+	public ModelAndView viewActorSpace(HttpServletRequest request, HttpServletResponse response) {
+		return SmartUtil.returnMnv(request, "viewActorSpace.jsp", "");
+	}
+	
 	@RequestMapping(value = "/set_product_service", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	public void setProductService(@RequestBody Map<String, Object> requestBody, HttpServletRequest request, HttpServletResponse response) throws Exception {

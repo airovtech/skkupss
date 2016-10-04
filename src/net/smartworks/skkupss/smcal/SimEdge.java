@@ -153,6 +153,7 @@ public class SimEdge {
 	    		 }
 	    	 sim = sim/pathB.size();
 	     }
+		if(sim>1)	sim = 1;
 		System.out.println("--Avg sim: " + sim);
 		return sim;
 	}
