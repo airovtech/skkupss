@@ -1,3 +1,5 @@
+<%@page import="net.smartworks.util.LocaleInfo"%>
+<%@page import="java.util.Locale"%>
 <%@page import="net.smartworks.skkupss.model.User"%>
 <%@page import="net.smartworks.factory.ManagerFactory"%>
 <%@page import="net.smartworks.skkupss.model.ProductService"%>
@@ -58,14 +60,14 @@
 		</tr>
 		<tr>
 			<td colspan="8" style="height:20px;border-bottom:none;padding-bottom:0">
-				<div class="tc" style="margin: 0px 270px;background-color: rgb(253, 125, 253);border: black 2px solid;font-size: 11px;">PSS Values</div>
+				<div class="tc" style="margin: 0px <%if(cUser.getLocale().equals(LocaleInfo.LOCALE_KOREAN)){%>260px<%}else{%>270px<%} %>;background-color: rgb(253, 125, 253);border: black 2px solid;font-size: 11px;"><fmt:message key="value.title.pss_values"/></div>
 				<div style="float:left;width:50%;height:7px;border-right:black 2px solid"></div>
 			</td>
 		</tr>
 		<tr>
 			<td class="vt edit_action" colspan="1" style="height:100%;padding:0;border-bottom:none">
 				<div style="float:right;width:50%;border-top:black 2px solid;border-left: black 2px solid;height: 7px;"></div>
-				<div class="tc" style="font-size: 11px;border: black 2px solid;margin: 7px;background-color: yellow;line-height: 12px;">Ecological Value</div>
+				<div class="tc" style="font-size: 11px;border: black 2px solid;margin: 7px;background-color: yellow;<%if(cUser.getLocale().equals(LocaleInfo.LOCALE_KOREAN)){%>line-height: 16px;padding-top:2px;<%}else{%>line-height: 12px;<%}%>"><fmt:message key="value.title.ecological"/></div>
 				<div>
 					<%
 					values = valueSpace.getEcological();
@@ -115,7 +117,7 @@
 			<td class="vt edit_action" colspan="1" style="height:100%;padding:0;border-bottom:none">
 				<div style="float:left;width:100%;border-top:black 2px solid"></div>
 				<div style="float:left;width:50%;border-right: black 2px solid;height: 7px;"></div>
-				<div class="tc" style="font-size: 11px;border: black 2px solid;margin: 7px;background-color: yellow;line-height: 12px;">Economical Value</div>
+				<div class="tc" style="font-size: 11px;border: black 2px solid;margin: 7px;background-color: yellow;<%if(cUser.getLocale().equals(LocaleInfo.LOCALE_KOREAN)){%>line-height: 16px;padding-top:2px;<%}else{%>line-height: 12px;<%}%>"><fmt:message key="value.title.economical"/></div>
 				<div>
 					<%
 					values = valueSpace.getEconomical();
@@ -164,7 +166,7 @@
 			</td>
 			<td class="vt edit_action" colspan="6" style="height:100%;padding:0;border-bottom:none">
 				<div style="float:left;width:50%;border-top:black 2px solid;border-right: black 2px solid;height: 7px;"></div>
-				<div class="tc cb" style="font-size: 11px;border: black 2px solid;margin: 7px 200px;background-color: yellow;line-height: 12px;margin-bottom:0">Experience Value</div>
+				<div class="tc cb" style="font-size: 11px;border: black 2px solid;margin: 7px 200px;background-color: yellow;<%if(cUser.getLocale().equals(LocaleInfo.LOCALE_KOREAN)){%>line-height: 16px;padding-top:2px;<%}else{%>line-height: 12px;<%}%>;margin-bottom:0"><fmt:message key="value.title.experience"/></div>
 				<div style="float:left;width:50%;height:7px;border-right:black 2px solid"></div>
 				<table class="tc" style="width:100%;height:100%">
 					<tr>
@@ -178,19 +180,19 @@
 					<tr>
 						<td colspan="2"  style="height:100%;padding:0;border-bottom:none">
 							<div style="float:right;width:50%;border-top:black 2px solid;border-left: black 2px solid;height: 7px;"></div>
-							<div class="tc cb" style="font-size: 11px;border: black 2px solid;margin: 7px 40px 0;background-color: rgb(252, 220, 247);line-height: 16px;">Extrinsic</div>
+							<div class="tc cb" style="font-size: 11px;border: black 2px solid;margin: 7px 40px 0;background-color: rgb(252, 220, 247);<%if(cUser.getLocale().equals(LocaleInfo.LOCALE_KOREAN)){%>line-height: 16px;padding-top:2px;<%}else{%>line-height: 16px;<%}%>"><fmt:message key="value.title.extrinsic"/></div>
 							<div style="float:left;width:50%;height:7px;border-right:black 2px solid"></div>
 						</td>
 						<td colspan="4"  style="height:100%;padding:0;border-bottom:none">
 							<div style="float:left;width:50%;border-top:black 2px solid;border-right: black 2px solid;height: 7px;"></div>
-							<div class="tc cb" style="font-size: 11px;border: black 2px solid;margin: 7px 120px 0;background-color: rgb(252, 220, 247);line-height: 16px;">Intrinsic</div>
+							<div class="tc cb" style="font-size: 11px;border: black 2px solid;margin: 7px 120px 0;background-color: rgb(252, 220, 247);<%if(cUser.getLocale().equals(LocaleInfo.LOCALE_KOREAN)){%>line-height: 16px;padding-top:2px;<%}else{%>line-height: 16px;<%}%>"><fmt:message key="value.title.intrinsic"/></div>
 							<div style="float:left;width:50%;height:7px;border-right:black 2px solid"></div>
 						</td>
 					</tr>
 					<tr>
 						<td style="height:100%;padding:0;border-bottom:none">
 							<div style="float:right;width:50%;border-top:black 2px solid;border-left: black 2px solid;height: 7px;"></div>
-							<div class="tc cb" style="font-size: 11px;border: black 2px solid;margin: 7px;background-color: rgb(183, 229, 253);line-height:12px;height:24px"><span style="position: relative;top: 7px;">Function</span></div>
+							<div class="tc cb" style="font-size: 11px;border: black 2px solid;margin: 7px;background-color: rgb(183, 229, 253);<%if(cUser.getLocale().equals(LocaleInfo.LOCALE_KOREAN)){%>line-height: 16px;padding-top:2px;<%}else{%>line-height: 12px;height:24px<%}%>"><%if(!cUser.getLocale().equals(LocaleInfo.LOCALE_KOREAN)){%><span style="position: relative;top: 7px;"><%} %><fmt:message key="value.title.function"/><%if(!cUser.getLocale().equals(LocaleInfo.LOCALE_KOREAN)){%></span><%} %></div>
 							<div>
 								<%
 								values = valueSpace.getFunction();
@@ -239,7 +241,7 @@
 						</td>
 						<td style="height:100%;padding:0;border-bottom:none">
 							<div style="float:left;width:50%;border-top:black 2px solid;border-right: black 2px solid;height: 7px;"></div>
-							<div class="tc cb" style="font-size: 11px;border: black 2px solid;margin: 7px;background-color: rgb(183, 229, 253);line-height:12px">Extrinsic Social</div>
+							<div class="tc cb" style="font-size: 11px;border: black 2px solid;margin: 7px;background-color: rgb(183, 229, 253);<%if(cUser.getLocale().equals(LocaleInfo.LOCALE_KOREAN)){%>line-height: 16px;padding-top:2px;<%}else{%>line-height: 12px;<%}%>"><fmt:message key="value.title.extrinsic_social"/></div>
 							<div>
 								<%
 								values = valueSpace.getExtrinsicSocial();
@@ -288,7 +290,7 @@
 						</td>
 						<td style="height:100%;padding:0;border-bottom:none">
 							<div style="float:right;width:50%;border-top:black 2px solid;border-left: black 2px solid;height: 7px;"></div>
-							<div class="tc cb" style="font-size: 11px;border: black 2px solid;margin: 7px;background-color: rgb(183, 229, 253);line-height:12px">Active Emotional</div>
+							<div class="tc cb" style="font-size: 11px;border: black 2px solid;margin: 7px;background-color: rgb(183, 229, 253);<%if(cUser.getLocale().equals(LocaleInfo.LOCALE_KOREAN)){%>line-height: 16px;padding-top:2px;<%}else{%>line-height: 12px;<%}%>"><fmt:message key="value.title.active_emotional"/></div>
 							<div>
 								<%
 								values = valueSpace.getActiveEmotional();
@@ -338,7 +340,7 @@
 						<td style="height:100%;padding:0;border-bottom:none">
 							<div style="width:100%;border-top:black 2px solid"></div>
 							<div style="float:left;width:50%;border-right: black 2px solid;height: 7px;"></div>
-							<div class="tc cb" style="font-size: 11px;border: black 2px solid;margin: 7px;background-color: rgb(183, 229, 253);line-height:12px">Reactive Emotional</div>
+							<div class="tc cb" style="font-size: 11px;border: black 2px solid;margin: 7px;background-color: rgb(183, 229, 253);<%if(cUser.getLocale().equals(LocaleInfo.LOCALE_KOREAN)){%>line-height: 16px;padding-top:2px;<%}else{%>line-height: 12px;<%}%>"><fmt:message key="value.title.reactive_emotional"/></div>
 							<div>
 								<%
 								values = valueSpace.getReactiveEmotional();
@@ -388,7 +390,7 @@
 						<td style="height:100%;padding:0;border-bottom:none">
 							<div style="width:100%;border-top:black 2px solid"></div>
 							<div style="float:left;width:50%;border-right: black 2px solid;height: 7px;"></div>
-							<div class="tc cb" style="font-size: 11px;border: black 2px solid;margin: 7px;background-color: rgb(183, 229, 253);line-height:12px">Intrinsic Social</div>
+							<div class="tc cb" style="font-size: 11px;border: black 2px solid;margin: 7px;background-color: rgb(183, 229, 253);<%if(cUser.getLocale().equals(LocaleInfo.LOCALE_KOREAN)){%>line-height: 16px;padding-top:2px;<%}else{%>line-height: 12px;<%}%>"><fmt:message key="value.title.intrinsic_social"/></div>
 							<div>
 								<%
 								values = valueSpace.getIntrinsicSocial();
@@ -437,7 +439,7 @@
 						</td>
 						<td style="height:100%;padding:0;border-bottom:none">
 							<div style="float:left;width:50%;border-top:black 2px solid;border-right: black 2px solid;height: 7px;"></div>
-							<div class="tc cb" style="font-size: 11px;border: black 2px solid;margin: 7px;background-color: rgb(183, 229, 253);line-height:12px;height:24px"><span style="position: relative;top: 7px;">Epistemic</span></div>
+							<div class="tc cb" style="font-size: 11px;border: black 2px solid;margin: 7px;background-color: rgb(183, 229, 253);<%if(cUser.getLocale().equals(LocaleInfo.LOCALE_KOREAN)){%>line-height: 16px;padding-top:2px;<%}else{%>line-height: 12px;height:24px<%}%>"><%if(!cUser.getLocale().equals(LocaleInfo.LOCALE_KOREAN)){%><span style="position: relative;top: 7px;"><%}%><fmt:message key="value.title.epistemic"/><%if(!cUser.getLocale().equals(LocaleInfo.LOCALE_KOREAN)){%></span><%} %></div>
 							<div>
 								<%
 								values = valueSpace.getEpistemic();
