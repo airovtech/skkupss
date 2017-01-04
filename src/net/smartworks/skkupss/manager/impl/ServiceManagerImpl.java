@@ -9,6 +9,7 @@
 package net.smartworks.skkupss.manager.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -240,7 +241,14 @@ public class ServiceManagerImpl implements IServiceManager {
 		String spaceType = simSpaceTypes.length==1?simSpaceTypes[0].getSpaceType():ProductService.PSS_SPACE_COMPLEX; 
 		try{
 			ProductService[] productServices = ManagerFactory.getInstance().getDbManager().getProductServiceWithSelectedSpace(SmartUtil.getCurrentUser().getId(), SimilaritySpaceType.getSpaceTypeNames(simSpaceTypes), psIds);
-			if(SmartUtil.isBlankObject(productServices)) return null;
+			if(SmartUtil.isBlankObject(productServices) || (productServices.length!=psIds.length)) return null;
+			Map<String, ProductService> psMap = new HashMap<String, ProductService>();
+			for(int i=0; i<productServices.length; i++)
+				psMap.put(productServices[i].getId(), productServices[i]);
+			productServices = new ProductService[productServices.length];
+			for(int i=0; i<psIds.length; i++){
+				productServices[i] = psMap.get(psIds[i]);
+			}
 			
 			psSimilarities = new SimilarityMatrix[productServices.length][productServices.length];
 			
