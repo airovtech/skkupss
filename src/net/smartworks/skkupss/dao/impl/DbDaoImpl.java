@@ -8,6 +8,7 @@
 
 package net.smartworks.skkupss.dao.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,7 @@ import java.util.Map;
 import net.smartworks.factory.SessionFactory;
 import net.smartworks.skkupss.dao.IDbDao;
 import net.smartworks.skkupss.model.ProductService;
+import net.smartworks.skkupss.model.SBPService;
 import net.smartworks.skkupss.model.db.Db_BizModelSpace;
 import net.smartworks.skkupss.model.db.Db_BizModelSpaceCond;
 import net.smartworks.skkupss.model.db.Db_CustomerType;
@@ -27,6 +29,7 @@ import net.smartworks.skkupss.model.db.Db_User;
 import net.smartworks.skkupss.model.db.Db_UserCond;
 import net.smartworks.skkupss.model.db.Db_ValueSpace;
 import net.smartworks.skkupss.model.db.Db_ValueSpaceCond;
+import net.smartworks.util.IDCreator;
 import net.smartworks.util.IdUtil;
 import net.smartworks.util.SmartMessage;
 import net.smartworks.util.SmartUtil;
@@ -34,6 +37,8 @@ import net.smartworks.util.SmartUtil;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+
+import antlr.StringUtils;
 
 public class DbDaoImpl implements IDbDao {
 
@@ -850,4 +855,170 @@ public class DbDaoImpl implements IDbDao {
 				session.close();
 		}		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/* Service Concept 정보를 (타이틀&키워드를) 제외하고 초기화 시켜준다. */
+	@Override
+	public boolean disConnect_SBPService(SBPService serviceSpace, String psId) throws Exception {
+
+		SqlSession session = null;
+		boolean result = false;
+		try {
+			SqlSessionFactory factory = SessionFactory.getInstance().getSqlSessionFactory();
+			session = factory.openSession();
+			
+			/* service concept데이터들 */
+			Map<String, String> data = new HashMap<String, String>();
+			data.put("sspp", serviceSpace.getSspp());
+			data.put("ssp", serviceSpace.getSsp());		
+			data.put("sspc", serviceSpace.getSspc());	
+			data.put("ssc", serviceSpace.getSsc());
+			data.put("sscc", serviceSpace.getSscc());
+			data.put("psId", psId);
+			session.update("disConnect_SBPService", data);
+			session.commit();
+			result = true;
+		} catch (Exception e) {
+			e.toString();
+			throw e;
+		} finally {
+			if (session != null)
+				session.close();
+		}
+		return result;
+	}
+	
+	
+	
+
+	/* ServiceSpace테이블 정보 update. */
+	@Override
+	public boolean updateSbpMapData(String result_data, String psId, String itemName) throws Exception {
+
+		SqlSession session = null;
+		boolean result = false;
+		try {
+			SqlSessionFactory factory = SessionFactory.getInstance().getSqlSessionFactory();
+			session = factory.openSession();
+			Map<String, String> data = new HashMap<String, String>();
+			data.put("psId", psId);											// pss 프로젝트 Id
+			data.put("itemName", itemName);									// 컬럼명 (service concept종류)
+			data.put("result_data", result_data);							// update할 data 
+			session.update("update_ServiceSpace", data);
+			session.commit();
+			result = true;
+		} catch (Exception e) {
+			e.toString();
+			throw e;
+		} finally {
+			if (session != null)
+				session.close();
+		}
+		return result;
+	}
+	
+	
+
+	/* ServiceSpace테이블 정보를 가져온다. */
+	@Override
+	public SBPService selectSbpMapData(String psId) throws Exception {
+
+		SqlSession session = null;
+		SBPService serviceSpace = new SBPService();
+		try {
+			SqlSessionFactory factory = SessionFactory.getInstance().getSqlSessionFactory();
+			session = factory.openSession();
+			serviceSpace = session.selectOne("get_SBP_Name_Service", psId);
+		} catch (Exception e) {
+			e.toString();
+			throw e;
+		} finally {
+			if (session != null)
+				session.close();
+		}
+		return serviceSpace;
+	}
+
+	
+	
+	
+	/* 연결된 SBP프로젝트 정보를 가져온다 */
+	@Override
+	public SBPService getSBPService(String psId) throws Exception {
+		SqlSession session = null;
+		try {
+			SqlSessionFactory factory = SessionFactory.getInstance().getSqlSessionFactory();
+			session = factory.openSession();
+			
+			List<SBPService> sbpInfoList = session.selectList("get_SBP_Project_Service", psId);		// 연결된 PSS 프로젝트와 SBP프로젝트 이름 및 정보를 가져온다. 
+
+			if(!(sbpInfoList.size() == 0)) {
+				SBPService sbpInfo = session.selectOne("get_SBP_Name_Service", psId);				// 연결된 SBP프로젝트가 있을 경우에 연결된 SBP도 있다면 가져와 SBP프로젝트 정보를 가지고있는 model과 합쳐준다. 
+				
+				SBPService sbpService = sbpInfoList.get(0);											
+				if(sbpInfo != null) {																// PSS 프로젝트의 Service concept데이터가 있을경우 데이터 합쳐준다. 
+					sbpService.setId(sbpInfo.getId());
+					sbpService.setSspp(sbpInfo.getSspp());
+					sbpService.setSsp(sbpInfo.getSsp());
+					sbpService.setSspc(sbpInfo.getSspc());
+					sbpService.setSsc(sbpInfo.getSsc());
+					sbpService.setSscc(sbpInfo.getSscc());
+				} 
+				return sbpService;																	// PSS 프로젝트의 Service concept데이터가 없을경우, 연결된 PSS 프로젝트와 SBP프로젝트 이름 및 정보만 return  
+			} else {
+				SBPService empty = new SBPService();
+				return empty;																		// SBP프로젝트가 전혀 없을 경우, null이 리턴됨을 방지하기위해, 빈값을 생성해 return 한다. 
+			}
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			if (session != null)
+				session.close();
+		}
+	}
+	
+	/* PSS프로젝트와 SBP프로젝트를 연결시켜준다 */
+	@Override
+	public boolean set_PSS_SBP_Servcie_Connect(Map<String, Object> requestBody) throws Exception {
+		SqlSession session = null;
+		boolean result = true;
+		try {
+			SqlSessionFactory factory = SessionFactory.getInstance().getSqlSessionFactory();
+			session = factory.openSession();
+			
+			try {
+				session.insert("set_PSS_SBP_Servcie_Connect", requestBody);
+				session.commit();
+			} catch(Exception x) {
+				x.toString();
+				result = false;
+			}
+			return result;
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			if (session != null)
+				session.close();
+		}		
+	}
+
 }

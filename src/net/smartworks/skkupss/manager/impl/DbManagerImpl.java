@@ -8,9 +8,15 @@
 
 package net.smartworks.skkupss.manager.impl;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import net.smartworks.factory.DaoFactory;
+import net.smartworks.factory.ManagerFactory;
 import net.smartworks.skkupss.dao.IDbDao;
 import net.smartworks.skkupss.manager.IDbManager;
 import net.smartworks.skkupss.model.ActorSpace;
@@ -22,6 +28,7 @@ import net.smartworks.skkupss.model.Login;
 import net.smartworks.skkupss.model.ProductService;
 import net.smartworks.skkupss.model.ProductServiceCond;
 import net.smartworks.skkupss.model.ProductSpace;
+import net.smartworks.skkupss.model.SBPService;
 import net.smartworks.skkupss.model.ServiceSpace;
 import net.smartworks.skkupss.model.TimeSpace;
 import net.smartworks.skkupss.model.TouchPoint;
@@ -39,10 +46,16 @@ import net.smartworks.skkupss.model.db.Db_User;
 import net.smartworks.skkupss.model.db.Db_UserCond;
 import net.smartworks.skkupss.model.db.Db_ValueSpace;
 import net.smartworks.skkupss.model.db.Db_ValueSpaceCond;
+import net.smartworks.util.IDCreator;
 import net.smartworks.util.LocalDate;
 import net.smartworks.util.SmartUtil;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.util.StringUtils;
+import net.smartworks.util.PropertiesLoader;
 
 public class DbManagerImpl implements IDbManager {
 
@@ -674,4 +687,269 @@ public class DbManagerImpl implements IDbManager {
 		return dbUser;
 	}
 	
+	
+	
+	
+	
+	
+	
+	/* 연결되어있는 activity 정보들을 가져온다 */
+	@Override
+	public Map<String, Object> showConnectedActivity(Map<String, String> param) throws Exception {
+		IDbDao dao = DaoFactory.getInstance().getDbDao();
+		
+		String psId = param.get("psId");
+		String itemName = param.get("itemName");
+		String title = param.get("title");
+	
+		SBPService serviceSpace = dao.selectSbpMapData(psId);								// service concept data 꺼내온다.	
+		
+		String svType = "";
+		String[] tokens = null;
+		
+		itemName = itemName.toLowerCase();
+		if(itemName.equals("sspp")) {														// 서비스컨셉 종류별 구분.
+			svType = serviceSpace.getSspp();
+		} else if(itemName.equals("ssp")) {
+			svType = serviceSpace.getSsp();
+		} else if(itemName.equals("sspc")) {
+			svType = serviceSpace.getSspc();
+		} else if(itemName.equals("ssc")) {
+			svType = serviceSpace.getSsc();
+		} else {
+			svType = serviceSpace.getSscc();
+		}
+
+		String activityInfo = "";
+		tokens = StringUtils.tokenizeToStringArray(svType, ";");
+		for(int i=0; i<tokens.length; i++) {
+			if(tokens[i].contains("||")) {
+				String title_old = ServiceSpace.getValueString(tokens[i].toString());		// service concept의 타이틀만 남겨준다. 
+				if(title.equals(title_old)) {
+					String[] impl = StringUtils.tokenizeToStringArray(tokens[i], "||");
+					activityInfo = impl[1];
+				} 
+			} 
+		}
+		
+		
+		List<String> activityId = new ArrayList<String>();
+		List<String> activityName = new ArrayList<String>();
+		List<String> seq = new ArrayList<String>();
+		String sbpName = "";
+		String sbpId = "";
+		try {
+			JSONParser jsonParser = new JSONParser();
+			
+			JSONObject jsonObject = (JSONObject) jsonParser.parse(activityInfo);		// JSON데이터를 넣어 JSON Object 로 만들어 준다
+			
+			JSONArray InfoArray = (JSONArray) jsonObject.get("Info");					// Info배열 이름안에 있는 데이터 추출 
+			
+			for(int i=0; i<InfoArray.size(); i=InfoArray.size()){
+                JSONObject InfoObject = (JSONObject) InfoArray.get(i);					//배열 안에 있는것도 JSON형식 이기 때문에 JSON Object 로 추출
+                activityId = (List<String>) InfoObject.get("activityId");
+                activityName = (List<String>) InfoObject.get("activityName");
+                seq = (List<String>) InfoObject.get("seq");
+                itemName = (String) InfoObject.get("itemName");
+                psId = (String) InfoObject.get("psId");
+                sbpName = (String) InfoObject.get("sbpName");
+                sbpId = (String) InfoObject.get("sbpId");
+            }
+ 
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		Map<String, Object> extractData = new HashMap<String, Object>();
+		extractData.put("activityId", activityId);
+		extractData.put("activityName", activityName);
+		extractData.put("seq", seq);
+		extractData.put("itemName", itemName);
+		extractData.put("psId", psId);
+		extractData.put("sbpName", sbpName);
+		extractData.put("sbpId", sbpId);
+		return extractData;
+	}
+	
+	
+	
+	/* SBP와 연결을 끊는다. (연결된 activity가 있다면 포함해서 모두 삭제) */
+	@Override
+	public boolean disConnect_SBPService(Map<String, String> param) throws Exception {
+		IDbDao dao = DaoFactory.getInstance().getDbDao();
+		
+		boolean result = false;
+		
+		String psId = param.get("psId");
+		String itemName = param.get("itemName");
+		String title = param.get("title");
+		
+		SBPService serviceSpace = dao.selectSbpMapData(psId);								// service concept data 꺼내온다.	
+
+		String svType = "";
+		String[] tokens = null;
+		
+		itemName = itemName.toLowerCase();
+		if(itemName.equals("sspp")) {														// 서비스컨셉 종류별 구분.
+			svType = serviceSpace.getSspp();
+		} else if(itemName.equals("ssp")) {
+			svType = serviceSpace.getSsp();
+		} else if(itemName.equals("sspc")) {
+			svType = serviceSpace.getSspc();
+		} else if(itemName.equals("ssc")) {
+			svType = serviceSpace.getSsc();
+		} else {
+			svType = serviceSpace.getSscc();
+		}
+
+		String title_old = "";
+		StringBuffer svcNew = new StringBuffer();
+		tokens = StringUtils.tokenizeToStringArray(svType, ";");
+		for(int i=0; i<tokens.length; i++) {
+			if(tokens[i].contains("||")) {
+				title_old = ServiceSpace.getValueString(tokens[i].toString());		// service concept의 타이틀만 남겨준다. 
+				if(title.equals(title_old)) {
+					svcNew.append(title_old);
+				} else {
+					svcNew.append(tokens[i]);
+				}
+			} else {
+				svcNew.append(tokens[i]);				
+			}
+			svcNew.append(";");
+		}
+		
+		if(itemName.equals("sspp")) {														// 서비스컨셉 종류별 구분.
+			serviceSpace.setSspp(svcNew.toString());
+		} else if(itemName.equals("ssp")) {
+			serviceSpace.setSsp(svcNew.toString());
+		} else if(itemName.equals("sspc")) {
+			serviceSpace.setSspc(svcNew.toString());
+		} else if(itemName.equals("ssc")) {
+			serviceSpace.setSsc(svcNew.toString());
+		} else {
+			serviceSpace.setSscc(svcNew.toString());
+		}
+		
+		result = dao.disConnect_SBPService(serviceSpace, psId);
+		return result;
+	}
+	
+	
+	/* SBP Map에서 선택한 activity정보들을 DB에 채운다. */
+	/* DB에 넣기전 js에서 json타입으로 만든 데이터를 다시 정돈한다. */
+	@Override
+	public boolean insertSbpMapData(Map<String, String> sbpData) throws Exception {
+		boolean result_final = false;
+		IDbDao dao = DaoFactory.getInstance().getDbDao();
+
+		String sbpDataStr = sbpData.toString();
+		sbpDataStr = sbpDataStr.replaceAll("=", ":");		
+		
+		String psId = "";
+		String itemName = "";
+		String title = "";
+		String sbpName = "";
+		String sbpId = "";
+		List<String> activityId = new ArrayList<String>();
+		List<String> activityName = new ArrayList<String>();
+		List<String> seq = new ArrayList<String>();
+		
+		try {
+			JSONParser jsonParser = new JSONParser();
+			
+			JSONObject jsonObject = (JSONObject) jsonParser.parse(sbpDataStr);		// JSON데이터를 넣어 JSON Object 로 만들어 준다
+			
+			JSONArray InfoArray = (JSONArray) jsonObject.get("Info");				// Info배열 이름안에 있는 데이터 추출 
+			
+			for(int i=0; i<InfoArray.size(); i=InfoArray.size()){
+                JSONObject InfoObject = (JSONObject) InfoArray.get(i);				//배열 안에 있는것도 JSON형식 이기 때문에 JSON Object 로 추출
+                psId = (String) InfoObject.get("psId");								//JSON name으로 추출
+                itemName = (String) InfoObject.get("itemName");
+                title = (String) InfoObject.get("title");
+                sbpName = (String) InfoObject.get("sbpName");
+                sbpId = (String) InfoObject.get("sbpId");
+                activityId = (List<String>) InfoObject.get("activityId");
+                activityName = (List<String>) InfoObject.get("activityName");
+                seq = (List<String>) InfoObject.get("seq");
+            }
+ 
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		SBPService serviceSpace = dao.selectSbpMapData(psId);								// service concept data 꺼내온다.	
+
+		String svType = "";																	// service concept type(종류) 
+		String[] tokens = null;
+		itemName = itemName.toLowerCase();
+		if(itemName.equals("sspp")) {														// 서비스컨셉 종류별 구분.
+			svType = serviceSpace.getSspp();
+			tokens = StringUtils.tokenizeToStringArray(svType, ";");						// service concept하나씩 나눈다.
+		} else if(itemName.equals("ssp")) {
+			svType = serviceSpace.getSsp();
+			tokens = StringUtils.tokenizeToStringArray(svType, ";");
+		} else if(itemName.equals("sspc")) {
+			svType = serviceSpace.getSspc();
+			tokens = StringUtils.tokenizeToStringArray(svType, ";");
+		} else if(itemName.equals("ssc")) {
+			svType = serviceSpace.getSsc();
+			tokens = StringUtils.tokenizeToStringArray(svType, ";");
+		} else {
+			svType = serviceSpace.getSscc();
+			tokens = StringUtils.tokenizeToStringArray(svType, ";");
+		}
+		
+		StringBuffer result_data = new StringBuffer();
+		for(int i=0; i<tokens.length; i++) {
+			String impl = ServiceSpace.getValueString(tokens[i].toString());
+			if(impl.equals(title)) {
+				String[] arrayImpl = StringUtils.tokenizeToStringArray(tokens[i], "||");
+				result_data.append(arrayImpl[0]).append("||").append(sbpDataStr);
+			} else {
+				result_data.append(tokens[i]);
+			}
+			result_data.append(";");
+		}
+		result_final = dao.updateSbpMapData(result_data.toString(), psId, itemName);		
+		return result_final;
+	}
+	
+	
+	
+	/* 관련된 SBP프로젝트 이름을 가져온다 */
+	@Override
+	public SBPService getSBPService(String psId) throws Exception{
+		IDbDao dao = DaoFactory.getInstance().getDbDao();
+		SBPService sbpInfoList = dao.getSBPService(psId);
+		return sbpInfoList;
+	}
+	
+	
+	/* PSS프로젝트와 SBP프로젝를 연결시켜준다(DB에 insert할 데이터 추가 세팅하는 과정) */
+	@Override
+	public boolean set_PSS_SBP_Servcie_Connect(Map<String, Object> requestBody) throws Exception{
+		
+		IDbDao dao = DaoFactory.getInstance().getDbDao();
+		
+		String id = IDCreator.createId("prj");											// hvmproject 테이블의 id값 생성
+		requestBody.put("id", id);
+		
+		ProductService productService = new ProductService();
+		productService = ManagerFactory.getInstance().getServiceManager().getProductService(requestBody.get("psId").toString(), ProductService.SPACE_TYPE_NONE);	// PSS 프로젝트에 대한 정보를 가져온다	
+
+		String psDesc = productService.getDesc();										// PSS 프로젝트에 대한 설명
+		requestBody.put("psDesc", psDesc);			
+		
+		String psPicture = productService.getPicture();									// PSS 프로젝트에 관한 사진정보를 가져온다.
+		requestBody.put("picture", psPicture);
+		
+		User cUser = SmartUtil.getCurrentUser();										// 현재 사용자
+		requestBody.put("createdUser", cUser.getId());
+		
+		requestBody.put("createdDate", new Date());										// 현재 날짜 
+				
+		boolean result = dao.set_PSS_SBP_Servcie_Connect(requestBody);
+		return result;
+	}
 }

@@ -153,7 +153,7 @@
 											Db_CustomerType code = codeLevel3s[i];
 											String codeId = code.getId().equals("00")?code.getId():CustomerSpace.getCustomerTypeCode(code.getId(), CustomerSpace.CUSTOMER_TYPE_LEVEL3);
 										%>
-										<option value="<%=codeId%>" <%if(codeId.equals(CustomerSpace.getCustomerTypeCode(type, CustomerSpace.CUSTOMER_TYPE_LEVEL2))){ %>selected<%} %>><%=code.getName() %></option>
+										<option value="<%=codeId%>" <%if(codeId.equals(CustomerSpace.getCustomerTypeCode(type, CustomerSpace.CUSTOMER_TYPE_LEVEL3))){ %>selected<%} %>><%=code.getName() %></option>
 										<%
 										}%>
 									</select>

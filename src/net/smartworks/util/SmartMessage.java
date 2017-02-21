@@ -50,4 +50,21 @@ public class SmartMessage {
 		}
 		return null;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/* 연결된 SBP 리스트를 보여줄 항목 명 */
+	public static String getSBP_Service_String(){
+		String serviceName = "SBP-프로젝트 이름";
+		return serviceName;
+	}
+	
 }

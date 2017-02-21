@@ -2066,7 +2066,145 @@ smartPop = {
 		}catch(error){
 			smartPop.showInfo(smartPop.ERROR, smartMessage.get('technicalProblemOccured') + '[sw-popup selectSpaceCombination]', null, error);
 		}				
-	}
+	},
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/* SBP 리스트를 보여준다 */
+	showSbpNameList : function(sbpPrjName, psId, itemName, title, svcNameNum) {
+		var sbpUrl = "pop_show_SbpNameList.sw";
+ 		$.ajax({
+			type: 'POST',
+			url: sbpUrl,
+			headers:{
+				"Content-Type" : "application/json",
+				"X-HTTP-Method-Override":"POST",
+			},
+			data : JSON.stringify(
+					{sbpPrjName : sbpPrjName, psId : psId, itemName : itemName, title : title, svcNameNum : svcNameNum}),
+			dataType:'text',
+			success : function(result) {
+				var width = $(window).width()-200;
+				var left = (($(window).width() - width) / 2);
+				var height = $(window).height()-250;
+				var top = (($(window).height() - height) / 2);
+
+				$(result).modal({
+					opacity: 10,
+					overlayCss: {backgroundColor:"#000"},
+					autoPosition: false,
+					containerCss:{
+						height:height,
+						width: width,
+						top: top-120,
+						left: left-25
+				},
+				overlayClose: false,
+				onShow: function(dialog){}
+				});
+			},
+			error : function(result){
+				alert("error : " + result);
+			}
+		});
+	},
+	
+	
+	/* iframe으로 SBP모든 프로젝트를 띄어줄 jsp페이지를 호출하여 modal로 띄어준다 */ 
+	showSbpPrjListAll : function(psName, psId){
+		
+		var sbpUrl = "pop_show_sbpPrjListAll.sw";
+ 		$.ajax({
+			type: 'POST',
+			url: sbpUrl,
+			headers:{
+				"Content-Type" : "application/json",
+				"X-HTTP-Method-Override":"POST",
+			},
+			data : JSON.stringify(
+					{psName : psName, psId : psId}
+			),
+			dataType:'text',
+			success : function(result) {
+				var width = $(window).width() / 2;
+				var left = (($(window).width() - width) / 2);
+				var height = $(window).height()-200;
+				var top = (($(window).height() - height) / 2);
+				
+				$(result).modal({
+					opacity: 10,
+					overlayCss: {backgroundColor:"#000"},
+					autoPosition: false,
+					containerCss:{
+						height:height,
+						width:width,
+						top:top-70,
+						left: left
+				},
+				overlayClose: false,
+				onShow: function(dialog){}
+				});
+			},
+			error : function(result){
+				alert("error : " + result);
+			}
+		});
+	},
+	
+	
+	/* iframe으로 SBP MAP을 띄어줄 jsp페이지를 호출하여 modal로 띄어준다 */ 
+	showSbpPrjMap : function(sbpId, psId, itemName, title, svcNameNum, sbpPrjName, sbpName){
+		
+		var sbpUrl = "pop_show_sbpPrjMap.sw";
+ 		$.ajax({
+			type: 'POST',
+			url: sbpUrl,
+			headers:{
+				"Content-Type" : "application/json",
+				"X-HTTP-Method-Override":"POST",
+			},
+			data : JSON.stringify({sbpId : sbpId, psId : psId, itemName : itemName, title : title, svcNameNum : svcNameNum, sbpPrjName : sbpPrjName, sbpName : sbpName}),
+			dataType:'text',
+			success : function(result) {
+				var width = $(window).width()-200;
+				var left = (($(window).width() - width) / 2);
+				var height = $(window).height()-250;
+				var top = (($(window).height() - height) / 2);
+				
+				$(result).modal({
+					opacity: 10,
+					overlayCss: {backgroundColor:"#000"},
+					autoPosition: false,
+					containerCss:{
+						height:height,
+						width:width,
+						top:top-115,
+						left: left-25
+					},
+					overlayClose: false,
+					onShow: function(dialog){}
+				});
+			},
+			error : function(result){
+				alert("error : " + result);
+			}
+		});
+	},
+		
+	
 		
 };
 }catch(error){

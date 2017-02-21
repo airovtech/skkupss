@@ -113,7 +113,9 @@ try{
 <script type="text/javascript" src="js/jquery/jshashtable-2.1.js"></script>
 <script type="text/javascript" src="js/jquery/jquery.numberformatter-1.2.2.min.js"></script>
 <script type="text/javascript" src="js/jquery/jquery.formatCurrency-1.4.0.min.js"></script>
-<script type="text/javascript" src="js/jquery/jquery.simplemodal.1.4.2.min.js"></script>
+<!-- <script type="text/javascript" src="js/jquery/jquery.simplemodal.1.4.2.min.js"></script>-->
+<script type="text/javascript" src="js/jquery/jquery.simplemodal.1.4.5.js"></script>
+
 <script type="text/javascript" src="js/jquery/fullcalendar.js"></script>
 <script type="text/javascript" src="js/jquery/jquery-ui-1.8.21.custom.min.js"></script>
 <script type="text/javascript" src="js/jquery/jquery.layout.js"></script>

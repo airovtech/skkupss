@@ -4,10 +4,19 @@
 <%@page import="net.smartworks.util.CommonUtil"%>
 <%@page import="net.smartworks.util.SmartUtil"%>
 <%@page import="net.smartworks.skkupss.model.ServiceSpace"%>
-<%@ page contentType="text/html; charset=utf-8"%>
+<%@page import="java.util.List" %>
+<%@page import="java.util.ArrayList" %>
+<%@page import="java.util.Iterator" %>
+<%@page import="net.smartworks.skkupss.model.SBPService" %>
+
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<%
+<link rel="stylesheet" href="/skkupss/css/addNew.css">
+
+<%	
+	SBPService sbpInfo = new SBPService();	// SBP 관련정보(SBPID) 담기 위한 변수.
+
 	User cUser = SmartUtil.getCurrentUser();
 
 	ServiceSpace serviceSpace = (ServiceSpace)request.getAttribute("serviceSpace");
@@ -17,6 +26,8 @@
 		ProductService productService = null;
 		try{
 			productService = ManagerFactory.getInstance().getServiceManager().getProductService(psId, ProductService.SPACE_TYPE_SERVICE);
+			
+			sbpInfo = ManagerFactory.getInstance().getServiceManager().getSBPService(psId);				// 관련된 SBP 정보를 가져온다. 
 		}catch(Exception e){}
 		if(!SmartUtil.isBlankObject(productService)) serviceSpace = productService.getServiceSpace();
 	}
@@ -26,7 +37,22 @@
 	if(SmartUtil.isBlankObject(serviceSpace)) serviceSpace = new ServiceSpace();
 
 	String[] values = null;
-%>
+
+	
+	String sbpPrjName = sbpInfo.getSbpPrjName();
+/*
+ 	Iterator<SBPService> it = sbpInfoList.iterator();										// 관련된 SBP프로젝트 정보를 추출하여 html태그로 만들어준다. 
+	StringBuffer htmlCode = new StringBuffer();
+ 	String sbpPrjName = "";
+	if(it.hasNext()) {																		// 관련된 SBP프로젝트가 있을경우
+ 		while(it.hasNext()) {
+ 			SBPService sbpInfo = new SBPService();
+ 			sbpInfo = it.next(); 
+ 			sbpPrjName = sbpInfo.getSbpPrjName();											// SBP 프로젝트 이름 추출하여 html코드에 활용한다. 
+ 		}
+	} else{}																				// 관련된 SBP프로젝트가 없을경우
+*/
+ 	%>
 <fmt:setLocale value="<%=cUser.getLocale() %>" scope="request" />
 <fmt:setBundle basename="resource.smartworksMessage" scope="request" />
  	 
@@ -59,10 +85,15 @@
 					<%
 						values = serviceSpace.getSspp();
 						for(int i=0; values!=null && i<values.length; i++){
+							String sbpName = ServiceSpace.ValueSbpInfoEach(values[i]); 
 					%>
 							<div class="edit_item <%if(isEditMode){ %>service_item<%} %> js_element_item" itemName="Sspp" style="height:24px; overflow:hidden; border: 1px solid #c7c7c7;background-color:#BFF7F5;margin:5px 0;width:88px;font-size:11px">
 								<span class="js_view_element_item">
-									<span class="<%if(isEditMode){ %>js_action_element_item<%}%>" title="<%=ServiceSpace.getValueString(values[i]) %>"><%=ServiceSpace.getValueHtml(values[i]) %></span>
+<!-- 수정모드 && 연결된 activity가 있을때 -->	<span class="<%if(isEditMode && !ServiceSpace.getValueSbpId(values[i]).equals("")){ %>js_action_element_item serviceConcept showSbpPrjList			
+											<%} else if(!ServiceSpace.getValueSbpId(values[i]).equals("")) {%> serviceConcept showSbpPrjList
+											<%} else if(isEditMode){ %> js_action_element_item serviceConcept2 showSbpPrjList<%} %> svcSSPP svcSSPP<%=i %>"  svcNameNum="svcSSPP<%=i %>"
+											sbpPrjName="<%=sbpPrjName %>" sbpName="<%=sbpName %>" sbpId="<%=ServiceSpace.getValueSbpId(values[i]) %>" psId="<%=psId%>" <%if(isEditMode) {%> editMode="true"<%} else {%> editMode="false" <% }%> title="<%=ServiceSpace.getValueString(values[i]) %>" ><%=ServiceSpace.getValueHtml(values[i], sbpPrjName, "svcSSPP", isEditMode, psId, i, sbpName) %>
+										</span>
 									<%
 									if(isEditMode){
 									%>
@@ -103,14 +134,19 @@
 			</td>
 			<td class="tc edit_action" style="height:100%">
 				<div style="font-size:15px;font-weight:bold">SSPc</div>
-				<div style="padding:5px">
+				<div style="padding:5px;" >
 					<%
 						values = serviceSpace.getSsp();
 						for(int i=0; values!=null && i<values.length; i++){
+							String sbpName = ServiceSpace.ValueSbpInfoEach(values[i]); 
 					%>
 							<div class="edit_item <%if(isEditMode){ %>service_item<%} %> js_element_item" itemName="Ssp" style="height:24px; overflow:hidden; border: 1px solid #c7c7c7;background-color:#BFF7F5;margin:5px 0;width:88px;font-size:11px">
-								<span class="js_view_element_item">
-									<span class="<%if(isEditMode){ %>js_action_element_item<%}%>" title="<%=ServiceSpace.getValueString(values[i]) %>"><%=ServiceSpace.getValueHtml(values[i]) %></span>
+ 								<span class="js_view_element_item" >
+									<span class="<%if(isEditMode && !ServiceSpace.getValueSbpId(values[i]).equals("")){ %>js_action_element_item serviceConcept showSbpPrjList
+										<%} else if(!ServiceSpace.getValueSbpId(values[i]).equals("")) {%> serviceConcept showSbpPrjList
+										<%} else if(isEditMode){ %> js_action_element_item serviceConcept2 showSbpPrjList<%} %> svcSSPc svcSSPc<%=i %>" svcNameNum="svcSSPc<%=i %>"
+										sbpPrjName="<%=sbpPrjName %>" sbpName="<%=sbpName %>" sbpId="<%=ServiceSpace.getValueSbpId(values[i]) %>"  psId="<%=psId%>" <%if(isEditMode) {%> editMode="true"<%} else {%> editMode="false" <% }%> title="<%=ServiceSpace.getValueString(values[i]) %>" ><%=ServiceSpace.getValueHtml(values[i], sbpPrjName, "svcSSPc", isEditMode, psId, i, sbpName) %>
+									</span>
 									<%
 									if(isEditMode){
 									%>
@@ -155,10 +191,15 @@
 					<%
 						values = serviceSpace.getSspc();
 						for(int i=0; values!=null && i<values.length; i++){
+							String sbpName = ServiceSpace.ValueSbpInfoEach(values[i]); 
 					%>
 							<div class="edit_item <%if(isEditMode){ %>service_item<%} %> js_element_item" itemName="Sspc" style="height:24px; overflow:hidden; border: 1px solid #c7c7c7;background-color:#BFF7F5;margin:5px 0;width:88px;font-size:11px">
 								<span class="js_view_element_item">
-									<span class="<%if(isEditMode){ %>js_action_element_item<%}%>" title="<%=ServiceSpace.getValueString(values[i]) %>"><%=ServiceSpace.getValueHtml(values[i]) %></span>
+									<span class="<%if(isEditMode && !ServiceSpace.getValueSbpId(values[i]).equals("")){ %>js_action_element_item serviceConcept showSbpPrjList
+										<%} else if(!ServiceSpace.getValueSbpId(values[i]).equals("")) {%> serviceConcept showSbpPrjList
+										<%} else if(isEditMode){ %> js_action_element_item serviceConcept2 showSbpPrjList<%} %> svcSSPC2 svcSSPC2<%=i %>"  svcNameNum="svcSSPC2<%=i %>"
+										sbpPrjName="<%=sbpPrjName %>" sbpName="<%=sbpName %>" sbpId="<%=ServiceSpace.getValueSbpId(values[i]) %>" psId="<%=psId%>" <%if(isEditMode) {%> editMode="true"<%} else {%> editMode="false" <% }%> title="<%=ServiceSpace.getValueString(values[i]) %>" ><%=ServiceSpace.getValueHtml(values[i], sbpPrjName, "svcSSPC2", isEditMode, psId, i, sbpName) %>
+									</span>
 									<%
 									if(isEditMode){
 									%>
@@ -198,15 +239,20 @@
 				</div>
 			</td>
 			<td class="tc edit_action" style="height:100%">
-				<div style="font-size:15px;font-weight:bold">SSCp</div>
+				<div style="font-size:15px;font-weight:bold">SSCP</div>
 				<div style="padding:5px">
 					<%
 						values = serviceSpace.getSsc();
 						for(int i=0; values!=null && i<values.length; i++){
+							String sbpName = ServiceSpace.ValueSbpInfoEach(values[i]); 
 					%>
 							<div class="edit_item <%if(isEditMode){ %>service_item<%} %> js_element_item" itemName="Ssc" style="height:24px; overflow:hidden; border: 1px solid #c7c7c7;background-color:#BFF7F5;margin:5px 0;width:88px;font-size:11px">
 								<span class="js_view_element_item">
-									<span class="<%if(isEditMode){ %>js_action_element_item<%}%>" title="<%=ServiceSpace.getValueString(values[i]) %>"><%=ServiceSpace.getValueHtml(values[i]) %></span>
+									<span class="<%if(isEditMode && !ServiceSpace.getValueSbpId(values[i]).equals("")){ %>js_action_element_item serviceConcept showSbpPrjList
+										<%} else if(!ServiceSpace.getValueSbpId(values[i]).equals("")) {%> serviceConcept showSbpPrjList
+										<%} else if(isEditMode){ %> js_action_element_item serviceConcept2 showSbpPrjList<%} %> svcSSCp svcSSCp<%=i %>"  svcNameNum="svcSSCp<%=i %>"
+										sbpPrjName="<%=sbpPrjName %>" sbpName="<%=sbpName %>" sbpId="<%=ServiceSpace.getValueSbpId(values[i]) %>" psId="<%=psId%>" <%if(isEditMode) {%> editMode="true"<%} else {%> editMode="false" <% }%> title="<%=ServiceSpace.getValueString(values[i]) %>" ><%=ServiceSpace.getValueHtml(values[i], sbpPrjName, "svcSSCp", isEditMode, psId, i, sbpName) %>
+									</span>
 									<%
 									if(isEditMode){
 									%>
@@ -251,10 +297,15 @@
 					<%
 						values = serviceSpace.getSscc();
 						for(int i=0; values!=null && i<values.length; i++){
+							String sbpName = ServiceSpace.ValueSbpInfoEach(values[i]); 
 					%>
 							<div class="edit_item <%if(isEditMode){ %>service_item<%} %> js_element_item" itemName="Sscc" style="height:24px; overflow:hidden; border: 1px solid #c7c7c7;background-color:#BFF7F5;margin:5px 0;width:88px;font-size:11px">
 								<span class="js_view_element_item">
-									<span class="<%if(isEditMode){ %>js_action_element_item<%}%>" title="<%=ServiceSpace.getValueString(values[i]) %>"><%=ServiceSpace.getValueHtml(values[i]) %></span>
+									<span class="<%if(isEditMode && !ServiceSpace.getValueSbpId(values[i]).equals("")){ %>js_action_element_item serviceConcept showSbpPrjList
+										<%} else if(!ServiceSpace.getValueSbpId(values[i]).equals("")) {%> serviceConcept showSbpPrjList
+										<%} else if(isEditMode){ %> js_action_element_item serviceConcept2 showSbpPrjList<%} %> svcSSCC svcSSCC<%=i %>" svcNameNum="svcSSCC<%=i %>"  
+										sbpPrjName="<%=sbpPrjName %>" sbpName="<%=sbpName %>" sbpId="<%=ServiceSpace.getValueSbpId(values[i]) %>" psId="<%=psId%>" <%if(isEditMode) {%> editMode="true"<%} else {%> editMode="false" <% }%> title="<%=ServiceSpace.getValueString(values[i]) %>" ><%=ServiceSpace.getValueHtml(values[i], sbpPrjName, "svcSSCC", isEditMode, psId, i, sbpName) %>
+									</span>
 									<%
 									if(isEditMode){
 									%>

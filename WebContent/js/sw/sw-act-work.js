@@ -2935,6 +2935,134 @@ $(function() {
 		return false;
 	});
 
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	
+	/* 선택한 SBP 프로젝트를 연결해준다. */
+	$('.sbpPrjSelect').live('click',function(e) {
+		try{
+			var target = $(targetElement(e));
+			var sbpPrjName = target.attr("sbpPrjName");			// SBP프로젝트 이름 
+			var psName = target.attr("psName");					// PSS프로젝트 이름
+			var psId = target.attr("psId");						// PSS프로젝트 ID
+			var puId = target.attr("puId");						// SBP프로젝트 puId
+			var ps_sbp_url = "ps_sbp_Connect.sw";
+			$.ajax({
+				type: 'POST',
+				url: ps_sbp_url,
+				headers:{
+					"Content-Type" : "application/json",
+					"X-HTTP-Method-Override":"POST",
+				},
+				data : JSON.stringify(
+						{psName : psName, 
+						sbpPrjName : sbpPrjName,
+						psId : psId,
+						puId : puId}
+				),
+				dataType:'text',
+				success : function(result) {
+					result = decodeURI(result);											// Controller에서 넘어온 encode된 한글 데이터를 다시 decode해준다.  
+					if(!(result == "")) {												// SBP프로젝트 연결에 성공했을시 연결한 SBP프로젝트 이름이 return 되어 온다. 
+						alert("SBP프로젝트 연결 성공!");
+						$('#noSelected').html("<span>" + sbpPrjName + "</span>");		// 연결한 SBP프로젝트 이름으로 UI 변경 
+						$("#noSelected").attr('class', "");								// 연결된 SBP는 아직 없으므로 마우스클릭 이벤트 방지 
+						$("#noSelected").attr('style', "");								// 연결된 SBP는 아직 없으므로 마우스클릭 이벤트 방지 
+						
+						$(".svcSSPP").attr("sbpPrjName", result);						// service concept들에게 html tag속성에 SBP Project 이름 넣어주기 (service concept이 열려잇을 경우에 적용됨) 
+						$(".svcSSPc").attr("sbpPrjName", result);
+						$(".svcSSPC2").attr("sbpPrjName", result);
+						$(".svcSSCp").attr("sbpPrjName", result);
+						$(".svcSSCC").attr("sbpPrjName", result);
+					} else {
+						alert("SBP프로젝트 연결 실패했습니다.");
+					}
+				},
+				error : function(result){
+					alert("error : " + result);
+				}
+			});
+		}catch(error){
+			alert(error);
+		}					
+		return false;
+	});
+	
+	
+	
+	
+	
+	/* SBP프로젝트 이름을 클릭하면 관련된 SBP프로젝트 리스트를 보여주기위해 해당 sbpId를 가지고 smartPop으로 넘겨준다 */
+	$('.sbpPrjNames').live('click',function(e) {
+		try{
+			var target = $(targetElement(e));
+			var sbpPrjName = target.attr("sbpPrjName");
+			var sbpName = target.attr("sbpName");
+			var sbpId = target.attr('sbpId');
+			var psId = target.attr('psId');
+			var psName = target.attr('psName');
+			var viewMode_impl = target.attr("viewMode");
+			if(viewMode_impl == "true") {
+				viewMode = "true";
+			}
+			
+			if(sbpId == 'selectSBPProject') {						// 연결된 SBP프로젝트가 없을경우 
+				smartPop.showSbpPrjListAll(psName, psId);
+			} else {												// 연결된 SBP프로젝트가 있을경우
+				var distinct = target.attr('onlySbpPrj');			// 연결된 SBP프로젝트만 있을경우(연결된 SBP 없을경우) 그냥 return
+				if(distinct == "true") {
+					return "";
+				} else {
+					smartPop.showSbpPrjMap(sbpId, null, null, null, null, sbpPrjName, sbpName);					// SBP프로젝트, SBP둘다 연결되어 있을경우 
+				}
+			}
+		}catch(error){
+			alert(error);
+		}					
+		return false;
+	});
+
+	
+	/* Service Concept중에 하나를 클릭하면 어떤 SBP List를 보여주기 위해 smartpop을 띄어준다. */
+	$('.showSbpPrjList').live('click',function(e) {
+		try{
+			var target = $(targetElement(e));
+			var sbpPrjName = target.attr('sbpPrjName');
+			var sbpId = target.attr("sbpId");
+			var psId = target.attr("psId");
+			var title = target.attr("title");
+			var itemName = $(target).closest("div").attr("itemname");									// 어떤 종류의 Service concept을 선택했는지 가져온다.
+			var svcNameNum = target.attr("svcNameNum");
+			var sbpName = target.attr("sbpName");
+			
+			if(!(sbpId == "" || sbpId == undefined)) {													// 연결되어있는 SBP Project Map을 보여준다 -> sbpId가 있어야 SBP Project map을 볼 수 있음. (Map activity를 선택했을경우, DB에 넣어야하기 때문에 이때 psId가 필요함 )
+				smartPop.showSbpPrjMap(sbpId, psId, itemName, title, svcNameNum, sbpPrjName, sbpName);					
+			} else if(!(sbpPrjName == "" || sbpPrjName == undefined || sbpPrjName == "null")) {			// SBP List를 보여준다 -> SBP프로젝트만 연결되어있고, SBP는 연결되어있지 않을 경우 SBP List를 보여준다.  
+				smartPop.showSbpNameList(sbpPrjName, psId, itemName, title, svcNameNum);			
+			} else {																					// sbpPrjName가 없을경우 -> 즉, SBP프로젝트 자체가 연결되어있지 않을 경우
+				alert("SBP프로젝트를 선택해주세요.");
+			}
+			
+		}catch(error){
+			alert(error);
+		}					
+		return false;
+	});
+	
+
+	
+	
+	
 });
 }catch(error){
 	smartPop.showInfo(smartPop.ERROR, smartMessage.get('technicalProblemOccured') + '[sw-act-work script]', null, error);

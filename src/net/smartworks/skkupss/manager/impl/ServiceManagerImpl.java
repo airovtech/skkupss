@@ -29,6 +29,7 @@ import net.smartworks.skkupss.model.ProductService;
 import net.smartworks.skkupss.model.ProductServiceCond;
 import net.smartworks.skkupss.model.ProductSpace;
 import net.smartworks.skkupss.model.RequestParams;
+import net.smartworks.skkupss.model.SBPService;
 import net.smartworks.skkupss.model.ServiceSpace;
 import net.smartworks.skkupss.model.SimilarityMatrix;
 import net.smartworks.skkupss.model.SimilaritySpaceType;
@@ -554,4 +555,65 @@ public class ServiceManagerImpl implements IServiceManager {
 		
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/* 연결된 activity정보를 가져온다  */
+	public Map<String, Object> showConnectedActivity(Map<String, String> param) throws Exception {
+		
+		Map<String, Object> extractData = ManagerFactory.getInstance().getDbManager().showConnectedActivity(param);
+		
+		return extractData;
+	}
+	
+	
+	/* SBP와 연결을 끊는다 */
+	public boolean disConnect_SBPService(Map<String, String> param) throws Exception {
+		
+		boolean result = ManagerFactory.getInstance().getDbManager().disConnect_SBPService(param);
+		
+		return result;
+	}
+	
+	
+	
+	/* SBP Map에서 선택한 activity정보들을 DB에 채운다. */
+	public boolean insertSbpMapData(Map<String, String> sbpData) throws Exception {
+		
+		boolean result = ManagerFactory.getInstance().getDbManager().insertSbpMapData(sbpData);
+		
+		return result;
+	}
+	
+	
+	/* 관련된 SBP프로젝트 이름을 가져온다 */
+	@Override
+	public SBPService getSBPService(String psId) throws Exception {
+
+		SBPService sbpListInfo= ManagerFactory.getInstance().getDbManager().getSBPService(psId);
+
+		return sbpListInfo;
+	}
+	
+	
+	/* PSS프로젝트와 SBP프로젝트를 연결시켜준다. */
+	@Override
+	public boolean set_PSS_SBP_Servcie_Connect(Map<String, Object> requestBody) throws Exception {
+
+		boolean result = ManagerFactory.getInstance().getDbManager().set_PSS_SBP_Servcie_Connect(requestBody);
+
+		return result;
+	}
 }

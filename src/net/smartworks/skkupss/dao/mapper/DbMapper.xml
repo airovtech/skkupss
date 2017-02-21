@@ -1315,4 +1315,52 @@
 			and locale = 'en'
 		order by name 
 	</select>
+	
+	
+	
+	
+	
+
+
+
+<!--
+	<insert id="insertSbpData">
+		insert into hvmattribute (id, prjid, sbpid, sbpname, activityid, activityname)
+		values(#{id}, #{psId}, #{sbpId}, #{sbp}, #{activityId}, #{activityName})
+	</insert>
+-->
+	<update id="disConnect_SBPService">
+		update servicespace set sspp = #{sspp}, ssp = #{ssp}, sspc = #{sspc}, ssc = #{ssc}, sscc = #{sscc} where psId = #{psId}
+	</update>
+
+	<update id="update_ServiceSpace">
+		update servicespace set ${itemName} = #{result_data} where psId = #{psId}
+	</update>
+	
+	<select id="test1" resultType="String">
+		select sspc from servicespace where id = #{id}
+	</select>
+	
+	<select id="get_SBP_Name_Service" resultType="net.smartworks.skkupss.model.SBPService">
+		select * from servicespace where psid = #{psId}
+	</select>
+	
+	<select id="get_SBP_Project_Service" parameterType="String" resultType="net.smartworks.skkupss.model.SBPService">
+		select * from hvmproject where pssprjid = #{psId}
+	</select>
+<!--
+	<select id="getSBPService" parameterType="String" resultType="net.smartworks.skkupss.model.SBPService">
+		select distinct a.sbpprjname, b.sbpid, b.sbpname from hvmproject a inner join hvmattribute b
+		on a.id = b.prjid 
+		where a.pssprjid = #{psId}
+	</select>
+-->
+	<select id="getSBPService_one" parameterType="String" resultType="net.smartworks.skkupss.model.SBPService">
+		select sbpprjname from hvmproject where pssprjid = #{psId}
+	</select>
+	
+	<insert id="set_PSS_SBP_Servcie_Connect">
+		insert into hvmproject (id, pssprjid, pssprjname, pssprjpicture, pssprjdescription, sbpprjid, sbpprjname, createduser, createddate)
+		values(#{id}, #{psId}, #{psName}, #{picture}, #{psDesc}, #{puId}, #{sbpPrjName}, #{createdUser}, #{createdDate})
+	</insert>
 </mapper>

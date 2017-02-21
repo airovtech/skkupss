@@ -189,6 +189,7 @@ public class BizModelSpace{
 		bizModelSpace.setKeyActivities(SmartUtil.getStringArray((Object)frmSpaceBizModel.get("txtKeyActivitiesItem")));
 		bizModelSpace.setKeyActivitiesUser(SmartUtil.getStringArray((Object)frmSpaceBizModel.get("txtKeyActivitiesUserItem")));
 		bizModelSpace.setKeyResources(SmartUtil.getStringArray((Object)frmSpaceBizModel.get("txtKeyResourcesItem")));
+		bizModelSpace.setKeyResourcesUser(SmartUtil.getStringArray((Object)frmSpaceBizModel.get("txtKeyResourcesUserItem")));
 		bizModelSpace.setKeyPartners(SmartUtil.getStringArray((Object)frmSpaceBizModel.get("txtKeyPartnersItem")));
 		bizModelSpace.setKeyPartnersUser(SmartUtil.getStringArray((Object)frmSpaceBizModel.get("txtKeyPartnersUserItem")));
 		bizModelSpace.setValuePropositionsUser(SmartUtil.getStringArray((Object)frmSpaceBizModel.get("txtValuePropositionsUserItem")));

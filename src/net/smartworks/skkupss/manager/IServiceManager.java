@@ -8,6 +8,7 @@
 
 package net.smartworks.skkupss.manager;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import net.smartworks.skkupss.model.InstanceList;
 import net.smartworks.skkupss.model.ProductService;
 import net.smartworks.skkupss.model.RequestParams;
+import net.smartworks.skkupss.model.SBPService;
 import net.smartworks.skkupss.model.SimilarityMatrix;
 import net.smartworks.skkupss.model.SimilaritySpaceType;
 import net.smartworks.skkupss.model.User;
@@ -42,4 +44,17 @@ public interface IServiceManager {
 	public void removeUser(String userId) throws Exception;
 	
 	public User getUser(String userId) throws Exception;
+	
+	
+	
+	
+	public Map<String, Object> showConnectedActivity(Map<String, String> param) throws Exception;		// 연결된 activity정보를 가져온다. 
+	
+	public boolean disConnect_SBPService(Map<String, String> param) throws Exception;		// SBP와 연결을 끊는다. 
+	
+	public boolean insertSbpMapData(Map<String, String> sbpData) throws Exception;			// SBP Map에서 선택한 activity정보들을 DB에 채운다.
+	
+	public SBPService getSBPService(String psId) throws Exception; 							// 연결된 SBP Project 정보를 가져온다.
+	
+	public boolean set_PSS_SBP_Servcie_Connect(Map<String, Object> requestBody) throws Exception; 	// PSS 프로젝트와 SBP프로젝트를 연결시켜준다. 
 }

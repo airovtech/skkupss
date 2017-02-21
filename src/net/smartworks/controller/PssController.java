@@ -8,6 +8,7 @@
 
 package net.smartworks.controller;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -31,6 +32,7 @@ import net.smartworks.skkupss.model.DefaultSpace;
 import net.smartworks.skkupss.model.ProductService;
 import net.smartworks.skkupss.model.ProductSpace;
 import net.smartworks.skkupss.model.RequestParams;
+import net.smartworks.skkupss.model.SBPService;
 import net.smartworks.skkupss.model.ServiceSpace;
 import net.smartworks.skkupss.model.SimilarityMatrix;
 import net.smartworks.skkupss.model.SimilaritySpaceType;
@@ -48,6 +50,8 @@ import net.smartworks.util.ServiceUtil;
 import net.smartworks.util.SmartMessage;
 import net.smartworks.util.SmartUtil;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpHeaders;
@@ -61,6 +65,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -365,7 +370,7 @@ public class PssController {
 	public @ResponseBody ResponseEntity<String> getServerIPAddress(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
-		return new ResponseEntity<String>(ServiceSpace.getValueHtml(request.getParameter("serviceValue")), responseHeaders, HttpStatus.CREATED);
+		return new ResponseEntity<String>(ServiceSpace.getValueHtml(request.getParameter("serviceValue"), "", "", false, "", 0, ""), responseHeaders, HttpStatus.CREATED);
 	}	
 
 	@RequestMapping("/my_profile")
@@ -687,6 +692,153 @@ public class PssController {
 		}
 		map.put("data", returnString);
 		return map;
+	}
+	
+	
+	
+	
+	
+	/* 연결된 activity 데이터를 가져온다 */
+	@RequestMapping(value="/showConnectedActivity", method = RequestMethod.POST)
+	public @ResponseBody Map<String, Object> showConnectedActivity(HttpServletRequest request, HttpServletResponse response, @RequestBody Map<String, String> param) {
+		Map<String, Object> extractData = new HashMap<String, Object>();
+		try {
+			extractData = ManagerFactory.getInstance().getServiceManager().showConnectedActivity(param);	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return extractData;
+	}
+	
+	
+
+	/* SBP와 연결을 끊는다 */
+	@RequestMapping(value="/sbpDisConnect", method = RequestMethod.POST)
+	public @ResponseBody boolean sbpDisConnect(HttpServletRequest request, HttpServletResponse response, @RequestBody Map<String, String> param) {
+		boolean result = false;
+		try {
+			result = ManagerFactory.getInstance().getServiceManager().disConnect_SBPService(param);	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	
+	
+	/* SBP Map에서 선택한 activity정보들을 DB에 채운다. */
+	@RequestMapping(value="/title_Create", method = RequestMethod.POST)
+	public @ResponseBody String title_Create(HttpServletRequest request, HttpServletResponse response, @RequestBody Map<String, String> param) {
+		
+		String psId = param.get("psId");
+		String htmlCodeResult = "";
+		StringBuffer htmlCode = new StringBuffer();
+		try {			
+			SBPService sbpInfo = new SBPService(); 
+			sbpInfo = ManagerFactory.getInstance().getServiceManager().getSBPService(psId);	
+
+			List<String> svConcept = ServiceSpace.ValueSbpInfo(sbpInfo);
+			if(sbpInfo.getSbpPrjName() != null) {	// SBP 프로젝트와 연결되어있는경우
+				if(svConcept.size() != 0) {			// SBP프로젝트, SBP, SBP Map Activity와 연결되있는 경우
+					for(int i=0; i<svConcept.size(); i+=2) {
+						htmlCode.append("<span class='sbpPrjNames connect_SBPPrj' viewMode='true' style='cursor: pointer;'").append(" sbpId='").append(svConcept.get(i))
+						.append("' sbpPrjName='").append(sbpInfo.getSbpPrjName()).append("' sbpName='").append(svConcept.get(i+1))
+						.append("'>").append(sbpInfo.getSbpPrjName()).append("_").append(svConcept.get(i+1)).append("</span>");
+						if((i+=2) < svConcept.size()) {
+							htmlCode.append("<br/>");
+							i-=2;
+						}
+					}
+				}else {								// SBP 프로젝트만 연결되어있는 경우
+					htmlCode.append("<span class='connect_SBPPrj'>").append(sbpInfo.getSbpPrjName()).append("</span>");
+				}
+			}
+			htmlCodeResult =  URLEncoder.encode(htmlCode.toString(), "UTF-8");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return htmlCodeResult;
+	}
+	
+	
+	
+	/* SBP Map에서 선택한 activity정보들을 DB에 채운다. */
+	@RequestMapping(value="/insertSbpMapData", method = RequestMethod.POST)
+	public @ResponseBody boolean insertSbpMapData(HttpServletRequest request, HttpServletResponse response, @RequestBody Map<String, String> sbpData) {
+		boolean result = false;
+		try {			
+			result = ManagerFactory.getInstance().getServiceManager().insertSbpMapData(sbpData);	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}				
+		request.setAttribute("result", result);
+		return result;
+	}
+	
+	
+	/* PSS프로젝트와 SBP프로젝트를 연결시켜준다 */
+	@RequestMapping(value="/ps_sbp_Connect", method = RequestMethod.POST)
+	public @ResponseBody String ps_sbp_Connect(HttpServletRequest request, HttpServletResponse response, @RequestBody Map<String, Object> requestBody) {
+		
+		String sbpPrjName = "";
+		try {
+			boolean result = ManagerFactory.getInstance().getServiceManager().set_PSS_SBP_Servcie_Connect(requestBody);		// 연결된 SBP 정보를 가져온다.
+			
+			if(result == true) {
+				sbpPrjName = (String) requestBody.get("sbpPrjName");
+				sbpPrjName =  URLEncoder.encode(sbpPrjName, "UTF-8");														// 한글 깨짐 방지 Encode
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}				
+		return sbpPrjName;
+	}
+	
+	/* 현재 PSS와 연관된 SBP를 보여주기 위한 jsp페이지 호출 */
+	@RequestMapping(value="/pop_show_SbpNameList", method = RequestMethod.POST)
+	public ModelAndView pop_show_SbpNameList(HttpServletRequest request, HttpServletResponse response, @RequestBody Map<String, String> requestBody) {
+		String sbpPrjName = requestBody.get("sbpPrjName");		// SBP프로젝트 이름 
+		String psId = requestBody.get("psId");					// PSS프로젝트 ID
+		String itemName = requestBody.get("itemName");			// Service Concept 종류
+		String title = requestBody.get("title");				// Service concept 이름
+		String svcNameNum = requestBody.get("svcNameNum");		// Service concept 종류안에 속해있는것들중에 선택한 service concept
+		request.setAttribute("sbpPrjName", sbpPrjName);
+		request.setAttribute("psId", psId);
+		request.setAttribute("itemName", itemName);
+		request.setAttribute("title", title);
+		request.setAttribute("svcNameNum", svcNameNum);
+		return SmartUtil.returnMnv(request, "pop_show_SbpNameList.jsp", "pop_show_SbpNameList.tiles");
+	}
+	
+	/* 모든 SBP Project를 보여주기위한 jsp페이지 호출 */
+	@RequestMapping(value="/pop_show_sbpPrjListAll", method = RequestMethod.POST)
+	public ModelAndView pop_show_sbp_list_All(HttpServletRequest request, HttpServletResponse response, @RequestBody Map<String, String> requestBody) {
+		String psName = requestBody.get("psName");				// PSS프로젝트 이름 
+		String psId = requestBody.get("psId");					// PSS프로젝트 ID
+		request.setAttribute("psName", psName);
+		request.setAttribute("psId", psId);
+		return SmartUtil.returnMnv(request, "pop_show_sbpPrjListAll.jsp", "pop_show_sbpPrjListAll.tiles");
+	}
+	
+	/* sbp Map을 띄어줄 jsp페이지 호출 */
+	@RequestMapping(value="/pop_show_sbpPrjMap", method = RequestMethod.POST)
+	public ModelAndView pop_show_sbpPrjMap(HttpServletRequest request, HttpServletResponse response, @RequestBody Map<String, String> requestBody) {
+		String sbpId = requestBody.get("sbpId");				// SBP ID 
+		String psId = requestBody.get("psId");					// PSS 프로젝트 ID
+		String itemName = requestBody.get("itemName");			// Service Concept 종류
+		String title = requestBody.get("title");				// Service concept 이름
+		String svcNameNum = requestBody.get("svcNameNum");		// Service concept 종류안에 속해있는것들중에 선택한 service concept
+		String sbpPrjName = requestBody.get("sbpPrjName");		// SBP Project 이름
+		String sbpName = requestBody.get("sbpName");			// SBP 이름
+		request.setAttribute("sbpId", sbpId);
+		request.setAttribute("psId", psId);
+		request.setAttribute("itemName", itemName);
+		request.setAttribute("title", title);
+		request.setAttribute("svcNameNum", svcNameNum);
+		request.setAttribute("sbpPrjName", sbpPrjName);
+		request.setAttribute("sbpName", sbpName);
+		return SmartUtil.returnMnv(request, "pop_show_sbpPrjMap.jsp", "pop_show_sbpPrjMap.tiles");
 	}
 	
 	

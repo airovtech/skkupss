@@ -1,8 +1,14 @@
+<%@page import="org.springframework.util.StringUtils"%>
+<%@page import="java.util.StringTokenizer"%>
 <%@page import="net.smartworks.util.SmartMessage"%>
 <%@page import="net.smartworks.skkupss.model.User"%>
 <%@page import="net.smartworks.util.PropertiesLoader"%>
 <%@page import="net.smartworks.skkupss.manager.impl.DocFileManagerImpl"%>
 <%@page import="java.util.Date"%>
+<%@page import="java.util.List" %>
+<%@page import="java.util.ArrayList" %>
+<%@page import="java.util.Iterator" %>
+<%@page import="net.smartworks.skkupss.model.SBPService" %>
 <%@page import="net.smartworks.skkupss.model.BizModelSpace"%>
 <%@page import="net.smartworks.skkupss.model.ServiceSpace"%>
 <%@page import="net.smartworks.skkupss.model.ValueSpace"%>
@@ -14,7 +20,6 @@
 <%@page import="net.smartworks.util.SmartUtil"%>
 <%@ page contentType="text/html; charset=utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
 <script type="text/javascript">
 try{
 //완료버튼 클릭시 reserve_asset.sw 서비스를 실행하기 위해 submit하는 스크립트..
@@ -257,6 +262,8 @@ function submitForms(tempSave) {
 </script>
 
 <%
+	SBPService sbpInfo = new SBPService();																// 연결된 SBP정보를 담기 위한 data
+	
 	User cUser = SmartUtil.getCurrentUser();
 
 	String PSS_PICTURE_URL = PropertiesLoader.loadPropByClassPath("/net/smartworks/conf/config.properties").getProperty("pss.picture.url");
@@ -275,6 +282,8 @@ function submitForms(tempSave) {
 	if(!SmartUtil.isBlankObject(psId)){
 		try{
 			productService = ManagerFactory.getInstance().getServiceManager().getProductService(psId, ProductService.SPACE_TYPE_NONE);
+			
+			sbpInfo = ManagerFactory.getInstance().getServiceManager().getSBPService(psId);				// 연결된 SBP Project 정보를 가져온다. 
 		}catch(Exception e){}
 	}else{
 		isEditMode = true;
@@ -431,16 +440,44 @@ function submitForms(tempSave) {
 String productServiceName = SmartMessage.getString("pss.title.product_service_name");
 String productPictureName = SmartMessage.getString("pss.title.product_picture");
 String productDescName = SmartMessage.getString("common.title.desc");
+
+String sbpServiceName = SmartMessage.getSBP_Service_String();									// 'SBP-프로젝트 이름' 메뉴
 %>
 
 <script>
 try{
-	
 	var psName = "<%=CommonUtil.toNotNull(productService.getName())%>";
+//	psName += "<br/>" + "&nbsp;";
 	var psPicture = "<%=psPictureUrl%>";
  	var psDesc = "<%=SmartUtil.smartEncode(CommonUtil.toNotNull(productService.getDesc()))%>";
- 		psDesc = smartDecode(psDesc);
- 		
+ 		psDesc = smartDecode(psDesc);	
+
+ 	<%
+		StringBuffer htmlCode = new StringBuffer();
+		List<String> svConcept = ServiceSpace.ValueSbpInfo(sbpInfo);
+
+		if(sbpInfo.getSbpPrjName() != null) {	// SBP 프로젝트와 연결되어있는경우
+			if(svConcept.size() != 0) {			// SBP프로젝트, SBP, SBP Map Activity와 연결되있는 경우
+				for(int i=0; i<svConcept.size(); i+=2) {
+					htmlCode.append("<span class='sbpPrjNames connect_SBPPrj' viewMode='true' style='cursor: pointer;'").append(" sbpId='").append(svConcept.get(i)).append("' sbpPrjName='").append(sbpInfo.getSbpPrjName()).append("' sbpName='").append(svConcept.get(i+1)).append("'>").append(sbpInfo.getSbpPrjName()).append("_").append(svConcept.get(i+1)).append("</span><br/>");
+				}
+			}else {								// SBP 프로젝트만 연결되어있는 경우
+				htmlCode.append("<span class='connect_SBPPrj'>").append(sbpInfo.getSbpPrjName()).append("</span><br/>");
+			}
+		} else {								// 아무것도 연결되어있지 않은 경우
+			if(isEditMode) {
+				htmlCode.append("<span class='sbpPrjNames connect_SBPPrj' style='cursor: pointer;' ");
+			} else {
+				htmlCode.append("<span ");
+			}
+			htmlCode.append(" id='noSelected' sbpId='selectSBPProject' psId='").append(psId).append("' ").append("psName='").append(CommonUtil.toNotNull(productService.getName())).append("'> SBP프로젝트를 선택해주세요.</span>");
+		}
+		
+ 	%>
+
+ 	var sbpInfo = "<%=htmlCode.toString()%>";													// 관련된 SBP프로젝트 정보
+ 	//sbpInfo += "<button id='test'> data insert!!</button>";
+ 	
 	var newProductServiceFields = $('div.js_new_product_service_fields');
 	if(!isEmpty(newProductServiceFields)) {
 		var newProductServiceField = $(newProductServiceFields[0]);
@@ -448,15 +485,27 @@ try{
 		var gridTable = SmartWorks.GridLayout.newGridTable();
 		newProductServiceField.html(gridTable.html(gridRow));
 		
-		SmartWorks.FormRuntime.TextInputBuilder.buildEx({
+		SmartWorks.FormRuntime.TextInputBuilder.buildEx({										// 폼빌더를 이용하여 항목 상세보기를 그려준다. 
 			container: gridRow,
 			fieldId: "txtName",
 			fieldName: "<%=productServiceName %>",
 			columns: 3,
-			colSpan: 3,
+			colSpan: 1,
 			value: psName,
 			required: true,
 			readOnly: <%=!isEditMode%>
+		});
+		gridRow.find('.form_col[fieldId="txtName"]').addClass('vt');
+		
+		SmartWorks.FormRuntime.TextInputBuilder.buildEx({
+			container: gridRow,
+			fieldId: "txtName2",
+			fieldName: "<%=sbpServiceName %>",
+			columns: 3,
+			colSpan: 2,
+			value: sbpInfo,
+			required: true,
+			readOnly: true
 		});
 		
 		gridRow = SmartWorks.GridLayout.newGridRow().appendTo(gridTable);
