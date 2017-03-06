@@ -195,6 +195,7 @@ function submitForms(tempSave) {
 			cloneSelectedValues(spaceTab, newSpaceTab);
 			newProductService.find('form[name="frmNewProductService"]').append($('<form name="frmSpaceTab"></form>').html(newSpaceTab).hide());
 			paramsJsonHiddens[spaceType] = mergeObjects(newSpaceTab.parent('form').serializeObject(), SmartWorks.GridLayout.serializeObject(newSpaceTab.parent('form')));
+			console.log("mergeObjects1-1 : ", mergeObjects(newSpaceTab.parent('form').serializeObject()));
 			spaceTab.parent().remove();
 		}else{
 			paramsJsonHiddens[spaceType] = mergeObjects(spaceTab.parent('form').serializeObject(), SmartWorks.GridLayout.serializeObject(spaceTab.parent('form')));

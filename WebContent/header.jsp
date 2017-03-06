@@ -32,7 +32,7 @@ var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
 
 /* 데이터바구니 */
 /* PSS와 SBP프로젝트 연결하는데 필요한 데이터를 담는 바구니역할을 변수들 */
-var sbp_dt ="", sbpId_dt="", activityId_dt="", activityName_dt="", seq_dt="";
+var sbp_dt ="", sbpId_dt="", activityId_dt="", activityName_dt="", seq_dt="", selectedColor="";
 var count_dt = 0;
 var seq_Array = new Array();
 var activityId_Array = new Array();
@@ -50,7 +50,7 @@ eventer(messageEvent,function(e) {
 //	sbpMapData[3]	->	activity id			//activity_seq
 //	sbpMapData[4]	->	activity name 		//activity_title
 //	sbpMapData[5]	->  activity 메인 이름		//groupTitle
-    sbpMapData[4] += "(" + sbpMapData[5] + ")";		// activity이름과 메인이름을 합쳐준다. 
+//    sbpMapData[4] += "(" + sbpMapData[5] + ")";		// activity이름과 메인이름을 합쳐준다. 
 
     /* 선택한 activity seq 정렬과정 */
    	var sign = false;
@@ -137,7 +137,7 @@ eventer(messageEvent,function(e) {
 				activityName_Array_Impl += ",&nbsp;&nbsp;&nbsp;&nbsp;";
 				i-=1;
 			}
-			if((i!=0) && (i%4 == 0)) {
+			if((i!=0) && (i%7 == 0)) {
 				activityName_Array_Impl += "<br/>";
 			}
 		}
@@ -149,6 +149,7 @@ eventer(messageEvent,function(e) {
 	seq_dt = seq_Array;
 	activityId_dt = activityId_Array;
 	activityName_dt = activityName_Array;
+	selectedColor = sbpMapData[6];
 },false)
 
 

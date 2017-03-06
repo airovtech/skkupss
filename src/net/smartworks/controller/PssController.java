@@ -765,7 +765,7 @@ public class PssController {
 	
 	/* SBP Map에서 선택한 activity정보들을 DB에 채운다. */
 	@RequestMapping(value="/insertSbpMapData", method = RequestMethod.POST)
-	public @ResponseBody boolean insertSbpMapData(HttpServletRequest request, HttpServletResponse response, @RequestBody Map<String, String> sbpData) {
+	public @ResponseBody boolean insertSbpMapData(HttpServletRequest request, HttpServletResponse response, @RequestBody Map<String, Object> sbpData) {
 		boolean result = false;
 		try {			
 			result = ManagerFactory.getInstance().getServiceManager().insertSbpMapData(sbpData);	

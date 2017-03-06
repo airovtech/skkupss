@@ -52,7 +52,7 @@ public interface IServiceManager {
 	
 	public boolean disConnect_SBPService(Map<String, String> param) throws Exception;		// SBP와 연결을 끊는다. 
 	
-	public boolean insertSbpMapData(Map<String, String> sbpData) throws Exception;			// SBP Map에서 선택한 activity정보들을 DB에 채운다.
+	public boolean insertSbpMapData(Map<String, Object> sbpData) throws Exception;			// SBP Map에서 선택한 activity정보들을 DB에 채운다.
 	
 	public SBPService getSBPService(String psId) throws Exception; 							// 연결된 SBP Project 정보를 가져온다.
 	

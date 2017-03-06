@@ -701,6 +701,7 @@ public class DbManagerImpl implements IDbManager {
 		String psId = param.get("psId");
 		String itemName = param.get("itemName");
 		String title = param.get("title");
+		String sbpId = param.get("sbpId");
 	
 		SBPService serviceSpace = dao.selectSbpMapData(psId);								// service concept data 꺼내온다.	
 		
@@ -716,8 +717,10 @@ public class DbManagerImpl implements IDbManager {
 			svType = serviceSpace.getSspc();
 		} else if(itemName.equals("ssc")) {
 			svType = serviceSpace.getSsc();
-		} else {
+		} else if(itemName.equals("sscc")) {
 			svType = serviceSpace.getSscc();
+		} else {
+			return null;
 		}
 
 		String activityInfo = "";
@@ -737,8 +740,53 @@ public class DbManagerImpl implements IDbManager {
 		List<String> activityName = new ArrayList<String>();
 		List<String> seq = new ArrayList<String>();
 		String sbpName = "";
-		String sbpId = "";
+		String color = "";
 		try {
+			int indexFirst = activityInfo.indexOf("activityId:[/(start)/,");
+			String impl = activityInfo.substring(indexFirst + 22);
+			int indexSecond = impl.indexOf("/(end)/");
+			impl = activityInfo.substring(indexFirst + 22, indexFirst + 22 + indexSecond);
+			String[] implArray = StringUtils.tokenizeToStringArray(impl, ",");
+			for(int i=0; i<implArray.length; i++) {
+				activityId.add(implArray[i]);
+			}
+			
+			indexFirst = activityInfo.indexOf("activityName:[/(start)/,");
+			impl = activityInfo.substring(indexFirst + 24);
+			indexSecond = impl.indexOf("/(end)/");
+			impl = activityInfo.substring(indexFirst + 24, indexFirst + 24 + indexSecond);
+			implArray = StringUtils.tokenizeToStringArray(impl, ",");
+			for(int i=0; i<implArray.length; i++) {
+				activityName.add(implArray[i]);
+			}
+			
+			indexFirst = activityInfo.indexOf("seq:[/(start)/,");
+			impl = activityInfo.substring(indexFirst + 15);
+			indexSecond = impl.indexOf("/(end)/");
+			impl = activityInfo.substring(indexFirst + 15, indexFirst + 15 + indexSecond);
+			implArray = StringUtils.tokenizeToStringArray(impl, ",");
+			for(int i=0; i<implArray.length; i++) {
+				seq.add(implArray[i]);
+			}
+			
+			indexFirst = activityInfo.indexOf("color:[/(start)/,");
+			impl = activityInfo.substring(indexFirst + 17);
+			indexSecond = impl.indexOf("/(end)/");
+			impl = activityInfo.substring(indexFirst + 17, indexFirst + 17 + indexSecond);
+			implArray = StringUtils.tokenizeToStringArray(impl, ",");
+			for(int i=0; i<implArray.length; i++) {
+				color = implArray[i];
+			}
+			
+			indexFirst = activityInfo.indexOf("sbpName:[/(start)/,");
+			impl = activityInfo.substring(indexFirst + 19);
+			indexSecond = impl.indexOf("/(end)/");
+			impl = activityInfo.substring(indexFirst + 19, indexFirst + 19 + indexSecond);
+			implArray = StringUtils.tokenizeToStringArray(impl, ",");
+			for(int i=0; i<implArray.length; i++) {
+				sbpName = implArray[i];
+			}
+/*			
 			JSONParser jsonParser = new JSONParser();
 			
 			JSONObject jsonObject = (JSONObject) jsonParser.parse(activityInfo);		// JSON데이터를 넣어 JSON Object 로 만들어 준다
@@ -755,8 +803,8 @@ public class DbManagerImpl implements IDbManager {
                 sbpName = (String) InfoObject.get("sbpName");
                 sbpId = (String) InfoObject.get("sbpId");
             }
- 
-		} catch (ParseException e) {
+*/
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
@@ -768,6 +816,7 @@ public class DbManagerImpl implements IDbManager {
 		extractData.put("psId", psId);
 		extractData.put("sbpName", sbpName);
 		extractData.put("sbpId", sbpId);
+		extractData.put("color", color);
 		return extractData;
 	}
 	
@@ -839,14 +888,14 @@ public class DbManagerImpl implements IDbManager {
 	/* SBP Map에서 선택한 activity정보들을 DB에 채운다. */
 	/* DB에 넣기전 js에서 json타입으로 만든 데이터를 다시 정돈한다. */
 	@Override
-	public boolean insertSbpMapData(Map<String, String> sbpData) throws Exception {
+	public boolean insertSbpMapData(Map<String, Object> sbpData) throws Exception {
 		boolean result_final = false;
 		IDbDao dao = DaoFactory.getInstance().getDbDao();
 
 		String sbpDataStr = sbpData.toString();
 		sbpDataStr = sbpDataStr.replaceAll("=", ":");		
-		
-		String psId = "";
+	
+/*		String psId = "";
 		String itemName = "";
 		String title = "";
 		String sbpName = "";
@@ -854,8 +903,19 @@ public class DbManagerImpl implements IDbManager {
 		List<String> activityId = new ArrayList<String>();
 		List<String> activityName = new ArrayList<String>();
 		List<String> seq = new ArrayList<String>();
+*/
 		
-		try {
+		String itemName = (String)sbpData.get("itemName");
+		String title = (String)sbpData.get("title");
+		String psId = (String)sbpData.get("psId");
+		List<String> sbpName = (List<String>)sbpData.get("sbpName");
+		String sbpId = (String)sbpData.get("sbpId");
+		List<String> activityId = (List<String>) sbpData.get("activityId");
+		List<String> activityName = (List<String>)sbpData.get("activityName");
+		List<String> seq = (List<String>)sbpData.get("seq");
+		List<String> color = (List<String>)sbpData.get("color");
+	
+/*		try {
 			JSONParser jsonParser = new JSONParser();
 			
 			JSONObject jsonObject = (JSONObject) jsonParser.parse(sbpDataStr);		// JSON데이터를 넣어 JSON Object 로 만들어 준다
@@ -877,7 +937,7 @@ public class DbManagerImpl implements IDbManager {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-
+*/
 		SBPService serviceSpace = dao.selectSbpMapData(psId);								// service concept data 꺼내온다.	
 
 		String svType = "";																	// service concept type(종류) 

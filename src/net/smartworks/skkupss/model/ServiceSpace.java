@@ -226,7 +226,8 @@ public class ServiceSpace{
 			value = tokens[1];
 		
 			try {
-				JSONParser jsonParser = new JSONParser();
+				
+/*				JSONParser jsonParser = new JSONParser();
 				
 				JSONObject jsonObject = (JSONObject) jsonParser.parse(value);			//JSON데이터를 넣어 JSON Object 로 만들어 준다
 				
@@ -238,8 +239,13 @@ public class ServiceSpace{
 	                value = (String) InfoObject.get("sbpId");	 						//JSON name으로 추출 (sbp Map을 띄어줄 키워드 sbpId를 추출한다)
 	                
 	            }
-	 
-			} catch (ParseException e) {
+*/ 
+				
+				int index = value.indexOf("sbpId:");
+				String subImpl = value.substring(index);
+				index = subImpl.indexOf(",");
+				value = subImpl.substring(6, index);				
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
@@ -277,29 +283,20 @@ public class ServiceSpace{
 					String[] detail_Tokens = StringUtils.tokenizeToStringArray(tokens[i], "||");
 					String value = detail_Tokens[1];												// 연결된 SBP activity 데이터 정보만 추출
 					try {
-						JSONParser jsonParser = new JSONParser();
+						int index = value.indexOf("sbpId:");
+						String subImpl = value.substring(index);
+						index = subImpl.indexOf(",");
+						data.add(subImpl.substring(6, index));
 						
-						JSONObject jsonObject = (JSONObject) jsonParser.parse(value);		
-						
-						JSONArray InfoArray = (JSONArray) jsonObject.get("Info");				
-						
-						for(int j=0; j<InfoArray.size(); j=InfoArray.size()){
-			                JSONObject InfoObject = (JSONObject) InfoArray.get(j);					// index당 1개의 {} 안의 데이터 추출				
-			                
-		                	if(!(data.contains(InfoObject.get("sbpId")))) {
-			                	data.add((String) InfoObject.get("sbpId"));
-		                	} 
-		                	if(!(data.contains(InfoObject.get("sbpName")))) {
-				                data.add((String) InfoObject.get("sbpName"));
-		                	}
-
-			            }
-			 
-					} catch (ParseException e) {
+						index = value.indexOf("sbpName:[/(start)/,");
+						subImpl = value.substring(index);
+						index = subImpl.indexOf("/(end)/");
+						data.add(subImpl.substring(19, index-2));					
+					} catch (Exception e) {
 						e.printStackTrace();
 					}
 				}
-			}			
+			}
 		} 
 		
 		if(ssp.contains("||")) {
@@ -310,24 +307,16 @@ public class ServiceSpace{
 					String[] detail_Tokens = StringUtils.tokenizeToStringArray(tokens[i], "||");
 					String value = detail_Tokens[1];												// 연결된 SBP activity 데이터 정보만 추출
 					try {
-						JSONParser jsonParser = new JSONParser();
+						int index = value.indexOf("sbpId:");
+						String subImpl = value.substring(index);
+						index = subImpl.indexOf(",");
+						data.add(subImpl.substring(6, index));
 						
-						JSONObject jsonObject = (JSONObject) jsonParser.parse(value);		
-						
-						JSONArray InfoArray = (JSONArray) jsonObject.get("Info");				
-						
-						for(int j=0; j<InfoArray.size(); j=InfoArray.size()){
-			                JSONObject InfoObject = (JSONObject) InfoArray.get(j);					// index당 1개의 {} 안의 데이터 추출				
-			                
-		                	if(!(data.contains(InfoObject.get("sbpId")))) {
-			                	data.add((String) InfoObject.get("sbpId"));
-		                	} 
-		                	if(!(data.contains(InfoObject.get("sbpName")))) {
-				                data.add((String) InfoObject.get("sbpName"));
-		                	}
-			            }
-			 
-					} catch (ParseException e) {
+						index = value.indexOf("sbpName:[/(start)/,");
+						subImpl = value.substring(index);
+						index = subImpl.indexOf("/(end)/");
+						data.add(subImpl.substring(19, index-2));					
+					} catch (Exception e) {
 						e.printStackTrace();
 					}
 				}
@@ -342,25 +331,17 @@ public class ServiceSpace{
 					String[] detail_Tokens = StringUtils.tokenizeToStringArray(tokens[i], "||");
 					String value = detail_Tokens[1];												// 연결된 SBP activity 데이터 정보만 추출
 					try {
-						JSONParser jsonParser = new JSONParser();
+						int index = value.indexOf("sbpId:");
+						String subImpl = value.substring(index);
+						index = subImpl.indexOf(",");
+						data.add(subImpl.substring(6, index));
 						
-						JSONObject jsonObject = (JSONObject) jsonParser.parse(value);		
+						index = value.indexOf("sbpName:[/(start)/,");
+						subImpl = value.substring(index);
+						index = subImpl.indexOf("/(end)/");
+						data.add(subImpl.substring(19, index-2));					
 						
-						JSONArray InfoArray = (JSONArray) jsonObject.get("Info");				
-						
-						for(int j=0; j<InfoArray.size(); j=InfoArray.size()){
-			                JSONObject InfoObject = (JSONObject) InfoArray.get(j);					// index당 1개의 {} 안의 데이터 추출				
-			                
-		                	if(!(data.contains(InfoObject.get("sbpId")))) {
-			                	data.add((String) InfoObject.get("sbpId"));
-		                	} 
-		                	if(!(data.contains(InfoObject.get("sbpName")))) {
-				                data.add((String) InfoObject.get("sbpName"));
-		                	}
-
-			            }
-			 
-					} catch (ParseException e) {
+					} catch (Exception e) {
 						e.printStackTrace();
 					}
 				}
@@ -368,6 +349,7 @@ public class ServiceSpace{
 		}
 		
 		if(ssc.contains("||")) {
+/*
 			String[] tokens = StringUtils.tokenizeToStringArray(ssc, ";");							// service concept들을 나눠준다. 
 
 			for(int i=0; i<tokens.length; i++) {													// 모든 service concept 한개씩 "||"가 있는지 검사한다. (있으면 SBP Map activity와 연결되어있는 데이터가 있다는 의미) 
@@ -398,6 +380,29 @@ public class ServiceSpace{
 					}
 				}
 			}
+*/			
+			String[] tokens = StringUtils.tokenizeToStringArray(ssc, ";");							// service concept들을 나눠준다. 
+			
+			for(int i=0; i<tokens.length; i++) {													// 모든 service concept 한개씩 "||"가 있는지 검사한다. (있으면 SBP Map activity와 연결되어있는 데이터가 있다는 의미) 
+				if(tokens[i].contains("||")) {
+					String[] detail_Tokens = StringUtils.tokenizeToStringArray(tokens[i], "||");
+					String value = detail_Tokens[1];												// 연결된 SBP activity 데이터 정보만 추출
+					try {
+						int index = value.indexOf("sbpId:");
+						String subImpl = value.substring(index);
+						index = subImpl.indexOf(",");
+						data.add(subImpl.substring(6, index));
+						
+						index = value.indexOf("sbpName:[/(start)/,");
+						subImpl = value.substring(index);
+						index = subImpl.indexOf("/(end)/");
+						data.add(subImpl.substring(19, index-2));					
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			
 		}
 		
 		if(sscc.contains("||")) {
@@ -408,25 +413,16 @@ public class ServiceSpace{
 					String[] detail_Tokens = StringUtils.tokenizeToStringArray(tokens[i], "||");
 					String value = detail_Tokens[1];												// 연결된 SBP activity 데이터 정보만 추출
 					try {
-						JSONParser jsonParser = new JSONParser();
+						int index = value.indexOf("sbpId:");
+						String subImpl = value.substring(index);
+						index = subImpl.indexOf(",");
+						data.add(subImpl.substring(6, index));
 						
-						JSONObject jsonObject = (JSONObject) jsonParser.parse(value);		
-						
-						JSONArray InfoArray = (JSONArray) jsonObject.get("Info");				
-						
-						for(int j=0; j<InfoArray.size(); j=InfoArray.size()){
-			                JSONObject InfoObject = (JSONObject) InfoArray.get(j);					// index당 1개의 {} 안의 데이터 추출				
-			                
-		                	if(!(data.contains(InfoObject.get("sbpId")))) {
-			                	data.add((String) InfoObject.get("sbpId"));
-		                	} 
-		                	if(!(data.contains(InfoObject.get("sbpName")))) {
-				                data.add((String) InfoObject.get("sbpName"));
-		                	}
-
-			            }
-			 
-					} catch (ParseException e) {
+						index = value.indexOf("sbpName:[/(start)/,");
+						subImpl = value.substring(index);
+						index = subImpl.indexOf("/(end)/");
+						data.add(subImpl.substring(19, index-2));					
+					} catch (Exception e) {
 						e.printStackTrace();
 					}
 				}
@@ -437,7 +433,25 @@ public class ServiceSpace{
 			List<String> empty = new ArrayList<String>();
 			return empty;
 		}
-		return data;
+		
+		/* 중복제거 */
+		List<String> dataResult = new ArrayList<String>();
+		boolean distinctList = false;
+		for(int i=0; i<data.size(); i++) {
+			String impl = data.get(i).trim();
+			for(int j=0; j<dataResult.size(); j++) {
+				if(impl.equals(dataResult.get(j))) {
+					distinctList = true;
+					j = dataResult.size();
+				}
+			}
+			if(!distinctList) {
+				dataResult.add(impl);
+			}
+			distinctList = false;
+		}
+		
+		return dataResult;
 	}
 	
 	
@@ -452,13 +466,20 @@ public class ServiceSpace{
 		String data = "";
 		
 		if(values.contains("||")) {
-			String[] tokens = StringUtils.tokenizeToStringArray(values, ";");							// service concept들을 나눠준다. 
+			String[] tokens = StringUtils.tokenizeToStringArray(values, ";");						// service concept들을 나눠준다. 
 
 			for(int i=0; i<tokens.length; i++) {													// 모든 service concept 한개씩 "||"가 있는지 검사한다. (있으면 SBP Map activity와 연결되어있는 데이터가 있다는 의미) 
 				if(tokens[i].contains("||")) {
+
 					String[] detail_Tokens = StringUtils.tokenizeToStringArray(tokens[i], "||");
 					String value = detail_Tokens[1];												// 연결된 SBP activity 데이터 정보만 추출
 					try {
+						
+						int index = value.indexOf("sbpName:[/(start)/,");
+						String subImpl = value.substring(index);
+						index = subImpl.indexOf("/(end)/");
+						data = subImpl.substring(19, index-2);
+						/*
 						JSONParser jsonParser = new JSONParser();
 						
 						JSONObject jsonObject = (JSONObject) jsonParser.parse(value);		
@@ -473,8 +494,8 @@ public class ServiceSpace{
 		                	}
 
 			            }
-			 
-					} catch (ParseException e) {
+						 */
+					} catch (Exception e) {
 						e.printStackTrace();
 					}
 				}

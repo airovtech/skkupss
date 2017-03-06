@@ -108,7 +108,7 @@
 								<%
 								if(isEditMode){
 								%>
-									<input class="fieldline js_edit_element_item" name="txtSsppItem" style="height:20px; display:none; font-size:11px; background-color:white" type="text" value="<%=CommonUtil.toNotNull(values[i]) %>">
+									<input class="fieldline js_edit_element_item" svcNameNum="svcSSPP<%=i %>" name="txtSsppItem" style="height:20px; display:none; font-size:11px; background-color:white" type="text" value="<%=CommonUtil.toNotNull(values[i]) %>">
 								<%
 								}
 								%>
@@ -161,7 +161,7 @@
 								<%
 								if(isEditMode){
 								%>
-									<input class="fieldline js_edit_element_item" name="txtSspItem" style="height:20px; display:none; font-size:11px; background-color:white" type="text" value="<%=CommonUtil.toNotNull(values[i]) %>">
+									<input class="fieldline js_edit_element_item" svcNameNum="svcSSPc<%=i %>" name="txtSspItem" style="height:20px; display:none; font-size:11px; background-color:white" type="text" value="<%=CommonUtil.toNotNull(values[i]) %>">
 								<%
 								}
 								%>
@@ -214,7 +214,7 @@
 								<%
 								if(isEditMode){
 								%>
-									<input class="fieldline js_edit_element_item" name="txtSspcItem" style="height:20px; display:none; font-size:11px; background-color:white" type="text" value="<%=CommonUtil.toNotNull(values[i]) %>">
+									<input class="fieldline js_edit_element_item" svcNameNum="svcSSPC2<%=i %>" name="txtSspcItem" style="height:20px; display:none; font-size:11px; background-color:white" type="text" value="<%=CommonUtil.toNotNull(values[i]) %>">
 								<%
 								}
 								%>
@@ -239,7 +239,7 @@
 				</div>
 			</td>
 			<td class="tc edit_action" style="height:100%">
-				<div style="font-size:15px;font-weight:bold">SSCP</div>
+				<div style="font-size:15px;font-weight:bold">SSCp</div>
 				<div style="padding:5px">
 					<%
 						values = serviceSpace.getSsc();
@@ -267,7 +267,7 @@
 								<%
 								if(isEditMode){
 								%>
-									<input class="fieldline js_edit_element_item" name="txtSscItem" style="height:20px; display:none; font-size:11px; background-color:white" type="text" value="<%=CommonUtil.toNotNull(values[i]) %>">
+									<input class="fieldline js_edit_element_item" svcNameNum="svcSSCp<%=i %>" name="txtSscItem" style="height:20px; display:none; font-size:11px; background-color:white" type="text" value="<%=CommonUtil.toNotNull(values[i]) %>">
 								<%
 								}
 								%>
@@ -320,7 +320,7 @@
 								<%
 								if(isEditMode){
 								%>
-									<input class="fieldline js_edit_element_item" name="txtSsccItem" style="height:20px; display:none; font-size:11px; background-color:white" type="text" value="<%=CommonUtil.toNotNull(values[i]) %>">
+									<input class="fieldline js_edit_element_item" svcNameNum="svcSSCC<%=i %>" name="txtSsccItem" style="height:20px; display:none; font-size:11px; background-color:white" type="text" value="<%=CommonUtil.toNotNull(values[i]) %>">
 								<%
 								}
 								%>

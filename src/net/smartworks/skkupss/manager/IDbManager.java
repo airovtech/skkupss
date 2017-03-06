@@ -40,7 +40,7 @@ public interface IDbManager {
 	
 	public Map<String, Object> showConnectedActivity(Map<String, String> param) throws Exception;	// 연결된 activity정보를 가져온다.
 	public boolean disConnect_SBPService(Map<String, String> param) throws Exception;				// SBP와 연결을 끊는다.
-	public boolean insertSbpMapData(Map<String, String> sbpData) throws Exception;					// SBP Map에서 선택한 activity정보들을 DB에 채운다.
+	public boolean insertSbpMapData(Map<String, Object> sbpData) throws Exception;					// SBP Map에서 선택한 activity정보들을 DB에 채운다.
 	public SBPService getSBPService(String psId) throws Exception;									// 연결된 SBP Project 정보를 가져온다.
 	public boolean set_PSS_SBP_Servcie_Connect(Map<String, Object> requestBody) throws Exception;	// PSS프로젝트와 SBP프로젝트를 연결시켜준다 
 }

@@ -95,7 +95,7 @@
 	});
 	
 	/* SBP list를 보려면 SBP프로젝트이름과 SBP Puid가 필요하다 */
-	var sbpNameListUrl = "http://sbp.pssd.or.kr/sbp/listForHvm.jsp?hvm=true&memberId=sbpAdmin&sPUID=" + sbpPrjPuid + "&sProjectName=" + sbpPrjName;	
+	var sbpNameListUrl = "http://sbp.pssd.or.kr/sbp/listForHvm.jsp?hvm=true&memberId=sbpAdmin&sPUID=" + sbpPrjPuid + "&sProjectName=" + encodeURI(sbpPrjName, "UTF-8");	
 	
 	/* view에 관한 속성들 변경 */
 	$(".sbpline").attr("src", sbpNameListUrl);	
@@ -131,7 +131,9 @@
 		var activityIdArray = activityId_dt; 			// activity ID
 		var activityNameArray = activityName_dt; 		// activity 이름		
 		var seqArray = seq_dt;							// activity seq(primary key)
-
+		var color = selectedColor;								// service concept 에서 선택한 이 컬러로 액티비티 테두리 색깔이 칠해지게 된다. 
+		console.log("color : " , color);
+/*
 		var activityId = [];							
 		for (var i=0; i<activityIdArray.length; i++) {
 			activityId[i] = "\"" + activityIdArray[i] + "\"";
@@ -146,9 +148,97 @@
 		for (var i=0; i<seqArray.length; i++) {
 			seq[i] = "\"" + seqArray[i] + "\"";
 		}
+*/
+//		var totalData = {"\"Info\"" : [{"\"seq\"" : seq, "\"itemName\"" : "\"" + itemName + "\"", "\"title\"" : "\"" + title + "\"" , "\"psId\"" : "\"" + psId + "\"" , "\"sbpName\"" : "\"" + sbpName + "\"" , "\"sbpId\"" : "\"" + sbpId + "\"" , "\"activityId\"" : activityId , "\"activityName\"" : activityName}, {"\"seq\"" : seq, "\"itemName\"" : "\"" + itemName + "\"", "\"title\"" : "\"" + title + "\"" , "\"psId\"" : "\"" + psId + "\"" , "\"sbpName\"" : "\"" + sbpName + "\"" , "\"sbpId\"" : "\"" + sbpId + "\"" , "\"activityId\"" : activityId , "\"activityName\"" : activityName}]}; // java에서 json데이터로 사용하기 편하게 맞춰준다. 2번째 배열에있는 데이터는 java에서 json배열이 1개만 올때 error발생으로, 임의로 추가해줬다.(이 데이터는 사용 안함.)
 
-//		var totalData = {"\"Info\"" : [{"\"itemName\"" : "\"" + itemName + "\"", "\"title\"" : "\"" + title + "\"" , "\"psId\"" : "\"" + psId + "\"" , "\"sbpName\"" : "\"" + sbpName + "\"" , "\"sbpId\"" : "\"" + sbpId + "\"" , "\"activityId\"" : activityId , "\"activityName\"" : activityName}, {"\"itemName\"" : "\"" + itemName + "\"", "\"title\"" : "\"" + title + "\"" , "\"psId\"" : "\"" + psId + "\"" , "\"sbpName\"" : "\"" + sbpName + "\"" , "\"sbpId\"" : "\"" + sbpId + "\"" , "\"activityId\"" : activityId , "\"activityName\"" : activityName}]}; // java에서 json데이터로 사용하기 편하게 맞춰준다. 2번째 배열에있는 데이터는 java에서 json배열이 1개만 올때 error발생으로, 임의로 추가해줬다.(이 데이터는 사용 안함.)
-		var totalData = {"\"Info\"" : [{"\"seq\"" : seq, "\"itemName\"" : "\"" + itemName + "\"", "\"title\"" : "\"" + title + "\"" , "\"psId\"" : "\"" + psId + "\"" , "\"sbpName\"" : "\"" + sbpName + "\"" , "\"sbpId\"" : "\"" + sbpId + "\"" , "\"activityId\"" : activityId , "\"activityName\"" : activityName}, {"\"seq\"" : seq, "\"itemName\"" : "\"" + itemName + "\"", "\"title\"" : "\"" + title + "\"" , "\"psId\"" : "\"" + psId + "\"" , "\"sbpName\"" : "\"" + sbpName + "\"" , "\"sbpId\"" : "\"" + sbpId + "\"" , "\"activityId\"" : activityId , "\"activityName\"" : activityName}]}; // java에서 json데이터로 사용하기 편하게 맞춰준다. 2번째 배열에있는 데이터는 java에서 json배열이 1개만 올때 error발생으로, 임의로 추가해줬다.(이 데이터는 사용 안함.)
+
+		var activityId = [];							
+		for (var i=0; i<activityIdArray.length+2; i++) {
+			if(i==0) {
+				activityId[i] = "/(start)/";
+			} else if(i==activityIdArray.length+1) {
+				activityId[i] = "/(end)/";
+			} else {
+				activityId[i] = activityIdArray[i-1];
+			}
+		}
+		
+		var activityName = [];
+		for (var i=0; i<activityNameArray.length+2; i++) {
+			if(i==0) {
+				activityName[i] = "/(start)/";
+			} else if(i==activityNameArray.length+1) {
+				activityName[i] = "/(end)/";
+			} else {
+				activityName[i] = activityNameArray[i-1];
+			}
+		}
+		
+		var seq = [];
+		for (var i=0; i<seqArray.length+2; i++) {
+			if(i==0) {
+				seq[i] = "/(start)/";
+			} else if(i==seqArray.length+1) {
+				seq[i] = "/(end)/";
+			} else {
+				seq[i] = seqArray[i-1];
+			}
+		}
+		
+		var sbpNameArray = [];
+		sbpNameArray[0] = "/(start)/";
+		sbpNameArray[1] = sbpName;
+		sbpNameArray[2] = "/(end)/";
+		
+		var colorArray = [];
+		colorArray[0] = "/(start)/";
+		colorArray[1] = color;
+		colorArray[2] = "/(end)/";
+		
+//		var totalData = {Info : [{seq : seq, itemName : itemName, title : title, psId : psId, sbpName : sbpName, sbpId : sbpId, activityId : activityId, activityName : activityName}]};// {"\"seq\"" : seq, "\"itemName\"" : "\"" + itemName + "\"", "\"title\"" : "\"" + title + "\"" , "\"psId\"" : "\"" + psId + "\"" , "\"sbpName\"" : "\"" + sbpName + "\"" , "\"sbpId\"" : "\"" + sbpId + "\"" , "\"activityId\"" : activityId , "\"activityName\"" : activityName}]}; // java에서 json데이터로 사용하기 편하게 맞춰준다. 2번째 배열에있는 데이터는 java에서 json배열이 1개만 올때 error발생으로, 임의로 추가해줬다.(이 데이터는 사용 안함.)
+//		var totalData = {Info : [{seq : seq, itemName : itemName, title :   title   , psId :   psId   , sbpName :   sbpName   , sbpId :   sbpId   , activityId : activityId , activityName : activityName}, {seq : seq, itemName :   itemName  , title :   title   , psId :   psId   , sbpName :   sbpName   , sbpId :   sbpId   , activityId : activityId , activityName : activityName}]}; // java에서 json데이터로 사용하기 편하게 맞춰준다. 2번째 배열에있는 데이터는 java에서 json배열이 1개만 올때 error발생으로, 임의로 추가해줬다.(이 데이터는 사용 안함.)
+		var totalData = {seq : seq, itemName : itemName, title : title, psId : psId, sbpName : sbpNameArray, sbpId : sbpId, activityId : activityId , activityName : activityName, color : colorArray}; 
+		var totalDataToString = title + "||{seq:[";
+		for(var i=0; i<seq.length; i++) {
+			if(i == seq.length-1) {
+				totalDataToString += seq[i];
+			} else {
+				totalDataToString += seq[i] + ", ";
+			}
+		}
+		totalDataToString += "], itemName:" + itemName + ", title:" + title +", psId:" + psId + ", sbpName:[";
+		for(var i=0; i<sbpNameArray.length; i++) {
+			if(i == sbpNameArray.length-1) {
+				totalDataToString += sbpNameArray[i];
+			} else {
+				totalDataToString += sbpNameArray[i] + ", ";
+			}
+		}
+		totalDataToString += "], sbpId:" + sbpId + ", activityId:[";
+		for(var i=0; i<activityId.length; i++) {
+			if(i == activityId.length-1) {
+				totalDataToString += activityId[i];
+			} else {
+				totalDataToString += activityId[i] + ", ";
+			}
+		}
+		totalDataToString += "], activityName:[";
+		for(var i=0; i<activityName.length; i++) {
+			if(i == activityName.length-1) {
+				totalDataToString += activityName[i];
+			} else {
+				totalDataToString += activityName[i] + ", ";
+			}
+		}
+		totalDataToString += "], color:[";
+		for(var i=0; i<colorArray.length; i++) {
+			if(i == colorArray.length-1) {
+				totalDataToString += colorArray[i];
+			} else {
+				totalDataToString += colorArray[i] + ", ";
+			}
+		}
+		totalDataToString += "]}";
 
 		if(!(sbpId == "null" || sbpId == "undefined" || sbpId == "")) {
 			$.ajax({
@@ -177,7 +267,8 @@
 							$(svcNameNum).children().attr("psId", psId);
 							$(svcNameNum).children().attr("itemName", itemName);
 							$(svcNameNum).children().attr("title", title);
-							$(svcNameNum).children().attr("sbpName", sbpName);
+							$(svcNameNum).children().attr("sbpName", sbpName);							
+							$('input[svcNameNum=' + svcNameNum2 + ']').attr("value", totalDataToString);
 							
 							/* 선택한 SBP의 이름을 보여준다. */
 							var title_Create_url = "title_Create.sw";
@@ -206,15 +297,16 @@
 									}
 								},
 								error : function(result){
-									alert("error : " + result);
+									alert("error[SbpNameList_title] : " + result);
 								}
 							});
+//							location.reload();
 					} else {
 						alert("Success / fail");
 					}
 				},
 				error : function(result){
-					alert("error : " + result);
+					alert("error[SbpNameList_activity] : " + result);
 				}
 			}); 
 		} else {

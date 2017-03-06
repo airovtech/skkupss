@@ -164,6 +164,7 @@
 	/* SBP Map창을 볼 때 -> 연결된 SBP Activity들을 보여준다. */
 	var title = "<%=title%>";
 	var itemName = "<%=itemName%>";
+	var sbpId = "<%=sbpId%>";
 	$.ajax({
 		type: 'POST',
 		url: "showConnectedActivity.sw",
@@ -171,9 +172,9 @@
 			"Content-Type" : "application/json",
 			"X-HTTP-Method-Override":"POST",
 		},
-		data : JSON.stringify({psId : psId , title : title, itemName : itemName}),
+		data : JSON.stringify({psId : psId , title : title, itemName : itemName, sbpId : sbpId}),
 		dataType:'json',
-		success : function(result) {
+		success : function(result) {			
 			/* 데이터바구니(header.jsp)에 DB에서 꺼내온 데이터를 담는다.  */
 			$(result).each(function() {
 				activityId_Array = this.activityId;
@@ -183,6 +184,7 @@
 				activityName_dt = this.activityName;
 				sbpId_dt = this.sbpId; 
 				sbp_dt = this.sbpName;
+				selectedColor = this.color;
 			});
 
 			/* DB에서 꺼내온 데이터를 바로 보여준다. */
@@ -197,8 +199,8 @@
 			$(".activity_content").html(activityName_Array_Impl);
 			
 			/* sbp서버로 선택했었던 activity seq 값들을 파라미터로 전송한다. */
-			var srcUrl = "http://sbp.pssd.or.kr/sbp/panel8ForHvm.jsp?seq=" + "<%=sbpId%>" + "&hvm=true&memberId=sbpAdmin&sPUID=&docTitle=" + "<%=sbpName%>" + "&sProjectName=" + "<%=sbpPrjName%>" + "";
-			srcUrl += "&seqArray=" + seq_Array + "&editMode=" + editMode;
+			var srcUrl = "http://sbp.pssd.or.kr/sbp/panel8ForHvm.jsp?seq=" + "<%=sbpId%>" + "&hvm=true&memberId=sbpAdmin&sPUID=&docTitle=" + encodeURI("<%=sbpName%>", "UTF-8") + "&sProjectName=" + encodeURI("<%=sbpPrjName%>", "UTF-8") + "&mapShow=true";
+			srcUrl += "&seqArray=" + seq_Array + "&editMode=" + editMode + "&selectedColor=" + selectedColor.substring(1, selectedColor.length);
 			$(".sbpline").attr("src", srcUrl);
 		},
 		error : function(result){
@@ -227,8 +229,9 @@
 		var activityIdArray = activityId_dt; 			// activity ID
 		var activityNameArray = activityName_dt; 		// activity 이름		
 		var seqArray = seq_dt;							// activity seq(primary key)
+		var color = selectedColor;
 		
-		var activityId = [];							
+/*		var activityId = [];							
 		for (var i=0; i<activityIdArray.length; i++) {
 			activityId[i] = "\"" + activityIdArray[i] + "\"";
 		}
@@ -242,9 +245,97 @@
 		for (var i=0; i<seqArray.length; i++) {
 			seq[i] = "\"" + seqArray[i] + "\"";
 		}
+*/
+//		var totalData = {"\"Info\"" : [{"\"seq\"" : seq, "\"itemName\"" : "\"" + itemName + "\"", "\"title\"" : "\"" + title + "\"" , "\"psId\"" : "\"" + psId + "\"" , "\"sbpName\"" : "\"" + sbpName + "\"" , "\"sbpId\"" : "\"" + sbpId + "\"" , "\"activityId\"" : activityId , "\"activityName\"" : activityName}, {"\"seq\"" : seq, "\"itemName\"" : "\"" + itemName + "\"", "\"title\"" : "\"" + title + "\"" , "\"psId\"" : "\"" + psId + "\"" , "\"sbpName\"" : "\"" + sbpName + "\"" , "\"sbpId\"" : "\"" + sbpId + "\"" , "\"activityId\"" : activityId , "\"activityName\"" : activityName}]}; // java에서 json데이터로 사용하기 편하게 맞춰준다. 2번째 배열에있는 데이터는 java에서 json배열이 1개만 올때 error발생으로, 임의로 추가해줬다.(이 데이터는 사용 안함.)
 
-		var totalData = {"\"Info\"" : [{"\"seq\"" : seq, "\"itemName\"" : "\"" + itemName + "\"", "\"title\"" : "\"" + title + "\"" , "\"psId\"" : "\"" + psId + "\"" , "\"sbpName\"" : "\"" + sbpName + "\"" , "\"sbpId\"" : "\"" + sbpId + "\"" , "\"activityId\"" : activityId , "\"activityName\"" : activityName}, {"\"seq\"" : seq, "\"itemName\"" : "\"" + itemName + "\"", "\"title\"" : "\"" + title + "\"" , "\"psId\"" : "\"" + psId + "\"" , "\"sbpName\"" : "\"" + sbpName + "\"" , "\"sbpId\"" : "\"" + sbpId + "\"" , "\"activityId\"" : activityId , "\"activityName\"" : activityName}]}; // java에서 json데이터로 사용하기 편하게 맞춰준다. 2번째 배열에있는 데이터는 java에서 json배열이 1개만 올때 error발생으로, 임의로 추가해줬다.(이 데이터는 사용 안함.)
 
+		var activityId = [];							
+		for (var i=0; i<activityIdArray.length+2; i++) {
+			if(i==0) {
+				activityId[i] = "/(start)/";
+			} else if(i==activityIdArray.length+1) {
+				activityId[i] = "/(end)/";
+			} else {
+				activityId[i] = activityIdArray[i-1];
+			}
+		}
+		
+		var activityName = [];
+		for (var i=0; i<activityNameArray.length+2; i++) {
+			if(i==0) {
+				activityName[i] = "/(start)/";
+			} else if(i==activityNameArray.length+1) {
+				activityName[i] = "/(end)/";
+			} else {
+				activityName[i] = activityNameArray[i-1];
+			}
+		}
+		
+		var seq = [];
+		for (var i=0; i<seqArray.length+2; i++) {
+			if(i==0) {
+				seq[i] = "/(start)/";
+			} else if(i==seqArray.length+1) {
+				seq[i] = "/(end)/";
+			} else {
+				seq[i] = seqArray[i-1];
+			}
+		}
+		
+		var sbpNameArray = [];
+		sbpNameArray[0] = "/(start)/";
+		sbpNameArray[1] = sbpName;
+		sbpNameArray[2] = "/(end)/";
+		
+		var colorArray = [];
+		colorArray[0] = "/(start)/";
+		colorArray[1] = color;
+		colorArray[2] = "/(end)/";
+
+		
+		var totalData = {seq : seq, itemName : itemName, title : title, psId : psId, sbpName : sbpNameArray, sbpId : sbpId, activityId : activityId , activityName : activityName, color : colorArray};
+		var totalDataToString = title + "||{seq:[";
+		for(var i=0; i<seq.length; i++) {
+			if(i == seq.length-1) {
+				totalDataToString += seq[i];
+			} else {
+				totalDataToString += seq[i] + ", ";
+			}
+		}
+		totalDataToString += "], itemName:" + itemName + ", title:" + title +", psId:" + psId + ", sbpName:[";
+		for(var i=0; i<sbpNameArray.length; i++) {
+			if(i == sbpNameArray.length-1) {
+				totalDataToString += sbpNameArray[i];
+			} else {
+				totalDataToString += sbpNameArray[i] + ", ";
+			}
+		}
+		totalDataToString += "], sbpId:" + sbpId + ", activityId:[";
+		for(var i=0; i<activityId.length; i++) {
+			if(i == activityId.length-1) {
+				totalDataToString += activityId[i];
+			} else {
+				totalDataToString += activityId[i] + ", ";
+			}
+		}
+		totalDataToString += "], activityName:[";
+		for(var i=0; i<activityName.length; i++) {
+			if(i == activityName.length-1) {
+				totalDataToString += activityName[i];
+			} else {
+				totalDataToString += activityName[i] + ", ";
+			}
+		}
+		totalDataToString += "], color:[";
+		for(var i=0; i<colorArray.length; i++) {
+			if(i == colorArray.length-1) {
+				totalDataToString += colorArray[i];
+			} else {
+				totalDataToString += colorArray[i] + ", ";
+			}
+		}
+		totalDataToString += "]}";
+		
 		$.ajax({
 			type: 'POST',
 			url: sbpMapDataUrl,
@@ -255,7 +346,10 @@
 			data : JSON.stringify(totalData),
 			dataType:'text',
 			success : function(result) {
+				
+				$('input[svcNameNum=' + svcNameNum + ']').attr("value", totalDataToString);
 				alert("Activity 연결 성공!");
+//				location.reload();
 			},
 			error : function(result){
 				alert("error : " + result);
@@ -316,7 +410,7 @@
 				$(svcNameNum2).children().attr("sbpPrjName", sbpPrjName);
 				$(svcNameNum2).children().attr("title", title);
 				$(svcNameNum2).children().attr("sbpId", "");
-				
+				$('input[svcNameNum=' + svcNameNum + ']').attr("value", title);
 				/* 연결된 'SBP-프로젝트 이름'을 보여주는곳 변경 */
 				var title_Create_url = "title_Create.sw";
 				var sbpPrjName = "<%=sbpPrjName%>";

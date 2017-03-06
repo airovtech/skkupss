@@ -590,7 +590,7 @@ public class ServiceManagerImpl implements IServiceManager {
 	
 	
 	/* SBP Map에서 선택한 activity정보들을 DB에 채운다. */
-	public boolean insertSbpMapData(Map<String, String> sbpData) throws Exception {
+	public boolean insertSbpMapData(Map<String, Object> sbpData) throws Exception {
 		
 		boolean result = ManagerFactory.getInstance().getDbManager().insertSbpMapData(sbpData);
 		
