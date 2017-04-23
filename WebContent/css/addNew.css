@@ -1,7 +1,23 @@
-.serviceConcept {
-	cursor: pointer;
+.underline {
 	text-decoration:underline; 
 }
-.serviceConcept2 {
-	cursor: pointer;
+.icon_btn_edit {
+	background: url("../images/btn_edit_activity.png") 0 no-repeat; 
+	height:18px; 
+	width:24px; 
+	display:inline-block;
+	position: relative;
+}
+.icon_show_activity {
+	background-color: #FFFFFF;
+    background: url(../images/btn_show_activity.png) no-repeat 0 0 transparent;
+    border: 0 none;
+    cursor: pointer;
+    height: 13px;
+    width: 13px;
+    right: 2px;
+    padding: 0;
+    position: relative;
+    float: left;
+    top: 1px;
 }

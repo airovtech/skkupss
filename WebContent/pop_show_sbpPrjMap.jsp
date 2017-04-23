@@ -45,12 +45,12 @@
 		z-index:1045;
 		cursor:pointer;
 	}
-	.title {
+	.serviceconcept_title {
 		position: fixed;
 		z-index:1045;
-		font-size:30px;
-		margin-left:63px;
-		margin-top:37px;
+		font-size:20px;
+		margin-left:55px;
+		margin-top:45px;
 	}
 	.dataEnsure2 {
 		position: fixed;
@@ -76,7 +76,7 @@
 		position: fixed;
 		z-index:1045;
 		font-size:15px;
-		margin-left:60px;
+		margin-left:55px;
 		margin-top:106px;
 	}
 	.activity_content {
@@ -135,7 +135,8 @@
 	   ViewMode(service concept이 아닌 'SBP-프로젝트 이름'을 클릭했을 때 -> SBP Map만 보여준다.)*/
 	var psId = "<%=psId%>";	
 	var svcNameNum = "<%=svcNameNum%>";
-	editMode = $("." + svcNameNum).attr("editMode");
+//	editMode = $("." + svcNameNum).attr("editMode");
+	editMode = localStorage.getItem("editMode");
 	if((editMode == "false") || (psId == "" || psId == "null")) {		
 		$(".dataEnsure2").css("display", "none");
 		$(".disConnect").css("display", "none");
@@ -180,13 +181,11 @@
 				activityId_Array = this.activityId;
 				activityName_Array = this.activityName;
 				seq_Array = this.seq;
-				activityId_dt =  this.activityId;
-				activityName_dt = this.activityName;
 				sbpId_dt = this.sbpId; 
 				sbp_dt = this.sbpName;
 				selectedColor = this.color;
 			});
-
+			
 			/* DB에서 꺼내온 데이터를 바로 보여준다. */
 			var activityName_Array_Impl = "";
 			for(var i=0; i<activityName_Array.length; i++) {
@@ -197,6 +196,7 @@
 				}
 			}
 			$(".activity_content").html(activityName_Array_Impl);
+			$(".serviceconcept_title").html(title);
 			
 			/* sbp서버로 선택했었던 activity seq 값들을 파라미터로 전송한다. */
 			var srcUrl = "http://sbp.pssd.or.kr/sbp/panel8ForHvm.jsp?seq=" + "<%=sbpId%>" + "&hvm=true&memberId=sbpAdmin&sPUID=&docTitle=" + encodeURI("<%=sbpName%>", "UTF-8") + "&sProjectName=" + encodeURI("<%=sbpPrjName%>", "UTF-8") + "&mapShow=true";
@@ -226,9 +226,9 @@
 		var psId = "<%=psId%>";							// PSS 프로젝트 ID 
 		var sbpName = sbp_dt;							// SBP 프로젝트 이름 
 		var sbpId = sbpId_dt;							// SBP ID
-		var activityIdArray = activityId_dt; 			// activity ID
-		var activityNameArray = activityName_dt; 		// activity 이름		
-		var seqArray = seq_dt;							// activity seq(primary key)
+//		var activityIdArray = activityId_dt; 			// activity ID
+//		var activityNameArray = activityName_dt; 		// activity 이름		
+//		var seqArray = seq_dt;							// activity seq(primary key)
 		var color = selectedColor;
 		
 /*		var activityId = [];							
@@ -250,35 +250,35 @@
 
 
 		var activityId = [];							
-		for (var i=0; i<activityIdArray.length+2; i++) {
+		for (var i=0; i<activityId_Array.length+2; i++) {
 			if(i==0) {
 				activityId[i] = "/(start)/";
-			} else if(i==activityIdArray.length+1) {
+			} else if(i==activityId_Array.length+1) {
 				activityId[i] = "/(end)/";
 			} else {
-				activityId[i] = activityIdArray[i-1];
+				activityId[i] = activityId_Array[i-1];
 			}
 		}
 		
 		var activityName = [];
-		for (var i=0; i<activityNameArray.length+2; i++) {
+		for (var i=0; i<activityName_Array.length+2; i++) {
 			if(i==0) {
 				activityName[i] = "/(start)/";
-			} else if(i==activityNameArray.length+1) {
+			} else if(i==activityName_Array.length+1) {
 				activityName[i] = "/(end)/";
 			} else {
-				activityName[i] = activityNameArray[i-1];
+				activityName[i] = activityName_Array[i-1];
 			}
 		}
 		
 		var seq = [];
-		for (var i=0; i<seqArray.length+2; i++) {
+		for (var i=0; i<seq_Array.length+2; i++) {
 			if(i==0) {
 				seq[i] = "/(start)/";
-			} else if(i==seqArray.length+1) {
+			} else if(i==seq_Array.length+1) {
 				seq[i] = "/(end)/";
 			} else {
-				seq[i] = seqArray[i-1];
+				seq[i] = seq_Array[i-1];
 			}
 		}
 		
@@ -346,10 +346,8 @@
 			data : JSON.stringify(totalData),
 			dataType:'text',
 			success : function(result) {
-				
 				$('input[svcNameNum=' + svcNameNum + ']').attr("value", totalDataToString);
 				alert("Activity 연결 성공!");
-//				location.reload();
 			},
 			error : function(result){
 				alert("error : " + result);
@@ -402,15 +400,19 @@
 				var svcNameNum2 = "." + svcNameNum;
 				var sbpPrjName = $(svcNameNum2).attr("sbpPrjName");
 				var title = "<%=title%>";
-				$(svcNameNum2).attr("class", "showSbpPrjList serviceConcept2 js_action_element_item " + svcNameNum);
+				
+				$(svcNameNum2).parents("span .icon_btn_edit").addClass("class", "showSbpPrjList")
+				$(svcNameNum2).attr("class", "js_action_element_item " + svcNameNum);
 				$(svcNameNum2).attr("sbpPrjName", sbpPrjName);
 				$(svcNameNum2).attr("title", title);
 				$(svcNameNum2).attr("sbpId", "");
-				$(svcNameNum2).children().attr("class", "showSbpPrjList serviceConcept2 js_action_element_item " + svcNameNum);
+				$(svcNameNum2).children().attr("class", "js_action_element_item " + svcNameNum);
 				$(svcNameNum2).children().attr("sbpPrjName", sbpPrjName);
 				$(svcNameNum2).children().attr("title", title);
 				$(svcNameNum2).children().attr("sbpId", "");
 				$('input[svcNameNum=' + svcNameNum + ']').attr("value", title);
+				$('input[svcNameNum=' + svcNameNum + ']').attr("disconnectsbp", "true");
+				
 				/* 연결된 'SBP-프로젝트 이름'을 보여주는곳 변경 */
 				var title_Create_url = "title_Create.sw";
 				var sbpPrjName = "<%=sbpPrjName%>";
@@ -456,9 +458,9 @@
 	}
 </script>
 <div id="sbpline">
-	<span class='title'>SBP</span>
+	<span class='serviceconcept_title'></span>
 	<span class="activity_content_wrap">
-		연결된 SBP_Activity : 
+		Selected Activity : 
 	</span>
 	<span class="activity_content w3-container w3-section w3-border w3-border-blue" style='overflow:scroll; overflow-x:hidden'></span>
 	<span>

@@ -49,10 +49,13 @@ $(function() {
 	});
 
 	$('.js_remove_element_item').live('click',function(e) {
+		console.log("here");
 		try{
 			var input = $(targetElement(e));
 			var elementSiblings = input.parents('.js_element_item:first').siblings();
 			if(isEmpty(elementSiblings)){
+				input.parents(".js_view_element_item:first").prev(".icon_btn_connect").remove();
+				
 				input.parents('.js_element_item:first').find('.js_action_element_item').text('');
 				input.parents('.js_view_element_item:first').hide().next().attr('value', '').show();
 			}else{
@@ -82,7 +85,7 @@ $(function() {
 		}			
 		return false;
 	});
-	
+
 	$('.js_action_element_item').live('dblclick', function(e) {
 		try{
 			var input = $(targetElement(e));
@@ -99,6 +102,7 @@ $(function() {
 	$('input.js_edit_element_item').live('keydown', function(e) {
 		var e = window.event || e;
 		var keyCode = e.which || e.keyCode;
+			
 		if(keyCode == $.ui.keyCode.ENTER){
 			var input = $(targetElement(e));
 			if(input.attr('value') === ''){
@@ -115,7 +119,7 @@ $(function() {
 						success : function(data, status, jqXHR) {
 							input.prevAll('.js_view_element_item').find('.js_action_element_item:first').html(data);
 						}
-					});
+					}); 
 				}
 
 			}

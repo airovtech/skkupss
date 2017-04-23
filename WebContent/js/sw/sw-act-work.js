@@ -3037,6 +3037,7 @@ $(function() {
 	$('.showSbpPrjList').live('click',function(e) {
 		try{
 			var target = $(targetElement(e));
+			target = target.next().children();
 			var sbpPrjName = target.attr('sbpPrjName');
 			var sbpId = target.attr("sbpId");
 			var psId = target.attr("psId");
@@ -3059,9 +3060,37 @@ $(function() {
 		return false;
 	});
 	
-
+	/* 서비스컨셉 풀네임 보기 및 테이블 위치 조정 */
+	$(".show-svc-list-btn").live("click", function(e) {
+		$(".svc-all-list").toggle();
+		if(state == "hide") {
+			tableWidth = parseInt(tableWidth);
+			newTableWidth = parseInt(newTableWidth);
+			$(".originalServiceConceptTable").css("margin-left", (spaceWidth - (tableWidth+newTableWidth))/2);
+			state = "show";
+		} else {
+			$(".originalServiceConceptTable").css("margin-left", (spaceWidth - tableWidth)/2);	
+			state = "hide";
+		}
+	});
+	 
+	/* 서비스컨셉과 연결된 activity 수정 모드로 변환  */
+	$(".connect-sbp").live("click", function(e) {
+		$(".icon_btn_connect").removeClass("icon_show_activity");
+		$(".icon_btn_connect").addClass("showSbpPrjList");
+		$(".icon_btn_connect").addClass("icon_btn_edit");
+		localStorage.setItem("editMode", "true");
+	});
 	
-	
+	/* 모든 서비스컨셉에 연결된 activity를 한번에 보여주는 smartpop를 띄어준다   */
+	$(".show-all-activities").live("click", function(e){
+		try{
+			var psId = $(".show-all-activities").attr("psId");
+			smartPop.showAllActivities(psId);
+		}catch(error) {
+			alert(error);
+		}
+	});
 	
 });
 }catch(error){

@@ -739,10 +739,11 @@ a:hover.btn_arr_next2 {background: url("../../images/body_icon.png") no-repeat -
 
 .txt_btn .title_line_btns {margin-right:10px}
 
-.icon_btn_edit {background: url("../../images/body_icon.png") 0 -859px no-repeat; height:18px; width:24px; display:inline-block}
 
+/* .icon_btn_edit {background: url("../../images/body_icon.png") 0 -859px no-repeat; height:18px; width:24px; display:inline-block} */ 
+/*
 a .icon_btn_edit:hover {background-position:-36px -859px}
-
+*/
 .icon_btn_create {background: url("../../images/bgBtnIcons.gif") 0 -42px no-repeat; height:21px; display:inline-block; padding-left:22px}
 
 .icon_btn_excel {background: url("../../images/bgBtnIcons.gif") 0 -63px no-repeat; height:21px; display:inline-block; padding-left:22px}

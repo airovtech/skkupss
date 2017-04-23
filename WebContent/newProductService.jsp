@@ -24,6 +24,7 @@
 try{
 //완료버튼 클릭시 reserve_asset.sw 서비스를 실행하기 위해 submit하는 스크립트..
 function submitForms(tempSave) {
+	settingValue();
 	var newProductService = $('.js_new_product_service_page');
 	// new_asset_reservation 에 있는 활성화되어 있는 모든 입력화면들을 validation하여 이상이 없으면 submit를 진행한다...
 	if(!SmartWorks.GridLayout.validate(newProductService.find('form.js_validation_required:visible'), $('.js_upload_error_message'))) return;
@@ -195,7 +196,7 @@ function submitForms(tempSave) {
 			cloneSelectedValues(spaceTab, newSpaceTab);
 			newProductService.find('form[name="frmNewProductService"]').append($('<form name="frmSpaceTab"></form>').html(newSpaceTab).hide());
 			paramsJsonHiddens[spaceType] = mergeObjects(newSpaceTab.parent('form').serializeObject(), SmartWorks.GridLayout.serializeObject(newSpaceTab.parent('form')));
-			console.log("mergeObjects1-1 : ", mergeObjects(newSpaceTab.parent('form').serializeObject()));
+			//console.log("mergeObjects1-1 : ", mergeObjects(newSpaceTab.parent('form').serializeObject()));
 			spaceTab.parent().remove();
 		}else{
 			paramsJsonHiddens[spaceType] = mergeObjects(spaceTab.parent('form').serializeObject(), SmartWorks.GridLayout.serializeObject(spaceTab.parent('form')));
@@ -214,7 +215,7 @@ function submitForms(tempSave) {
 	if(!isEmpty(psId))
 		paramsJson["psId"] = psId;
 	
-	console.log(JSON.stringify(paramsJson));
+//	console.log(JSON.stringify(paramsJson));
 	// 서비스요청 프로그래스바를 나타나게 한다....
 	var progressSpan = newProductService.find('.js_progress_span');
 	smartPop.progressCont(progressSpan);
@@ -559,10 +560,10 @@ try{
 					'<th><a spaceType="6" spaceTypeStr="<%=ProductService.PSS_SPACE_CUSTOMER%>" href="viewCustomerSpace.jsp">Customer Space</a></th>' +  
 					'<th><a spaceType="7" spaceTypeStr="<%=ProductService.PSS_SPACE_BIZ_MODEL%>" href="viewBizModelSpace.jsp">Biz Model Space</a></th>' +  
 					'<th><a spaceType="8" spaceTypeStr="<%=ProductService.PSS_SPACE_ACTOR%>" isCVCAEnabled="<%=isCVCAEnabled%>" href="viewActorSpace.jsp">Actor Space</a></th>' +  
-					'<th><a spaceType="9" spaceTypeStr="<%=ProductService.PSS_SPACE_SOCIETY%>" href="viewSocietySpace.jsp">Society Space</a></th>' +  
+//					'<th><a spaceType="9" spaceTypeStr="<%=ProductService.PSS_SPACE_SOCIETY%>" href="viewSocietySpace.jsp">Society Space</a></th>' +  
 					'<th><a spaceType="10" spaceTypeStr="<%=ProductService.PSS_SPACE_CONTEXT%>" href="viewContextSpace.jsp">Interaction Context Space</a></th>' +  
 					'<th><a spaceType="11" spaceTypeStr="<%=ProductService.PSS_SPACE_TIME%>" href="viewTimeSpace.jsp">Time Space</a></th>' +  
-					'<th><a spaceType="12" spaceTypeStr="<%=ProductService.PSS_SPACE_ENVIRONMENT%>" href="viewEnvironmentSpace.jsp">Environment Space</a></th>' +  
+//					'<th><a spaceType="12" spaceTypeStr="<%=ProductService.PSS_SPACE_ENVIRONMENT%>" href="viewEnvironmentSpace.jsp">Environment Space</a></th>' +  
 				'</tr>' + 
 			'</table>' +
 			'<div class="up" style="border-top: #dfeffc 1px solid">' +

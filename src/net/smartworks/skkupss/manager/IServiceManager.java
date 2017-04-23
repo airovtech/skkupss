@@ -46,8 +46,6 @@ public interface IServiceManager {
 	public User getUser(String userId) throws Exception;
 	
 	
-	
-	
 	public Map<String, Object> showConnectedActivity(Map<String, String> param) throws Exception;		// 연결된 activity정보를 가져온다. 
 	
 	public boolean disConnect_SBPService(Map<String, String> param) throws Exception;		// SBP와 연결을 끊는다. 

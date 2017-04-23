@@ -84,14 +84,17 @@
 						ProductService.PSS_SPACE_ACTOR_CVCA)) {%>selected<%}%>><fmt:message key="pss.title.space.actor_cvca"/></option>
 <%-- 						<option value="<%=ProductService.PSS_SPACE_ACTOR%>" <%if (params.getSpaceType().equals(
 						ProductService.PSS_SPACE_ACTOR)) {%>selected<%}%>><fmt:message key="pss.title.space.actor"/></option>
- --%>						<option value="<%=ProductService.PSS_SPACE_SOCIETY%>" <%if (params.getSpaceType().equals(
+ --%>
+ <!-- 					<option value="<%=ProductService.PSS_SPACE_SOCIETY%>" <%if (params.getSpaceType().equals(
 						ProductService.PSS_SPACE_SOCIETY)) {%>selected<%}%>><fmt:message key="pss.title.space.society"/></option>
+-->
 						<option value="<%=ProductService.PSS_SPACE_CONTEXT%>" <%if (params.getSpaceType().equals(
 						ProductService.PSS_SPACE_CONTEXT)) {%>selected<%}%>><fmt:message key="pss.title.space.context"/></option>
 						<option value="<%=ProductService.PSS_SPACE_TIME%>" <%if (params.getSpaceType().equals(
 						ProductService.PSS_SPACE_TIME)) {%>selected<%}%>><fmt:message key="pss.title.space.time"/></option>
-						<option value="<%=ProductService.PSS_SPACE_ENVIRONMENT%>" <%if (params.getSpaceType().equals(
+<!--					<option value="<%=ProductService.PSS_SPACE_ENVIRONMENT%>" <%if (params.getSpaceType().equals(
 						ProductService.PSS_SPACE_ENVIRONMENT)) {%>selected<%}%>><fmt:message key="pss.title.space.environment"/></option>
+-->
 					</select>
 					<span class="js_progress_span"></span>
 				</form>
@@ -154,14 +157,17 @@
 							ProductService.PSS_SPACE_ACTOR_CVCA)) {%>selected<%}%>><fmt:message key="pss.title.space.actor_cvca"/></option>
 <%-- 							<option value="<%=ProductService.PSS_SPACE_ACTOR%>" <%if (params.getSpaceType().equals(
 							ProductService.PSS_SPACE_ACTOR)) {%>selected<%}%>><fmt:message key="pss.title.space.actor"/></option>
- --%>							<option value="<%=ProductService.PSS_SPACE_SOCIETY%>" <%if (params.getSpaceType().equals(
+ --%>							
+<!-- 						<option value="<%=ProductService.PSS_SPACE_SOCIETY%>" <%if (params.getSpaceType().equals(
 							ProductService.PSS_SPACE_SOCIETY)) {%>selected<%}%>><fmt:message key="pss.title.space.society"/></option>
+-->
 							<option value="<%=ProductService.PSS_SPACE_CONTEXT%>" <%if (params.getSpaceType().equals(
 							ProductService.PSS_SPACE_CONTEXT)) {%>selected<%}%>><fmt:message key="pss.title.space.context"/></option>
 							<option value="<%=ProductService.PSS_SPACE_TIME%>" <%if (params.getSpaceType().equals(
 							ProductService.PSS_SPACE_TIME)) {%>selected<%}%>><fmt:message key="pss.title.space.time"/></option>
-							<option value="<%=ProductService.PSS_SPACE_ENVIRONMENT%>" <%if (params.getSpaceType().equals(
+<!-- 						<option value="<%=ProductService.PSS_SPACE_ENVIRONMENT%>" <%if (params.getSpaceType().equals(
 							ProductService.PSS_SPACE_ENVIRONMENT)) {%>selected<%}%>><fmt:message key="pss.title.space.environment"/></option>
+-->
 						</select>
 						<div class="js_view_space_target">
 						<%
@@ -341,14 +347,17 @@
 						ProductService.PSS_SPACE_ACTOR_CVCA)) {%>selected<%}%>><fmt:message key="pss.title.space.actor_cvca"/></option>
 <%-- 						<option value="<%=ProductService.PSS_SPACE_ACTOR%>" <%if (params.getSpaceType().equals(
 						ProductService.PSS_SPACE_ACTOR)) {%>selected<%}%>><fmt:message key="pss.title.space.actor"/></option>
- --%>						<option value="<%=ProductService.PSS_SPACE_SOCIETY%>" <%if (params.getSpaceType().equals(
+ --%>
+<!-- 					<option value="<%=ProductService.PSS_SPACE_SOCIETY%>" <%if (params.getSpaceType().equals(
 						ProductService.PSS_SPACE_SOCIETY)) {%>selected<%}%>><fmt:message key="pss.title.space.society"/></option>
+-->
 						<option value="<%=ProductService.PSS_SPACE_CONTEXT%>" <%if (params.getSpaceType().equals(
 						ProductService.PSS_SPACE_CONTEXT)) {%>selected<%}%>><fmt:message key="pss.title.space.context"/></option>
 						<option value="<%=ProductService.PSS_SPACE_TIME%>" <%if (params.getSpaceType().equals(
 						ProductService.PSS_SPACE_TIME)) {%>selected<%}%>><fmt:message key="pss.title.space.time"/></option>
-						<option value="<%=ProductService.PSS_SPACE_ENVIRONMENT%>" <%if (params.getSpaceType().equals(
+<!-- 					<option value="<%=ProductService.PSS_SPACE_ENVIRONMENT%>" <%if (params.getSpaceType().equals(
 						ProductService.PSS_SPACE_ENVIRONMENT)) {%>selected<%}%>><fmt:message key="pss.title.space.environment"/></option>
+-->
 					</select>
 					<span class="js_progress_span"></span>
 				</form>

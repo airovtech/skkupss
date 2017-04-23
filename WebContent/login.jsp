@@ -41,7 +41,7 @@
 	
 			<!-- Header -->
 			<div id="lo_header">
-				<div class="lo_logo pt3 vb" style="color:white; font-size:20px;width:500px;padding-top: 20px !important;"><fmt:message key="pss.title.repository"/></div>	
+				<div class="lo_logo pt3 vb" style="color:white; font-size:20px;width:600px;padding-top: 20px !important;"><fmt:message key="pss.title.repository"/></div>	
  				<form class="lo_idp t_wh" action="j_spring_security_check" method="post">
 					<div class="fl mr5" >
 					<div class="mb2" style="width:142px"><fmt:message key="profile.title.email"/></div>

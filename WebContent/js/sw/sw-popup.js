@@ -2204,6 +2204,44 @@ smartPop = {
 		});
 	},
 		
+	/* 모든 서비스컨셉에 연결된 activity를 한번에 가져오기 위해 해당 PSS프로젝트의 모든 서비스컨셉 관련 데이터를 가져온다. */
+	showAllActivities : function(psId) {
+		var url = "pop_show_all_activities.sw";
+		$.ajax({
+			type : "POST",
+			url : url,
+			headers : {
+				"Content-Type" : " application/json",
+				"X-HTTP-Method-Override" : "POST"
+			},
+			data : psId,
+			dataType:"text",
+			success : function(result) {
+				var width = $(window).width()-200;
+				var left = (($(window).width() - width) / 2);
+				var height = $(window).height()-250;
+				var top = (($(window).height() - height) / 2);
+				
+				$(result).modal({
+					opacity: 10,
+					overlayCss: {backgroundColor:"#000"},
+					autoPosition: false,
+					containerCss:{
+						height:height,
+						width:width,
+						top:top-115,
+						left: left-25
+					},
+					overlayClose: false,
+					onShow: function(dialog){}
+				});
+			},
+			error : function(result) {
+				alert("error : " + result);
+				console.log(result);
+			}
+		});
+	}
 	
 		
 };

@@ -20,7 +20,7 @@
 		position: fixed;
 		z-index:1042;
 		margin-top:20px;
-		border-top: 160px solid white;
+		border-top: 80px solid white;
 		border-right: 30px solid white;
 		border-bottom: 50px solid white;
 		border-left: 30px solid white;
@@ -40,12 +40,12 @@
 		z-index:1045;
 		cursor:pointer;
 	}
-	.title {
+	.serviceconcept_title {
 		position: fixed;
 		z-index:1045;
-		font-size:30px;
+		font-size:20px;
 		margin-left:63px;
-		margin-top:37px;
+		margin-top:45px;
 	}
 	.dataEnsure1 {
 		position: fixed;
@@ -95,12 +95,12 @@
 	});
 	
 	/* SBP list를 보려면 SBP프로젝트이름과 SBP Puid가 필요하다 */
-	var sbpNameListUrl = "http://sbp.pssd.or.kr/sbp/listForHvm.jsp?hvm=true&memberId=sbpAdmin&sPUID=" + sbpPrjPuid + "&sProjectName=" + encodeURI(sbpPrjName, "UTF-8");	
+	var sbpNameListUrl = "http://sbp.pssd.or.kr/sbp/listForHvm.jsp?hvm=true&memberId=sbpAdmin&sPUID=" + sbpPrjPuid + "&sProjectName=" + encodeURI(sbpPrjName, "UTF-8") + "&editMode=true";	
 	
 	/* view에 관한 속성들 변경 */
 	$(".sbpline").attr("src", sbpNameListUrl);	
 	var width = $(window).width()-200;
-	var height = $(window).height()-250;
+	var height = $(window).height()-200;
 	$(".sbpline").css("width", width);
 	$(".sbpline").css("height", height);
 	$(".dataEnsure1").css("margin-left", width/2);
@@ -132,7 +132,6 @@
 		var activityNameArray = activityName_dt; 		// activity 이름		
 		var seqArray = seq_dt;							// activity seq(primary key)
 		var color = selectedColor;								// service concept 에서 선택한 이 컬러로 액티비티 테두리 색깔이 칠해지게 된다. 
-		console.log("color : " , color);
 /*
 		var activityId = [];							
 		for (var i=0; i<activityIdArray.length; i++) {
@@ -256,13 +255,14 @@
 						var svcNameNum = ".<%=svcNameNum%>";						// svcNameNum 속성값으로 class name을 찾아서 속성값을 넣어준다.
 						var svcNameNum2 = "<%=svcNameNum%>";
 							/* activity가 연결된 service concept의 속성을 변경해준다. */
-							$(svcNameNum).attr("class", "showSbpPrjList serviceConcept js_action_element_item " + svcNameNum2);
+							$(svcNameNum).parents("span .icon_btn_edit").addClass("class", "showSbpPrjList")
+							$(svcNameNum).attr("class", "underline js_action_element_item " + svcNameNum2);
 							$(svcNameNum).attr("sbpId", sbpId);	
 							$(svcNameNum).attr("psId", psId);
 							$(svcNameNum).attr("itemName", itemName);
 							$(svcNameNum).attr("title", title);
 							$(svcNameNum).attr("sbpName", sbpName);
-							$(svcNameNum).children().attr("class", "showSbpPrjList serviceConcept js_action_element_item " + svcNameNum2);
+							$(svcNameNum).children().attr("class", "underline js_action_element_item " + svcNameNum2);
 							$(svcNameNum).children().attr("sbpId", sbpId);	
 							$(svcNameNum).children().attr("psId", psId);
 							$(svcNameNum).children().attr("itemName", itemName);
@@ -300,7 +300,6 @@
 									alert("error[SbpNameList_title] : " + result);
 								}
 							});
-//							location.reload();
 					} else {
 						alert("Success / fail");
 					}
@@ -321,14 +320,16 @@
 		activityName_Array = new Array();
 		seq_Array = new Array();
 	}
+	
+	$(".serviceconcept_title").html("<%=title%>");
 </script>
 
 <div id="sbpline">
-	<span class='title'>SBP</span>
-	<span class="activity_content_wrap">
-		연결된 SBP_Activity : 
+	<span class='serviceconcept_title'></span>
+	<span class="activity_content_wrap" style="display:none;">
+		Selected Activity : 
 	</span>
-	<span class="activity_content" style='overflow:scroll; overflow-x:hidden'></span>
+	<span class="activity_content" style='overflow:scroll; overflow-x:hidden; display:none;'></span>
 	<span>
 		<a class='close_btn' title='Close'>
 			<img class='modalCloseImg simplemodal-close close_btn_pic resetSbpData1' src="/skkupss/smarteditor/img/btn_close.png"/>
@@ -336,7 +337,7 @@
 	</span>
 	<iframe class="sbpline" src="" style='overflow:scroll; overflow-x:hidden'></iframe>
 	<!--<button class="dataEnsure1 simplemodal-close" type="button" onclick="dataEnsure1();">확인</button>-->
-	<span class="btn_gray dataEnsure1 simplemodal-close cursor" onclick="dataEnsure1();">
+	<span class="btn_gray dataEnsure1 simplemodal-close cursor" onclick="dataEnsure1();" style="display:none;">
 		<span class="txt_btn_start"></span>
 		<span class="txt_btn_center">확인</span>
 		<span class="txt_btn_end"></span>

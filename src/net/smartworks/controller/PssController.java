@@ -21,6 +21,7 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.smartworks.common.DataConvert;
 import net.smartworks.factory.DaoFactory;
 import net.smartworks.factory.ManagerFactory;
 import net.smartworks.skkupss.model.ActorSpace;
@@ -841,5 +842,30 @@ public class PssController {
 		return SmartUtil.returnMnv(request, "pop_show_sbpPrjMap.jsp", "pop_show_sbpPrjMap.tiles");
 	}
 	
+	/* 1개의 PSS프로젝트의 모든 서비스컨셉에 연결된 activity를 한번에 보여준다. (modal 페이지 호출) */
+	@RequestMapping(value="/pop_show_all_activities", method = RequestMethod.POST)
+	public ModelAndView popShowAllActivities(HttpServletRequest request, HttpServletResponse response, @RequestBody String psId) {
+		SBPService sbpInfo = new SBPService();
+		try {
+			sbpInfo = ManagerFactory.getInstance().getServiceManager().getSBPService(psId);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		request.setAttribute("sbpInfo", sbpInfo);
+		return SmartUtil.returnMnv(request, "pop_show_all_activities.jsp", "pop_show_all_activities.tiles");
+	}
 	
+	/* 1개의 PSS프로젝트의 모든 서비스컨셉에 연결된 activity를 한번에 보여준다. (실제 데이터 호출) 
+	@RequestMapping(value="/pop_show_all_activities_data", method = RequestMethod.POST)
+	public String popShowAllActivities_data(HttpServletRequest request, HttpServletResponse response, @RequestBody String psId) {
+		SBPService sbpInfo = new SBPService();
+		try {
+			sbpInfo = ManagerFactory.getInstance().getServiceManager().getSBPService(psId);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	 */
 }

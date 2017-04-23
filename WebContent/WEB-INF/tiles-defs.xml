@@ -39,8 +39,9 @@
 		<put-attribute name="content" value="/userManagement.jsp" />
 	</definition>
 	
-	
+<!-- 
 	<definition name="pop_show_sbp_line" extends="smart">
 		<put-attribute name="content" value="/pop_show_sbp_line.jsp" />
 	</definition>
+-->
 </tiles-definitions>

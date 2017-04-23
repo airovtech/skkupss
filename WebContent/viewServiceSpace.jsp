@@ -53,6 +53,11 @@
 	} else{}																				// 관련된 SBP프로젝트가 없을경우
 */
  	%>
+ 	
+<script>
+	/* 연결된 activity가 있는 서비스컨셉을 볼 때 수정모드인지 아닌지 설정 */
+	localStorage.setItem("editMode", "false");
+</script>
 <fmt:setLocale value="<%=cUser.getLocale() %>" scope="request" />
 <fmt:setBundle basename="resource.smartworksMessage" scope="request" />
  	 
@@ -70,7 +75,7 @@
 			<input class="fieldline js_edit_element_item" style="height:20px; display:inline-block; font-size:11px; background-color:white" type="text" value="">
 		</div>
 	</div>
-	<table class="up tc" style="width:550px;min-height:200px;margin-left:auto;margin-right:auto;">
+	<table class="up tc originalServiceConceptTable" style="width:550px;min-height:200px; margin-left:auto; margin-right:auto; float:left;">
 		<tr style="border-bottom: darkgray solid 8px;height:24px">
 			<th class="tc" style="width:20%"><img src="images/pss/service-bullet.png" style="width: 24px;height: 24px;position: relative;top: 17px;"/></th>
 			<th class="tc" style="width:20%"><img src="images/pss/service-bullet.png" style="width: 24px;height: 24px;position: relative;top: 17px;"/></th>
@@ -88,11 +93,12 @@
 							String sbpName = ServiceSpace.ValueSbpInfoEach(values[i]); 
 					%>
 							<div class="edit_item <%if(isEditMode){ %>service_item<%} %> js_element_item" itemName="Sspp" style="height:24px; overflow:hidden; border: 1px solid #c7c7c7;background-color:#BFF7F5;margin:5px 0;width:88px;font-size:11px">
+								<span class="icon_btn_connect <%if(!ServiceSpace.getValueSbpId(values[i]).equals("")){ %>icon_show_activity showSbpPrjList<%} %>" style="cursor:pointer;"></span>
 								<span class="js_view_element_item">
-<!-- 수정모드 && 연결된 activity가 있을때 -->	<span class="<%if(isEditMode && !ServiceSpace.getValueSbpId(values[i]).equals("")){ %>js_action_element_item serviceConcept showSbpPrjList			
-											<%} else if(!ServiceSpace.getValueSbpId(values[i]).equals("")) {%> serviceConcept showSbpPrjList
-											<%} else if(isEditMode){ %> js_action_element_item serviceConcept2 showSbpPrjList<%} %> svcSSPP svcSSPP<%=i %>"  svcNameNum="svcSSPP<%=i %>"
-											sbpPrjName="<%=sbpPrjName %>" sbpName="<%=sbpName %>" sbpId="<%=ServiceSpace.getValueSbpId(values[i]) %>" psId="<%=psId%>" <%if(isEditMode) {%> editMode="true"<%} else {%> editMode="false" <% }%> title="<%=ServiceSpace.getValueString(values[i]) %>" ><%=ServiceSpace.getValueHtml(values[i], sbpPrjName, "svcSSPP", isEditMode, psId, i, sbpName) %>
+<!-- 수정모드 && 연결된 activity가 있을때 -->	<span class="serviceconceptlist <%if(isEditMode && !ServiceSpace.getValueSbpId(values[i]).equals("")){ %>js_action_element_item underline 			
+											<%} else if(!ServiceSpace.getValueSbpId(values[i]).equals("")) {%> underline 
+											<%} else if(isEditMode){ %> js_action_element_item  <%} %> svcSSPP svcSSPP<%=i %>"  svcNameNum="svcSSPP<%=i %>"
+											sbpPrjName="<%=sbpPrjName %>" sbpName="<%=sbpName %>" sbpId="<%=ServiceSpace.getValueSbpId(values[i]) %>" psId="<%=psId%>" editMode="false" title="<%=ServiceSpace.getValueString(values[i]) %>" ><%=ServiceSpace.getValueHtml(values[i], sbpPrjName, "svcSSPP", isEditMode, psId, i, sbpName) %>
 										</span>
 									<%
 									if(isEditMode){
@@ -108,7 +114,7 @@
 								<%
 								if(isEditMode){
 								%>
-									<input class="fieldline js_edit_element_item" svcNameNum="svcSSPP<%=i %>" name="txtSsppItem" style="height:20px; display:none; font-size:11px; background-color:white" type="text" value="<%=CommonUtil.toNotNull(values[i]) %>">
+									<input class="fieldline js_edit_element_item" svcNameNum="svcSSPP<%=i %>" disconnectsbp="false" name="txtSsppItem" style="height:20px; display:none; font-size:11px; background-color:white" type="text" value="<%=ServiceSpace.getValueString(CommonUtil.toNotNull(values[i])) %>">
 								<%
 								}
 								%>
@@ -141,11 +147,12 @@
 							String sbpName = ServiceSpace.ValueSbpInfoEach(values[i]); 
 					%>
 							<div class="edit_item <%if(isEditMode){ %>service_item<%} %> js_element_item" itemName="Ssp" style="height:24px; overflow:hidden; border: 1px solid #c7c7c7;background-color:#BFF7F5;margin:5px 0;width:88px;font-size:11px">
+								<span class="icon_btn_connect <%if(!ServiceSpace.getValueSbpId(values[i]).equals("")){ %>icon_show_activity showSbpPrjList<%} %>" style="cursor:pointer;"></span>
  								<span class="js_view_element_item" >
-									<span class="<%if(isEditMode && !ServiceSpace.getValueSbpId(values[i]).equals("")){ %>js_action_element_item serviceConcept showSbpPrjList
-										<%} else if(!ServiceSpace.getValueSbpId(values[i]).equals("")) {%> serviceConcept showSbpPrjList
-										<%} else if(isEditMode){ %> js_action_element_item serviceConcept2 showSbpPrjList<%} %> svcSSPc svcSSPc<%=i %>" svcNameNum="svcSSPc<%=i %>"
-										sbpPrjName="<%=sbpPrjName %>" sbpName="<%=sbpName %>" sbpId="<%=ServiceSpace.getValueSbpId(values[i]) %>"  psId="<%=psId%>" <%if(isEditMode) {%> editMode="true"<%} else {%> editMode="false" <% }%> title="<%=ServiceSpace.getValueString(values[i]) %>" ><%=ServiceSpace.getValueHtml(values[i], sbpPrjName, "svcSSPc", isEditMode, psId, i, sbpName) %>
+									<span class="serviceconceptlist <%if(isEditMode && !ServiceSpace.getValueSbpId(values[i]).equals("")){ %>js_action_element_item underline 
+										<%} else if(!ServiceSpace.getValueSbpId(values[i]).equals("")) {%> underline 
+										<%} else if(isEditMode){ %> js_action_element_item  <%} %> svcSSPc svcSSPc<%=i %>" svcNameNum="svcSSPc<%=i %>"
+										sbpPrjName="<%=sbpPrjName %>" sbpName="<%=sbpName %>" sbpId="<%=ServiceSpace.getValueSbpId(values[i]) %>"  psId="<%=psId%>" editMode="false" title="<%=ServiceSpace.getValueString(values[i]) %>" ><%=ServiceSpace.getValueHtml(values[i], sbpPrjName, "svcSSPc", isEditMode, psId, i, sbpName) %>
 									</span>
 									<%
 									if(isEditMode){
@@ -161,7 +168,7 @@
 								<%
 								if(isEditMode){
 								%>
-									<input class="fieldline js_edit_element_item" svcNameNum="svcSSPc<%=i %>" name="txtSspItem" style="height:20px; display:none; font-size:11px; background-color:white" type="text" value="<%=CommonUtil.toNotNull(values[i]) %>">
+									<input class="fieldline js_edit_element_item" svcNameNum="svcSSPc<%=i %>" disconnectsbp="false" name="txtSspItem" style="height:20px; display:none; font-size:11px; background-color:white" type="text" value="<%=ServiceSpace.getValueString(CommonUtil.toNotNull(values[i])) %>">
 								<%
 								}
 								%>
@@ -194,11 +201,12 @@
 							String sbpName = ServiceSpace.ValueSbpInfoEach(values[i]); 
 					%>
 							<div class="edit_item <%if(isEditMode){ %>service_item<%} %> js_element_item" itemName="Sspc" style="height:24px; overflow:hidden; border: 1px solid #c7c7c7;background-color:#BFF7F5;margin:5px 0;width:88px;font-size:11px">
+								<span class="icon_btn_connect <%if(!ServiceSpace.getValueSbpId(values[i]).equals("")){ %>icon_show_activity showSbpPrjList<%} %>" style="cursor:pointer;"></span>
 								<span class="js_view_element_item">
-									<span class="<%if(isEditMode && !ServiceSpace.getValueSbpId(values[i]).equals("")){ %>js_action_element_item serviceConcept showSbpPrjList
-										<%} else if(!ServiceSpace.getValueSbpId(values[i]).equals("")) {%> serviceConcept showSbpPrjList
-										<%} else if(isEditMode){ %> js_action_element_item serviceConcept2 showSbpPrjList<%} %> svcSSPC2 svcSSPC2<%=i %>"  svcNameNum="svcSSPC2<%=i %>"
-										sbpPrjName="<%=sbpPrjName %>" sbpName="<%=sbpName %>" sbpId="<%=ServiceSpace.getValueSbpId(values[i]) %>" psId="<%=psId%>" <%if(isEditMode) {%> editMode="true"<%} else {%> editMode="false" <% }%> title="<%=ServiceSpace.getValueString(values[i]) %>" ><%=ServiceSpace.getValueHtml(values[i], sbpPrjName, "svcSSPC2", isEditMode, psId, i, sbpName) %>
+									<span class="serviceconceptlist <%if(isEditMode && !ServiceSpace.getValueSbpId(values[i]).equals("")){ %>js_action_element_item underline 
+										<%} else if(!ServiceSpace.getValueSbpId(values[i]).equals("")) {%> underline 
+										<%} else if(isEditMode){ %> js_action_element_item  <%} %> svcSSPC2 svcSSPC2<%=i %>"  svcNameNum="svcSSPC2<%=i %>"
+										sbpPrjName="<%=sbpPrjName %>" sbpName="<%=sbpName %>" sbpId="<%=ServiceSpace.getValueSbpId(values[i]) %>" psId="<%=psId%>" editMode="false" title="<%=ServiceSpace.getValueString(values[i]) %>" ><%=ServiceSpace.getValueHtml(values[i], sbpPrjName, "svcSSPC2", isEditMode, psId, i, sbpName) %>
 									</span>
 									<%
 									if(isEditMode){
@@ -214,7 +222,7 @@
 								<%
 								if(isEditMode){
 								%>
-									<input class="fieldline js_edit_element_item" svcNameNum="svcSSPC2<%=i %>" name="txtSspcItem" style="height:20px; display:none; font-size:11px; background-color:white" type="text" value="<%=CommonUtil.toNotNull(values[i]) %>">
+									<input class="fieldline js_edit_element_item" svcNameNum="svcSSPC2<%=i %>" disconnectsbp="false" name="txtSspcItem" style="height:20px; display:none; font-size:11px; background-color:white" type="text" value="<%=ServiceSpace.getValueString(CommonUtil.toNotNull(values[i])) %>">
 								<%
 								}
 								%>
@@ -247,11 +255,12 @@
 							String sbpName = ServiceSpace.ValueSbpInfoEach(values[i]); 
 					%>
 							<div class="edit_item <%if(isEditMode){ %>service_item<%} %> js_element_item" itemName="Ssc" style="height:24px; overflow:hidden; border: 1px solid #c7c7c7;background-color:#BFF7F5;margin:5px 0;width:88px;font-size:11px">
+								<span class="icon_btn_connect <%if(!ServiceSpace.getValueSbpId(values[i]).equals("")){ %>icon_show_activity showSbpPrjList<%} %>" style="cursor:pointer;"></span>
 								<span class="js_view_element_item">
-									<span class="<%if(isEditMode && !ServiceSpace.getValueSbpId(values[i]).equals("")){ %>js_action_element_item serviceConcept showSbpPrjList
-										<%} else if(!ServiceSpace.getValueSbpId(values[i]).equals("")) {%> serviceConcept showSbpPrjList
-										<%} else if(isEditMode){ %> js_action_element_item serviceConcept2 showSbpPrjList<%} %> svcSSCp svcSSCp<%=i %>"  svcNameNum="svcSSCp<%=i %>"
-										sbpPrjName="<%=sbpPrjName %>" sbpName="<%=sbpName %>" sbpId="<%=ServiceSpace.getValueSbpId(values[i]) %>" psId="<%=psId%>" <%if(isEditMode) {%> editMode="true"<%} else {%> editMode="false" <% }%> title="<%=ServiceSpace.getValueString(values[i]) %>" ><%=ServiceSpace.getValueHtml(values[i], sbpPrjName, "svcSSCp", isEditMode, psId, i, sbpName) %>
+									<span class="serviceconceptlist <%if(isEditMode && !ServiceSpace.getValueSbpId(values[i]).equals("")){ %>js_action_element_item underline 
+										<%} else if(!ServiceSpace.getValueSbpId(values[i]).equals("")) {%> underline 
+										<%} else if(isEditMode){ %> js_action_element_item  <%} %> svcSSCp svcSSCp<%=i %>"  svcNameNum="svcSSCp<%=i %>"
+										sbpPrjName="<%=sbpPrjName %>" sbpName="<%=sbpName %>" sbpId="<%=ServiceSpace.getValueSbpId(values[i]) %>" psId="<%=psId%>" editMode="false" title="<%=ServiceSpace.getValueString(values[i]) %>" ><%=ServiceSpace.getValueHtml(values[i], sbpPrjName, "svcSSCp", isEditMode, psId, i, sbpName) %>
 									</span>
 									<%
 									if(isEditMode){
@@ -267,7 +276,7 @@
 								<%
 								if(isEditMode){
 								%>
-									<input class="fieldline js_edit_element_item" svcNameNum="svcSSCp<%=i %>" name="txtSscItem" style="height:20px; display:none; font-size:11px; background-color:white" type="text" value="<%=CommonUtil.toNotNull(values[i]) %>">
+									<input class="fieldline js_edit_element_item" svcNameNum="svcSSCp<%=i %>" disconnectsbp="false" name="txtSscItem" style="height:20px; display:none; font-size:11px; background-color:white" type="text" value="<%=ServiceSpace.getValueString(CommonUtil.toNotNull(values[i])) %>">
 								<%
 								}
 								%>
@@ -300,11 +309,12 @@
 							String sbpName = ServiceSpace.ValueSbpInfoEach(values[i]); 
 					%>
 							<div class="edit_item <%if(isEditMode){ %>service_item<%} %> js_element_item" itemName="Sscc" style="height:24px; overflow:hidden; border: 1px solid #c7c7c7;background-color:#BFF7F5;margin:5px 0;width:88px;font-size:11px">
+								<span class="icon_btn_connect <%if(!ServiceSpace.getValueSbpId(values[i]).equals("")){ %>icon_show_activity showSbpPrjList<%} %>" style="cursor:pointer;"></span>
 								<span class="js_view_element_item">
-									<span class="<%if(isEditMode && !ServiceSpace.getValueSbpId(values[i]).equals("")){ %>js_action_element_item serviceConcept showSbpPrjList
-										<%} else if(!ServiceSpace.getValueSbpId(values[i]).equals("")) {%> serviceConcept showSbpPrjList
-										<%} else if(isEditMode){ %> js_action_element_item serviceConcept2 showSbpPrjList<%} %> svcSSCC svcSSCC<%=i %>" svcNameNum="svcSSCC<%=i %>"  
-										sbpPrjName="<%=sbpPrjName %>" sbpName="<%=sbpName %>" sbpId="<%=ServiceSpace.getValueSbpId(values[i]) %>" psId="<%=psId%>" <%if(isEditMode) {%> editMode="true"<%} else {%> editMode="false" <% }%> title="<%=ServiceSpace.getValueString(values[i]) %>" ><%=ServiceSpace.getValueHtml(values[i], sbpPrjName, "svcSSCC", isEditMode, psId, i, sbpName) %>
+									<span class="serviceconceptlist <%if(isEditMode && !ServiceSpace.getValueSbpId(values[i]).equals("")){ %>js_action_element_item underline 
+										<%} else if(!ServiceSpace.getValueSbpId(values[i]).equals("")) {%> underline 
+										<%} else if(isEditMode){ %> js_action_element_item  <%} %> svcSSCC svcSSCC<%=i %>" svcNameNum="svcSSCC<%=i %>"  
+										sbpPrjName="<%=sbpPrjName %>" sbpName="<%=sbpName %>" sbpId="<%=ServiceSpace.getValueSbpId(values[i]) %>" psId="<%=psId%>" editMode="false" title="<%=ServiceSpace.getValueString(values[i]) %>" ><%=ServiceSpace.getValueHtml(values[i], sbpPrjName, "svcSSCC", isEditMode, psId, i, sbpName) %>
 									</span>
 									<%
 									if(isEditMode){
@@ -320,7 +330,7 @@
 								<%
 								if(isEditMode){
 								%>
-									<input class="fieldline js_edit_element_item" svcNameNum="svcSSCC<%=i %>" name="txtSsccItem" style="height:20px; display:none; font-size:11px; background-color:white" type="text" value="<%=CommonUtil.toNotNull(values[i]) %>">
+									<input class="fieldline js_edit_element_item" svcNameNum="svcSSCC<%=i %>" disconnectsbp="false" name="txtSsccItem" style="height:20px; display:none; font-size:11px; background-color:white" type="text" value="<%=ServiceSpace.getValueString(CommonUtil.toNotNull(values[i])) %>">
 								<%
 								}
 								%>
@@ -330,6 +340,364 @@
 						if(SmartUtil.isBlankObject(values) && isEditMode){
 						%>
 							<div class="edit_item <%if(isEditMode){ %>service_item<%} %> js_element_item" itemName="Sscc" style="height:24px; overflow:hidden; border: 1px solid #c7c7c7;background-color:#BFF7F5;margin:5px 0;width:88px;font-size:11px">
+								<span class="js_view_element_item" style="display:none">
+									<span class="js_action_element_item"></span>
+									<span class="edit_actions">
+										<a href="" class="icon_hide js_remove_element_item" title="<fmt:message key='common.title.delete'/>"></a>
+										<a href="" class="icon_show js_add_element_item" title="<fmt:message key='common.title.add_new'/>"></a>
+									</span>
+								</span>
+								<input class="fieldline js_edit_element_item" name="txtSsccItem" style="height:20px; display:inline-block; font-size:11px; background-color:white" type="text" value="">
+							</div>
+					<%
+						}
+					%>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<span class="btn_gray show-svc-list-btn" style="cursor:pointer;">
+					<span class="txt_btn_start"></span>
+					<span class="txt_btn_center">more</span>
+					<span class="txt_btn_end"></span>
+				</span>
+			</td>
+			<td>
+				<span class="btn_gray show-all-activities" style="cursor:pointer;" psId="<%=psId%>">
+					<span class="txt_btn_start"></span>
+					<span class="txt_btn_center">모두보기</span>
+					<span class="txt_btn_end"></span>
+				</span>
+			</td>
+			<%if(isEditMode) { %>
+			<td>
+				<span class="btn_gray connect-sbp" style="cursor:pointer;">
+					<span class="txt_btn_start"></span>
+					<span class="txt_btn_center">Connect SBP</span>
+					<span class="txt_btn_end"></span>
+				</span>
+			</td>
+			<%} %>
+		</tr>
+	</table>
+</div>
+
+<script>
+	function settingValue() {
+		var element, newValue, oldvalue, index, disconnectsbp;
+		<% 
+			values = serviceSpace.getSspp(); 
+			for(int i=0; values!=null && i<values.length; i++){
+		%>
+			element = $("input[svcnamenum=svcSSPP" + <%=i%> + "]");
+			newValue = element.attr("value");
+			disconnectsbp = element.attr("disconnectsbp");
+			oldValue = "<%=values[i]%>";
+			index = oldValue.indexOf("||{")
+			if(index != -1 && (disconnectsbp=="false")) {
+				oldValue = oldValue.substring(index);
+				newValue = newValue + oldValue;
+			} 
+			element.attr("value", newValue);
+		<%
+			}
+			values = serviceSpace.getSsp(); 
+			for(int i=0; values!=null && i<values.length; i++){
+		%>
+			element = $("input[svcnamenum=svcSSPc" + <%=i%> + "]");
+			newValue = element.attr("value");
+			disconnectsbp = element.attr("disconnectsbp");
+			oldValue = "<%=values[i]%>";
+			index = oldValue.indexOf("||{")
+			if(index != -1 && (disconnectsbp=="false")) {
+				oldValue = oldValue.substring(index);
+				newValue = newValue + oldValue;
+			} 
+			element.attr("value", newValue);
+		<%
+			}
+			values = serviceSpace.getSspc(); 
+			for(int i=0; values!=null && i<values.length; i++){
+		%>
+			element = $("input[svcnamenum=svcSSPC2" + <%=i%> + "]");
+			newValue = element.attr("value");
+			disconnectsbp = element.attr("disconnectsbp");
+			oldValue = "<%=values[i]%>";
+			index = oldValue.indexOf("||{")
+			if(index != -1 && (disconnectsbp=="false")) {
+				oldValue = oldValue.substring(index);
+				newValue = newValue + oldValue;
+			} 
+			element.attr("value", newValue);
+		<%
+			}
+			values = serviceSpace.getSsc(); 
+			for(int i=0; values!=null && i<values.length; i++){
+		%>
+			element = $("input[svcnamenum=svcSSCp" + <%=i%> + "]");
+			newValue = element.attr("value");
+			disconnectsbp = element.attr("disconnectsbp");
+			oldValue = "<%=values[i]%>";
+			index = oldValue.indexOf("||{")
+			if(index != -1 && (disconnectsbp=="false")) {
+				oldValue = oldValue.substring(index);
+				newValue = newValue + oldValue;
+			} 
+			element.attr("value", newValue);
+		<%
+			}
+			values = serviceSpace.getSscc(); 
+			for(int i=0; values!=null && i<values.length; i++){
+		%>
+			element = $("input[svcnamenum=svcSSCC" + <%=i%> + "]");
+			newValue = element.attr("value");
+			disconnectsbp = element.attr("disconnectsbp");
+			oldValue = "<%=values[i]%>";
+			index = oldValue.indexOf("||{")
+			if(index != -1 && (disconnectsbp=="false")) {
+				oldValue = oldValue.substring(index);
+				newValue = newValue + oldValue;
+			} 
+			element.attr("value", newValue);
+		<%
+			}
+		%>
+	}
+	
+	/* 테이블(서비스컨셉 보여주는)의 위치를 중앙으로 맞춰준다.  */
+	var state = "hide";
+	var spaceWidth = $(".js_space_view_target").css("width").replace("px", "");
+	var tableWidth = $(".originalServiceConceptTable").css("width").replace("px", "");	
+	var newTableWidth = $(".svc-all-list").css("width").replace("px", "");
+	$(".originalServiceConceptTable").css("margin-left", (spaceWidth - tableWidth)/2);
+	
+	/*
+	var height = $(".originalServiceConcepTable").css("height");
+	$(".svc-all-list").css("height", height);
+	*/
+</script>
+<div style="height:200px; overflow:scroll; overflow-x:hidden; overflow-y:scroll;">
+	<table class="up tc svc-all-list" style="width:auto; min-height:200px;  margin-right:auto; float:left; display:none;" >
+		<tr>
+			<td class="tc edit_action" style="height:100%">
+				<div style="padding:5px">
+					<img src="images/pss/service-bullet.png" style="width: 24px;height: 24px;position: relative; margin-top:-7px"/>
+					<span style="font-size:15px;font-weight:bold; top:5px">SSPP</span>
+					<%
+						values = serviceSpace.getSspp();
+						for(int i=0; values!=null && i<values.length; i++){
+							String sbpName = ServiceSpace.ValueSbpInfoEach(values[i]); 
+					%>
+							<div class="edit_item <%if(isEditMode){ %>service_item<%} %> js_element_item" itemName="Sspp" style="height:24px; overflow:hidden; border: 1px solid #c7c7c7;background-color:#BFF7F5;margin:5px 0;width:150px;font-size:11px">
+								<span class="js_view_element_item">
+		<!-- 수정모드 && 연결된 activity가 있을때 -->	<span class="<%if(isEditMode && !ServiceSpace.getValueSbpId(values[i]).equals("")){ %>js_action_element_item underline 			
+											<%} else if(!ServiceSpace.getValueSbpId(values[i]).equals("")) {%> underline 
+											<%} else if(isEditMode){ %> js_action_element_item  <%} %> svcSSPP svcSSPP<%=i %>"  svcNameNum="svcSSPP<%=i %>"
+											sbpPrjName="<%=sbpPrjName %>" sbpName="<%=sbpName %>" sbpId="<%=ServiceSpace.getValueSbpId(values[i]) %>" psId="<%=psId%>" <%if(isEditMode) {%> editMode="true"<%} else {%> editMode="false" <% }%> title="<%=ServiceSpace.getValueString(values[i]) %>" ><%=ServiceSpace.getValueHtml(values[i], sbpPrjName, "svcSSPP", isEditMode, psId, i, sbpName) %>
+										</span>
+									<%
+									if(isEditMode){
+									%>
+										<span class="edit_actions">
+											<a href="" class="icon_hide js_remove_element_item" title="<fmt:message key='common.title.delete'/>"></a>
+											<a href="" class="icon_show js_add_element_item" title="<fmt:message key='common.title.add_new'/>"></a>
+										</span>
+									<%
+									}
+									%>
+								</span>
+	
+							</div>
+						<%
+						}
+						if(SmartUtil.isBlankObject(values) && isEditMode){
+						%>
+							<div class="edit_item <%if(isEditMode){ %>service_item<%} %> js_element_item" itemName="Sspp" style="height:24px; overflow:hidden; border: 1px solid #c7c7c7;background-color:#BFF7F5;margin:5px 0;width:150px;font-size:11px">
+								<span class="js_view_element_item" style="display:none">
+									<span class="js_action_element_item"></span>
+									<span class="edit_actions">
+										<a href="" class="icon_hide js_remove_element_item" title="<fmt:message key='common.title.delete'/>"></a>
+										<a href="" class="icon_show js_add_element_item" title="<fmt:message key='common.title.add_new'/>"></a>
+									</span>
+								</span>
+								<input class="fieldline js_edit_element_item" name="txtSsppItem" style="height:20px; display:inline-block; font-size:11px; background-color:white" type="text" value="">
+							</div>
+					<%
+						}
+					%>
+				</div>
+	
+				<div style="padding:5px;" >
+					<img src="images/pss/service-bullet.png" style="width: 24px;height: 24px;position: relative; margin-top:-7px"/>
+					<span style="font-size:15px;font-weight:bold; top:5px">SSPc</span>
+					<%
+						values = serviceSpace.getSsp();
+						for(int i=0; values!=null && i<values.length; i++){
+							String sbpName = ServiceSpace.ValueSbpInfoEach(values[i]); 
+					%>
+							<div class="edit_item <%if(isEditMode){ %>service_item<%} %> js_element_item" itemName="Ssp" style="height:24px; overflow:hidden; border: 1px solid #c7c7c7;background-color:#BFF7F5;margin:5px 0;width:150px;font-size:11px">
+									<span class="js_view_element_item" >
+									<span class="<%if(isEditMode && !ServiceSpace.getValueSbpId(values[i]).equals("")){ %>js_action_element_item underline 
+										<%} else if(!ServiceSpace.getValueSbpId(values[i]).equals("")) {%> underline 
+										<%} else if(isEditMode){ %> js_action_element_item  <%} %> svcSSPc svcSSPc<%=i %>" svcNameNum="svcSSPc<%=i %>"
+										sbpPrjName="<%=sbpPrjName %>" sbpName="<%=sbpName %>" sbpId="<%=ServiceSpace.getValueSbpId(values[i]) %>"  psId="<%=psId%>" <%if(isEditMode) {%> editMode="true"<%} else {%> editMode="false" <% }%> title="<%=ServiceSpace.getValueString(values[i]) %>" ><%=ServiceSpace.getValueHtml(values[i], sbpPrjName, "svcSSPc", isEditMode, psId, i, sbpName) %>
+									</span>
+									<%
+									if(isEditMode){
+									%>
+										<span class="edit_actions">
+											<a href="" class="icon_hide js_remove_element_item" title="<fmt:message key='common.title.delete'/>"></a>
+											<a href="" class="icon_show js_add_element_item" title="<fmt:message key='common.title.add_new'/>"></a>
+										</span>
+									<%
+									}
+									%>
+								</span>
+							</div>
+						<%
+						}
+						if(SmartUtil.isBlankObject(values) && isEditMode){
+						%>
+							<div class="edit_item <%if(isEditMode){ %>service_item<%} %> js_element_item" itemName="Ssp" style="height:24px; overflow:hidden; border: 1px solid #c7c7c7;background-color:#BFF7F5;margin:5px 0;width:150px;font-size:11px">
+								<span class="js_view_element_item" style="display:none">
+									<span class="js_action_element_item"></span>
+									<span class="edit_actions">
+										<a href="" class="icon_hide js_remove_element_item" title="<fmt:message key='common.title.delete'/>"></a>
+										<a href="" class="icon_show js_add_element_item" title="<fmt:message key='common.title.add_new'/>"></a>
+									</span>
+								</span>
+								<input class="fieldline js_edit_element_item" name="txtSspItem" style="height:20px; display:inline-block; font-size:11px; background-color:white" type="text" value="">
+							</div>
+					<%
+						}
+					%>
+				</div>
+	
+				<div style="padding:5px">
+					<img src="images/pss/service-bullet.png" style="width: 24px;height: 24px;position: relative; margin-top:-7px"/>
+					<span style="font-size:15px;font-weight:bold; top:5px">SSPC</span>
+					<%
+						values = serviceSpace.getSspc();
+						for(int i=0; values!=null && i<values.length; i++){
+							String sbpName = ServiceSpace.ValueSbpInfoEach(values[i]); 
+					%>
+							<div class="edit_item <%if(isEditMode){ %>service_item<%} %> js_element_item" itemName="Sspc" style="height:24px; overflow:hidden; border: 1px solid #c7c7c7;background-color:#BFF7F5;margin:5px 0;width:150px;font-size:11px">
+								<span class="js_view_element_item">
+									<span class="<%if(isEditMode && !ServiceSpace.getValueSbpId(values[i]).equals("")){ %>js_action_element_item underline 
+										<%} else if(!ServiceSpace.getValueSbpId(values[i]).equals("")) {%> underline 
+										<%} else if(isEditMode){ %> js_action_element_item  <%} %> svcSSPC2 svcSSPC2<%=i %>"  svcNameNum="svcSSPC2<%=i %>"
+										sbpPrjName="<%=sbpPrjName %>" sbpName="<%=sbpName %>" sbpId="<%=ServiceSpace.getValueSbpId(values[i]) %>" psId="<%=psId%>" <%if(isEditMode) {%> editMode="true"<%} else {%> editMode="false" <% }%> title="<%=ServiceSpace.getValueString(values[i]) %>" ><%=ServiceSpace.getValueHtml(values[i], sbpPrjName, "svcSSPC2", isEditMode, psId, i, sbpName) %>
+									</span>
+									<%
+									if(isEditMode){
+									%>
+										<span class="edit_actions">
+											<a href="" class="icon_hide js_remove_element_item" title="<fmt:message key='common.title.delete'/>"></a>
+											<a href="" class="icon_show js_add_element_item" title="<fmt:message key='common.title.add_new'/>"></a>
+										</span>
+									<%
+									}
+									%>
+								</span>
+							</div>
+						<%
+						}
+						if(SmartUtil.isBlankObject(values) && isEditMode){
+						%>
+							<div class="edit_item <%if(isEditMode){ %>service_item<%} %> js_element_item" itemName="Sspc" style="height:24px; overflow:hidden; border: 1px solid #c7c7c7;background-color:#BFF7F5;margin:5px 0;width:150px;font-size:11px">
+								<span class="js_view_element_item" style="display:none">
+									<span class="js_action_element_item"></span>
+									<span class="edit_actions">
+										<a href="" class="icon_hide js_remove_element_item" title="<fmt:message key='common.title.delete'/>"></a>
+										<a href="" class="icon_show js_add_element_item" title="<fmt:message key='common.title.add_new'/>"></a>
+									</span>
+								</span>
+								<input class="fieldline js_edit_element_item" name="txtSspcItem" style="height:20px; display:inline-block; font-size:11px; background-color:white" type="text" value="">
+							</div>
+					<%
+						}
+					%>
+				</div>
+	
+				<div style="padding:5px">
+					<img src="images/pss/service-bullet.png" style="width: 24px;height: 24px;position: relative; margin-top:-7px"/>
+					<span style="font-size:15px;font-weight:bold; top:5px">SSCp</span>
+					<%
+						values = serviceSpace.getSsc();
+						for(int i=0; values!=null && i<values.length; i++){
+							String sbpName = ServiceSpace.ValueSbpInfoEach(values[i]); 
+					%>
+							<div class="edit_item <%if(isEditMode){ %>service_item<%} %> js_element_item" itemName="Ssc" style="height:24px; overflow:hidden; border: 1px solid #c7c7c7;background-color:#BFF7F5;margin:5px 0;width:150px;font-size:11px">
+								<span class="js_view_element_item">
+									<span class="<%if(isEditMode && !ServiceSpace.getValueSbpId(values[i]).equals("")){ %>js_action_element_item underline 
+										<%} else if(!ServiceSpace.getValueSbpId(values[i]).equals("")) {%> underline 
+										<%} else if(isEditMode){ %> js_action_element_item  <%} %> svcSSCp svcSSCp<%=i %>"  svcNameNum="svcSSCp<%=i %>"
+										sbpPrjName="<%=sbpPrjName %>" sbpName="<%=sbpName %>" sbpId="<%=ServiceSpace.getValueSbpId(values[i]) %>" psId="<%=psId%>" <%if(isEditMode) {%> editMode="true"<%} else {%> editMode="false" <% }%> title="<%=ServiceSpace.getValueString(values[i]) %>" ><%=ServiceSpace.getValueHtml(values[i], sbpPrjName, "svcSSCp", isEditMode, psId, i, sbpName) %>
+									</span>
+									<%
+									if(isEditMode){
+									%>
+										<span class="edit_actions">
+											<a href="" class="icon_hide js_remove_element_item" title="<fmt:message key='common.title.delete'/>"></a>
+											<a href="" class="icon_show js_add_element_item" title="<fmt:message key='common.title.add_new'/>"></a>
+										</span>
+									<%
+									}
+									%>
+								</span>
+							</div>
+						<%
+						}
+						if(SmartUtil.isBlankObject(values) && isEditMode){
+						%>
+							<div class="edit_item <%if(isEditMode){ %>service_item<%} %> js_element_item" itemName="Ssc" style="height:24px; overflow:hidden; border: 1px solid #c7c7c7;background-color:#BFF7F5;margin:5px 0;width:150px;font-size:11px">
+								<span class="js_view_element_item" style="display:none">
+									<span class="js_action_element_item"></span>
+									<span class="edit_actions">
+										<a href="" class="icon_hide js_remove_element_item" title="<fmt:message key='common.title.delete'/>"></a>
+										<a href="" class="icon_show js_add_element_item" title="<fmt:message key='common.title.add_new'/>"></a>
+									</span>
+								</span>
+								<input class="fieldline js_edit_element_item" name="txtSscItem" style="height:20px; display:inline-block; font-size:11px; background-color:white" type="text" value="">
+							</div>
+					<%
+						}
+					%>
+				</div>
+	
+				<div style="padding:5px">
+					<img src="images/pss/service-bullet.png" style="width: 24px;height: 24px;position: relative; margin-top:-7px"/>
+					<span style="font-size:15px;font-weight:bold; top:5px">SSCC</span>
+					<%
+						values = serviceSpace.getSscc();
+						for(int i=0; values!=null && i<values.length; i++){
+							String sbpName = ServiceSpace.ValueSbpInfoEach(values[i]); 
+					%>
+							<div class="edit_item <%if(isEditMode){ %>service_item<%} %> js_element_item" itemName="Sscc" style="height:24px; overflow:hidden; border: 1px solid #c7c7c7;background-color:#BFF7F5;margin:5px 0;width:150px;font-size:11px">
+								<span class="js_view_element_item">
+									<span class="<%if(isEditMode && !ServiceSpace.getValueSbpId(values[i]).equals("")){ %>js_action_element_item underline 
+										<%} else if(!ServiceSpace.getValueSbpId(values[i]).equals("")) {%> underline 
+										<%} else if(isEditMode){ %> js_action_element_item  <%} %> svcSSCC svcSSCC<%=i %>" svcNameNum="svcSSCC<%=i %>"  
+										sbpPrjName="<%=sbpPrjName %>" sbpName="<%=sbpName %>" sbpId="<%=ServiceSpace.getValueSbpId(values[i]) %>" psId="<%=psId%>" <%if(isEditMode) {%> editMode="true"<%} else {%> editMode="false" <% }%> title="<%=ServiceSpace.getValueString(values[i]) %>" ><%=ServiceSpace.getValueHtml(values[i], sbpPrjName, "svcSSCC", isEditMode, psId, i, sbpName) %>
+									</span>
+									<%
+									if(isEditMode){
+									%>
+										<span class="edit_actions">
+											<a href="" class="icon_hide js_remove_element_item" title="<fmt:message key='common.title.delete'/>"></a>
+											<a href="" class="icon_show js_add_element_item" title="<fmt:message key='common.title.add_new'/>"></a>
+										</span>
+									<%
+									}
+									%>
+								</span>
+							</div>
+						<%
+						}
+						if(SmartUtil.isBlankObject(values) && isEditMode){
+						%>
+							<div class="edit_item <%if(isEditMode){ %>service_item<%} %> js_element_item" itemName="Sscc" style="height:24px; overflow:hidden; border: 1px solid #c7c7c7;background-color:#BFF7F5;margin:5px 0;width:150px;font-size:11px">
 								<span class="js_view_element_item" style="display:none">
 									<span class="js_action_element_item"></span>
 									<span class="edit_actions">
