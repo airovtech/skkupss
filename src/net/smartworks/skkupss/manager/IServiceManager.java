@@ -13,6 +13,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import net.smartworks.skkupss.model.BusinessContext;
 import net.smartworks.skkupss.model.InstanceList;
 import net.smartworks.skkupss.model.ProductService;
 import net.smartworks.skkupss.model.RequestParams;
@@ -55,4 +56,8 @@ public interface IServiceManager {
 	public SBPService getSBPService(String psId) throws Exception; 							// 연결된 SBP Project 정보를 가져온다.
 	
 	public boolean set_PSS_SBP_Servcie_Connect(Map<String, Object> requestBody) throws Exception; 	// PSS 프로젝트와 SBP프로젝트를 연결시켜준다. 
+	
+	public boolean set_PSS_BusinessContext(Map<String, String> requestbody) throws Exception;
+	
+	public BusinessContext get_PSS_BusinessContext(String psId) throws Exception;
 }

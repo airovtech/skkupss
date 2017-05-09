@@ -202,7 +202,7 @@ div.list_action_item:hover .list_action {visibility:visible}
 /* .global_menu .pop {border:1px solid #acacac; border-top:none; background-color:#414041; position:absolute; top:23px; right:0; padding:4px 8px; width:66px; line-height:18px; z-index:39}
  */
 .global_menu .pop {border:1px solid #acacac; border-top:none; background-color:#414041; position:absolute; top:39px; right:0; padding:4px 8px; line-height:18px; z-index:39}
-.global_menu .pop_admin {position:absolute; top:39px; right:0; z-index:38; padding-top:0}
+.global_menu .pop_admin {padding-top : 8px;}
 .global_menu .pop_admin a {float:left; margin-left:2px}
 
 /*Personal Info*/
@@ -470,7 +470,7 @@ li.sub_instance_list > .det_title:hover .delet_action, li.instance_list > .det_t
 #nav .tab_buttons a:hover, #nav .tab_buttons a:focus, #nav .tab_buttons a:active, #nav .tab_buttons a:visited {color:#FFF; text-decoration:underline}
 
 /* Contents*/
-#content {margin:26px 10px 10px 15px; color:#454545; font-family: '돋움',dotum,Helvetica,sans-serif; z-index:20}
+#content {color:#454545; font-family: '돋움',dotum,Helvetica,sans-serif; z-index:20}
 #board {margin:5px 10px 10px 240px; color:#ea1a1a; font-family: '돋움',dotum,Helvetica,sans-serif; height:18px; z-index:20}
 
 /* UpLoad */
@@ -580,7 +580,7 @@ li.sub_instance_list > .det_title:hover .delet_action, li.instance_list > .det_t
 /* 입력폼 */
 .form_wrap {background: none repeat scroll 0 0 #FFFFFF; height:100%}
 .form_wrap .input_check {float:left; margin-left:5px}
-.form_title {padding:10px}
+.form_title {padding:10px 10px 0 10px;}
 .form_title .title {font-weight:bold; font-size:14px; padding:0 0 0 19px; position:absolute} /* 타이틀 우측으로 아이콘이 있을때 */
 .form_title .title_noico  {font-weight:bold; font-size:14px; font-family:'돋움',Dotum, Arial, sans-serif; padding: 0 0 0 19px; margin-bottom:2px; float: none} /* 타이틀 우측으로 아이콘이 없을때 */
 .form_contents {padding:0 20px 10px; text-align: center}
@@ -866,7 +866,8 @@ a.js_show_all_users_shown, .js_show_all_users_shown {color:#3377ca !important}
 .iframe_section img {width:100%}
 
 /*Footer*/
-#footer {text-align:center; height:28px; color:#454545; margin: 15px 10px 10px 15px}
+/* #footer {text-align:center; height:28px; color:#454545; margin: 15px 10px 10px 15px} */
+#footer {text-align:center; bottom:0px; color:#454545; margin: 15px 10px 10px 15px}
 #footer .f_info { margin-left:4px; vertical-align: bottom}
 #footer a:link, a:visited {color:#454545; text-decoration: none}
 #footer a:hover, a:focus, a:active {color:#454545; text-decoration: underline}

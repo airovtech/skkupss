@@ -16,63 +16,55 @@
 	
 %>
 <style>
+	#sbpline {
+		border-right:50px solid white;
+		border-left:50px solid white;
+		border-bottom:50px solid white;
+		border-radius:5px;
+		background-color:white;
+		margin-top:37px;
+	}
 	.sbpline {
-		position: fixed;
-		z-index:1042;
-		margin-top:20px;
-		border-top: 80px solid white;
-		border-right: 30px solid white;
-		border-bottom: 50px solid white;
-		border-left: 30px solid white;
+		margin-top:45px;
 		border-radius:5px;
 		background-color:white;
 	}
 	.close_btn {
-		z-index:1045;
 		float:right;
-		margin-top:30px;
-		margin-right:-16px;
+		margin-right:-14px;
 	}
 	.close_btn_pic {
-		position:fixed;
 		width:15px; 
 		height:15px;
-		z-index:1045;
 		cursor:pointer;
 	}
 	.serviceconcept_title {
-		position: fixed;
-		z-index:1045;
-		font-size:20px;
-		margin-left:63px;
-		margin-top:45px;
+		font-size:25px;
+		margin-left:30px;
+		margin-top:25px;
 	}
 	.dataEnsure1 {
-		position: fixed;
 		bottom:0px;
 		margin-bottom:26px;
 		width:45px;
 		height:30px;
 		font-size:15px;
-		z-index:1045;
 		text-align:center;
 	}
 	.activity_content_wrap {
-		position: fixed;
-		z-index:1045;
+		position:absolute;
+		float:left;
 		font-size:15px;
-		margin-left:60px;
-		margin-top:106px;
+		margin-left:30px;
+		margin-top:82px;
 	}
 	.activity_content {
-		position: fixed;
-		z-index:1045;
+		position:absolute;
 		font-size:13px;
-		margin-top:84px;
+		margin-top:64px;
 		margin-left:200px;
-		height:33px;
 		line-height:200%;
-		
+		height:23px;
 		padding:16px;
 		margin-bottom:16px!important;
 		border:1px solid #ccc!important;
@@ -83,6 +75,8 @@
 	}
 </style>
 <script>
+	editMode = localStorage.getItem("editMode");
+
 	var sbpPrjName = "<%=sbpPrjName%>";			// SBP Project의 이름 
 	var sbpPrjPuid;								// SBP Project의 puid 
 	var result = <%=result%>;					// 모든 SBP Project List (프로젝트 이름 + 프로젝트 puid)
@@ -96,15 +90,13 @@
 	
 	/* SBP list를 보려면 SBP프로젝트이름과 SBP Puid가 필요하다 */
 	var sbpNameListUrl = "http://sbp.pssd.or.kr/sbp/listForHvm.jsp?hvm=true&memberId=sbpAdmin&sPUID=" + sbpPrjPuid + "&sProjectName=" + encodeURI(sbpPrjName, "UTF-8") + "&editMode=true";	
+	$(".sbpline").attr("src", sbpNameListUrl);	
 	
 	/* view에 관한 속성들 변경 */
-	$(".sbpline").attr("src", sbpNameListUrl);	
-	var width = $(window).width()-200;
-	var height = $(window).height()-200;
-	$(".sbpline").css("width", width);
-	$(".sbpline").css("height", height);
-	$(".dataEnsure1").css("margin-left", width/2);
-	$(".activity_content").css("width", width-280);
+	$(".sbpline").css("width", spaceWidth-100);
+	$(".sbpline").css("height", 700);
+	$(".dataEnsure1").css("margin-left", (spaceWidth-100)/2);
+	$(".activity_content").css("width", (spaceWidth-100)-280);
 	
 	
 	
@@ -322,6 +314,11 @@
 	}
 	
 	$(".serviceconcept_title").html("<%=title%>");
+	
+	/* PSSD 화면을 숨겨준다. */
+	function hidePSSD() {
+		$(".showPSSDForm").css("display", "none");
+	}
 </script>
 
 <div id="sbpline">
@@ -332,7 +329,7 @@
 	<span class="activity_content" style='overflow:scroll; overflow-x:hidden; display:none;'></span>
 	<span>
 		<a class='close_btn' title='Close'>
-			<img class='modalCloseImg simplemodal-close close_btn_pic resetSbpData1' src="/skkupss/smarteditor/img/btn_close.png"/>
+			<img class='modalCloseImg simplemodal-close close_btn_pic resetSbpData1' src="/skkupss/smarteditor/img/btn_close.png" onclick="hidePSSD();" />
 		</a>
 	</span>
 	<iframe class="sbpline" src="" style='overflow:scroll; overflow-x:hidden'></iframe>

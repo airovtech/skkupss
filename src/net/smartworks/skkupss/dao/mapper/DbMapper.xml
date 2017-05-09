@@ -1329,6 +1329,28 @@
 		values(#{id}, #{psId}, #{sbpId}, #{sbp}, #{activityId}, #{activityName})
 	</insert>
 -->
+
+	<update id="update_PSS_BusinessContext">
+		update businesscontext set 
+		position_business = #{position_business}, product_plc = #{product_plc}, portpolio_innovation = #{portpolio_innovation}, finance = #{finance}, 
+		organization = #{organization}, technique = #{technique}, partner = #{partner}, sale_purchase = #{sale_purchase}, origin_service = #{origin_service}, 
+		origin_service_improve = #{origin_service_improve}, new_service = #{new_service}, new_service_create = #{new_service_create}
+		where psId = #{psId}  
+	</update>
+
+	<select id="getCount_PSS_BusinessContext" resultType="Integer">
+		select count(*) from businesscontext where psid = #{psId}
+	</select>
+	
+	<select id="get_PSS_BusinessContext" resultType="net.smartworks.skkupss.model.BusinessContext">
+		select * from businesscontext where psid = #{psId}
+	</select>
+	
+	<insert id="insert_PSS_BusinessContext">
+		insert into businesscontext (psid, position_business, product_plc, portpolio_innovation, finance, organization, technique, partner, sale_purchase, origin_service, origin_service_improve, new_service, new_service_create)
+		values(#{psId}, #{position_business}, #{product_plc}, #{portpolio_innovation}, #{finance}, #{organization}, #{technique}, #{partner}, #{sale_purchase}, #{origin_service}, #{origin_service_improve}, #{new_service}, #{new_service_create})
+	</insert>
+
 	<update id="disConnect_SBPService">
 		update servicespace set sspp = #{sspp}, ssp = #{ssp}, sspc = #{sspc}, ssc = #{ssc}, sscc = #{sscc} where psId = #{psId}
 	</update>

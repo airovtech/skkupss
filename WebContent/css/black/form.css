@@ -1,6 +1,6 @@
 @charset "utf-8";
 /* CSS Document */
-.form_layout {padding:10px}
+.form_layout {padding:0 10px 10px 10px}
 .form_col {padding:0; line-height:22px}
 .form_layout .form_label, .form_layout .form_value {padding:4px 0 0 0 !important}
 .form_label, .form_value {float:left; margin:1px 0}

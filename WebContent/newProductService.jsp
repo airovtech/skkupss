@@ -448,8 +448,21 @@ String sbpServiceName = SmartMessage.getSBP_Service_String();									// 'SBP-�
 
 <script>
 try{
+	/* Business Context 볼 수 있는 버튼 추가 */
+	setTimeout(function() {
+		if($(".business_context").attr("type") == "business_context") {
+			// nothing
+		} else {		
+			var html =  "<div class='title_line_btns business_context' style='float:right; cursor:pointer; margin-top:-2px;' type='business_context'>";
+				html += 	"<div class='icon_btn_start'>";
+				html += 		'<span class="icon_btn_tail" psId="<%=productService.getId()%>"><fmt:message key="pss.button.business_context"/></span>';
+				html += 	"</div>";
+				html +=	"</div>";	
+			$("div[fieldid=txtDesc]").children().eq(0).append(html);
+		}
+	}, 500);	
+	
 	var psName = "<%=CommonUtil.toNotNull(productService.getName())%>";
-//	psName += "<br/>" + "&nbsp;";
 	var psPicture = "<%=psPictureUrl%>";
  	var psDesc = "<%=SmartUtil.smartEncode(CommonUtil.toNotNull(productService.getDesc()))%>";
  		psDesc = smartDecode(psDesc);	
@@ -563,6 +576,7 @@ try{
 //					'<th><a spaceType="9" spaceTypeStr="<%=ProductService.PSS_SPACE_SOCIETY%>" href="viewSocietySpace.jsp">Society Space</a></th>' +  
 					'<th><a spaceType="10" spaceTypeStr="<%=ProductService.PSS_SPACE_CONTEXT%>" href="viewContextSpace.jsp">Interaction Context Space</a></th>' +  
 					'<th><a spaceType="11" spaceTypeStr="<%=ProductService.PSS_SPACE_TIME%>" href="viewTimeSpace.jsp">Time Space</a></th>' +  
+//					'<th><a spaceType="13" spaceTypeStr="<%=ProductService.PSS_SPACE_BUSINESS%>" href="viewBusinessSpace.jsp">Buniess Space</a></th>' +  
 //					'<th><a spaceType="12" spaceTypeStr="<%=ProductService.PSS_SPACE_ENVIRONMENT%>" href="viewEnvironmentSpace.jsp">Environment Space</a></th>' +  
 				'</tr>' + 
 			'</table>' +
@@ -575,7 +589,6 @@ try{
  
  		var spaceType = "<%=ProductService.getSpaceType(spaceType)==ProductService.SPACE_TYPE_NONE?ProductService.SPACE_TYPE_VALUE:ProductService.getSpaceType(spaceType)%>"
 		gridRow.find('tr.js_select_space_type a[spaceType="' + spaceType + '"]:first').click();
- 		
  	}
 	
 }catch(error){

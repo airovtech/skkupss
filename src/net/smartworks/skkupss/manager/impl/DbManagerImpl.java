@@ -21,6 +21,7 @@ import net.smartworks.skkupss.dao.IDbDao;
 import net.smartworks.skkupss.manager.IDbManager;
 import net.smartworks.skkupss.model.ActorSpace;
 import net.smartworks.skkupss.model.BizModelSpace;
+import net.smartworks.skkupss.model.BusinessContext;
 import net.smartworks.skkupss.model.ContextSpace;
 import net.smartworks.skkupss.model.CustomerSpace;
 import net.smartworks.skkupss.model.DefaultSpace;
@@ -1011,5 +1012,25 @@ public class DbManagerImpl implements IDbManager {
 				
 		boolean result = dao.set_PSS_SBP_Servcie_Connect(requestBody);
 		return result;
+	}
+	
+	/* PSS 프로젝트 - BusinessContext 연결 */
+	@Override
+	public boolean set_PSS_BusinessContext(Map<String, String> requestBody) throws Exception{
+		
+		IDbDao dao = DaoFactory.getInstance().getDbDao();
+				
+		boolean result = dao.set_PSS_BusinessContext(requestBody);
+		return result;
+	}
+	
+	/* PSS 프로젝트 - BusinessContext 정보 가져온다 */
+	@Override
+	public BusinessContext get_PSS_BusinessContext(String psId) throws Exception{
+		
+		IDbDao dao = DaoFactory.getInstance().getDbDao();
+				
+		BusinessContext businessContext = dao.get_PSS_BusinessContext(psId);
+		return businessContext;
 	}
 }

@@ -3045,7 +3045,7 @@ $(function() {
 			var itemName = $(target).closest("div").attr("itemname");									// 어떤 종류의 Service concept을 선택했는지 가져온다.
 			var svcNameNum = target.attr("svcNameNum");
 			var sbpName = target.attr("sbpName");
-			
+/*			
 			if(!(sbpId == "" || sbpId == undefined)) {													// 연결되어있는 SBP Project Map을 보여준다 -> sbpId가 있어야 SBP Project map을 볼 수 있음. (Map activity를 선택했을경우, DB에 넣어야하기 때문에 이때 psId가 필요함 )
 				smartPop.showSbpPrjMap(sbpId, psId, itemName, title, svcNameNum, sbpPrjName, sbpName);					
 			} else if(!(sbpPrjName == "" || sbpPrjName == undefined || sbpPrjName == "null")) {			// SBP List를 보여준다 -> SBP프로젝트만 연결되어있고, SBP는 연결되어있지 않을 경우 SBP List를 보여준다.  
@@ -3053,6 +3053,55 @@ $(function() {
 			} else {																					// sbpPrjName가 없을경우 -> 즉, SBP프로젝트 자체가 연결되어있지 않을 경우
 				alert("SBP프로젝트를 선택해주세요.");
 			}
+*/		
+			
+			
+			if(!(sbpId == "" || sbpId == undefined)) {													// 연결되어있는 SBP Project Map을 보여준다 -> sbpId가 있어야 SBP Project map을 볼 수 있음. (Map activity를 선택했을경우, DB에 넣어야하기 때문에 이때 psId가 필요함 )
+				$(".showPSSDForm").css("display", "block");
+				var sbpUrl = "pop_show_sbpPrjMap.sw";
+		 		$.ajax({
+					type: 'POST',
+					url: sbpUrl,
+					headers:{
+						"Content-Type" : "application/json",
+						"X-HTTP-Method-Override":"POST",
+					},
+					data : JSON.stringify({sbpId : sbpId, psId : psId, itemName : itemName, title : title, svcNameNum : svcNameNum, sbpPrjName : sbpPrjName, sbpName : sbpName}),
+					dataType:'text',
+					success : function(result) {
+						$(".showPSSD").html(result);
+					},
+					error : function(result){
+						alert("error : " + result);
+					}
+				});				
+					
+			} else if(!(sbpPrjName == "" || sbpPrjName == undefined || sbpPrjName == "null")) {			// SBP List를 보여준다 -> SBP프로젝트만 연결되어있고, SBP는 연결되어있지 않을 경우 SBP List를 보여준다.  
+				$(".showPSSDForm").css("display", "block");
+				var sbpUrl = "pop_show_SbpNameList.sw";
+		 		$.ajax({
+					type: 'POST',
+					url: sbpUrl,
+					headers:{
+						"Content-Type" : "application/json",
+						"X-HTTP-Method-Override":"POST",
+					},
+					data : JSON.stringify(
+							{sbpPrjName : sbpPrjName, psId : psId, itemName : itemName, title : title, svcNameNum : svcNameNum}),
+					dataType:'text',
+					success : function(result) {
+						$(".showPSSD").html(result);
+					},
+					error : function(result){
+						alert("error : " + result);
+					}
+				});
+			} else {																					// sbpPrjName가 없을경우 -> 즉, SBP프로젝트 자체가 연결되어있지 않을 경우
+				alert("SBP프로젝트를 선택해주세요.");
+			}
+			
+			
+			
 			
 		}catch(error){
 			alert(error);
@@ -3064,31 +3113,114 @@ $(function() {
 	$(".show-svc-list-btn").live("click", function(e) {
 		$(".svc-all-list").toggle();
 		if(state == "hide") {
-			tableWidth = parseInt(tableWidth);
-			newTableWidth = parseInt(newTableWidth);
 			$(".originalServiceConceptTable").css("margin-left", (spaceWidth - (tableWidth+newTableWidth))/2);
 			state = "show";
+			$(".morefullname").html("더보기 닫기");
 		} else {
 			$(".originalServiceConceptTable").css("margin-left", (spaceWidth - tableWidth)/2);	
 			state = "hide";
+			$(".morefullname").html("더보기");
 		}
 	});
 	 
 	/* 서비스컨셉과 연결된 activity 수정 모드로 변환  */
 	$(".connect-sbp").live("click", function(e) {
-		$(".icon_btn_connect").removeClass("icon_show_activity");
-		$(".icon_btn_connect").addClass("showSbpPrjList");
-		$(".icon_btn_connect").addClass("icon_btn_edit");
-		localStorage.setItem("editMode", "true");
+		
+		var status = localStorage.getItem("editMode");
+		
+		if(status != "true") {
+			$(".icon_btn_connect").removeClass("icon_show_activity");
+			$(".icon_btn_connect").addClass("showSbpPrjList");
+			$(".icon_btn_connect").addClass("icon_btn_edit");
+			$(".icon_btn_connect").css("display", "none");
+			$(".edit_actions").css("display", "none");
+			$(".js_view_element_item").css("margin-left", 10);
+			$(".blueprintmode").html("블루프린트 연결모드 해제");
+			localStorage.setItem("editMode", "true");
+		} else {
+			$(".icon_btn_connect").removeClass("showSbpPrjList");
+			$(".icon_btn_connect").removeClass("icon_btn_edit");
+			$(".isdata").addClass("icon_show_activity");
+			$(".icon_btn_connect").css("display", "block");
+			$(".isdata").next().css("margin-left", -10);
+//			$(".js_view_element_item").css("margin-left", -5);
+			$(".blueprintmode").html("블루프린트 연결모드");
+			localStorage.setItem("editMode", "false");
+		}
+		
+		
 	});
 	
-	/* 모든 서비스컨셉에 연결된 activity를 한번에 보여주는 smartpop를 띄어준다   */
+	/* 모든 서비스컨셉에 연결된 activity를 한번에 보여주는 기능   */
 	$(".show-all-activities").live("click", function(e){
 		try{
 			var psId = $(".show-all-activities").attr("psId");
-			smartPop.showAllActivities(psId);
+//			smartPop.showAllActivities(psId);
+			
+			$(".showPSSDForm").css("display", "block");						
+			var url = "pop_show_all_activities.sw";
+			$.ajax({
+				type : "POST",
+				url : url,
+				headers : {
+					"Content-Type" : " application/json",
+					"X-HTTP-Method-Override" : "POST"
+				},
+				data : psId,
+				dataType:"text",
+				success : function(result) {
+					$(".showPSSD").html(result);
+				},
+				error : function(result) {
+					alert("error : " + result);
+					console.log(result);
+				}
+			});
 		}catch(error) {
 			alert(error);
+		}
+	});
+	
+	$(".business_context").live("click", function(e) {
+		var target = $(targetElement(e));
+		var psId = target.attr("psId");
+		if(psId == undefined) {
+			psId = target.children().eq(0).attr("psId");
+		}
+		if($(".business_context").attr("type") == "business_context") {
+			try{
+				$.ajax({
+					type : "POST",
+					url : "show_business_context.sw",
+					headers : {
+						"Content-Type" : " application/json",
+						"X-HTTP-Method-Override" : "POST"
+					},
+					data : psId,
+					dataType:"text",
+					success : function(result) {
+						$("td[fieldid=tabSpaces]").html(result);
+						if($(".list_title_space").children().children().children().html().indexOf("목록") != -1) {
+							$(".business_context").attr("type", "tabSpace").children().children().html("서비스 목록");			// 한글일때
+						} else {
+							$(".business_context").attr("type", "tabSpace").children().children().html("Goto Service list"); // 영어일때
+						}
+					},
+					error : function(result) {
+						alert("error : " + result);
+						console.log("ajax : " , result);
+					}
+				});
+			} catch(error) {
+				alert("error : " + error);
+				console.log("try-catch : " , error);
+			}
+		} else if($(".business_context").attr("type") == "tabSpace"){
+//			$("td[fieldId='tabSpaces']").html(spaceContents);
+//			$('tr.js_select_space_type a[spaceType="1"]:first').click(); 잘되긴하는데 스마트폼으로 그린 화면처럼 레이아웃이 일치하진 않아서 일단 패스
+			location.reload();
+		} else {
+			//nothing
 		}
 	});
 	

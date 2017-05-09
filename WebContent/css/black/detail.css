@@ -6,7 +6,7 @@
 
 /* 본문- 타이틀 아이콘*/
 
-.body_titl {padding:0 20px 10px; overflow: hidden} /* 본문 페이지 타이틀*/
+/* .body_titl {padding:0 20px 10px; overflow: hidden}  본문 페이지 타이틀*/
 
 .body_titl .title {font-size: 16px; font-weight: bold; height: 29px; float:left}  /* 타이틀 우측으로 아이콘이 있을때 */
 
@@ -240,7 +240,7 @@ a .repl_write:hover {background: url("../../images/header_nico.png") no-repeat 0
 
 .default_title_space{padding-bottom:5px !important} /* Case in No right Button */
 
-.list_title_space,.default_title_space {padding:0 0 2px 0; overflow:hidden} /* Case in right Button */
+.list_title_space,.default_title_space {padding:0 0 18px 0;} /* Case in right Button */
 
 .list_title_space .title, .list_title, .default_title_space .title {background: url("../../images/iconTitle.gif") 0 3px no-repeat; font-size:14px; font-weight:bold; padding: 2px 8px 0 20px; line-height: 18px; color:#454545; float:left}
 
@@ -731,7 +731,7 @@ a:hover.btn_arr_next2 {background: url("../../images/body_icon.png") no-repeat -
 
 /* Icon button style */
 
-.title_line_btns {float:right; position: relative}
+.title_line_btns {float:right; position: relative; margin-top:-5px;}
 
 .title_line_options {float:left; position:relative; top:0}
 

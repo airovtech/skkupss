@@ -15,77 +15,63 @@
 %>
 <style>
 	#sbpline {
-		position: fixed;
-		z-index:1042;
-		border: 50px solid white;
+		border-right:50px solid white;
+		border-left:50px solid white;
+		border-bottom:50px solid white;
 		border-radius:5px;
 		background-color:white;
 	}
 	.sbpline {
-		position: fixed;
-		margin-top:10px;
-		z-index:1042;
-		border-top: 160px solid white;
-		border-right: 30px solid white;
-		border-bottom: 50px solid white;
-		border-left: 30px solid white;
+		border-top: 90px solid white;
 		border-radius:5px;
 		background-color:white;
 	}
 	.close_btn {
-		z-index:1045;
 		float:right;
-		margin-top:30px;
+		margin-top:25px;
 		margin-right:-14px;
 	}
 	.close_btn_pic {
-		position:fixed;
 		width:15px; 
 		height:15px;
-		z-index:1045;
 		cursor:pointer;
 	}
 	.serviceconcept_title {
-		position: fixed;
-		z-index:1045;
-		font-size:20px;
-		margin-left:55px;
-		margin-top:45px;
+		float:left;
+		font-size:25px;
+		margin-left:30px;
+		margin-top:25px;
 	}
 	.dataEnsure2 {
-		position: fixed;
+		position:absolute;
 		bottom:0px;
-		margin-bottom:27px;
+		margin-bottom:72px;
 		width:45px;
 		height:30px;
-		z-index:1045;
 		text-align:center;
 		
 	}
 	.disConnect {
-		position: fixed;
+		position:absolute;
 		bottom:0px;
-		margin-bottom:27px;
+		margin-bottom:72px;
 		width:115px;
 		height:30px;
-		z-index:1045;
 		color:white;
 		text-align:center;
 	}
 	.activity_content_wrap {
-		position: fixed;
-		z-index:1045;
+		position:absolute;
+		float:left;
 		font-size:15px;
-		margin-left:55px;
-		margin-top:106px;
+		margin-left:30px;
+		margin-top:86px;
 	}
 	.activity_content {
-		position: fixed;
-		z-index:1045;
+		position:absolute;
 		font-size:13px;
-		margin-top:84px;
+		margin-top:64px;
 		margin-left:200px;
-		height:33px;
 		line-height:200%;
 		
 		padding:16px;
@@ -109,8 +95,6 @@
 	    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 	}
 	.sbp-disconnect-modal-content {
-		position: fixed;
-		z-index:1045;
 		border: 5px solid #0095cd;
 		border-radius:5px;
 	    background-color: #fefefe;
@@ -123,13 +107,11 @@
 </style>
 <script>
 	/* view에 관한 속성들 변경 */
-	var width = $(window).width()-200;
-	var height = $(window).height()-250;
-	$(".sbpline").css("width", width);
-	$(".sbpline").css("height", height);
-	$(".dataEnsure2").css("margin-left", width/2 - 35);
-	$(".disConnect").css("margin-left", width/2 + 35);
-	$(".activity_content").css("width", width-280);
+	$(".sbpline").css("width", spaceWidth-100);
+	$(".sbpline").css("height", 700);
+	$(".dataEnsure2").css("margin-left", (spaceWidth-100)/2 - 35);
+	$(".disConnect").css("margin-left", (spaceWidth-100)/2 + 35);
+//	$(".activity_content").css("width", (spaceWidth-100)/2-280);
 	
 	/* 수정모드가 아닐경우 -> 연결된 activity는 보이되, 수정은 불가능
 	   ViewMode(service concept이 아닌 'SBP-프로젝트 이름'을 클릭했을 때 -> SBP Map만 보여준다.)*/
@@ -137,6 +119,7 @@
 	var svcNameNum = "<%=svcNameNum%>";
 //	editMode = $("." + svcNameNum).attr("editMode");
 	editMode = localStorage.getItem("editMode");
+	console.log("editMode : " , editMode);
 	if((editMode == "false") || (psId == "" || psId == "null")) {		
 		$(".dataEnsure2").css("display", "none");
 		$(".disConnect").css("display", "none");
@@ -196,6 +179,7 @@
 				}
 			}
 			$(".activity_content").html(activityName_Array_Impl);
+			$(".activity_content").css("width", spaceWidth-400);
 			$(".serviceconcept_title").html(title);
 			
 			/* sbp서버로 선택했었던 activity seq 값들을 파라미터로 전송한다. */
@@ -413,6 +397,10 @@
 				$('input[svcNameNum=' + svcNameNum + ']').attr("value", title);
 				$('input[svcNameNum=' + svcNameNum + ']').attr("disconnectsbp", "true");
 				
+				$("#SBP_DisConnect_Modal").css("display", "none");
+				$(".sbp-disconnect-modal-content").css("display", "none");
+				$(".showPSSD").css("display", "none");
+				
 				/* 연결된 'SBP-프로젝트 이름'을 보여주는곳 변경 */
 				var title_Create_url = "title_Create.sw";
 				var sbpPrjName = "<%=sbpPrjName%>";
@@ -440,7 +428,7 @@
 					error : function(result){
 						alert("error : " + result);
 					}
-				});
+				});				
 			},
 			error : function(result){
 				alert("error : " + result);
@@ -456,6 +444,11 @@
 		activityName_Array = new Array();
 		seq_Array = new Array();
 	}
+	
+	/* PSSD 화면을 숨겨준다. */
+	function hidePSSD() {
+		$(".showPSSDForm").css("display", "none");
+	}
 </script>
 <div id="sbpline">
 	<span class='serviceconcept_title'></span>
@@ -465,7 +458,7 @@
 	<span class="activity_content w3-container w3-section w3-border w3-border-blue" style='overflow:scroll; overflow-x:hidden'></span>
 	<span>
 		<a class='close_btn' title='Close'>
-			<img class='modalCloseImg simplemodal-close close_btn_pic resetSbpData2' src="/skkupss/smarteditor/img/btn_close.png"/>
+			<img class='modalCloseImg simplemodal-close close_btn_pic resetSbpData2' src="/skkupss/smarteditor/img/btn_close.png" onclick="hidePSSD();" />
 		</a>
 	</span>
 	<iframe class="sbpline" src=""></iframe>

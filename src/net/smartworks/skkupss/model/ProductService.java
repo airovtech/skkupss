@@ -16,6 +16,7 @@ public class ProductService{
 	public static final String PSS_SPACE_SOCIETY = "societySpace";
 	public static final String PSS_SPACE_CONTEXT = "contextSpace";
 	public static final String PSS_SPACE_TIME = "timeSpace";
+	public static final String PSS_SPACE_BUSINESS = "businessContext";
 	public static final String PSS_SPACE_ENVIRONMENT = "environmentSpace";
 	public static final String PSS_SPACE_VALUE_SERVICE = "valueServiceSpace";
 	public static final String PSS_SPACE_VALUE_BIZ_MODEL = "valueBizModelSpace";
@@ -45,7 +46,8 @@ public class ProductService{
 	public static final int SPACE_TYPE_SOCIETY = 9;
 	public static final int SPACE_TYPE_CONTEXT = 10;
 	public static final int SPACE_TYPE_TIME = 11;
-	public static final int SPACE_TYPE_ENVIRONMENT = 12;	
+	public static final int SPACE_TYPE_ENVIRONMENT = 12;
+	public static final int SPACE_TYPE_BUSINESS = 13;
 	public static final int SPACE_TYPE_ACTOR_CVCA = 21;
 	public static final int SPACE_TYPE_COMPLEX = 99;
 
@@ -219,6 +221,7 @@ public class ProductService{
 		if(spaceName.equals(PSS_SPACE_SOCIETY)) return SPACE_TYPE_SOCIETY;
 		if(spaceName.equals(PSS_SPACE_CONTEXT)) return SPACE_TYPE_CONTEXT;
 		if(spaceName.equals(PSS_SPACE_TIME)) return SPACE_TYPE_TIME;
+		if(spaceName.equals(PSS_SPACE_BUSINESS)) return SPACE_TYPE_BUSINESS;
 		if(spaceName.equals(PSS_SPACE_ENVIRONMENT)) return SPACE_TYPE_ENVIRONMENT;
 		if(spaceName.equals(PSS_SPACE_COMPLEX)) return SPACE_TYPE_COMPLEX;
 
@@ -252,6 +255,8 @@ public class ProductService{
 			return PSS_SPACE_CONTEXT;
 		case SPACE_TYPE_TIME:
 			return PSS_SPACE_TIME;
+		case SPACE_TYPE_BUSINESS:
+			return PSS_SPACE_BUSINESS;
 		case SPACE_TYPE_ENVIRONMENT:
 			return PSS_SPACE_ENVIRONMENT;
 		case SPACE_TYPE_COMPLEX:

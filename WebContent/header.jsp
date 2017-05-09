@@ -42,12 +42,14 @@ var viewMode = "";
 
 // Listen to message from child window
 eventer(messageEvent,function(e) {
+	
+	/* 블루프린트를 선택후 activity로 넘어갈때 view 조정 */
 	if(e.data == "showSelectedActivity") {
-		$(".activity_content_wrap").css("display", "block");
-		$(".activity_content").css("display", "block");
+		$(".activity_content_wrap").css("display", "block").css("margin-top", 56);
+		$(".activity_content").css("display", "block").css("margin-top", 35);
 		$(".dataEnsure1").css("display", "block");
-		$(".sbpline").css("border-top", "160px solid white");
-		$(".sbpline").css("height", $(window).height()-250);
+		$(".sbpline").css("border-top", "80px solid white");
+		$(".sbpline").css("height", 700);
 	} else {
 		var sbpMapData = e.data.split("||");
 	//  설명 										SBP서버에서 사용되고있는 실제 변수명

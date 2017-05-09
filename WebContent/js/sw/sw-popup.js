@@ -2166,8 +2166,8 @@ smartPop = {
 	
 	
 	/* iframe으로 SBP MAP을 띄어줄 jsp페이지를 호출하여 modal로 띄어준다 */ 
+/*
 	showSbpPrjMap : function(sbpId, psId, itemName, title, svcNameNum, sbpPrjName, sbpName){
-		
 		var sbpUrl = "pop_show_sbpPrjMap.sw";
  		$.ajax({
 			type: 'POST',
@@ -2203,8 +2203,11 @@ smartPop = {
 			}
 		});
 	},
-		
+*/
+	
+	
 	/* 모든 서비스컨셉에 연결된 activity를 한번에 가져오기 위해 해당 PSS프로젝트의 모든 서비스컨셉 관련 데이터를 가져온다. */
+/*
 	showAllActivities : function(psId) {
 		var url = "pop_show_all_activities.sw";
 		$.ajax({
@@ -2242,7 +2245,7 @@ smartPop = {
 			}
 		});
 	}
-	
+*/
 		
 };
 }catch(error){

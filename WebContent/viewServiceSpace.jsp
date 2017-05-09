@@ -92,9 +92,9 @@
 						for(int i=0; values!=null && i<values.length; i++){
 							String sbpName = ServiceSpace.ValueSbpInfoEach(values[i]); 
 					%>
-							<div class="edit_item <%if(isEditMode){ %>service_item<%} %> js_element_item" itemName="Sspp" style="height:24px; overflow:hidden; border: 1px solid #c7c7c7;background-color:#BFF7F5;margin:5px 0;width:88px;font-size:11px">
-								<span class="icon_btn_connect <%if(!ServiceSpace.getValueSbpId(values[i]).equals("")){ %>icon_show_activity showSbpPrjList<%} %>" style="cursor:pointer;"></span>
-								<span class="js_view_element_item">
+							<div class="edit_item <%if(isEditMode){ %>service_item<%} %> js_element_item" itemName="Sspp" style="height:24px; overflow:hidden; border: 1px solid #c7c7c7;background-color:#BFF7F5;margin:5px 0;width:88px;font-size:11px" onmouseover="showEditBtn(this);" onmouseout="hideEditBtn(this);">
+								<span class="icon_btn_connect <%if(!ServiceSpace.getValueSbpId(values[i]).equals("")){ %>icon_show_activity showSbpPrjList isdata<%} %>" style="cursor:pointer;"></span>
+								<span class="js_view_element_item" <%if(!ServiceSpace.getValueSbpId(values[i]).equals("")){ %> style="margin-left:-20px;" <%} %>>
 <!-- 수정모드 && 연결된 activity가 있을때 -->	<span class="serviceconceptlist <%if(isEditMode && !ServiceSpace.getValueSbpId(values[i]).equals("")){ %>js_action_element_item underline 			
 											<%} else if(!ServiceSpace.getValueSbpId(values[i]).equals("")) {%> underline 
 											<%} else if(isEditMode){ %> js_action_element_item  <%} %> svcSSPP svcSSPP<%=i %>"  svcNameNum="svcSSPP<%=i %>"
@@ -146,9 +146,9 @@
 						for(int i=0; values!=null && i<values.length; i++){
 							String sbpName = ServiceSpace.ValueSbpInfoEach(values[i]); 
 					%>
-							<div class="edit_item <%if(isEditMode){ %>service_item<%} %> js_element_item" itemName="Ssp" style="height:24px; overflow:hidden; border: 1px solid #c7c7c7;background-color:#BFF7F5;margin:5px 0;width:88px;font-size:11px">
-								<span class="icon_btn_connect <%if(!ServiceSpace.getValueSbpId(values[i]).equals("")){ %>icon_show_activity showSbpPrjList<%} %>" style="cursor:pointer;"></span>
- 								<span class="js_view_element_item" >
+							<div class="edit_item <%if(isEditMode){ %>service_item<%} %> js_element_item" itemName="Ssp" style="height:24px; overflow:hidden; border: 1px solid #c7c7c7;background-color:#BFF7F5;margin:5px 0;width:88px;font-size:11px" onmouseover="showEditBtn(this);" onmouseout="hideEditBtn(this);">
+								<span class="icon_btn_connect <%if(!ServiceSpace.getValueSbpId(values[i]).equals("")){ %>icon_show_activity showSbpPrjList isdata<%} %>" style="cursor:pointer;"></span>
+ 								<span class="js_view_element_item" <%if(!ServiceSpace.getValueSbpId(values[i]).equals("")){ %> style="margin-left:-20px;" <%} %>>
 									<span class="serviceconceptlist <%if(isEditMode && !ServiceSpace.getValueSbpId(values[i]).equals("")){ %>js_action_element_item underline 
 										<%} else if(!ServiceSpace.getValueSbpId(values[i]).equals("")) {%> underline 
 										<%} else if(isEditMode){ %> js_action_element_item  <%} %> svcSSPc svcSSPc<%=i %>" svcNameNum="svcSSPc<%=i %>"
@@ -200,9 +200,9 @@
 						for(int i=0; values!=null && i<values.length; i++){
 							String sbpName = ServiceSpace.ValueSbpInfoEach(values[i]); 
 					%>
-							<div class="edit_item <%if(isEditMode){ %>service_item<%} %> js_element_item" itemName="Sspc" style="height:24px; overflow:hidden; border: 1px solid #c7c7c7;background-color:#BFF7F5;margin:5px 0;width:88px;font-size:11px">
-								<span class="icon_btn_connect <%if(!ServiceSpace.getValueSbpId(values[i]).equals("")){ %>icon_show_activity showSbpPrjList<%} %>" style="cursor:pointer;"></span>
-								<span class="js_view_element_item">
+							<div class="edit_item <%if(isEditMode){ %>service_item<%} %> js_element_item" itemName="Sspc" style="height:24px; overflow:hidden; border: 1px solid #c7c7c7;background-color:#BFF7F5;margin:5px 0;width:88px;font-size:11px" onmouseover="showEditBtn(this);" onmouseout="hideEditBtn(this);">
+								<span class="icon_btn_connect <%if(!ServiceSpace.getValueSbpId(values[i]).equals("")){ %>icon_show_activity showSbpPrjList isdata<%} %>" style="cursor:pointer;"></span>
+								<span class="js_view_element_item" <%if(!ServiceSpace.getValueSbpId(values[i]).equals("")){ %> style="margin-left:-20px;" <%} %>>
 									<span class="serviceconceptlist <%if(isEditMode && !ServiceSpace.getValueSbpId(values[i]).equals("")){ %>js_action_element_item underline 
 										<%} else if(!ServiceSpace.getValueSbpId(values[i]).equals("")) {%> underline 
 										<%} else if(isEditMode){ %> js_action_element_item  <%} %> svcSSPC2 svcSSPC2<%=i %>"  svcNameNum="svcSSPC2<%=i %>"
@@ -254,9 +254,9 @@
 						for(int i=0; values!=null && i<values.length; i++){
 							String sbpName = ServiceSpace.ValueSbpInfoEach(values[i]); 
 					%>
-							<div class="edit_item <%if(isEditMode){ %>service_item<%} %> js_element_item" itemName="Ssc" style="height:24px; overflow:hidden; border: 1px solid #c7c7c7;background-color:#BFF7F5;margin:5px 0;width:88px;font-size:11px">
-								<span class="icon_btn_connect <%if(!ServiceSpace.getValueSbpId(values[i]).equals("")){ %>icon_show_activity showSbpPrjList<%} %>" style="cursor:pointer;"></span>
-								<span class="js_view_element_item">
+							<div class="edit_item <%if(isEditMode){ %>service_item<%} %> js_element_item" itemName="Ssc" style="height:24px; overflow:hidden; border: 1px solid #c7c7c7;background-color:#BFF7F5;margin:5px 0;width:88px;font-size:11px" onmouseover="showEditBtn(this);" onmouseout="hideEditBtn(this);">
+								<span class="icon_btn_connect <%if(!ServiceSpace.getValueSbpId(values[i]).equals("")){ %>icon_show_activity showSbpPrjList isdata<%} %>" style="cursor:pointer;"></span>
+								<span class="js_view_element_item" <%if(!ServiceSpace.getValueSbpId(values[i]).equals("")){ %> style="margin-left:-20px;" <%} %>>
 									<span class="serviceconceptlist <%if(isEditMode && !ServiceSpace.getValueSbpId(values[i]).equals("")){ %>js_action_element_item underline 
 										<%} else if(!ServiceSpace.getValueSbpId(values[i]).equals("")) {%> underline 
 										<%} else if(isEditMode){ %> js_action_element_item  <%} %> svcSSCp svcSSCp<%=i %>"  svcNameNum="svcSSCp<%=i %>"
@@ -308,9 +308,9 @@
 						for(int i=0; values!=null && i<values.length; i++){
 							String sbpName = ServiceSpace.ValueSbpInfoEach(values[i]); 
 					%>
-							<div class="edit_item <%if(isEditMode){ %>service_item<%} %> js_element_item" itemName="Sscc" style="height:24px; overflow:hidden; border: 1px solid #c7c7c7;background-color:#BFF7F5;margin:5px 0;width:88px;font-size:11px">
-								<span class="icon_btn_connect <%if(!ServiceSpace.getValueSbpId(values[i]).equals("")){ %>icon_show_activity showSbpPrjList<%} %>" style="cursor:pointer;"></span>
-								<span class="js_view_element_item">
+							<div class="edit_item <%if(isEditMode){ %>service_item<%} %> js_element_item" itemName="Sscc" style="height:24px; overflow:hidden; border: 1px solid #c7c7c7;background-color:#BFF7F5;margin:5px 0;width:88px;font-size:11px" onmouseover="showEditBtn(this);" onmouseout="hideEditBtn(this);">
+								<span class="icon_btn_connect <%if(!ServiceSpace.getValueSbpId(values[i]).equals("")){ %>icon_show_activity showSbpPrjList isdata<%} %>" style="cursor:pointer;"></span>
+								<span class="js_view_element_item" <%if(!ServiceSpace.getValueSbpId(values[i]).equals("")){ %> style="margin-left:-20px;" <%} %>>
 									<span class="serviceconceptlist <%if(isEditMode && !ServiceSpace.getValueSbpId(values[i]).equals("")){ %>js_action_element_item underline 
 										<%} else if(!ServiceSpace.getValueSbpId(values[i]).equals("")) {%> underline 
 										<%} else if(isEditMode){ %> js_action_element_item  <%} %> svcSSCC svcSSCC<%=i %>" svcNameNum="svcSSCC<%=i %>"  
@@ -356,36 +356,33 @@
 			</td>
 		</tr>
 		<tr>
-			<td>
-				<span class="btn_gray show-svc-list-btn" style="cursor:pointer;">
+			<td colspan="5">
+				<span class="btn_gray show-svc-list-btn" style="cursor:pointer; margin:0 0 0 3px; float:right;">
 					<span class="txt_btn_start"></span>
-					<span class="txt_btn_center">more</span>
+					<span class="txt_btn_center morefullname">더보기</span>
 					<span class="txt_btn_end"></span>
 				</span>
-			</td>
-			<td>
-				<span class="btn_gray show-all-activities" style="cursor:pointer;" psId="<%=psId%>">
+				<span class="btn_gray show-all-activities" style="cursor:pointer; margin:0 0 0 3px; float:right;" psId="<%=psId%>">
 					<span class="txt_btn_start"></span>
 					<span class="txt_btn_center">모두보기</span>
 					<span class="txt_btn_end"></span>
 				</span>
-			</td>
 			<%if(isEditMode) { %>
-			<td>
-				<span class="btn_gray connect-sbp" style="cursor:pointer;">
+				<span class="btn_gray connect-sbp" style="cursor:pointer; margin:0 0 0 3px; float:right;">
 					<span class="txt_btn_start"></span>
-					<span class="txt_btn_center">Connect SBP</span>
+					<span class="txt_btn_center blueprintmode">블루프린트 연결모드</span>
 					<span class="txt_btn_end"></span>
 				</span>
-			</td>
 			<%} %>
+			</td>
 		</tr>
 	</table>
 </div>
 
 <script>
+	/* 서비스컨셉에 대한 정보가 수정될 때 데이터를 상황에 맞게 채워준다. */
 	function settingValue() {
-		var element, newValue, oldvalue, index, disconnectsbp;
+		var element, newValue, oldvalue, index, disconnectsbp, indexFirst, indexLast, impl;
 		<% 
 			values = serviceSpace.getSspp(); 
 			for(int i=0; values!=null && i<values.length; i++){
@@ -396,6 +393,11 @@
 			oldValue = "<%=values[i]%>";
 			index = oldValue.indexOf("||{")
 			if(index != -1 && (disconnectsbp=="false")) {
+				indexFirst = oldValue.indexOf("title:");
+				impl = oldValue.substring(indexFirst);
+				indexLast = impl.indexOf(",");
+				impl = oldValue.substring(indexFirst, indexFirst + indexLast);				
+				oldValue = oldValue.replace(impl, "title:" + newValue);
 				oldValue = oldValue.substring(index);
 				newValue = newValue + oldValue;
 			} 
@@ -411,6 +413,11 @@
 			oldValue = "<%=values[i]%>";
 			index = oldValue.indexOf("||{")
 			if(index != -1 && (disconnectsbp=="false")) {
+				indexFirst = oldValue.indexOf("title:");
+				impl = oldValue.substring(indexFirst);
+				indexLast = impl.indexOf(",");
+				impl = oldValue.substring(indexFirst, indexFirst + indexLast);				
+				oldValue = oldValue.replace(impl, "title:" + newValue);
 				oldValue = oldValue.substring(index);
 				newValue = newValue + oldValue;
 			} 
@@ -426,6 +433,11 @@
 			oldValue = "<%=values[i]%>";
 			index = oldValue.indexOf("||{")
 			if(index != -1 && (disconnectsbp=="false")) {
+				indexFirst = oldValue.indexOf("title:");
+				impl = oldValue.substring(indexFirst);
+				indexLast = impl.indexOf(",");
+				impl = oldValue.substring(indexFirst, indexFirst + indexLast);				
+				oldValue = oldValue.replace(impl, "title:" + newValue);
 				oldValue = oldValue.substring(index);
 				newValue = newValue + oldValue;
 			} 
@@ -441,6 +453,11 @@
 			oldValue = "<%=values[i]%>";
 			index = oldValue.indexOf("||{")
 			if(index != -1 && (disconnectsbp=="false")) {
+				indexFirst = oldValue.indexOf("title:");
+				impl = oldValue.substring(indexFirst);
+				indexLast = impl.indexOf(",");
+				impl = oldValue.substring(indexFirst, indexFirst + indexLast);				
+				oldValue = oldValue.replace(impl, "title:" + newValue);
 				oldValue = oldValue.substring(index);
 				newValue = newValue + oldValue;
 			} 
@@ -456,6 +473,11 @@
 			oldValue = "<%=values[i]%>";
 			index = oldValue.indexOf("||{")
 			if(index != -1 && (disconnectsbp=="false")) {
+				indexFirst = oldValue.indexOf("title:");
+				impl = oldValue.substring(indexFirst);
+				indexLast = impl.indexOf(",");
+				impl = oldValue.substring(indexFirst, indexFirst + indexLast);				
+				oldValue = oldValue.replace(impl, "title:" + newValue);
 				oldValue = oldValue.substring(index);
 				newValue = newValue + oldValue;
 			} 
@@ -464,24 +486,48 @@
 			}
 		%>
 	}
+			
+	/* 블루프린트와 연결해주는 버튼을 보여준다. */
+	function showEditBtn(self) {
+		var status = localStorage.getItem("editMode");
+		if(status == "true") {
+			$(self).children("span").first().css("display", "block");
+			$(self).children("span").eq(1).css("margin-left", -20);
+		}
+	}
+	/* 블루프린트와 연결해주는 버튼을 숨긴다.  */
+	function hideEditBtn(self) {		
+		var status = localStorage.getItem("editMode");
+		if(status == "true") {
+			$(self).children("span").first().css("display", "none");
+			$(self).children("span").eq(1).css("margin-left", 11);
+		}
+	}
+			
 	
 	/* 테이블(서비스컨셉 보여주는)의 위치를 중앙으로 맞춰준다.  */
 	var state = "hide";
 	var spaceWidth = $(".js_space_view_target").css("width").replace("px", "");
-	var tableWidth = $(".originalServiceConceptTable").css("width").replace("px", "");	
+	var tableWidth = $(".originalServiceConceptTable").css("width").replace("px", "");
 	var newTableWidth = $(".svc-all-list").css("width").replace("px", "");
+	spaceWidth = parseInt(spaceWidth);
+	tableWidth = parseInt(tableWidth);
+	newTableWidth = parseInt(newTableWidth);
 	$(".originalServiceConceptTable").css("margin-left", (spaceWidth - tableWidth)/2);
 	
-	/*
-	var height = $(".originalServiceConcepTable").css("height");
-	$(".svc-all-list").css("height", height);
-	*/
+	/* 테이블이 잘리는 현상으로 높이조절 */
+	var formHeight = $(".originalServiceConceptTable").css("height").replace("px", "");
+	formHeight = parseInt(formHeight) + 5;
+//	$(".js_space_view_target").css("height", formHeight);
+	
+	/* 새로운테이블(서비스컨셉 풀네임 보이는)의 높이를 조정해준다. */
+	$(".svc-all-list-form").css("height", formHeight-5);
 </script>
-<div style="height:200px; overflow:scroll; overflow-x:hidden; overflow-y:scroll;">
+<div class="svc-all-list-form" style="overflow-x:hidden; overflow-y:scroll;">
 	<table class="up tc svc-all-list" style="width:auto; min-height:200px;  margin-right:auto; float:left; display:none;" >
 		<tr>
 			<td class="tc edit_action" style="height:100%">
-				<div style="padding:5px">
+				<div style="padding:5px; margin:15px 0 0 0;">
 					<img src="images/pss/service-bullet.png" style="width: 24px;height: 24px;position: relative; margin-top:-7px"/>
 					<span style="font-size:15px;font-weight:bold; top:5px">SSPP</span>
 					<%
@@ -714,5 +760,11 @@
 			</td>
 		</tr>
 	</table>
+</div>
+
+<div class="showPSSDForm" style="clear:both; display:none;">
+<div class="solid_line"></div>
+	<div class="showPSSD">
+	</div>
 </div>
 <!-- 컨텐츠 레이아웃//-->

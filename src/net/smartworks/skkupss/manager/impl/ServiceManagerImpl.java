@@ -21,6 +21,7 @@ import net.smartworks.factory.ManagerFactory;
 import net.smartworks.skkupss.manager.IServiceManager;
 import net.smartworks.skkupss.model.ActorSpace;
 import net.smartworks.skkupss.model.BizModelSpace;
+import net.smartworks.skkupss.model.BusinessContext;
 import net.smartworks.skkupss.model.ContextSpace;
 import net.smartworks.skkupss.model.CustomerSpace;
 import net.smartworks.skkupss.model.DefaultSpace;
@@ -615,5 +616,24 @@ public class ServiceManagerImpl implements IServiceManager {
 		boolean result = ManagerFactory.getInstance().getDbManager().set_PSS_SBP_Servcie_Connect(requestBody);
 
 		return result;
+	}
+	
+	
+	/* PSS프로젝트 - Business Context 연결 */
+	@Override
+	public boolean set_PSS_BusinessContext(Map<String, String> requestBody) throws Exception {
+
+		boolean result = ManagerFactory.getInstance().getDbManager().set_PSS_BusinessContext(requestBody);
+
+		return result;
+	}
+	
+	/* PSS프로젝트 - Business Context 정보 가져온다 */
+	@Override
+	public BusinessContext get_PSS_BusinessContext(String psId) throws Exception {
+
+		BusinessContext businessContext = ManagerFactory.getInstance().getDbManager().get_PSS_BusinessContext(psId);
+
+		return businessContext;
 	}
 }

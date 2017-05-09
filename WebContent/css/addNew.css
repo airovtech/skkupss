@@ -3,21 +3,20 @@
 }
 .icon_btn_edit {
 	background: url("../images/btn_edit_activity.png") 0 no-repeat; 
+	cursor: pointer;
 	height:18px; 
 	width:24px; 
 	display:inline-block;
 	position: relative;
+	float:left;
+	margin-left:10px;
 }
 .icon_show_activity {
-	background-color: #FFFFFF;
-    background: url(../images/btn_show_activity.png) no-repeat 0 0 transparent;
-    border: 0 none;
-    cursor: pointer;
-    height: 13px;
-    width: 13px;
-    right: 2px;
-    padding: 0;
-    position: relative;
-    float: left;
-    top: 1px;
+    background: url(../images/btn_show_activity.png) no-repeat 0 ;
+	height:18px; 
+	width:24px; 
+	display:inline-block;
+	position: relative;
+	float:left;
+	margin-left:10px;
 }

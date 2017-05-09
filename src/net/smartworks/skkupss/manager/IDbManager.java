@@ -11,6 +11,7 @@ package net.smartworks.skkupss.manager;
 import java.util.List;
 import java.util.Map;
 
+import net.smartworks.skkupss.model.BusinessContext;
 import net.smartworks.skkupss.model.ProductService;
 import net.smartworks.skkupss.model.ProductServiceCond;
 import net.smartworks.skkupss.model.SBPService;
@@ -43,4 +44,6 @@ public interface IDbManager {
 	public boolean insertSbpMapData(Map<String, Object> sbpData) throws Exception;					// SBP Map에서 선택한 activity정보들을 DB에 채운다.
 	public SBPService getSBPService(String psId) throws Exception;									// 연결된 SBP Project 정보를 가져온다.
 	public boolean set_PSS_SBP_Servcie_Connect(Map<String, Object> requestBody) throws Exception;	// PSS프로젝트와 SBP프로젝트를 연결시켜준다 
+	public boolean set_PSS_BusinessContext(Map<String, String> requestBody) throws Exception;
+	public BusinessContext get_PSS_BusinessContext(String psId) throws Exception;
 }

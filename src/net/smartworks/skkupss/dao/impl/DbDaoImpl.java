@@ -15,6 +15,7 @@ import java.util.Map;
 
 import net.smartworks.factory.SessionFactory;
 import net.smartworks.skkupss.dao.IDbDao;
+import net.smartworks.skkupss.model.BusinessContext;
 import net.smartworks.skkupss.model.ProductService;
 import net.smartworks.skkupss.model.SBPService;
 import net.smartworks.skkupss.model.db.Db_BizModelSpace;
@@ -1020,5 +1021,53 @@ public class DbDaoImpl implements IDbDao {
 				session.close();
 		}		
 	}
-
+	
+	/* PSS 프로젝트 - Business Context 연결 */
+	@Override
+	public boolean set_PSS_BusinessContext(Map<String, String> requestBody) throws Exception {
+		SqlSession session = null;
+		boolean result = true;
+		try {
+			SqlSessionFactory factory = SessionFactory.getInstance().getSqlSessionFactory();
+			session = factory.openSession();
+			
+			try {
+				Integer count = session.selectOne("getCount_PSS_BusinessContext", requestBody);
+				if(count == 0) {
+					session.insert("insert_PSS_BusinessContext", requestBody);
+				} else {
+					session.update("update_PSS_BusinessContext", requestBody);
+				}
+				session.commit();
+			} catch(Exception x) {
+				x.toString();
+				result = false;
+			}
+			return result;
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			if (session != null)
+				session.close();
+		}		
+	}
+	
+	/* PSS 프로젝트 - Business Context 정보 가져온다 */
+	@Override
+	public BusinessContext get_PSS_BusinessContext(String psId) throws Exception {
+		BusinessContext businessContext = new BusinessContext();
+		SqlSession session = null;
+		try {
+			SqlSessionFactory factory = SessionFactory.getInstance().getSqlSessionFactory();
+			session = factory.openSession();
+			businessContext = session.selectOne("get_PSS_BusinessContext", psId);
+			
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			if (session != null)
+				session.close();
+		}	
+		return businessContext;
+	}
 }

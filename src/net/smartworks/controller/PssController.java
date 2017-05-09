@@ -26,6 +26,7 @@ import net.smartworks.factory.DaoFactory;
 import net.smartworks.factory.ManagerFactory;
 import net.smartworks.skkupss.model.ActorSpace;
 import net.smartworks.skkupss.model.BizModelSpace;
+import net.smartworks.skkupss.model.BusinessContext;
 import net.smartworks.skkupss.model.ContextSpace;
 import net.smartworks.skkupss.model.CustomerSpace;
 import net.smartworks.skkupss.model.CustomerType;
@@ -853,6 +854,39 @@ public class PssController {
 		}
 		request.setAttribute("sbpInfo", sbpInfo);
 		return SmartUtil.returnMnv(request, "pop_show_all_activities.jsp", "pop_show_all_activities.tiles");
+	}
+	
+	/* business context 페이지를 보여준다 */
+	@RequestMapping(value="/show_business_context", method = RequestMethod.POST)
+	public ModelAndView show_business_context(HttpServletRequest request, HttpServletResponse response, @RequestBody String psId) {
+		request.setAttribute("psId", psId);
+		return SmartUtil.returnMnv(request, "businessContext.jsp", "businessContext.tiles");
+	}
+	
+	/* business context 등록 */
+	@RequestMapping(value="/set_business_context_value", method = RequestMethod.POST)
+	public @ResponseBody boolean set_business_context_value(HttpServletRequest request, HttpServletResponse response, @RequestBody Map<String, String> requestBody) {		
+		boolean result = false;
+		try {
+			result = ManagerFactory.getInstance().getServiceManager().set_PSS_BusinessContext(requestBody);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		request.setAttribute("result", result);
+		return result;
+	}
+	
+	/* business context 정보 가져오기 */
+	@RequestMapping(value="/get_business_context_value", method = RequestMethod.POST)
+	public @ResponseBody BusinessContext get_business_context_value(HttpServletRequest request, HttpServletResponse response, @RequestBody String psId) {		
+		BusinessContext businessContext = new BusinessContext();
+		try {
+			businessContext = ManagerFactory.getInstance().getServiceManager().get_PSS_BusinessContext(psId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		request.setAttribute("businessContext", businessContext);
+		return businessContext;
 	}
 	
 	/* 1개의 PSS프로젝트의 모든 서비스컨셉에 연결된 activity를 한번에 보여준다. (실제 데이터 호출) 
