@@ -2246,7 +2246,36 @@ smartPop = {
 		});
 	}
 */
-		
+	
+/*
+	Success : function() {
+		var width = $(window).width();
+		var left = (($(window).width() - width) / 2);
+		var height = $(window).height();
+		var top = (($(window).height() - height) / 2);
+				
+		var alertBox =	"<div style='width:500px; height:500px;'>" +
+							"<input type='button'>점수 체크 완료" +
+						"<div>";
+	
+		$(alertBox).modal({
+			opacity: 10,
+			overlayCss: {backgroundColor:"#000"},
+			autoPosition: false,
+			containerCss:{
+				height:height,
+				width:width,
+				top:top-115,
+				left: left-25
+			},
+			overlayClose: false,
+			onShow: function(dialog){}
+		});
+	}
+*/
+	
+	
+	
 };
 }catch(error){
 	smartPop.showInfo(smartPop.ERROR, smartMessage.get('technicalProblemOccured') + '[sw-popup script]', null, error);

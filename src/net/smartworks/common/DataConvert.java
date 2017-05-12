@@ -168,146 +168,151 @@ public class DataConvert {
 		StringBuffer serviceConceptWithColor = new StringBuffer();
 		String[] color;
 		
-		data = sbpInfo.getSspp();
-		indexFirst = data.indexOf("||{");
-		if(indexFirst != -1) {
-			do {
-				indexFirst = data.indexOf("itemName:");
-				impl = data.substring(indexFirst);
-				indexLast = impl.indexOf(",");
-				impl = data.substring(indexFirst + 9, indexFirst + indexLast);
-				serviceConceptWithColor.append(impl).append("/");
-				
-				indexFirst = data.indexOf("title:");
-				impl = data.substring(indexFirst);
-				indexLast = impl.indexOf(",");
-				impl = data.substring(indexFirst + 6, indexFirst + indexLast);
-				serviceConceptWithColor.append(impl);
-				
-				indexFirst = data.indexOf("color:[/(start)/,");
-				impl = data.substring(indexFirst + 17);
-				indexLast = impl.indexOf("/(end)/");
-				impl = data.substring(indexFirst + 19, indexFirst + 17 + indexLast);
-				color = StringUtils.tokenizeToStringArray(impl, ",");
-				serviceConceptWithColor.append("/").append(color[0]);
-				data = data.substring(indexFirst + indexLast + 26);
-				
-				serviceConceptWithColor.append(",");
-			} while(data.indexOf("||{") != -1);
-		}
+		try {
 		
-		data = sbpInfo.getSspc();
-		indexFirst = data.indexOf("||{");
-		if(indexFirst != -1) {
-			do {
-				indexFirst = data.indexOf("itemName:");
-				impl = data.substring(indexFirst);
-				indexLast = impl.indexOf(",");
-				impl = data.substring(indexFirst + 9, indexFirst + indexLast);
-				serviceConceptWithColor.append(impl).append("/");
-				
-				indexFirst = data.indexOf("title:");
-				impl = data.substring(indexFirst);
-				indexLast = impl.indexOf(",");
-				impl = data.substring(indexFirst + 6, indexFirst + indexLast);
-				serviceConceptWithColor.append(impl);
-
-				indexFirst = data.indexOf("color:[/(start)/,");
-				impl = data.substring(indexFirst + 17);
-				indexLast = impl.indexOf("/(end)/");
-				impl = data.substring(indexFirst + 19, indexFirst + 17 + indexLast);
-				color = StringUtils.tokenizeToStringArray(impl, ",");
-				serviceConceptWithColor.append("/").append(color[0]);
-				data = data.substring(indexFirst + indexLast + 26);
-				
-				serviceConceptWithColor.append(",");
-			} while(data.indexOf("||{") != -1);
+			data = sbpInfo.getSspp();
+			indexFirst = data.indexOf("||{");
+			if(indexFirst != -1) {
+				do {
+					indexFirst = data.indexOf("itemName:");
+					impl = data.substring(indexFirst);
+					indexLast = impl.indexOf(",");
+					impl = data.substring(indexFirst + 9, indexFirst + indexLast);
+					serviceConceptWithColor.append(impl).append("/");
+					
+					indexFirst = data.indexOf("title:");
+					impl = data.substring(indexFirst);
+					indexLast = impl.indexOf(",");
+					impl = data.substring(indexFirst + 6, indexFirst + indexLast);
+					serviceConceptWithColor.append(impl);
+					
+					indexFirst = data.indexOf("color:[/(start)/,");
+					impl = data.substring(indexFirst + 17);
+					indexLast = impl.indexOf("/(end)/");
+					impl = data.substring(indexFirst + 19, indexFirst + 17 + indexLast);
+					color = StringUtils.tokenizeToStringArray(impl, ",");
+					serviceConceptWithColor.append("/").append(color[0]);
+					data = data.substring(indexFirst + indexLast + 26);
+					
+					serviceConceptWithColor.append(",");
+				} while(data.indexOf("||{") != -1);
+			}
+			
+			data = sbpInfo.getSspc();
+			indexFirst = data.indexOf("||{");
+			if(indexFirst != -1) {
+				do {
+					indexFirst = data.indexOf("itemName:");
+					impl = data.substring(indexFirst);
+					indexLast = impl.indexOf(",");
+					impl = data.substring(indexFirst + 9, indexFirst + indexLast);
+					serviceConceptWithColor.append(impl).append("/");
+					
+					indexFirst = data.indexOf("title:");
+					impl = data.substring(indexFirst);
+					indexLast = impl.indexOf(",");
+					impl = data.substring(indexFirst + 6, indexFirst + indexLast);
+					serviceConceptWithColor.append(impl);
+	
+					indexFirst = data.indexOf("color:[/(start)/,");
+					impl = data.substring(indexFirst + 17);
+					indexLast = impl.indexOf("/(end)/");
+					impl = data.substring(indexFirst + 19, indexFirst + 17 + indexLast);
+					color = StringUtils.tokenizeToStringArray(impl, ",");
+					serviceConceptWithColor.append("/").append(color[0]);
+					data = data.substring(indexFirst + indexLast + 26);
+					
+					serviceConceptWithColor.append(",");
+				} while(data.indexOf("||{") != -1);
+			}
+			
+			data = sbpInfo.getSsp();
+			indexFirst = data.indexOf("||{");
+			if(indexFirst != -1) {
+				do {
+					indexFirst = data.indexOf("itemName:");
+					impl = data.substring(indexFirst);
+					indexLast = impl.indexOf(",");
+					impl = data.substring(indexFirst + 9, indexFirst + indexLast);
+					serviceConceptWithColor.append(impl).append("/");
+					
+					indexFirst = data.indexOf("title:");
+					impl = data.substring(indexFirst);
+					indexLast = impl.indexOf(",");
+					impl = data.substring(indexFirst + 6, indexFirst + indexLast);
+					serviceConceptWithColor.append(impl);
+	
+					indexFirst = data.indexOf("color:[/(start)/,");
+					impl = data.substring(indexFirst + 17);
+					indexLast = impl.indexOf("/(end)/");
+					impl = data.substring(indexFirst + 19, indexFirst + 17 + indexLast);
+					color = StringUtils.tokenizeToStringArray(impl, ",");
+					serviceConceptWithColor.append("/").append(color[0]);
+					data = data.substring(indexFirst + indexLast + 26);
+					
+					serviceConceptWithColor.append(",");
+				} while(data.indexOf("||{") != -1);
+			}
+			
+			data = sbpInfo.getSscc();
+			indexFirst = data.indexOf("||{");
+			if(indexFirst != -1) {
+				do {
+					indexFirst = data.indexOf("itemName:");
+					impl = data.substring(indexFirst);
+					indexLast = impl.indexOf(",");
+					impl = data.substring(indexFirst + 9, indexFirst + indexLast);
+					serviceConceptWithColor.append(impl).append("/");
+					
+					indexFirst = data.indexOf("title:");
+					impl = data.substring(indexFirst);
+					indexLast = impl.indexOf(",");
+					impl = data.substring(indexFirst + 6, indexFirst + indexLast);
+					serviceConceptWithColor.append(impl);
+	
+					indexFirst = data.indexOf("color:[/(start)/,");
+					impl = data.substring(indexFirst + 17);
+					indexLast = impl.indexOf("/(end)/");
+					impl = data.substring(indexFirst + 19, indexFirst + 17 + indexLast);
+					color = StringUtils.tokenizeToStringArray(impl, ",");
+					serviceConceptWithColor.append("/").append(color[0]);
+					data = data.substring(indexFirst + indexLast + 26);
+					
+					serviceConceptWithColor.append(",");
+				} while(data.indexOf("||{") != -1);
+			}
+			
+			data = sbpInfo.getSsc();
+			indexFirst = data.indexOf("||{");
+			if(indexFirst != -1) {
+				do {
+					indexFirst = data.indexOf("itemName:");
+					impl = data.substring(indexFirst);
+					indexLast = impl.indexOf(",");
+					impl = data.substring(indexFirst + 9, indexFirst + indexLast);
+					serviceConceptWithColor.append(impl).append("/");
+					
+					indexFirst = data.indexOf("title:");
+					impl = data.substring(indexFirst);
+					indexLast = impl.indexOf(",");
+					impl = data.substring(indexFirst + 6, indexFirst + indexLast);
+					serviceConceptWithColor.append(impl);
+	
+					indexFirst = data.indexOf("color:[/(start)/,");
+					impl = data.substring(indexFirst + 17);
+					indexLast = impl.indexOf("/(end)/");
+					impl = data.substring(indexFirst + 19, indexFirst + 17 + indexLast);
+					color = StringUtils.tokenizeToStringArray(impl, ",");
+					serviceConceptWithColor.append("/").append(color[0]);
+					data = data.substring(indexFirst + indexLast + 26);
+					
+					serviceConceptWithColor.append(",");
+				} while(data.indexOf("||{") != -1);
+			}
+			serviceConceptWithColor.delete(serviceConceptWithColor.length()-1, serviceConceptWithColor.length());
+		} catch(Exception e) {
+			e.printStackTrace();
 		}
-		
-		data = sbpInfo.getSsp();
-		indexFirst = data.indexOf("||{");
-		if(indexFirst != -1) {
-			do {
-				indexFirst = data.indexOf("itemName:");
-				impl = data.substring(indexFirst);
-				indexLast = impl.indexOf(",");
-				impl = data.substring(indexFirst + 9, indexFirst + indexLast);
-				serviceConceptWithColor.append(impl).append("/");
-				
-				indexFirst = data.indexOf("title:");
-				impl = data.substring(indexFirst);
-				indexLast = impl.indexOf(",");
-				impl = data.substring(indexFirst + 6, indexFirst + indexLast);
-				serviceConceptWithColor.append(impl);
-
-				indexFirst = data.indexOf("color:[/(start)/,");
-				impl = data.substring(indexFirst + 17);
-				indexLast = impl.indexOf("/(end)/");
-				impl = data.substring(indexFirst + 19, indexFirst + 17 + indexLast);
-				color = StringUtils.tokenizeToStringArray(impl, ",");
-				serviceConceptWithColor.append("/").append(color[0]);
-				data = data.substring(indexFirst + indexLast + 26);
-				
-				serviceConceptWithColor.append(",");
-			} while(data.indexOf("||{") != -1);
-		}
-		
-		data = sbpInfo.getSscc();
-		indexFirst = data.indexOf("||{");
-		if(indexFirst != -1) {
-			do {
-				indexFirst = data.indexOf("itemName:");
-				impl = data.substring(indexFirst);
-				indexLast = impl.indexOf(",");
-				impl = data.substring(indexFirst + 9, indexFirst + indexLast);
-				serviceConceptWithColor.append(impl).append("/");
-				
-				indexFirst = data.indexOf("title:");
-				impl = data.substring(indexFirst);
-				indexLast = impl.indexOf(",");
-				impl = data.substring(indexFirst + 6, indexFirst + indexLast);
-				serviceConceptWithColor.append(impl);
-
-				indexFirst = data.indexOf("color:[/(start)/,");
-				impl = data.substring(indexFirst + 17);
-				indexLast = impl.indexOf("/(end)/");
-				impl = data.substring(indexFirst + 19, indexFirst + 17 + indexLast);
-				color = StringUtils.tokenizeToStringArray(impl, ",");
-				serviceConceptWithColor.append("/").append(color[0]);
-				data = data.substring(indexFirst + indexLast + 26);
-				
-				serviceConceptWithColor.append(",");
-			} while(data.indexOf("||{") != -1);
-		}
-		
-		data = sbpInfo.getSsc();
-		indexFirst = data.indexOf("||{");
-		if(indexFirst != -1) {
-			do {
-				indexFirst = data.indexOf("itemName:");
-				impl = data.substring(indexFirst);
-				indexLast = impl.indexOf(",");
-				impl = data.substring(indexFirst + 9, indexFirst + indexLast);
-				serviceConceptWithColor.append(impl).append("/");
-				
-				indexFirst = data.indexOf("title:");
-				impl = data.substring(indexFirst);
-				indexLast = impl.indexOf(",");
-				impl = data.substring(indexFirst + 6, indexFirst + indexLast);
-				serviceConceptWithColor.append(impl);
-
-				indexFirst = data.indexOf("color:[/(start)/,");
-				impl = data.substring(indexFirst + 17);
-				indexLast = impl.indexOf("/(end)/");
-				impl = data.substring(indexFirst + 19, indexFirst + 17 + indexLast);
-				color = StringUtils.tokenizeToStringArray(impl, ",");
-				serviceConceptWithColor.append("/").append(color[0]);
-				data = data.substring(indexFirst + indexLast + 26);
-				
-				serviceConceptWithColor.append(",");
-			} while(data.indexOf("||{") != -1);
-		}
-		serviceConceptWithColor.delete(serviceConceptWithColor.length()-1, serviceConceptWithColor.length());
 		return serviceConceptWithColor.toString();
 	}
 	

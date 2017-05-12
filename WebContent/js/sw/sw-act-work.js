@@ -3033,7 +3033,7 @@ $(function() {
 	});
 
 	
-	/* Service Concept중에 하나를 클릭하면 어떤 SBP List를 보여주기 위해 smartpop을 띄어준다. */
+	/* Service Concept중에 하나를 클릭하면 연결되어있는 블루프린트 map을 보여준다  */
 	$('.showSbpPrjList').live('click',function(e) {
 		try{
 			var target = $(targetElement(e));
@@ -3125,9 +3125,7 @@ $(function() {
 	 
 	/* 서비스컨셉과 연결된 activity 수정 모드로 변환  */
 	$(".connect-sbp").live("click", function(e) {
-		
 		var status = localStorage.getItem("editMode");
-		
 		if(status != "true") {
 			$(".icon_btn_connect").removeClass("icon_show_activity");
 			$(".icon_btn_connect").addClass("showSbpPrjList");
@@ -3147,16 +3145,12 @@ $(function() {
 			$(".blueprintmode").html("블루프린트 연결모드");
 			localStorage.setItem("editMode", "false");
 		}
-		
-		
 	});
 	
 	/* 모든 서비스컨셉에 연결된 activity를 한번에 보여주는 기능   */
 	$(".show-all-activities").live("click", function(e){
 		try{
 			var psId = $(".show-all-activities").attr("psId");
-//			smartPop.showAllActivities(psId);
-			
 			$(".showPSSDForm").css("display", "block");						
 			var url = "pop_show_all_activities.sw";
 			$.ajax({
@@ -3172,7 +3166,7 @@ $(function() {
 					$(".showPSSD").html(result);
 				},
 				error : function(result) {
-					alert("error : " + result);
+					alert("activity를 연결해주세요.");
 					console.log(result);
 				}
 			});
@@ -3181,6 +3175,7 @@ $(function() {
 		}
 	});
 	
+	/* business_context 보기  */
 	$(".business_context").live("click", function(e) {
 		var target = $(targetElement(e));
 		var psId = target.attr("psId");
@@ -3223,7 +3218,11 @@ $(function() {
 			//nothing
 		}
 	});
-	
+/*
+	$(".test").live("click", function(e) {
+		smartPop.Success();
+	});
+*/
 });
 }catch(error){
 	smartPop.showInfo(smartPop.ERROR, smartMessage.get('technicalProblemOccured') + '[sw-act-work script]', null, error);

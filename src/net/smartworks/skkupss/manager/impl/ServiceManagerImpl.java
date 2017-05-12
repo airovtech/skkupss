@@ -61,6 +61,7 @@ import net.smartworks.skkupss.smcal.SimActor;
 import net.smartworks.util.SmartUtil;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 @Service
 public class ServiceManagerImpl implements IServiceManager {
@@ -272,7 +273,87 @@ public class ServiceManagerImpl implements IServiceManager {
 					DefaultSpace targetProductService = target.getProductServiceSpace();
 					ProductSpace sourceProduct = source.getProductSpace();
 					ProductSpace targetProduct = target.getProductSpace();
+					
 					ServiceSpace sourceService = source.getServiceSpace();
+					
+					/* 유사도 비교오류 수정 조재일 20170512 */
+					if(sourceService != null) {
+						String[] tokens = null;
+						String extractTitle = "";
+						String impl = "";
+	
+						if(sourceService.getSspc() != null) {						
+							tokens = sourceService.getSspc();
+							String[] titles = new String[tokens.length];
+							for(int k=0; k<tokens.length; k++) {
+								if(tokens[k].contains("||")) {
+									extractTitle = ServiceSpace.getValueString(tokens[k].toString());		// service concept의 타이틀만 남겨준다. 
+									titles[k] = extractTitle;
+								} else {
+									titles[k] = tokens[k];			
+								}
+							}
+							sourceService.setSspc(titles);
+						}
+						
+						if(sourceService.getSspp() != null) {
+							tokens = sourceService.getSspp();
+							String[] titles = new String[tokens.length];
+							for(int k=0; k<tokens.length; k++) {
+								if(tokens[k].contains("||")) {
+									extractTitle = ServiceSpace.getValueString(tokens[k].toString());		// service concept의 타이틀만 남겨준다. 
+									titles[k] = extractTitle;
+								} else {
+									titles[k] = tokens[k];			
+								}
+							}
+							sourceService.setSspp(titles);
+						}
+						
+						if(sourceService.getSsp() != null) {
+							tokens = sourceService.getSsp();
+							String[] titles = new String[tokens.length];
+							for(int k=0; k<tokens.length; k++) {
+								if(tokens[k].contains("||")) {
+									extractTitle = ServiceSpace.getValueString(tokens[k].toString());		// service concept의 타이틀만 남겨준다. 
+									titles[k] = extractTitle;
+								} else {
+									titles[k] = tokens[k];			
+								}
+							}
+							sourceService.setSsp(titles);
+						}
+						
+						if(sourceService.getSsc() != null) {
+							tokens = sourceService.getSsc();
+							String[] titles = new String[tokens.length];
+							for(int k=0; k<tokens.length; k++) {
+								if(tokens[k].contains("||")) {
+									extractTitle = ServiceSpace.getValueString(tokens[k].toString());		// service concept의 타이틀만 남겨준다. 
+									titles[k] = extractTitle;
+								} else {
+									titles[k] = tokens[k];			
+								}
+							}
+							sourceService.setSsc(titles);
+						}
+						
+						if(sourceService.getSscc() != null) {
+							tokens = sourceService.getSscc();
+							String[] titles = new String[tokens.length];
+							for(int k=0; k<tokens.length; k++) {
+								if(tokens[k].contains("||")) {
+									extractTitle = ServiceSpace.getValueString(tokens[k].toString());		// service concept의 타이틀만 남겨준다. 
+									titles[k] = extractTitle;
+								} else {
+									titles[k] = tokens[k];			
+								}
+							}
+							sourceService.setSscc(titles);
+						}
+					}
+					/* 유사도 비교오류 수정 조재일 20170512// */
+					
 					ServiceSpace targetService = target.getServiceSpace();
 					TouchPointSpace sourceTouchPoint = source.getTouchPointSpace();
 					TouchPointSpace targetTouchPoint = target.getTouchPointSpace();

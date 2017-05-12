@@ -398,6 +398,13 @@ $(function() {
 			var newProductService = input.parents('.js_new_product_service_page');
 			var psId = input.attr('psId');
 			var spaceType = newProductService.attr('spaceType');
+			
+			/* 자동클릭 일경우 데이터를 못가져오므로 직접 넣어줌 */
+			if(psId == undefined || spaceType == undefined) {
+				psId = $(".js_modify_product_service").attr("psid");
+				spaceType = "serviceSpace";
+			}
+			
 			var isCVCAEnabled = newProductService.attr('isCVCAEnabled');
 			if(spaceType === 'actorSpace' && isCVCAEnabled === 'true')
 				spaceType = 'actorCvcaSpace';

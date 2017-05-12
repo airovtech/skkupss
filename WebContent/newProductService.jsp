@@ -21,10 +21,27 @@
 <%@ page contentType="text/html; charset=utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <script type="text/javascript">
+
+setTimeout(function() {
+	// sbp연결하면 페이지 reload 됨 이때 페이지를 service space로 자동으로 넘겨준다.
+	var fromServiceSpace = localStorage.getItem("fromServiceSpace");
+	if(fromServiceSpace == "true") {
+		localStorage.setItem("fromServiceSpace", "false");
+		$(".service_space").children().trigger("click");
+		$(".js_modify_product_service").trigger("click");
+		setTimeout(function() {
+			$(".blueprintmode").trigger("click");
+		}, 300);
+	}
+}, 500);
+
 try{
 //완료버튼 클릭시 reserve_asset.sw 서비스를 실행하기 위해 submit하는 스크립트..
 function submitForms(tempSave) {
-	settingValue();
+	// viewServiceSpace의 function 호출
+	if(typeof settingValue != "undefined") {
+		settingValue();
+	}
 	var newProductService = $('.js_new_product_service_page');
 	// new_asset_reservation 에 있는 활성화되어 있는 모든 입력화면들을 validation하여 이상이 없으면 submit를 진행한다...
 	if(!SmartWorks.GridLayout.validate(newProductService.find('form.js_validation_required:visible'), $('.js_upload_error_message'))) return;
@@ -568,7 +585,7 @@ try{
 					'<th class="current"><a spaceType="1" spaceTypeStr="<%=ProductService.PSS_SPACE_VALUE%>" href="viewValueSpace.jsp">Value Space</a></th>' +  
 					'<th><a spaceType="2" spaceTypeStr="<%=ProductService.PSS_SPACE_PRODUCT_SERVICE%>" href="viewProductServiceSpace.jsp">Product-Service Space</a></th>' +  
 					'<th><a spaceType="3" spaceTypeStr="<%=ProductService.PSS_SPACE_PRODUCT%>" href="viewProductSpace.jsp">Product Space</a></th>' +  
-					'<th><a spaceType="4" spaceTypeStr="<%=ProductService.PSS_SPACE_SERVICE%>" href="viewServiceSpace.jsp">Service Space</a></th>' +  
+					'<th class="service_space"><a spaceType="4" spaceTypeStr="<%=ProductService.PSS_SPACE_SERVICE%>" href="viewServiceSpace.jsp">Service Space</a></th>' +  
 					'<th><a spaceType="5" spaceTypeStr="<%=ProductService.PSS_SPACE_TOUCH_POINT%>" href="viewTouchPointSpace.jsp">Touch Point Space</a></th>' +  
 					'<th><a spaceType="6" spaceTypeStr="<%=ProductService.PSS_SPACE_CUSTOMER%>" href="viewCustomerSpace.jsp">Customer Space</a></th>' +  
 					'<th><a spaceType="7" spaceTypeStr="<%=ProductService.PSS_SPACE_BIZ_MODEL%>" href="viewBizModelSpace.jsp">Biz Model Space</a></th>' +  

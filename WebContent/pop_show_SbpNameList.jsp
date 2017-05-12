@@ -40,8 +40,9 @@
 	}
 	.serviceconcept_title {
 		font-size:25px;
-		margin-left:30px;
+		margin-left:27px;
 		margin-top:25px;
+		height:30px;
 	}
 	.dataEnsure1 {
 		bottom:0px;
@@ -64,7 +65,7 @@
 		margin-top:64px;
 		margin-left:200px;
 		line-height:200%;
-		height:23px;
+		height:20px;
 		padding:16px;
 		margin-bottom:16px!important;
 		border:1px solid #ccc!important;
@@ -98,7 +99,15 @@
 	$(".dataEnsure1").css("margin-left", (spaceWidth-100)/2);
 	$(".activity_content").css("width", (spaceWidth-100)-280);
 	
-	
+	/* 처음 블루프린트 선택 후 activity선택화면으로 넘어 왔을시, activity 값 초기화 */
+	sbp_dt = "";
+	sbpId_dt = "";
+	activityId_dt = "";
+	activityName_dt = "";
+	activityId_Array = new Array();
+	activityName_Array = new Array();
+	seq_Array = new Array();
+	viewMode = "false";
 	
 	/* 이페이지에서 처음에는 Iframe으로 SBP들을 보여주지만, SBP중에 하나를 클릭하여 SBP Map까지 넘어왔을 때 발생할수 있는 Event */
 	$(".resetSbpData1").live("click", function() {		// X버튼으로 창을 닫으면 선택한 Activity 목록들을 지워준다
@@ -262,7 +271,10 @@
 							$(svcNameNum).children().attr("sbpName", sbpName);							
 							$('input[svcNameNum=' + svcNameNum2 + ']').attr("value", totalDataToString);
 							
-							/* 선택한 SBP의 이름을 보여준다. */
+							hidePSSD();
+							
+							/* 선택한 SBP의 이름을 보여준다.(SBP프로젝트 타이틀 보여주는곳) */
+/*
 							var title_Create_url = "title_Create.sw";
 							$.ajax({
 								type: 'POST',
@@ -274,7 +286,7 @@
 								data : JSON.stringify({psId : psId}),
 								dataType:'html',
 								success : function(result) {
-									/* 서버encode -> 클라이언트decode 해줘도 특수문자가 깨져서 와서 깨진부분만 수정 */
+									/* 서버encode -> 클라이언트decode 해줘도 특수문자가 깨져서 와서 깨진부분만 수정 
 									result = decodeURI(result);
 									result = result.replace(/\+/gi," ");
 									result = result.replace(/%2F/gi,"/");
@@ -292,6 +304,7 @@
 									alert("error[SbpNameList_title] : " + result);
 								}
 							});
+*/
 					} else {
 						alert("Success / fail");
 					}

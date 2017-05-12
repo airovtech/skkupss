@@ -39,8 +39,9 @@
 	.serviceconcept_title {
 		float:left;
 		font-size:25px;
-		margin-left:30px;
+		margin-left:27px;
 		margin-top:25px;
+		height:30px;
 	}
 	.dataEnsure2 {
 		position:absolute;
@@ -68,6 +69,7 @@
 		margin-top:86px;
 	}
 	.activity_content {
+		height:20px;
 		position:absolute;
 		font-size:13px;
 		margin-top:64px;
@@ -131,6 +133,16 @@
 			$(".sbpline").css("height", height_ViewMode);
 		}
 	}
+	
+	/* 처음 블루프린트 선택 후 activity선택화면으로 넘어 왔을시, activity 값 초기화 */
+	sbp_dt = "";
+	sbpId_dt = "";
+	activityId_dt = "";
+	activityName_dt = "";
+	activityId_Array = new Array();
+	activityName_Array = new Array();
+	seq_Array = new Array();
+	viewMode = "false";
 	
 	/* SBP Map 창을 닫으면 데이터 바구니역할(header.jsp의 변수들)을 하는 변수들을 리셋해준다. */
 	$(".resetSbpData2").live("click", function() {
@@ -332,6 +344,7 @@
 			success : function(result) {
 				$('input[svcNameNum=' + svcNameNum + ']').attr("value", totalDataToString);
 				alert("Activity 연결 성공!");
+				hidePSSD();
 			},
 			error : function(result){
 				alert("error : " + result);
@@ -400,6 +413,11 @@
 				$("#SBP_DisConnect_Modal").css("display", "none");
 				$(".sbp-disconnect-modal-content").css("display", "none");
 				$(".showPSSD").css("display", "none");
+				
+				
+				/* 연결해제 후 새로고침 */
+				localStorage.setItem("fromServiceSpace", "true");
+				location.reload();
 				
 				/* 연결된 'SBP-프로젝트 이름'을 보여주는곳 변경 */
 				var title_Create_url = "title_Create.sw";

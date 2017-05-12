@@ -43,8 +43,9 @@
 	.serviceconcept_title {
 		float:left;
 		font-size:25px;
-		margin-left:30px;
+		margin-left:27px;
 		margin-top:25px;
+		height:30px;
 	}
 
 	.activity_content_wrap {
@@ -55,6 +56,7 @@
 		margin-top:82px;
 	}
 	.activity_content {
+		height:20px;
 		position:absolute;
 		float:left;
 		font-size:13px;

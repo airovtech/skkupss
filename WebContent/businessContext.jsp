@@ -41,7 +41,7 @@
     	margin-top:5px;
     }
     .list_children {
-    	font-size:16px; 
+    	font-size:13px; 
     	margin-left:50px;
     	margin-top:3px;
     	margin-bottom:3px;
@@ -66,32 +66,32 @@
 <div class="business_context_tableForm">
 	<table>
 		<tr>
-			<th class="column_title_list" style="font-size: 16px;text-align:center;width:430px;"><fmt:message key="pss.title.business_context_chart"/></th>
-			<th class="column_title">
-				<img src="images/mark2.jpg" class="point_pic" style="min-width:400px;">
+			<th class="column_title_list" style="font-size: 16px;text-align:center;width:450px;"><fmt:message key="pss.title.business_context_chart"/></th>
+			<th style="width:310px;">
+				<img src="images/mark3.jpg" class="point_pic" style="width:310px;">
 			</th>
 			<th class="column_title"></th>
 		</tr>
 		<tr>
 			<td>
 				<div class="list_parent"> ● 비즈니스 환경의 변화
-					<div class="list_children"> ● 현 제조 비즈니스의 포지셔닝</div>
+					<div class="list_children"> ● <span style="font-size:16.5px;"> 현 제조 비즈니스의 포지셔닝</span></div>
 					<div style="font-size:12px; margin-left:100px;"></div>
-					<div class="list_children"> ● 주력 제품 PLC</div>
-					<div class="list_children"> ● 제품 포트폴리오 구성 및 변화</div>
+					<div class="list_children"> ● <span style="font-size:16.5px;"> 주력 제품 PLC</span></div>
+					<div class="list_children"> ● <span style="font-size:16.5px;"> 제품 포트폴리오 구성 및 변화</span></div>
 				</div>
 				<div class="list_parent"> ● 내부 역량의 활용
-					<div class="list_children"> ● 재무적 관점</div>
-					<div class="list_children"> ● 조직적 관점</div>
-					<div class="list_children"> ● 기술/지식적 관점</div>
-					<div class="list_children"> ● 관계사 및 비즈니스 파트너</div>
+					<div class="list_children"> ● <span style="font-size:16.5px;"> 재무적 관점</span></div>
+					<div class="list_children"> ● <span style="font-size:16.5px;"> 조직적 관점</span></div>
+					<div class="list_children"> ● <span style="font-size:16.5px;"> 기술/지식적 관점</span></div>
+					<div class="list_children"> ● <span style="font-size:16.5px;"> 관계사 및 비즈니스 파트너</span></div>
 				</div>
 				<div class="list_parent"> ● 고객의 서비스에 대한 니즈
-					<div class="list_children"> ● 제품 판매/구매 방식의 변화/보완 필요성</div>
-					<div class="list_children"> ● 기존 제품 관련 서비스 대체 가능성</div>
-					<div class="list_children"> ● 기존 제품 관련 신규 서비스 창출 가능성</div>
-					<div class="list_children"> ● 기존 제품의 목표 고객 대상의 서비스 진입 가능성</div>
-					<div class="list_children"> ● 기존 제품의 목표 고객 대상 신규 서비스 창출 가능성</div>
+					<div class="list_children"> ● <span style="font-size:16.5px;"> 제품 판매/구매 방식의 변화/보완 필요성</span></div>
+					<div class="list_children"> ● <span style="font-size:16.5px;"> 기존 제품 관련 서비스 대체 가능성</span></div>
+					<div class="list_children"> ● <span style="font-size:16.5px;"> 기존 제품 관련 신규 서비스 창출 가능성</span></div>
+					<div class="list_children"> ● <span style="font-size:16.5px;"> 기존 제품의 목표 고객 대상의 서비스 진입 가능성</span></div>
+					<div class="list_children"> ● <span style="font-size:16.5px;"> 기존 제품의 목표 고객 대상 신규 서비스 창출 가능성</span></div>
 				</div>
 			</td>
 			<td>
@@ -164,10 +164,11 @@
 	
 	/* 간격 길이 조정  */
 	var tableFormWidth = $(".js_new_product_service_fields").css("width").replace("px", "");
-	var column_title_width = (tableFormWidth - $(".column_title_list").css("width").replace("px",""))/2;
+//	var column_title_width = (tableFormWidth - $(".column_title_list").css("width").replace("px",""))/2;
+	var column_title_width = tableFormWidth - (350 + 410); 
 	$(".column_title").css("width", column_title_width);
 	$("#chart11").css("width", column_title_width);
-	$(".point_pic").css("width",column_title_width);
+//	$(".point_pic").css("width",column_title_width);
 	$("body").css("overflow-x", "hidden");
 
 	/* 항목 체크박스 생성 */
@@ -185,24 +186,26 @@
 			data : psId,
 			dataType:"json",
 			success : function(result) {
-				/* 점수조정 (Nwagon chart 라이브러리가 차트 표현시, 0~100점 기준으로 설정되있으므로 알맞게 점수 조정) */
-				var dataArray = new Array();					
-				dataArray.push(result.finance*20);
-				dataArray.push(result.organization*20);
-				dataArray.push(result.technique*20);
-				dataArray.push(result.partner*20);
-				dataArray.push(result.sale_purchase*20);
-				dataArray.push(result.origin_service*20);
-				dataArray.push(result.origin_service_improve*20);
-				dataArray.push(result.new_service*20);
-				dataArray.push(result.new_service_create*20);
-				dataArray.push(result.position_business*20);
-				dataArray.push(result.product_plc*20);
-				dataArray.push(result.portpolio_innovation*20);
-				radarChart(dataArray);
-				
-				/* 체크박스 점수 채움 */
-				setCheckbox(result);
+				if(result != null) {
+					/* 점수조정 (Nwagon chart 라이브러리가 차트 표현시, 0~100점 기준으로 설정되있으므로 알맞게 점수 조정) */
+					var dataArray = new Array();					
+					dataArray.push(result.finance*20);
+					dataArray.push(result.organization*20);
+					dataArray.push(result.technique*20);
+					dataArray.push(result.partner*20);
+					dataArray.push(result.sale_purchase*20);
+					dataArray.push(result.origin_service*20);
+					dataArray.push(result.origin_service_improve*20);
+					dataArray.push(result.new_service*20);
+					dataArray.push(result.new_service_create*20);
+					dataArray.push(result.position_business*20);
+					dataArray.push(result.product_plc*20);
+					dataArray.push(result.portpolio_innovation*20);
+					radarChart(dataArray);
+					
+					/* 체크박스 점수 채움 */
+					setCheckbox(result);
+				} else {}
 			},
 			error : function(result) {
 				alert(result);
@@ -238,13 +241,59 @@
 		}
 		
 		/* 차트 위치 조정 */
-		var chartHeight = $("#chart11").children("svg").css("height").replace("px", "");
+/*		var chartHeight = $("#chart11").children("svg").css("height").replace("px", "");
 		var tdHeight = $("#chart11").closest("td").css("height").replace("px", "");
 		$("#chart11").children("svg").css("margin-top", (tdHeight - chartHeight)/2 - 15);
 		var chartWidth = $("#chart11").css("width").replace("px", "");
 		chartWidth = parseInt(chartWidth);
 		chartPosition(chartWidth);
+*/
+		var chartWidth = $("#chart11").css("width").replace("px", "");
+		chartWidth = parseInt(chartWidth);
+		if(chartWidth < 400) {
+			$("#chart11").children("svg").attr("width", 600);
+			$("#chart11").children("svg").attr("height", 300);
+		} else if(chartWidth < 450) {
+			$("#chart11").children("svg").attr("width", 625);
+			$("#chart11").children("svg").attr("height", 312.5);
+		} else if(chartWidth < 500) {
+			$("#chart11").children("svg").attr("width", 650);
+			$("#chart11").children("svg").attr("height", 325);
+		} else if(chartWidth < 550) {
+			$("#chart11").children("svg").attr("width", 675);
+			$("#chart11").children("svg").attr("height", 337.5);
+		} else if(chartWidth < 600) {
+			$("#chart11").children("svg").attr("width", 700);
+			$("#chart11").children("svg").attr("height", 350);
+		} else if(chartWidth < 650) {
+			$("#chart11").children("svg").attr("width", 725);
+			$("#chart11").children("svg").attr("height", 362.5);
+		} else if(chartWidth < 700) {
+			$("#chart11").children("svg").attr("width", 750);
+			$("#chart11").children("svg").attr("height", 375.5);
+		} else if(chartWidth < 750) {
+			$("#chart11").children("svg").attr("width", 775);
+			$("#chart11").children("svg").attr("height", 387.5);
+		} else if(chartWidth < 800) {
+			$("#chart11").children("svg").attr("width", 800);
+			$("#chart11").children("svg").attr("height", 400);
+		} else if(chartWidth < 850) {
+			$("#chart11").children("svg").attr("width", 825);
+			$("#chart11").children("svg").attr("height", 412.5);
+		} else if(chartWidth < 900) {
+			$("#chart11").children("svg").attr("width", 850);
+			$("#chart11").children("svg").attr("height", 425);
+		} else {
+			$("#chart11").children("svg").attr("width", 875);
+			$("#chart11").children("svg").attr("height", 437.5);
+		} 
 		
+		var chartHeight = $("#chart11").children("svg").css("height").replace("px", "");
+		var tdHeight = $("#chart11").closest("td").css("height").replace("px", "");
+		$("#chart11").children("svg").css("margin-top", (tdHeight - chartHeight)/2 - 15);
+		chartWidth = parseInt(chartWidth);
+		chartPosition(chartWidth);
+
 		/* 컨셉들 속성 변경 */
 		$("text").attr("onclick", "");
 		$("text").css("text-decoration" , "blink");
@@ -528,6 +577,9 @@
 					dataArray.push(portpolio_innovation*20);
 					radarChart(dataArray);
 					alert("점수 체크 완료");
+					//smartPop.confirm(smartMessage.get("saveConfirmation"), "");
+					//smartPop.WARN(smartMessage.get("saveConfirmation"), "");
+					//$(".test").trigger("click");
 				},
 				error : function(result) {
 					alert(result);
@@ -646,7 +698,7 @@
 			other_checkbox = column_title_width / 8.405;
 		}
 */
-
+/*
 		if(column_title_width < 400) {
 			column_title_width = 400;
 		}
@@ -736,14 +788,14 @@
 			second_checkbox = column_title_width / 6.474;
 			other_checkbox = column_title_width / 6.666;
 		} 
-		
+*/
 		var html = "<input type='checkbox' value='-1' style='margin-left:33px; display:none;'/>";
-		html += "<input type='checkbox' value='0' oldCheck='false' style='margin-left:" + first_checkbox + "px; margin-bottom:9px!important;'/>";
-		html += "<input type='checkbox' value='1' oldCheck='false' style='margin-left:" + second_checkbox + "px; margin-bottom:9px!important;'/>";
-		html += "<input type='checkbox' value='2' oldCheck='false' style='margin-left:" + other_checkbox + "px; margin-bottom:9px!important;'/>";
-		html += "<input type='checkbox' value='3' oldCheck='false' style='margin-left:" + (other_checkbox+1) + "px; margin-bottom:9px!important;'/>";
-		html += "<input type='checkbox' value='4' oldCheck='false'style='margin-left:" + (other_checkbox+1) + "px; margin-bottom:9px!important;'/>";
-		html += "<input type='checkbox' value='5' oldCheck='false' style='margin-left:" + (other_checkbox+1) + "px; margin-bottom:9px!important;'/>";
+		html += "<input type='checkbox' value='0' oldCheck='false' style='margin-left:" + 21 + "px; margin-bottom:10.5px!important;'/>";
+		html += "<input type='checkbox' value='1' oldCheck='false' style='margin-left:" + 41 + "px; margin-bottom:10.5px!important;'/>";
+		html += "<input type='checkbox' value='2' oldCheck='false' style='margin-left:" + 38 + "px; margin-bottom:10.5px!important;'/>";
+		html += "<input type='checkbox' value='3' oldCheck='false' style='margin-left:" + 41 + "px; margin-bottom:10.5px!important;'/>";
+		html += "<input type='checkbox' value='4' oldCheck='false'style='margin-left:" + 39 + "px; margin-bottom:10.5px!important;'/>";
+		html += "<input type='checkbox' value='5' oldCheck='false' style='margin-left:" + 39 + "px; margin-bottom:10.5px!important;'/>";
 		$(".position_business").html(html);
 		$(".product_plc").html(html);
 		$(".portpolio_innovation").html(html);
@@ -827,6 +879,7 @@
 	
 	/* 차트 위치 조정  */
 	function chartPosition(chartWidth) {
+/*
 		if(chartWidth < 412.5) {
 			$("#chart11").children("svg").css("margin-left", 5);
 		} else if(chartWidth < 437.5) {
@@ -877,6 +930,30 @@
 			$("#chart11").children("svg").css("margin-left", 290);
 		} else {
 			$("#chart11").children("svg").css("margin-left", 300);
+		}
+*/
+		if(chartWidth < 400) {
+			$("#chart11").children("svg").css("margin-left", 5);
+		} else if(chartWidth < 450) {
+			$("#chart11").children("svg").css("margin-left", 15);
+		} else if(chartWidth < 500) {
+			$("#chart11").children("svg").css("margin-left", 40);
+		} else if(chartWidth < 550) {
+			$("#chart11").children("svg").css("margin-left", 55);
+		} else if(chartWidth < 600) {
+			$("#chart11").children("svg").css("margin-left", 75);
+		} else if(chartWidth < 650) {
+			$("#chart11").children("svg").css("margin-left", 100);
+		} else if(chartWidth < 700) {
+			$("#chart11").children("svg").css("margin-left", 115);
+		} else if(chartWidth < 750) {
+			$("#chart11").children("svg").css("margin-left", 130);
+		} else if(chartWidth < 800) {
+			$("#chart11").children("svg").css("margin-left", 145);
+		} else if(chartWidth < 900) {
+			$("#chart11").children("svg").css("margin-left", 160);
+		} else {
+			$("#chart11").children("svg").css("margin-left", 170);
 		}
 	}
 </script>
