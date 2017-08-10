@@ -117,7 +117,7 @@
 	var psId = "<%=psId%>";
 	
 	/* iframe을 데이터 전송과 함께 열어준다. */
-	var url = "http://sbp.pssd.or.kr/sbp/panel8ForHvm.jsp?seq=" + sbpId + "&hvm=true&memberId=sbpAdmin&sPUID=&docTitle=" + encodeURI(sbpName, "UTF-8"); 
+	var url = "http://wine.smartworks.net:8095/sbp/panel8ForHvm.jsp?seq=" + sbpId + "&hvm=true&memberId=sbpAdmin&sPUID=&docTitle=" + encodeURI(sbpName, "UTF-8"); 
 	url += "&sProjectName=" + encodeURI(sbpPrjName, "UTF-8") + "&mapShow=true" + "editMode=" + editMode + "&seqArrayWithColor=" + encodeURI(data, "UTF-8");
 	$(".sbpline").attr("src", url);
 	
@@ -174,7 +174,7 @@
 				$(".activity_content_wrap").html("Selected Activity : ");
 				
 				/* sbp서버로, 선택했었던 activity seq 값들을 파라미터로 전송한다.(선택했던 activity들의 색깔을 채워주기 위해) */
-				url = "http://sbp.pssd.or.kr/sbp/panel8ForHvm.jsp?seq=" + sbpId + "&hvm=true&memberId=sbpAdmin&sPUID=&docTitle=" + encodeURI(sbpName, "UTF-8") + "&sProjectName=" + encodeURI(sbpPrjName, "UTF-8") + "&mapShow=true";
+				url = "http://wine.smartworks.net:8095/sbp/panel8ForHvm.jsp?seq=" + sbpId + "&hvm=true&memberId=sbpAdmin&sPUID=&docTitle=" + encodeURI(sbpName, "UTF-8") + "&sProjectName=" + encodeURI(sbpPrjName, "UTF-8") + "&mapShow=true";
 				url += "&seqArray=" + seq_Array + "&editMode=" + editMode + "&selectedColor=" + selectedColor.substring(1, selectedColor.length);
 				$(".sbpline").attr("src", url);
 				
@@ -189,7 +189,7 @@
 	/* 모든 서비스컨셉에 연결된 activity를 한번에 보여준다. */
 	function showAllActivity() {
 		/* iframe을 데이터 전송과 함께 열어준다. */
-		url = "http://sbp.pssd.or.kr/sbp/panel8ForHvm.jsp?seq=" + sbpId + "&hvm=true&memberId=sbpAdmin&sPUID=&docTitle=" + encodeURI(sbpName, "UTF-8"); 
+		url = "http://wine.smartworks.net:8095/sbp/panel8ForHvm.jsp?seq=" + sbpId + "&hvm=true&memberId=sbpAdmin&sPUID=&docTitle=" + encodeURI(sbpName, "UTF-8"); 
 		url += "&sProjectName=" + encodeURI(sbpPrjName, "UTF-8") + "&mapShow=true" + "editMode=" + editMode + "&seqArrayWithColor=" + encodeURI(data, "UTF-8");
 		console.log("url : " , url);
 		$(".sbpline").attr("src", url);

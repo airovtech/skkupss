@@ -9,7 +9,7 @@
 	String sbpPrjName = (String) request.getAttribute("sbpPrjName");												// SBP 프로젝트 이름 
 	String sbpName = (String) request.getAttribute("sbpName");														// SBP 이름 
 
-	String srcUrl = "http://sbp.pssd.or.kr/sbp/panel8ForHvm.jsp?seq=" + sbpId + "&hvm=true&memberId=sbpAdmin&sPUID=&docTitle=" + sbpName + "&sProjectName=" + sbpPrjName + ""; // SBP Project Map을 보여준다 
+	String srcUrl = "http://wine.smartworks.net:8095/sbp/panel8ForHvm.jsp?seq=" + sbpId + "&hvm=true&memberId=sbpAdmin&sPUID=&docTitle=" + sbpName + "&sProjectName=" + sbpPrjName + ""; // SBP Project Map을 보여준다 
 //	String srcUrl = "http://sbp.pssd.or.kr/sbp/panel8ForHvm.jsp?seq=" + sbpId + "&hvm=true&memberId=sbpAdmin&sPUID=&docTitle=" + sbpName + "&sProjectName=" + "NiceTest" + "&xPosition=" + "testing50" + ""; 	// SBP Project Map을 보여준다
 //	srcUrl += "";
 %>
@@ -195,7 +195,7 @@
 			$(".serviceconcept_title").html(title);
 			
 			/* sbp서버로 선택했었던 activity seq 값들을 파라미터로 전송한다. */
-			var srcUrl = "http://sbp.pssd.or.kr/sbp/panel8ForHvm.jsp?seq=" + "<%=sbpId%>" + "&hvm=true&memberId=sbpAdmin&sPUID=&docTitle=" + encodeURI("<%=sbpName%>", "UTF-8") + "&sProjectName=" + encodeURI("<%=sbpPrjName%>", "UTF-8") + "&mapShow=true";
+			var srcUrl = "http://wine.smartworks.net:8095/sbp/panel8ForHvm.jsp?seq=" + "<%=sbpId%>" + "&hvm=true&memberId=sbpAdmin&sPUID=&docTitle=" + encodeURI("<%=sbpName%>", "UTF-8") + "&sProjectName=" + encodeURI("<%=sbpPrjName%>", "UTF-8") + "&mapShow=true";
 			srcUrl += "&seqArray=" + seq_Array + "&editMode=" + editMode + "&selectedColor=" + selectedColor.substring(1, selectedColor.length);
 			$(".sbpline").attr("src", srcUrl);
 		},
@@ -222,28 +222,7 @@
 		var psId = "<%=psId%>";							// PSS 프로젝트 ID 
 		var sbpName = sbp_dt;							// SBP 프로젝트 이름 
 		var sbpId = sbpId_dt;							// SBP ID
-//		var activityIdArray = activityId_dt; 			// activity ID
-//		var activityNameArray = activityName_dt; 		// activity 이름		
-//		var seqArray = seq_dt;							// activity seq(primary key)
 		var color = selectedColor;
-		
-/*		var activityId = [];							
-		for (var i=0; i<activityIdArray.length; i++) {
-			activityId[i] = "\"" + activityIdArray[i] + "\"";
-		}
-		
-		var activityName = [];
-		for (var i=0; i<activityNameArray.length; i++) {
-			activityName[i] = "\"" + activityNameArray[i] + "\"";
-		}
-		
-		var seq = [];
-		for (var i=0; i<seqArray.length; i++) {
-			seq[i] = "\"" + seqArray[i] + "\"";
-		}
-*/
-//		var totalData = {"\"Info\"" : [{"\"seq\"" : seq, "\"itemName\"" : "\"" + itemName + "\"", "\"title\"" : "\"" + title + "\"" , "\"psId\"" : "\"" + psId + "\"" , "\"sbpName\"" : "\"" + sbpName + "\"" , "\"sbpId\"" : "\"" + sbpId + "\"" , "\"activityId\"" : activityId , "\"activityName\"" : activityName}, {"\"seq\"" : seq, "\"itemName\"" : "\"" + itemName + "\"", "\"title\"" : "\"" + title + "\"" , "\"psId\"" : "\"" + psId + "\"" , "\"sbpName\"" : "\"" + sbpName + "\"" , "\"sbpId\"" : "\"" + sbpId + "\"" , "\"activityId\"" : activityId , "\"activityName\"" : activityName}]}; // java에서 json데이터로 사용하기 편하게 맞춰준다. 2번째 배열에있는 데이터는 java에서 json배열이 1개만 올때 error발생으로, 임의로 추가해줬다.(이 데이터는 사용 안함.)
-
 
 		var activityId = [];							
 		for (var i=0; i<activityId_Array.length+2; i++) {

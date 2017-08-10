@@ -12,7 +12,7 @@
 	
 	String svcNameNum = (String) request.getAttribute("svcNameNum");												// Service concept 종류안에 속해있는것들중에 선택한 service concept
 	
-	String result = ServletUtil.request("http://sbp.pssd.or.kr/sbp/sbpListForHvm.jsp?hvm=true&memberId=sbpAdmin");	// 모든 SBP Project List를 가져온다. 
+	String result = ServletUtil.request("http://wine.smartworks.net:8095/sbp/sbpListForHvm.jsp?hvm=true&memberId=sbpAdmin");	// 모든 SBP Project List를 가져온다. 
 	
 %>
 <style>
@@ -90,7 +90,7 @@
 	});
 	
 	/* SBP list를 보려면 SBP프로젝트이름과 SBP Puid가 필요하다 */
-	var sbpNameListUrl = "http://sbp.pssd.or.kr/sbp/listForHvm.jsp?hvm=true&memberId=sbpAdmin&sPUID=" + sbpPrjPuid + "&sProjectName=" + encodeURI(sbpPrjName, "UTF-8") + "&editMode=true";	
+	var sbpNameListUrl = "http://wine.smartworks.net:8095/sbp/listForHvm.jsp?hvm=true&memberId=sbpAdmin&sPUID=" + sbpPrjPuid + "&sProjectName=" + encodeURI(sbpPrjName, "UTF-8") + "&editMode=true";	
 	$(".sbpline").attr("src", sbpNameListUrl);	
 	
 	/* view에 관한 속성들 변경 */
@@ -133,24 +133,6 @@
 		var activityNameArray = activityName_dt; 		// activity 이름		
 		var seqArray = seq_dt;							// activity seq(primary key)
 		var color = selectedColor;								// service concept 에서 선택한 이 컬러로 액티비티 테두리 색깔이 칠해지게 된다. 
-/*
-		var activityId = [];							
-		for (var i=0; i<activityIdArray.length; i++) {
-			activityId[i] = "\"" + activityIdArray[i] + "\"";
-		}
-		
-		var activityName = [];
-		for (var i=0; i<activityNameArray.length; i++) {
-			activityName[i] = "\"" + activityNameArray[i] + "\"";
-		}
-		
-		var seq = [];
-		for (var i=0; i<seqArray.length; i++) {
-			seq[i] = "\"" + seqArray[i] + "\"";
-		}
-*/
-//		var totalData = {"\"Info\"" : [{"\"seq\"" : seq, "\"itemName\"" : "\"" + itemName + "\"", "\"title\"" : "\"" + title + "\"" , "\"psId\"" : "\"" + psId + "\"" , "\"sbpName\"" : "\"" + sbpName + "\"" , "\"sbpId\"" : "\"" + sbpId + "\"" , "\"activityId\"" : activityId , "\"activityName\"" : activityName}, {"\"seq\"" : seq, "\"itemName\"" : "\"" + itemName + "\"", "\"title\"" : "\"" + title + "\"" , "\"psId\"" : "\"" + psId + "\"" , "\"sbpName\"" : "\"" + sbpName + "\"" , "\"sbpId\"" : "\"" + sbpId + "\"" , "\"activityId\"" : activityId , "\"activityName\"" : activityName}]}; // java에서 json데이터로 사용하기 편하게 맞춰준다. 2번째 배열에있는 데이터는 java에서 json배열이 1개만 올때 error발생으로, 임의로 추가해줬다.(이 데이터는 사용 안함.)
-
 
 		var activityId = [];							
 		for (var i=0; i<activityIdArray.length+2; i++) {
@@ -195,8 +177,6 @@
 		colorArray[1] = color;
 		colorArray[2] = "/(end)/";
 		
-//		var totalData = {Info : [{seq : seq, itemName : itemName, title : title, psId : psId, sbpName : sbpName, sbpId : sbpId, activityId : activityId, activityName : activityName}]};// {"\"seq\"" : seq, "\"itemName\"" : "\"" + itemName + "\"", "\"title\"" : "\"" + title + "\"" , "\"psId\"" : "\"" + psId + "\"" , "\"sbpName\"" : "\"" + sbpName + "\"" , "\"sbpId\"" : "\"" + sbpId + "\"" , "\"activityId\"" : activityId , "\"activityName\"" : activityName}]}; // java에서 json데이터로 사용하기 편하게 맞춰준다. 2번째 배열에있는 데이터는 java에서 json배열이 1개만 올때 error발생으로, 임의로 추가해줬다.(이 데이터는 사용 안함.)
-//		var totalData = {Info : [{seq : seq, itemName : itemName, title :   title   , psId :   psId   , sbpName :   sbpName   , sbpId :   sbpId   , activityId : activityId , activityName : activityName}, {seq : seq, itemName :   itemName  , title :   title   , psId :   psId   , sbpName :   sbpName   , sbpId :   sbpId   , activityId : activityId , activityName : activityName}]}; // java에서 json데이터로 사용하기 편하게 맞춰준다. 2번째 배열에있는 데이터는 java에서 json배열이 1개만 올때 error발생으로, 임의로 추가해줬다.(이 데이터는 사용 안함.)
 		var totalData = {seq : seq, itemName : itemName, title : title, psId : psId, sbpName : sbpNameArray, sbpId : sbpId, activityId : activityId , activityName : activityName, color : colorArray}; 
 		var totalDataToString = title + "||{seq:[";
 		for(var i=0; i<seq.length; i++) {
@@ -273,38 +253,6 @@
 							
 							hidePSSD();
 							
-							/* 선택한 SBP의 이름을 보여준다.(SBP프로젝트 타이틀 보여주는곳) */
-/*
-							var title_Create_url = "title_Create.sw";
-							$.ajax({
-								type: 'POST',
-								url: title_Create_url,
-								headers:{
-									"Content-Type" : "application/json",
-									"X-HTTP-Method-Override":"POST",
-								},
-								data : JSON.stringify({psId : psId}),
-								dataType:'html',
-								success : function(result) {
-									/* 서버encode -> 클라이언트decode 해줘도 특수문자가 깨져서 와서 깨진부분만 수정 
-									result = decodeURI(result);
-									result = result.replace(/\+/gi," ");
-									result = result.replace(/%2F/gi,"/");
-									result = result.replace(/%3D/gi,"=");
-									result = result.replace(/%3A/gi,":");
-									result = result.replace(/%3B/gi,";");
-									result = result.replace(/%2C/gi,",");
-									if(document.getElementById("noSelected") != null) {
-										$("#noSelected").html(result);
-									} else {
-										$(".connect_SBPPrj").parent().html(result);
-									}
-								},
-								error : function(result){
-									alert("error[SbpNameList_title] : " + result);
-								}
-							});
-*/
 					} else {
 						alert("Success / fail");
 					}

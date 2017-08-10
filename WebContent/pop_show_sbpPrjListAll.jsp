@@ -8,7 +8,7 @@
 <%	
 	String psName = (String) request.getAttribute("psName");
 	String psId = (String) request.getAttribute("psId");
-	String result = ServletUtil.request("http://sbp.pssd.or.kr/sbp/sbpListForHvm.jsp?hvm=true&memberId=sbpAdmin"); // 모든 SBP Project List를 가져온다. 
+	String result = ServletUtil.request("http://wine.smartworks.net:8095/sbp/sbpListForHvm.jsp?hvm=true&memberId=sbpAdmin"); // 모든 SBP Project List를 가져온다. 
 %>
 <style>
 	#sbpProjectList {
